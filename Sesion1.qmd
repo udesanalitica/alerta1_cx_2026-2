@@ -17,7 +17,6 @@ Por su parte, Barrancabermeja registra una participación del 7.3%, siendo el mu
 ## Perfil Demográfico
 
 ::: {.callout-note title="Descripción de las gráficas de forma general"}
-
 El 96% de estos estudiantes son solteros, y el 98% son colombianos. Además, también se encuentran estudiantes de origen español, ecuatoriano, estadounidense y venezolano y mexicano. En relación con el sexo, el 60,2% de los participantes eran mujeres y el 39,8% eran hombres.
 
 En el campus Bucaramanga, la edad promedio de los estudiantes es de 18 años
@@ -239,9 +238,7 @@ fig
 ```
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela. DFI: Administracion financiera, ADNI: Administracion de negocios internacionales, ANTR: Antropologia,INQU: Instrumentacion quirurgica, MYPB: Mercadeo y publicidad, ATEOC: Terapia ocupacional, FONO: Fonoaudiologia, FISI: Fisioterapia,
-ININ: Ingenieria industrial, TCGF: Tecnologia en gestion financiera, BACT: Bacteriologia, MEDI: Medicina, INCI: Ingenieria civil, PSIC: Psicologia, LEIN: Licenciatura en ingles, ENFE: Enfermeria, DERE: Derecho, MBIN: Microbiologia industrial, MEVE: Medicina veterinaria, INAG: Ingenieria agroindustrial, INSO: Ingenieria de sistemas, CONT: Contaduria publica, TSOC: Tecnologia en saneamiento ambiental, COSP: Comunicacion social y periodismo, GEOL: Geologia, ICCI: Ingenieria catastral y geodesia, INSI: Ingenieria de sistemas e informatica,DIGR: Diseño grafico, COEX: Comercio exterior, MVZC: Medicina veterinaria y zootecnia, IQBO: Instrumentacion quirurgica (Bogotá), TLAC: Tecnico laboral por competencias en auxiliar de clinica veterinaria.
-
+Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela. DFI: Administracion financiera, ADNI: Administracion de negocios internacionales, ANTR: Antropologia,INQU: Instrumentacion quirurgica, MYPB: Mercadeo y publicidad, ATEOC: Terapia ocupacional, FONO: Fonoaudiologia, FISI: Fisioterapia, ININ: Ingenieria industrial, TCGF: Tecnologia en gestion financiera, BACT: Bacteriologia, MEDI: Medicina, INCI: Ingenieria civil, PSIC: Psicologia, LEIN: Licenciatura en ingles, ENFE: Enfermeria, DERE: Derecho, MBIN: Microbiologia industrial, MEVE: Medicina veterinaria, INAG: Ingenieria agroindustrial, INSO: Ingenieria de sistemas, CONT: Contaduria publica, TSOC: Tecnologia en saneamiento ambiental, COSP: Comunicacion social y periodismo, GEOL: Geologia, ICCI: Ingenieria catastral y geodesia, INSI: Ingenieria de sistemas e informatica,DIGR: Diseño grafico, COEX: Comercio exterior, MVZC: Medicina veterinaria y zootecnia, IQBO: Instrumentacion quirurgica (Bogotá), TLAC: Tecnico laboral por competencias en auxiliar de clinica veterinaria.
 :::
 
 Estado civil
