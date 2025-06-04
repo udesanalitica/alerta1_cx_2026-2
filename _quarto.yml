@@ -1,0 +1,65 @@
+project:
+  type: book
+  output-dir: docs
+  
+extensions: [quarto-ext/panel]
+
+book:
+  title: "Alerta 1. Analítica Académica"
+  subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-2"
+  author: "Dirección de Analítica Académica – Universidad de Santander"
+  date: "2025-05-05"
+  reader-mode: true
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - Sesion1.qmd
+    - filtro.qmd
+    - references.qmd
+
+bibliography: references.bib
+csl: apa.csl
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - brand
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    linkcolor: "#046A38"  # Azul institucional UDES
+    fontsize: 1em
+    css: style.css
+    fig-cap-location: top
+    reference-location: margin
+    cite-method: citeproc
+    biblio-style: apa
+    crossref:
+      chapters: true
+      title-delim: "."
+      fig-prefix: "Figura"
+      tbl-prefix: "Tabla"
+
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    number-sections: true
+    fig-pos: "H"
+    include-in-header: 
+      text: |
+        \usepackage{graphicx}
+        \usepackage{float}
+        \usepackage{caption}
+        \captionsetup[figure]{labelfont=bf}
+    keep-tex: true
+
+  docx:
+    toc: true
+    number-sections: true
+    reference-doc: custom-reference.docx
+
+  epub:
+    cover-image: cover.png
+
+editor: visual

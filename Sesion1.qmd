@@ -1,0 +1,451 @@
+---
+title: "Sesión 1. Información personal y Académica"
+---
+
+## Distribución geográfica nacional
+
+La distribución de los departamentos de procedencia de los estudiantes se refleja en el mapa, coSantander liderando la participación con un 69.3% del total de estudiantes. Le siguen Cesar con 9.9% y Norte de Santander con 5.1%, consolidándose como las regiones con mayor representación.
+
+Los demás departamentos registran una participación conjunta del 15.7%, destacando entre ellos Amazonas, Huila, Tolima y Antioquia, entre otros. Aunque su presencia es menor, su participación evidencia la diversidad geográfica de los estudiantes y el alcance regional de la institución.
+
+## Distribución geográfica departamental
+
+La distribución de los estudiantes en los municipios de Santander se refleja en el mapa. Bucaramanga concentra el 47.3% del total de estudiantes, mientras que el área metropolitana de Bucaramanga, incluyendo Floridablanca, Piedecuesta y Girón, alcanza una representación del 78.6%.
+
+Por su parte, Barrancabermeja registra una participación del 7.3%, siendo el municipio con mayor presencia fuera del área metropolitana. El resto de los municipios de Santander representan en conjunto el 14%.
+
+## Perfil Demográfico
+
+::: {.callout-note title="Descripción de las gráficas de forma general"}
+
+El 96% de estos estudiantes son solteros, y el 98% son colombianos. Además, también se encuentran estudiantes de origen español, ecuatoriano, estadounidense y venezolano y mexicano. En relación con el sexo, el 60,2% de los participantes eran mujeres y el 39,8% eran hombres.
+
+En el campus Bucaramanga, la edad promedio de los estudiantes es de 18 años
+
+Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(readxl)
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/Data20252.xlsx")
+
+
+#Data20252 <- read_excel("C:/Users/coordinador.analitic/OneDrive - Universidad de #Santander/Caracterizacion 2023-1/2025-2/Alerta1Cx/Data20252.xlsx")
+View(Data20252)
+datos<- Data20252
+
+attach(datos)
+
+# head(datos)
+
+# str(datos)
+
+# names(datos)
+
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Librerias necesarias
+#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
+library(ggplot2)
+library(psych)
+library(skimr)
+library(summarytools)
+library(corrplot)
+library(tidyr)
+library(RColorBrewer)
+library(ggpubr)
+library(plotly)
+library(lattice)
+library(Hmisc)
+library(skimr)
+library(summarytools)
+library(base)
+library(ggpubr)
+library(scales)
+library(dplyr)
+library(ggrepel)
+library(tidyverse)
+library(scales)
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+## Convertir las variables caracter a factor
+# Lista de columnas que se convertirán en factores
+cols_factor <- c(
+  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
+  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
+  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
+  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
+  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
+  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
+  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
+  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
+  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
+  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
+  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
+  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
+  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
+  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
+  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
+  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
+  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
+  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
+  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
+  "fam_formada"
+)
+
+# Convertir solo las columnas que realmente existen
+cols_existentes <- intersect(cols_factor, names(datos))
+datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
+
+```
+
+Edad
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Agrupar por intervalos de edad y campus
+datos_plot <- datos %>%
+  filter(!is.na(edad), !is.na(campus), edad < 44) %>%
+  mutate(grupo_edad = cut(edad, breaks = seq(14, 44, by = 2), right = FALSE))
+
+# 2. Datos por campus
+por_campus <- datos_plot %>%
+  group_by(campus, grupo_edad) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(campus) %>%
+  mutate(pct = round(100 * n / sum(n), 1)) %>%
+  ungroup()
+
+# 3. Datos totales ("Todos")
+todos <- datos_plot %>%
+  group_by(grupo_edad) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  mutate(campus = "Todos") %>%
+  mutate(pct = round(100 * n / sum(n), 1))
+
+# 4. Combinar
+datos_final <- bind_rows(por_campus, todos) %>%
+  mutate(hover_text = paste0(
+    "Campus: ", campus, "<br>",
+    "Edad: ", grupo_edad, "<br>",
+    "Porcentaje: ", pct, "%"
+  ))
+
+# 5. Gráfico sin etiquetas visibles, solo en hover
+plot_ly(
+  data = datos_final,
+  x = ~grupo_edad,
+  y = ~pct,
+  type = "bar",
+  hovertext = ~hover_text,
+  hoverinfo = "text",
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución porcentual de la Edad por campus (hasta 40 años)",
+    xaxis = list(title = "Edad (intervalos de 2 años)", tickangle = -45),
+    yaxis = list(title = "Porcentaje", ticksuffix = "%"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(unique(datos_final$campus), function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# Asegurar codificación UTF-8
+datos <- datos %>%
+  mutate(across(where(is.character), ~ iconv(., from = "", to = "UTF-8", sub = "")))
+
+# Agregar opción "Todos"
+datos_todos <- datos %>%
+  filter(!is.na(prog_abrev), !is.na(edad)) %>%
+  mutate(campus = "Todos")
+
+datos_final <- bind_rows(datos, datos_todos)
+
+# Niveles de campus
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# Crear gráfico base con todas las trazas (una por campus)
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  datos_c <- datos_final %>% filter(campus == niveles_campus[i])
+  
+  fig <- fig %>%
+    add_boxplot(
+      data = datos_c,
+      x = ~prog_abrev,
+      y = ~edad,
+      name = niveles_campus[i],
+      visible = ifelse(i == 1, TRUE, FALSE),  # Solo la primera visible
+      boxpoints = "outliers",
+      marker = list(color = "#6BAED6"),
+      line = list(color = "#2171B5")
+    )
+}
+
+# Layout con menú desplegable para filtrar por campus
+fig <- fig %>%
+  layout(
+    title = "Distribución de edad por programa y campus",
+    yaxis = list(title = "Edad"),
+    xaxis = list(title = "Programa", tickangle = -45),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 0.1,
+        y = 1.2,
+        buttons = lapply(seq_along(niveles_campus), function(i) {
+          visibilidad <- rep(FALSE, length(niveles_campus))
+          visibilidad[i] <- TRUE
+          list(
+            method = "restyle",
+            args = list("visible", visibilidad),
+            label = niveles_campus[i]
+          )
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+::: {.callout-note title="Descripción para todos los campus"}
+Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela. DFI: Administracion financiera, ADNI: Administracion de negocios internacionales, ANTR: Antropologia,INQU: Instrumentacion quirurgica, MYPB: Mercadeo y publicidad, ATEOC: Terapia ocupacional, FONO: Fonoaudiologia, FISI: Fisioterapia,
+ININ: Ingenieria industrial, TCGF: Tecnologia en gestion financiera, BACT: Bacteriologia, MEDI: Medicina, INCI: Ingenieria civil, PSIC: Psicologia, LEIN: Licenciatura en ingles, ENFE: Enfermeria, DERE: Derecho, MBIN: Microbiologia industrial, MEVE: Medicina veterinaria, INAG: Ingenieria agroindustrial, INSO: Ingenieria de sistemas, CONT: Contaduria publica, TSOC: Tecnologia en saneamiento ambiental, COSP: Comunicacion social y periodismo, GEOL: Geologia, ICCI: Ingenieria catastral y geodesia, INSI: Ingenieria de sistemas e informatica,DIGR: Diseño grafico, COEX: Comercio exterior, MVZC: Medicina veterinaria y zootecnia, IQBO: Instrumentacion quirurgica (Bogotá), TLAC: Tecnico laboral por competencias en auxiliar de clinica veterinaria.
+
+:::
+
+Estado civil
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos (campus y estado civil)
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(est_civ), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, est_civ) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar "Todos"
+todos <- datos %>%
+  filter(!is.na(est_civ)) %>%
+  count(est_civ, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Unir todos
+datos_final <- bind_rows(datos_plot, todos)
+
+# 4. Lista de campus
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 5. Paleta pastel (tantos colores como categorías de estado civil)
+colores_pastel <- brewer.pal(n = max(3, length(unique(datos_final$est_civ))), name = "Pastel1")
+
+# 6. Crear gráfico base con todas las trazas invisibles excepto la inicial
+fig <- plot_ly(type = "pie")
+
+for (i in seq_along(niveles_campus)) {
+  datos_c <- datos_final %>% filter(campus == niveles_campus[i])
+  
+  fig <- fig %>% add_trace(
+    labels = datos_c$est_civ,
+    values = datos_c$n,
+    type = "pie",
+    name = niveles_campus[i],
+    visible = ifelse(i == 1, TRUE, FALSE),
+    textinfo = "label+percent",
+    hoverinfo = "label+percent+value",
+    sort = FALSE,
+    marker = list(colors = colores_pastel),
+    direction = "clockwise",
+    rotation = 90
+  )
+}
+
+# 7. Layout con menú desplegable
+fig <- fig %>% layout(
+  title = "Distribución del estado civil por campus",
+  showlegend = TRUE,
+  updatemenus = list(list(
+    type = "dropdown",
+    direction = "down",
+    x = 0.1, y = 1.2,
+    buttons = lapply(seq_along(niveles_campus), function(i) {
+      visibilidad <- rep(FALSE, length(niveles_campus))
+      visibilidad[i] <- TRUE
+      list(method = "restyle",
+           args = list("visible", visibilidad),
+           label = niveles_campus[i])
+    })
+  ))
+)
+
+fig
+```
+
+::: {.callout-note title="Descripción para todos los campus"}
+Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
+:::
+
+Sexo
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y sexo
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(sexo_id), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, sexo_id) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(sexo_id)) %>%
+  count(sexo_id, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~sexo_id,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del sexo por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+::: {.callout-note title="Descripción para todos los campus"}
+Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
+:::
+
+Pais de origen
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(pais), campus %in% c("Bucaramanga", "Cúcuta", "Valledupar")) %>%
+  group_by(campus, pais) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar "Todos"
+todos <- datos %>%
+  filter(!is.na(pais)) %>%
+  count(pais, name = "n") %>%
+  mutate(campus = "Todos")
+
+niveles_campus <- c("Todos", "Bucaramanga", "Cúcuta", "Valledupar")
+
+# 3. Unir todo
+datos_final <- bind_rows(datos_plot, todos)
+
+# 4. Pie chart con filtro por campus
+plot_ly(
+  data = datos_final,
+  labels = ~pais,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,  # <-- Rotación: empieza a la derecha
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del país de origen por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(unique(datos_final$campus), function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+```
+
+::: {.callout-note title="Descripción para todos los campus"}
+Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
+:::
