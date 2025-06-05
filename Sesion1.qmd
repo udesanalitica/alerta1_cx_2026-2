@@ -2,7 +2,7 @@
 title: "Sesión 1. Información personal y Académica"
 ---
 
-## Distribución geográfica 
+## Distribución geográfica
 
 ### Nacional (pendiente actualizar)
 
@@ -19,7 +19,7 @@ La distribución de los estudiantes en los municipios de Santander se refleja en
 ### Edad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52,4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -245,7 +245,7 @@ fig
 ### Estado civil
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 95,6% de estos estudiantes son solteros, lo cual representa la gran mayoría de la población estudiantil. La unión libre representa el 3,41% y los estudiantes casados constituyen apenas el 1,03%
+El 95.6% de estos estudiantes son solteros, lo cual representa la gran mayoría de la población estudiantil. La unión libre representa el 3.41% y los estudiantes casados constituyen apenas el 1.03%
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -319,7 +319,7 @@ fig
 ### Sexo
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En relación con el sexo, el 61,3% de los participantes eran mujeres y el 38,8% eran hombres.
+En relación con el sexo, el 61.3% de los participantes eran mujeres y el 38.8% eran hombres.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -387,7 +387,7 @@ fig
 ### Pais de origen
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gráfica presenta la distribución porcentual de estudiantes según su país de origen. La población estudiantil es predominantemente colombiana (96,4%), mientras que al realizar un filtro y seleccionar solo los estudiantes extranjeros se distribuyen de la siguiente manera: venezolanos 80,4%, españoles 6,52%, mexicanos 6,52%, ecuatorianos 4,32% y estadounidenses 2,17%.
+La gráfica presenta la distribución porcentual de estudiantes según su país de origen. La población estudiantil es predominantemente colombiana (96.4%), mientras que al realizar un filtro y seleccionar solo los estudiantes extranjeros se distribuyen de la siguiente manera: venezolanos 80.4%, españoles 6.52%, mexicanos 6.52%, ecuatorianos 4.32% y estadounidenses 2.17%.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -452,15 +452,549 @@ plot_ly(
   )
 ```
 
-##Dificultades Académicas y Dominio de Idiomas
-
+## Dificultades Académicas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto al grado de dificultad en educación básica y media, 45,2% de los estudiantes manifestaron un grado de dificultad entre muy alto y alto en comprensión lectora, mientras que 40% reportaron lo mismo en expresión oral, y 32% indicaron dificultades en matemáticas.
-
-Además, los resultados evidencian dificultades en habilidades en cuanto a análisis (42%), comprensión (43,2%), atención (43,7%), memoria (39,3%) y adaptación (33,7%). 
-
-El 73,2% de los encuestados describieron su desempeño académico como bueno, el 18,6% como excelente, y solo el 8,1% lo calificó como regular.
+El grado de dificultad que presentaron los estudiantes durante la educación básica y media en las siguientes áreas Matemáticas, Comprensión Lectora y Expresión Oral fue. En **Matemáticas**, la mayoría de los estudiantes se ubicó en un nivel medio de dificultad (53.3%), seguido por un nivel alto (29.6%) y un nivel bajo (11.3%). En **Expresión Oral**, predomina también el nivel medio (40.6%), seguido por el nivel alto (32.3%) y el nivel bajo (13.1%). En **Comprensión Lectora**, destaca el nivel alto con el mayor porcentaje (42.3%), mientras que solo el 10.4% reportó un nivel bajo de dificultad.
 :::
 
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(plotly)
+library(dplyr)
 
+# Preparar los datos eliminando NA
+datos_limpios <- datos %>%
+  filter(!is.na(matema) & !is.na(comp_lec) & !is.na(expr_oral) & !is.na(campus))
+
+# Obtener lista única de campus
+campus_list <- unique(datos_limpios$campus)
+
+# Función para crear gráficos por campus
+create_pie_charts <- function(campus_selected) {
+  # Filtrar datos por campus
+  datos_campus <- datos_limpios %>%
+    filter(campus == campus_selected)
+  
+  # Contar frecuencias para cada variable
+  matema_counts <- datos_campus %>% count(matema)
+  comp_lec_counts <- datos_campus %>% count(comp_lec) 
+  expr_oral_counts <- datos_campus %>% count(expr_oral)
+  
+  # Crear la figura
+  fig <- plot_ly()
+  
+  # Agregar gráfico de pie para Matemáticas
+  fig <- fig %>% 
+    add_pie(data = matema_counts, 
+            labels = ~matema, 
+            values = ~n,
+            name = "Matemáticas", 
+            domain = list(x = c(0, 0.4), y = c(0.4, 1)),
+            textinfo = 'label+percent',
+            textposition = 'inside',
+            hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>")
+  
+  # Agregar gráfico de pie para Comprensión Lectora
+  fig <- fig %>% 
+    add_pie(data = comp_lec_counts, 
+            labels = ~comp_lec, 
+            values = ~n,
+            name = "Comprensión Lectora", 
+            domain = list(x = c(0.6, 1), y = c(0.4, 1)),
+            textinfo = 'label+percent',
+            textposition = 'inside',
+            hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>")
+  
+  # Agregar gráfico de pie para Expresión Oral
+  fig <- fig %>% 
+    add_pie(data = expr_oral_counts, 
+            labels = ~expr_oral, 
+            values = ~n,
+            name = "Expresión Oral", 
+            domain = list(x = c(0.25, 0.75), y = c(0, 0.6)),
+            textinfo = 'label+percent',
+            textposition = 'inside',
+            hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>")
+  
+  return(fig)
+}
+
+# Crear datos para todos los campus (incluyendo "Todos" primero)
+all_campus_data <- datos_limpios %>%
+  count(matema, comp_lec, expr_oral, campus)
+
+# Crear lista de botones para el dropdown con "Todos" primero
+dropdown_buttons <- list()
+
+# Botón "Todos" - mostrar datos de todos los campus
+dropdown_buttons[[1]] <- list(
+  method = "restyle",
+  args = list(list(
+    "labels" = list(
+      datos_limpios %>% count(matema) %>% pull(matema),
+      datos_limpios %>% count(comp_lec) %>% pull(comp_lec),
+      datos_limpios %>% count(expr_oral) %>% pull(expr_oral)
+    ),
+    "values" = list(
+      datos_limpios %>% count(matema) %>% pull(n),
+      datos_limpios %>% count(comp_lec) %>% pull(n),
+      datos_limpios %>% count(expr_oral) %>% pull(n)
+    )
+  )),
+  label = "Todos"
+)
+
+# Botones para cada campus específico
+for(i in seq_along(campus_list)) {
+  campus_data <- datos_limpios %>% filter(campus == campus_list[i])
+  
+  dropdown_buttons[[i + 1]] <- list(
+    method = "restyle",
+    args = list(list(
+      "labels" = list(
+        campus_data %>% count(matema) %>% pull(matema),
+        campus_data %>% count(comp_lec) %>% pull(comp_lec),
+        campus_data %>% count(expr_oral) %>% pull(expr_oral)
+      ),
+      "values" = list(
+        campus_data %>% count(matema) %>% pull(n),
+        campus_data %>% count(comp_lec) %>% pull(n),
+        campus_data %>% count(expr_oral) %>% pull(n)
+      )
+    )),
+    label = campus_list[i]
+  )
+}
+
+# Crear figura inicial con todos los datos
+fig <- plot_ly()
+
+# Datos iniciales (todos los campus)
+matema_counts_all <- datos_limpios %>% count(matema)
+comp_lec_counts_all <- datos_limpios %>% count(comp_lec)
+expr_oral_counts_all <- datos_limpios %>% count(expr_oral)
+
+# Usar paleta Pastel1 de RColorBrewer
+library(RColorBrewer)
+colores_suaves <- brewer.pal(9, "Pastel1")
+
+# Agregar los tres gráficos de pie
+fig <- fig %>% 
+  add_pie(data = matema_counts_all, 
+          labels = ~matema, 
+          values = ~n,
+          name = "Matemáticas", 
+          domain = list(x = c(0, 0.4), y = c(0.4, 1)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 12, family = "Arial"),
+          marker = list(colors = colores_suaves, 
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>") %>%
+  add_pie(data = comp_lec_counts_all, 
+          labels = ~comp_lec, 
+          values = ~n,
+          name = "Comprensión Lectora", 
+          domain = list(x = c(0.6, 1), y = c(0.4, 1)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 12, family = "Arial"),
+          marker = list(colors = colores_suaves,
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>") %>%
+  add_pie(data = expr_oral_counts_all, 
+          labels = ~expr_oral, 
+          values = ~n,
+          name = "Expresión Oral", 
+          domain = list(x = c(0.25, 0.75), y = c(0, 0.6)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 12, family = "Arial"),
+          marker = list(colors = colores_suaves,
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>")
+
+# Configurar layout con dropdown
+fig <- fig %>% 
+  layout(
+    title = list(
+      text = "Distribución de Competencias Académicas por Campus",
+      x = 0.5,
+      font = list(size = 16)
+    ),
+    showlegend = FALSE,
+    xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+    yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+    annotations = list(
+      list(x = 0.2, y = 1.05, text = "Matemáticas", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      list(x = 0.8, y = 1.05, text = "Comprensión Lectora", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      list(x = 0.5, y = 0.65, text = "Expresión Oral", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial"))
+    ),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 0.7, y = 1.2,
+        buttons = dropdown_buttons,
+        showactive = TRUE,
+        bgcolor = "#F8F9FA",
+        bordercolor = "#495057",
+        font = list(size = 12, color = "black", family = "Arial")
+      )
+    ),
+    margin = list(t = 120, b = 50, l = 50, r = 50)
+  )
+
+# Mostrar el gráfico
+fig
+```
+
+###Dificultades en las siguientes habilidades
+
+::: {.callout-note title="Descripción para todos los campus"}
+Los estudiantes reportaron dificultades significativas en diversas habilidades cognitivas, especialmente en **análisis** (37.6%), **comprensión** (36.4%), **atención** (37.3%), **memoria (37%)** y, en menor medida, en **adaptación** (29.6%). Estos resultados evidencian áreas clave que requieren atención para fortalecer los procesos de aprendizaje y desempeño académico.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(plotly)
+library(dplyr)
+
+# Preparar los datos eliminando NA
+datos_limpios <- datos %>%
+  filter(!is.na(memoria) & !is.na(comp) & !is.na(adaptac) & !is.na(atencion) & !is.na(analisis) & !is.na(campus))
+
+# Obtener lista única de campus
+campus_list <- unique(datos_limpios$campus)
+
+# Función para crear gráficos por campus
+create_pie_charts <- function(campus_selected) {
+  # Filtrar datos por campus
+  datos_campus <- datos_limpios %>%
+    filter(campus == campus_selected)
+  
+  # Contar frecuencias para cada variable
+  memoria_counts <- datos_campus %>% count(memoria)
+  comp_counts <- datos_campus %>% count(comp) 
+  adaptac_counts <- datos_campus %>% count(adaptac)
+  atencion_counts <- datos_campus %>% count(atencion)
+  analisis_counts <- datos_campus %>% count(analisis)
+  
+  return(list(memoria_counts, comp_counts, adaptac_counts, atencion_counts, analisis_counts))
+}
+
+# Crear datos para todos los campus (incluyendo "Todos" primero)
+all_campus_data <- datos_limpios %>%
+  count(memoria, comp, adaptac, atencion, analisis, campus)
+
+# Crear lista de botones para el dropdown con "Todos" primero
+dropdown_buttons <- list()
+
+# Botón "Todos" - mostrar datos de todos los campus
+dropdown_buttons[[1]] <- list(
+  method = "restyle",
+  args = list(list(
+    "labels" = list(
+      datos_limpios %>% count(memoria) %>% pull(memoria),
+      datos_limpios %>% count(comp) %>% pull(comp),
+      datos_limpios %>% count(adaptac) %>% pull(adaptac),
+      datos_limpios %>% count(atencion) %>% pull(atencion),
+      datos_limpios %>% count(analisis) %>% pull(analisis)
+    ),
+    "values" = list(
+      datos_limpios %>% count(memoria) %>% pull(n),
+      datos_limpios %>% count(comp) %>% pull(n),
+      datos_limpios %>% count(adaptac) %>% pull(n),
+      datos_limpios %>% count(atencion) %>% pull(n),
+      datos_limpios %>% count(analisis) %>% pull(n)
+    )
+  )),
+  label = "Todos"
+)
+
+# Botones para cada campus específico
+for(i in seq_along(campus_list)) {
+  campus_data <- datos_limpios %>% filter(campus == campus_list[i])
+  
+  dropdown_buttons[[i + 1]] <- list(
+    method = "restyle",
+    args = list(list(
+      "labels" = list(
+        campus_data %>% count(memoria) %>% pull(memoria),
+        campus_data %>% count(comp) %>% pull(comp),
+        campus_data %>% count(adaptac) %>% pull(adaptac),
+        campus_data %>% count(atencion) %>% pull(atencion),
+        campus_data %>% count(analisis) %>% pull(analisis)
+      ),
+      "values" = list(
+        campus_data %>% count(memoria) %>% pull(n),
+        campus_data %>% count(comp) %>% pull(n),
+        campus_data %>% count(adaptac) %>% pull(n),
+        campus_data %>% count(atencion) %>% pull(n),
+        campus_data %>% count(analisis) %>% pull(n)
+      )
+    )),
+    label = campus_list[i]
+  )
+}
+
+# Crear figura inicial con todos los datos
+fig <- plot_ly()
+
+# Datos iniciales (todos los campus)
+memoria_counts_all <- datos_limpios %>% count(memoria)
+comp_counts_all <- datos_limpios %>% count(comp)
+adaptac_counts_all <- datos_limpios %>% count(adaptac)
+atencion_counts_all <- datos_limpios %>% count(atencion)
+analisis_counts_all <- datos_limpios %>% count(analisis)
+
+# Usar paleta Pastel1 de RColorBrewer
+library(RColorBrewer)
+colores_suaves <- brewer.pal(9, "Pastel1")
+
+# Agregar los cinco gráficos de pie
+fig <- fig %>% 
+  # Memoria (arriba izquierda)
+  add_pie(data = memoria_counts_all, 
+          labels = ~memoria, 
+          values = ~n,
+          name = "Memoria", 
+          domain = list(x = c(0, 0.45), y = c(0.55, 1)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 10, family = "Arial"),
+          marker = list(colors = colores_suaves, 
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>") %>%
+  # Comp (arriba derecha)
+  add_pie(data = comp_counts_all, 
+          labels = ~comp, 
+          values = ~n,
+          name = "Comp", 
+          domain = list(x = c(0.55, 1), y = c(0.55, 1)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 10, family = "Arial"),
+          marker = list(colors = colores_suaves,
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>") %>%
+  # Adaptac (centro)
+  add_pie(data = adaptac_counts_all, 
+          labels = ~adaptac, 
+          values = ~n,
+          name = "Adaptac", 
+          domain = list(x = c(0.275, 0.725), y = c(0.275, 0.725)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 10, family = "Arial"),
+          marker = list(colors = colores_suaves,
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>") %>%
+  # Atencion (abajo izquierda)
+  add_pie(data = atencion_counts_all, 
+          labels = ~atencion, 
+          values = ~n,
+          name = "Atención", 
+          domain = list(x = c(0, 0.45), y = c(0, 0.45)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 10, family = "Arial"),
+          marker = list(colors = colores_suaves,
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>") %>%
+  # Analisis (abajo derecha)
+  add_pie(data = analisis_counts_all, 
+          labels = ~analisis, 
+          values = ~n,
+          name = "Análisis", 
+          domain = list(x = c(0.55, 1), y = c(0, 0.45)),
+          textinfo = 'label+percent',
+          textposition = 'inside',
+          textfont = list(color = "black", size = 10, family = "Arial"),
+          marker = list(colors = colores_suaves,
+                       line = list(color = "white", width = 2)),
+          hovertemplate = "<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>")
+
+# Configurar layout con dropdown
+fig <- fig %>% 
+  layout(
+    title = list(
+      text = "Distribución de Variables Cognitivas por Campus",
+      x = 0.5,
+      font = list(size = 18, family = "Arial")
+    ),
+    showlegend = FALSE,
+    xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+    yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+    annotations = list(
+      list(x = 0.225, y = 1.05, text = "Memoria", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      list(x = 0.775, y = 1.05, text = "Comprensión", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      list(x = 0.5, y = 0.75, text = "Adaptación", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      list(x = 0.225, y = 0.5, text = "Atención", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      list(x = 0.775, y = 0.5, text = "Análisis", showarrow = FALSE, 
+           font = list(size = 14, color = "black", family = "Arial")),
+      # Etiqueta para el dropdown
+      list(x = 0.02, y = 1.15, text = "Campus:", showarrow = FALSE, 
+           font = list(size = 12, color = "black", family = "Arial"))
+    ),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 0.15, y = 1.15,
+        xanchor = 'left',
+        buttons = dropdown_buttons,
+        showactive = TRUE,
+        bgcolor = "#F8F9FA",
+        bordercolor = "#495057",
+        font = list(size = 11, color = "black", family = "Arial")
+      )
+    ),
+    margin = list(t = 100, b = 50, l = 50, r = 50)
+  )
+
+# Mostrar el gráfico
+fig
+```
+
+## Desempeño académico en el colegio
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 70% de los encuestados describieron su desempeño académico como bueno, el 23.9% como excelente, y solo el 6.0% lo calificó como regular.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y desempeño académico
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(desemp_aca), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, desemp_aca) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(desemp_aca)) %>%
+  count(desemp_aca, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~desemp_aca,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del desempeño académico por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+## Lenguas extranjeras
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 21.9% de los encuestados señalaron tener dominio de una lengua extranjera.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y lenguas extranjeras
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(leng_ext), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, leng_ext) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(leng_ext)) %>%
+  count(leng_ext, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~leng_ext,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del manejo de \nlenguas extranjeras por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
