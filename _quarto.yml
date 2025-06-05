@@ -5,8 +5,8 @@ project:
 extensions: [quarto-ext/panel]
 
 book:
-  title: "Alerta 1. Analítica Académica"
-  subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-2"
+  title: "Alerta 1. Caracterización de estudiantes"
+  subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-1"
   author: "Dirección de Analítica Académica – Universidad de Santander"
   date: "2025-05-05"
   reader-mode: true

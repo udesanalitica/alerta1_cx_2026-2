@@ -2,26 +2,24 @@
 title: "Sesión 1. Información personal y Académica"
 ---
 
-## Distribución geográfica nacional
+## Distribución geográfica 
 
-La distribución de los departamentos de procedencia de los estudiantes se refleja en el mapa, coSantander liderando la participación con un 69.3% del total de estudiantes. Le siguen Cesar con 9.9% y Norte de Santander con 5.1%, consolidándose como las regiones con mayor representación.
+### Nacional (pendiente actualizar)
+
+La distribución de los departamentos de procedencia de los estudiantes se refleja en el mapa de Colombia. Entre los departamentos con mayor procedencia están Santander liderando la participación con un XXX% del total de estudiantes. Le siguen Cesar con XXX% y Norte de Santander con XXX%, consolidándose como las regiones con mayor representación.
 
 Los demás departamentos registran una participación conjunta del 15.7%, destacando entre ellos Amazonas, Huila, Tolima y Antioquia, entre otros. Aunque su presencia es menor, su participación evidencia la diversidad geográfica de los estudiantes y el alcance regional de la institución.
 
-## Distribución geográfica departamental
+### Departamental (pendiente actualizar)
 
-La distribución de los estudiantes en los municipios de Santander se refleja en el mapa. Bucaramanga concentra el 47.3% del total de estudiantes, mientras que el área metropolitana de Bucaramanga, incluyendo Floridablanca, Piedecuesta y Girón, alcanza una representación del 78.6%.
-
-Por su parte, Barrancabermeja registra una participación del 7.3%, siendo el municipio con mayor presencia fuera del área metropolitana. El resto de los municipios de Santander representan en conjunto el 14%.
+La distribución de los estudiantes en los municipios de Santander se refleja en el mapa. Bucaramanga concentra el 47.3% del total de estudiantes, mientras que el área metropolitana de Bucaramanga, incluyendo Floridablanca, Piedecuesta y Girón, alcanza una representación del 78.6%. Por su parte, Barrancabermeja registra una participación del 7.3%, siendo el municipio con mayor presencia fuera del área metropolitana. El resto de los municipios de Santander representan en conjunto el 14%.
 
 ## Perfil Demográfico
 
-::: {.callout-note title="Descripción de las gráficas de forma general"}
-El 96% de estos estudiantes son solteros, y el 98% son colombianos. Además, también se encuentran estudiantes de origen español, ecuatoriano, estadounidense y venezolano y mexicano. En relación con el sexo, el 60,2% de los participantes eran mujeres y el 39,8% eran hombres.
+### Edad
 
-En el campus Bucaramanga, la edad promedio de los estudiantes es de 18 años
-
-Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
+::: {.callout-note title="Descripción para todos los campus"}
+En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52,4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -101,8 +99,6 @@ datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 
 ```
 
-Edad
-
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
@@ -127,18 +123,19 @@ todos <- datos_plot %>%
   mutate(campus = "Todos") %>%
   mutate(pct = round(100 * n / sum(n), 1))
 
-# 4. Combinar datos
+# 4. Combinar y ordenar manualmente los niveles de campus
+niveles_ordenados <- c("Todos", sort(unique(por_campus$campus)))
 datos_final <- bind_rows(por_campus, todos) %>%
   mutate(
+    campus = factor(campus, levels = niveles_ordenados),
     hover_text = paste0(
       "Campus: ", campus, "<br>",
       "Edad: ", grupo_edad, "<br>",
       "Porcentaje: ", pct, "%"
-    ),
-    campus = factor(campus, levels = c("Todos", sort(unique(por_campus$campus))))
+    )
   )
 
-# 5. Gráfico con filtro por campus, con "Todos" de primero
+# 5. Crear gráfico con menú desplegable correctamente etiquetado
 plot_ly(
   data = datos_final,
   x = ~grupo_edad,
@@ -163,7 +160,7 @@ plot_ly(
       list(
         type = 'dropdown',
         active = 0,
-        buttons = lapply(levels(datos_final$campus), function(c) {
+        buttons = lapply(niveles_ordenados, function(c) {
           list(method = "restyle",
                args = list("transforms[0].value", c),
                label = c)
@@ -171,6 +168,7 @@ plot_ly(
       )
     )
   )
+
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -241,12 +239,14 @@ fig
 ```
 
 ::: {.callout-note title="Abreviaturas de programas académicos"}
-<small> <strong>ANTR</strong>: Antropología, <strong>INQU</strong>: Instrumentación Quirúrgica, <strong>MYPB</strong>: Mercadeo y Publicidad, <strong>ADFI</strong>: Administración Financiera, <strong>TEOC</strong>: Terapia Ocupacional, <strong>FONO</strong>: Fonoaudiología, <strong>FISI</strong>: Fisioterapia, <strong>ININ</strong>: Ingeniería Industrial, <strong>TCGF</strong>: Tecnología en Comunicación Gráfica, <strong>BACT</strong>: Bacteriología y Laboratorio Clínico, <strong>MEDI</strong>: Medicina, <strong>ADNI</strong>: Administración de Negocios Internacionales, <strong>INCI</strong>: Ingeniería Civil, <strong>PSIC</strong>: Psicología, <strong>LEIN</strong>: Licenciatura en Educación Infantil, <strong>ENFE</strong>: Enfermería, <strong>DERE</strong>: Derecho, <strong>MBIN</strong>: Microbiología Industrial, <strong>MEVE</strong>: Medicina Veterinaria, <strong>INAG</strong>: Ingeniería Agroindustrial, <strong>INSO</strong>: Ingeniería de Software, <strong>CONT</strong>: Contaduría Pública, <strong>TSOC</strong>: Tecnología en Supervisión de Obras Civiles, <strong>COSP</strong>: Comunicación Social y Periodismo, <strong>GEOL</strong>: Geología,  <strong>ICCI</strong>: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, <strong>INSI</strong>: Ingeniería de Sistemas, <strong>DIGR</strong>: Diseño Gráfico, <strong>COEX</strong>: Comercio Exterior, <strong>MVZC</strong>: Medicina Veterinaria y Zootecnia, <strong>IQBO</strong>: Instrumentación Quirúrgica (Bogotá), <strong>TLAC</strong>: Técnico Laboral en Competencias para Auxiliar de Clínica Veterinaria.
-</small>
+<small> <strong>ANTR</strong>: Antropología, <strong>INQU</strong>: Instrumentación Quirúrgica, <strong>MYPB</strong>: Mercadeo y Publicidad, <strong>ADFI</strong>: Administración Financiera, <strong>TEOC</strong>: Terapia Ocupacional, <strong>FONO</strong>: Fonoaudiología, <strong>FISI</strong>: Fisioterapia, <strong>ININ</strong>: Ingeniería Industrial, <strong>TCGF</strong>: Tecnología en Comunicación Gráfica, <strong>BACT</strong>: Bacteriología y Laboratorio Clínico, <strong>MEDI</strong>: Medicina, <strong>ADNI</strong>: Administración de Negocios Internacionales, <strong>INCI</strong>: Ingeniería Civil, <strong>PSIC</strong>: Psicología, <strong>LEIN</strong>: Licenciatura en Educación Infantil, <strong>ENFE</strong>: Enfermería, <strong>DERE</strong>: Derecho, <strong>MBIN</strong>: Microbiología Industrial, <strong>MEVE</strong>: Medicina Veterinaria, <strong>INAG</strong>: Ingeniería Agroindustrial, <strong>INSO</strong>: Ingeniería de Software, <strong>CONT</strong>: Contaduría Pública, <strong>TSOC</strong>: Tecnología en Supervisión de Obras Civiles, <strong>COSP</strong>: Comunicación Social y Periodismo, <strong>GEOL</strong>: Geología, <strong>ICCI</strong>: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, <strong>INSI</strong>: Ingeniería de Sistemas, <strong>DIGR</strong>: Diseño Gráfico, <strong>COEX</strong>: Comercio Exterior, <strong>MVZC</strong>: Medicina Veterinaria y Zootecnia, <strong>IQBO</strong>: Instrumentación Quirúrgica (Bogotá), <strong>TLAC</strong>: Técnico Laboral en Competencias para Auxiliar de Clínica Veterinaria. </small>
 :::
 
+### Estado civil
 
-Estado civil
+::: {.callout-note title="Descripción para todos los campus"}
+El 95,6% de estos estudiantes son solteros, lo cual representa la gran mayoría de la población estudiantil. La unión libre representa el 3,41% y los estudiantes casados constituyen apenas el 1,03%
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
@@ -316,11 +316,11 @@ fig <- fig %>% layout(
 fig
 ```
 
-::: {.callout-note title="Descripción para todos los campus"}
-Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
-:::
+### Sexo
 
-Sexo
+::: {.callout-note title="Descripción para todos los campus"}
+En relación con el sexo, el 61,3% de los participantes eran mujeres y el 38,8% eran hombres.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
@@ -384,11 +384,11 @@ fig
 
 ```
 
-::: {.callout-note title="Descripción para todos los campus"}
-Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
-:::
+### Pais de origen
 
-Pais de origen
+::: {.callout-note title="Descripción para todos los campus"}
+La gráfica presenta la distribución porcentual de estudiantes según su país de origen. La población estudiantil es predominantemente colombiana (96,4%), mientras que al realizar un filtro y seleccionar solo los estudiantes extranjeros se distribuyen de la siguiente manera: venezolanos 80,4%, españoles 6,52%, mexicanos 6,52%, ecuatorianos 4,32% y estadounidenses 2,17%.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
@@ -397,7 +397,7 @@ library(RColorBrewer)
 
 # 1. Preparar los datos
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(pais), campus %in% c("Bucaramanga", "Cúcuta", "Valledupar")) %>%
+  filter(!is.na(campus), !is.na(pais), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, pais) %>%
   summarise(n = n(), .groups = "drop")
 
@@ -407,12 +407,17 @@ todos <- datos %>%
   count(pais, name = "n") %>%
   mutate(campus = "Todos")
 
-niveles_campus <- c("Todos", "Bucaramanga", "Cúcuta", "Valledupar")
+# 3. Definir el orden específico de campus
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 3. Unir todo
-datos_final <- bind_rows(datos_plot, todos)
+# 4. Unir todo y ordenar por el factor
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
 
-# 4. Pie chart con filtro por campus
+# 5. Crear lista ordenada de campus para el dropdown
+campus_ordenados <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 6. Pie chart con filtro por campus
 plot_ly(
   data = datos_final,
   labels = ~pais,
@@ -421,7 +426,7 @@ plot_ly(
   textinfo = "label+percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,  # <-- Rotación: empieza a la derecha
+  rotation = 270,
   transforms = list(
     list(
       type = 'filter',
@@ -436,8 +441,8 @@ plot_ly(
     updatemenus = list(
       list(
         type = 'dropdown',
-        active = 0,
-        buttons = lapply(unique(datos_final$campus), function(c) {
+        active = 0,  # Primera opción activa (Todos)
+        buttons = lapply(campus_ordenados, function(c) {
           list(method = "restyle",
                args = list("transforms[0].value", c),
                label = c)
@@ -445,9 +450,17 @@ plot_ly(
       )
     )
   )
-
 ```
 
+##Dificultades Académicas y Dominio de Idiomas
+
+
 ::: {.callout-note title="Descripción para todos los campus"}
-Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela.
+En cuanto al grado de dificultad en educación básica y media, 45,2% de los estudiantes manifestaron un grado de dificultad entre muy alto y alto en comprensión lectora, mientras que 40% reportaron lo mismo en expresión oral, y 32% indicaron dificultades en matemáticas.
+
+Además, los resultados evidencian dificultades en habilidades en cuanto a análisis (42%), comprensión (43,2%), atención (43,7%), memoria (39,3%) y adaptación (33,7%). 
+
+El 73,2% de los encuestados describieron su desempeño académico como bueno, el 18,6% como excelente, y solo el 8,1% lo calificó como regular.
 :::
+
+
