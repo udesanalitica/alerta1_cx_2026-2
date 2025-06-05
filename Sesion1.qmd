@@ -127,15 +127,18 @@ todos <- datos_plot %>%
   mutate(campus = "Todos") %>%
   mutate(pct = round(100 * n / sum(n), 1))
 
-# 4. Combinar
+# 4. Combinar datos
 datos_final <- bind_rows(por_campus, todos) %>%
-  mutate(hover_text = paste0(
-    "Campus: ", campus, "<br>",
-    "Edad: ", grupo_edad, "<br>",
-    "Porcentaje: ", pct, "%"
-  ))
+  mutate(
+    hover_text = paste0(
+      "Campus: ", campus, "<br>",
+      "Edad: ", grupo_edad, "<br>",
+      "Porcentaje: ", pct, "%"
+    ),
+    campus = factor(campus, levels = c("Todos", sort(unique(por_campus$campus))))
+  )
 
-# 5. Gráfico sin etiquetas visibles, solo en hover
+# 5. Gráfico con filtro por campus, con "Todos" de primero
 plot_ly(
   data = datos_final,
   x = ~grupo_edad,
@@ -160,7 +163,7 @@ plot_ly(
       list(
         type = 'dropdown',
         active = 0,
-        buttons = lapply(unique(datos_final$campus), function(c) {
+        buttons = lapply(levels(datos_final$campus), function(c) {
           list(method = "restyle",
                args = list("transforms[0].value", c),
                label = c)
@@ -237,9 +240,11 @@ fig
 
 ```
 
-::: {.callout-note title="Descripción para todos los campus"}
-Esta gráfica muestra la distribución porcentual de estudiantes por país de origen. Se observa que la mayoría proviene de Colombia, seguida por países vecinos como Venezuela. DFI: Administracion financiera, ADNI: Administracion de negocios internacionales, ANTR: Antropologia,INQU: Instrumentacion quirurgica, MYPB: Mercadeo y publicidad, ATEOC: Terapia ocupacional, FONO: Fonoaudiologia, FISI: Fisioterapia, ININ: Ingenieria industrial, TCGF: Tecnologia en gestion financiera, BACT: Bacteriologia, MEDI: Medicina, INCI: Ingenieria civil, PSIC: Psicologia, LEIN: Licenciatura en ingles, ENFE: Enfermeria, DERE: Derecho, MBIN: Microbiologia industrial, MEVE: Medicina veterinaria, INAG: Ingenieria agroindustrial, INSO: Ingenieria de sistemas, CONT: Contaduria publica, TSOC: Tecnologia en saneamiento ambiental, COSP: Comunicacion social y periodismo, GEOL: Geologia, ICCI: Ingenieria catastral y geodesia, INSI: Ingenieria de sistemas e informatica,DIGR: Diseño grafico, COEX: Comercio exterior, MVZC: Medicina veterinaria y zootecnia, IQBO: Instrumentacion quirurgica (Bogotá), TLAC: Tecnico laboral por competencias en auxiliar de clinica veterinaria.
+::: {.callout-note title="Abreviaturas de programas académicos"}
+<small> <strong>ANTR</strong>: Antropología, <strong>INQU</strong>: Instrumentación Quirúrgica, <strong>MYPB</strong>: Mercadeo y Publicidad, <strong>ADFI</strong>: Administración Financiera, <strong>TEOC</strong>: Terapia Ocupacional, <strong>FONO</strong>: Fonoaudiología, <strong>FISI</strong>: Fisioterapia, <strong>ININ</strong>: Ingeniería Industrial, <strong>TCGF</strong>: Tecnología en Comunicación Gráfica, <strong>BACT</strong>: Bacteriología y Laboratorio Clínico, <strong>MEDI</strong>: Medicina, <strong>ADNI</strong>: Administración de Negocios Internacionales, <strong>INCI</strong>: Ingeniería Civil, <strong>PSIC</strong>: Psicología, <strong>LEIN</strong>: Licenciatura en Educación Infantil, <strong>ENFE</strong>: Enfermería, <strong>DERE</strong>: Derecho, <strong>MBIN</strong>: Microbiología Industrial, <strong>MEVE</strong>: Medicina Veterinaria, <strong>INAG</strong>: Ingeniería Agroindustrial, <strong>INSO</strong>: Ingeniería de Software, <strong>CONT</strong>: Contaduría Pública, <strong>TSOC</strong>: Tecnología en Supervisión de Obras Civiles, <strong>COSP</strong>: Comunicación Social y Periodismo, <strong>GEOL</strong>: Geología,  <strong>ICCI</strong>: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, <strong>INSI</strong>: Ingeniería de Sistemas, <strong>DIGR</strong>: Diseño Gráfico, <strong>COEX</strong>: Comercio Exterior, <strong>MVZC</strong>: Medicina Veterinaria y Zootecnia, <strong>IQBO</strong>: Instrumentación Quirúrgica (Bogotá), <strong>TLAC</strong>: Técnico Laboral en Competencias para Auxiliar de Clínica Veterinaria.
+</small>
 :::
+
 
 Estado civil
 

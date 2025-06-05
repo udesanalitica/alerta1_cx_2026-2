@@ -1,7 +1,7 @@
 project:
   type: book
   output-dir: docs
-  
+
 extensions: [quarto-ext/panel]
 
 book:
@@ -13,6 +13,7 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
+    - summary.qmd
     - Sesion1.qmd
     - filtro.qmd
     - references.qmd
@@ -28,7 +29,7 @@ format:
     toc: true
     toc-depth: 3
     number-sections: true
-    linkcolor: "#046A38"  # Azul institucional UDES
+    linkcolor: "#046A38"
     fontsize: 1em
     css: style.css
     fig-cap-location: top
@@ -40,26 +41,6 @@ format:
       title-delim: "."
       fig-prefix: "Figura"
       tbl-prefix: "Tabla"
-
-  pdf:
-    documentclass: scrreprt
-    toc: true
-    number-sections: true
-    fig-pos: "H"
-    include-in-header: 
-      text: |
-        \usepackage{graphicx}
-        \usepackage{float}
-        \usepackage{caption}
-        \captionsetup[figure]{labelfont=bf}
-    keep-tex: true
-
-  docx:
-    toc: true
-    number-sections: true
-    reference-doc: custom-reference.docx
-
-  epub:
-    cover-image: cover.png
+    page-layout: full  # 🔸 Asegura que plotly use todo el ancho sin desbordes
 
 editor: visual

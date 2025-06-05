@@ -99,4 +99,10 @@ img {
   padding: 4px;
   border-radius: 6px;
   background-color: #fff;
+} 
+
+/* ======== Para evitar desbordes de Plotly ======== */
+.plotly html-widget {
+  width: 100% !important;
+  overflow-x: auto;
 }

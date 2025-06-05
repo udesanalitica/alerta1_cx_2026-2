@@ -1,9 +1,41 @@
-# Preface {.unnumbered}
+# Créditos {.unnumbered}
 
-This is a Quarto book.
+![](images/Imagen3.png){width="273"}
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
++--------------------------------------------+-----------------------------------------------------------------------------+
+| Directivas                                 | **Autores**                                                                 |
++============================================+=============================================================================+
+| **Rector General\                          | **Director de Analítica Académica**[^index-1]\                              |
+| **José Patricio López Jaramillo            | [Miguel Oswaldo Pérez Pulido](https://orcid.org/0000-0003-2945-0526)\       |
+|                                            | \                                                                           |
+| **Rectora Campus Cúcuta\                   | **Coordinador de Analítica Académica**\                                     |
+| **Carmen Elisa Araque Pérez                | [Francisco Javier León](https://orcid.org/0000-0002-8904-5242)\             |
+|                                            | \                                                                           |
+| **Rector Campus Valledupar**\              | **Profesional en Investigación de Mercados**\                               |
+| Carlos Darío Morón Cuello                  | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270)  \ |
+|                                            | \                                                                           |
+| **Vicerrector de Enseñanza\                | **Director de Gestión Curricular** **\                                      |
+| **Cesar Augusto Serrano Novoa              | **[Omar Camilo Mejía Ardila](https://orcid.org/0000-0002-4040-1269)\        |
+|                                            |                                                                             |
+| **Directora Administrativa y Financiera**\ |                                                                             |
+| Angélica María Calderón Plata              |                                                                             |
+|                                            |                                                                             |
+| **Directora de Desarrollo Estudiantil**\   |                                                                             |
+| Silvia Juliana Suescún Garcés              |                                                                             |
+|                                            |                                                                             |
+| **Directora de Bienestar Institucional**\  |                                                                             |
+| Ana Francisca Martínez Quintero            |                                                                             |
++--------------------------------------------+-----------------------------------------------------------------------------+
 
-```{r}
-1 + 1
-```
+[^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [analitica.academica\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
+
+::: {.callout-warning title="Para citar"}
+Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1. Universidad de Santander. Vicerrectoría de Enseñanza. https://udes.edu.co/ensenanza/dependencias/analitica-academica/informes-y-documentos.
+:::
+
+::: {.callout-note title="Derechos de Autor"}
+Universidad de Santander (UDES)\
+Calle 70 #N° 55-210\
+Bucaramanga, Santander, Colombia\
+<https://www.udes.edu.co/> 
+:::
