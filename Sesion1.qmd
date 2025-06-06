@@ -1085,32 +1085,14 @@ crear_tabla_idiomas <- function(datos) {
   return(resultado)
 }
 
-# Crear la tabla
+# Crear la tabla (sin mostrar mensajes intermedios)
 tabla_final <- crear_tabla_idiomas(datos)
 
-# Mostrar información de diagnóstico primero
-#cat("=== DIAGNÓSTICO ===\n")
-#cat("Columnas en el dataset que contienen 'idioma' o similares:\n")
-cols_idiomas <- colnames(datos)[grepl("ingles|frances|portug|aleman|italiano|otra", colnames(datos), ignore.case = TRUE)]
-if(length(cols_idiomas) > 0) {
-  cat(paste(cols_idiomas, collapse = ", "), "\n")
-} else {
-  cat("No se encontraron columnas relacionadas con idiomas\n")
-}
-
-#cat("\nPrimeras filas de columnas relevantes:\n")
-#if(length(cols_idiomas) > 0) {
-#  print(head(datos[cols_idiomas], 10))
-#}
-
-#cat("\n=== TABLA RESULTADO ===\n")
-
-# Mostrar la tabla
+# Mostrar solo la tabla final con formato
 if("Mensaje" %in% colnames(tabla_final)) {
-  print(tabla_final)
+  kable(tabla_final) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"))
 } else if(nrow(tabla_final) > 0) {
-  
-  # Mostrar tabla con formato
   kable(tabla_final, 
         caption = "Distribución de Niveles de Idiomas",
         align = c('l', rep('c', 7), 'c')) %>%
@@ -1123,19 +1105,16 @@ if("Mensaje" %in% colnames(tabla_final)) {
     row_spec(0, bold = TRUE, background = "#f8f9fa") %>%
     column_spec(1, bold = TRUE, background = "#f8f9fa") %>%
     column_spec(8:9, bold = TRUE, background = "#e8f4fd")
-  
-} else {
-  cat("No se generaron datos para la tabla\n")
 }
+
 ```
 
 ## Habilidades de comunicación y Socialización
 
-Los resultados revelan que el 48,6% de los estudiantes experimentan nerviosismo al hablar en público. Además, se encontró que el 87,3% de los estudiantes no han tomado cursos de oratoria.
-
-En cuanto a la interacción social, el 90,6% de los estudiantes se sienten cómodos y se expresan abiertamente en su grupo de amigos. Además, el 48,6% de los estudiantes toman la iniciativa al conocer a nuevas personas, mientras que el 49,5% esperan que sean ellos quienes inicien la conversación.
-
 ### Cuándo hablo en público, generalmente me siento:
+::: {.callout-note title="Descripción para todos los campus"}
+El sentimiento predominante es el nerviosismo, con un 46.5% de los estudiantes Cuando hablan en público. En segundo lugar, se encuentran las emociones de tensión y tranquilidad, con un 21.6% y un 21% respectivamente. Finalmente, solo un 10.9% de los encuestados se siente seguro o confiado al hablar en público.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
@@ -1200,6 +1179,9 @@ fig
 ```
 
 ### ¿He realizado estudios de oratoria?
+::: {.callout-note title="Descripción para todos los campus"}
+De los estudiantes encuestados, el 87.7% indicaron no haber tomado cursos de oratoria, mientras que alrededor del 12.3% sí los han realizado.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
@@ -1264,6 +1246,9 @@ fig
 ```
 
 ### ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente?
+::: {.callout-note title="Descripción para todos los campus"}
+En lo que respecta a la interacción social, la gran mayoría de los estudiantes (92.5%) se sienten cómodos y se expresan abiertamente dentro de su grupo de amigos, mientras que una minoría (7.53%) no experimenta la misma comodidad.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
@@ -1328,6 +1313,10 @@ fig
 ```
 
 ### Cuando conozco nuevas personas, mi comportamiento es:
+
+::: {.callout-note title="Descripción para todos los campus"}
+En lo que respecta a la interacción con personas desconocidas, casi la mitad de los estudiantes (49.1%) toman la iniciativa para iniciar una conversación al conocer a nuevas personas. Por otro lado, un porcentaje considerable (38.9%) prefiere esperar a que sean los otros quienes comiencen la interacción. Un grupo más pequeño (9.83%) indica que, en estas situaciones, solo escuchan sin hablar, y una minoría muy reducida (2.14%) evita completamente hablar con personas que no conocen.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
