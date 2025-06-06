@@ -24,10 +24,8 @@ En términos generales, entre los estudiantes de recién ingreso a la UDES se ob
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/Data20252.xlsx")
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
 
-
-#Data20252 <- read_excel("C:/Users/coordinador.analitic/OneDrive - Universidad de #Santander/Caracterizacion 2023-1/2025-2/Alerta1Cx/Data20252.xlsx")
 View(Data20252)
 datos<- Data20252
 
@@ -1129,4 +1127,266 @@ if("Mensaje" %in% colnames(tabla_final)) {
 } else {
   cat("No se generaron datos para la tabla\n")
 }
+```
+
+## Habilidades de comunicación y Socialización
+
+Los resultados revelan que el 48,6% de los estudiantes experimentan nerviosismo al hablar en público. Además, se encontró que el 87,3% de los estudiantes no han tomado cursos de oratoria.
+
+En cuanto a la interacción social, el 90,6% de los estudiantes se sienten cómodos y se expresan abiertamente en su grupo de amigos. Además, el 48,6% de los estudiantes toman la iniciativa al conocer a nuevas personas, mientras que el 49,5% esperan que sean ellos quienes inicien la conversación.
+
+### Cuándo hablo en público, generalmente me siento:
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Cuándo hablo en público
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(hab_pub), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, hab_pub) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(hab_pub)) %>%
+  count(hab_pub, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~hab_pub,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución Cuándo \nhablo en público por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### ¿He realizado estudios de oratoria?
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y He realizado estudios de oratoria
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(est_orat), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, est_orat) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(est_orat)) %>%
+  count(est_orat, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~est_orat,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución de he realizado \nestudios de oratoria por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente?
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Me siento cómodo en mi grupo de amigos
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(expr_amig), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, expr_amig) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(expr_amig)) %>%
+  count(expr_amig, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~expr_amig,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución me siento cómodo \nen mi grupo de amigos por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### Cuando conozco nuevas personas, mi comportamiento es:
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Cuando conozco nuevas personas
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(comp_nvos), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, comp_nvos) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(comp_nvos)) %>%
+  count(comp_nvos, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~comp_nvos,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución de cuando conozco \nnuevas personas por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
 ```
