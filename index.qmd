@@ -1,6 +1,6 @@
 # Créditos {.unnumbered}
 
-![](images/Imagen3.png){width="273"}
+![](images/Imagen3.png){fig-align="center" width="387"}
 
 +--------------------------------------------+-----------------------------------------------------------------------------+
 | Directivas                                 | **Autores**                                                                 |

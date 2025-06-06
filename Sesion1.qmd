@@ -452,7 +452,9 @@ plot_ly(
   )
 ```
 
-## Dificultades Académicas
+## Dificultades
+
+### Habilidades académicas
 
 ::: {.callout-note title="Descripción para todos los campus"}
 El grado de dificultad que presentaron los estudiantes durante la educación básica y media en las siguientes áreas Matemáticas, Comprensión Lectora y Expresión Oral fue. En **Matemáticas**, la mayoría de los estudiantes se ubicó en un nivel medio de dificultad (53.3%), seguido por un nivel alto (29.6%) y un nivel bajo (11.3%). En **Expresión Oral**, predomina también el nivel medio (40.6%), seguido por el nivel alto (32.3%) y el nivel bajo (13.1%). En **Comprensión Lectora**, destaca el nivel alto con el mayor porcentaje (42.3%), mientras que solo el 10.4% reportó un nivel bajo de dificultad.
@@ -652,7 +654,7 @@ fig <- fig %>%
 fig
 ```
 
-###Dificultades en las siguientes habilidades
+### Habilidades cognitivas
 
 ::: {.callout-note title="Descripción para todos los campus"}
 Los estudiantes reportaron dificultades significativas en diversas habilidades cognitivas, especialmente en **análisis** (37.6%), **comprensión** (36.4%), **atención** (37.3%), **memoria (37%)** y, en menor medida, en **adaptación** (29.6%). Estos resultados evidencian áreas clave que requieren atención para fortalecer los procesos de aprendizaje y desempeño académico.
@@ -997,4 +999,134 @@ fig <- plot_ly(
 
 fig
 
+```
+
+### Distribución de niveles de idiomas
+
+::: {.callout-note title="Descripción para todos los campus"}
+En relación con el dominio de una segunda lengua extranjera, el 12,5% de los estudiantes manifiestan dominar el idioma inglés.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Crear tabla de idiomas de forma simple
+crear_tabla_idiomas <- function(datos) {
+  
+  # Definir columnas de idiomas y sus nombres
+  idiomas_info <- data.frame(
+    columna = c("ingles", "frances", "portug", "aleman", "italiano", "otra_leng"),
+    nombre = c("Inglés", "Francés", "Portugués", "Alemán", "Italiano", "Otra"),
+    stringsAsFactors = FALSE
+  )
+  
+  # Verificar qué columnas existen
+  columnas_existentes <- idiomas_info$columna[idiomas_info$columna %in% colnames(datos)]
+  
+  if(length(columnas_existentes) == 0) {
+    return(data.frame(Mensaje = "No se encontraron columnas de idiomas en los datos"))
+  }
+  
+  # Inicializar tabla resultado
+  resultado <- data.frame(
+    Idioma = character(),
+    A1 = integer(),
+    A2 = integer(),
+    B1 = integer(),
+    B2 = integer(),
+    C1 = integer(),
+    C2 = integer(),
+    Total = integer(),
+    Porcentaje = character(),
+    stringsAsFactors = FALSE
+  )
+  
+  # Procesar cada idioma
+  for(col in columnas_existentes) {
+    # Obtener nombre del idioma
+    nombre_idioma <- idiomas_info$nombre[idiomas_info$columna == col]
+    
+    # Obtener datos válidos (no NA)
+    datos_validos <- datos[[col]][!is.na(datos[[col]])]
+    
+    # Contar cada nivel
+    count_A1 <- sum(datos_validos == "A1", na.rm = TRUE)
+    count_A2 <- sum(datos_validos == "A2", na.rm = TRUE)
+    count_B1 <- sum(datos_validos == "B1", na.rm = TRUE)
+    count_B2 <- sum(datos_validos == "B2", na.rm = TRUE)
+    count_C1 <- sum(datos_validos == "C1", na.rm = TRUE)
+    count_C2 <- sum(datos_validos == "C2", na.rm = TRUE)
+    
+    # Calcular total
+    total_idioma <- count_A1 + count_A2 + count_B1 + count_B2 + count_C1 + count_C2
+    
+    # Calcular porcentaje del total de la muestra
+    total_muestra <- nrow(datos)
+    porcentaje <- round((total_idioma / total_muestra) * 100, 1)
+    
+    # Crear fila
+    nueva_fila <- data.frame(
+      Idioma = nombre_idioma,
+      A1 = count_A1,
+      A2 = count_A2,
+      B1 = count_B1,
+      B2 = count_B2,
+      C1 = count_C1,
+      C2 = count_C2,
+      Total = total_idioma,
+      Porcentaje = paste0(porcentaje, "%"),
+      stringsAsFactors = FALSE
+    )
+    
+    # Agregar a resultado
+    resultado <- rbind(resultado, nueva_fila)
+  }
+  
+  return(resultado)
+}
+
+# Crear la tabla
+tabla_final <- crear_tabla_idiomas(datos)
+
+# Mostrar información de diagnóstico primero
+#cat("=== DIAGNÓSTICO ===\n")
+#cat("Columnas en el dataset que contienen 'idioma' o similares:\n")
+cols_idiomas <- colnames(datos)[grepl("ingles|frances|portug|aleman|italiano|otra", colnames(datos), ignore.case = TRUE)]
+if(length(cols_idiomas) > 0) {
+  cat(paste(cols_idiomas, collapse = ", "), "\n")
+} else {
+  cat("No se encontraron columnas relacionadas con idiomas\n")
+}
+
+#cat("\nPrimeras filas de columnas relevantes:\n")
+#if(length(cols_idiomas) > 0) {
+#  print(head(datos[cols_idiomas], 10))
+#}
+
+#cat("\n=== TABLA RESULTADO ===\n")
+
+# Mostrar la tabla
+if("Mensaje" %in% colnames(tabla_final)) {
+  print(tabla_final)
+} else if(nrow(tabla_final) > 0) {
+  
+  # Mostrar tabla con formato
+  kable(tabla_final, 
+        caption = "Distribución de Niveles de Idiomas",
+        align = c('l', rep('c', 7), 'c')) %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    add_header_above(c(" " = 1, "Niveles de Competencia" = 6, "Resumen" = 2)) %>%
+    row_spec(0, bold = TRUE, background = "#f8f9fa") %>%
+    column_spec(1, bold = TRUE, background = "#f8f9fa") %>%
+    column_spec(8:9, bold = TRUE, background = "#e8f4fd")
+  
+} else {
+  cat("No se generaron datos para la tabla\n")
+}
 ```
