@@ -8,3 +8,9 @@
 .httr-oauth
 .DS_Store
 .quarto
+
+Data20252.xlsx
+*.RData
+*.rds
+
+data/Data20252.xlsx

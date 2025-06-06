@@ -2,30 +2,54 @@
 
 ## Ficha técnica
 
-+--------------------------------+----------------------------------------------------------------------------------+
-| Categoría                      | Descripción                                                                      |
-+================================+==================================================================================+
-| Población objetivo             | Estudiantes de recién ingreso a la Universidad de Santander en el periodo 2025-1 |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Campus                         | Bucaramanga, Cúcuta, Valledupar                                                  |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Total estudiantes              |                                                                                  |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Método de recolección de datos | Formulario multicampus (111 preguntas)                                           |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Aspectos evaluados             | Sesión 1. Información personal y académica\                                      |
-|                                | Sesión 2. Aspectos sociodemográficos\                                            |
-|                                | Sesión 3. Salud integral\                                                        |
-|                                | Sesión 4. Fomento de la cultura\                                                 |
-|                                | Sesión 5. Deportes y esparcimiento\                                              |
-|                                | Sesión 6. Desarrollo humano                                                      |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Periodo de aplicación          | 03 de febrero al 03 de marzo de 2025                                             |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Tasa de respuesta              |                                                                                  |
-+--------------------------------+----------------------------------------------------------------------------------+
-| Herramienta de tabulación      | Excel, RStudio                                                                   |
-+--------------------------------+----------------------------------------------------------------------------------+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+
+# Aspectos metodológicos
+
+## Ficha técnica
+library(kableExtra)
+
+metodologia_data <- data.frame(
+  Categoría = c(
+    "Población objetivo",
+    "Campus",
+    "Total de estuantes de recién ingreso",
+    "Método de recolección de datos",
+    "Aspectos evaluados",
+    "Periodo de aplicación",
+    "Tasa de respuesta",
+    "Herramienta de tabulación, análisis y divulgación"
+  ),
+  Descripción = c(
+    "Estudiantes de recién ingreso a la Universidad de Santander en el periodo 2025-1",
+    "Bucaramanga, Cúcuta, Valledupar",
+    "Bucaramanga (560),<br>\nCúcuta (390), <br>\nValledupar (300)",
+    "Formulario multicampus (111 preguntas)",
+    "Sesión 1. Información personal y académica <br> \nSesión 2. Aspectos sociodemográficos <br>\nSesión 3. Salud integral <br> \nSesión 4. Fomento de la cultura <br> \nSesión 5. Deportes y esparcimiento <br>\nSesión 6. Desarrollo humano",
+    "03 de febrero al 03 de marzo de 2025",
+    "Bucaramanga [86% (560/646)],<br>\nCúcuta [100% (390/390)], <br>\nValledupar [94% (281/300)]",
+    "Excel, RStudio, quarto, GitHub"
+  ),
+  stringsAsFactors = FALSE
+)
+
+metodologia_data %>%
+  kable(
+    format = "html",
+    col.names = c("Categoría", "Descripción"),
+    caption = "Ficha Técnica - Metodología del Estudio",
+    escape = FALSE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = TRUE,
+    position = "center",
+    font_size = 14
+  ) %>%
+  row_spec(0, background = "#4f46e5", color = "white", bold = TRUE) %>%
+  column_spec(1, width = "25%", bold = TRUE, background = "#f8fafc") %>%
+  column_spec(2, width = "75%")
+```
 
 ## Número de estudiantes encuestados
 
@@ -33,10 +57,9 @@ La encuesta se aplicó a estudiantes de primer semestre, y en el gráfico se mue
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/Data20252.xlsx")
 
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
 
-#Data20252 <- read_excel("C:/Users/coordinador.analitic/OneDrive - Universidad de #Santander/Caracterizacion 2023-1/2025-2/Alerta1Cx/Data20252.xlsx")
 View(Data20252)
 datos<- Data20252
 
@@ -120,7 +143,7 @@ plot_ly(
 Falta hacer estas tablas---- muestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.
 
 |                                                                        |                        |                                  |                    |
-|------------------------------------------------------------------------|------------------------|----------------------------------|--------------------|
+|-----------------------------|--------------|--------------|--------------|
 | **Programas**                                                          | **Respuesta encuesta** | **Matriculados primer semestre** | **% de respuesta** |
 | **Administración de negocios internacionales**                         | 15                     | 16                               | 94                 |
 | **Aministración financiera**                                           | 18                     | 23                               | 78                 |

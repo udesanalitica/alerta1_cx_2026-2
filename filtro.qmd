@@ -8,10 +8,8 @@ Seleccione un campus para visualizar la distribución de edad correspondiente. E
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/Data20252.xlsx")
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
 
-
-#Data20252 <- read_excel("C:/Users/coordinador.analitic/OneDrive - Universidad de #Santander/Caracterizacion 2023-1/2025-2/Alerta1Cx/Data20252.xlsx")
 datos<- Data20252
 attach(datos)
 ```
