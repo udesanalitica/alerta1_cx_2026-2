@@ -138,38 +138,162 @@ plot_ly(
 <small> <strong>ANTR</strong>: Antropología, <strong>INQU</strong>: Instrumentación Quirúrgica, <strong>MYPB</strong>: Mercadeo y Publicidad, <strong>ADFI</strong>: Administración Financiera, <strong>TEOC</strong>: Terapia Ocupacional, <strong>FONO</strong>: Fonoaudiología, <strong>FISI</strong>: Fisioterapia, <strong>ININ</strong>: Ingeniería Industrial, <strong>TCGF</strong>: Tecnología en Comunicación Gráfica, <strong>BACT</strong>: Bacteriología y Laboratorio Clínico, <strong>MEDI</strong>: Medicina, <strong>ADNI</strong>: Administración de Negocios Internacionales, <strong>INCI</strong>: Ingeniería Civil, <strong>PSIC</strong>: Psicología, <strong>LEIN</strong>: Licenciatura en Educación Infantil, <strong>ENFE</strong>: Enfermería, <strong>DERE</strong>: Derecho, <strong>MBIN</strong>: Microbiología Industrial, <strong>MEVE</strong>: Medicina Veterinaria, <strong>INAG</strong>: Ingeniería Agroindustrial, <strong>INSO</strong>: Ingeniería de Software, <strong>CONT</strong>: Contaduría Pública, <strong>TSOC</strong>: Tecnología en Supervisión de Obras Civiles, <strong>COSP</strong>: Comunicación Social y Periodismo, <strong>GEOL</strong>: Geología, <strong>ICCI</strong>: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, <strong>INSI</strong>: Ingeniería de Sistemas, <strong>DIGR</strong>: Diseño Gráfico, <strong>COEX</strong>: Comercio Exterior, <strong>MVZC</strong>: Medicina Veterinaria y Zootecnia, <strong>IQBO</strong>: Instrumentación Quirúrgica (Bogotá), <strong>TLAC</strong>: Técnico Laboral en Competencias para Auxiliar de Clínica Veterinaria. </small>
 :::
 
-## Tasa de respuesta
+## Tasa de respuesta Bucarcamanga
 
-Falta hacer estas tablas---- muestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.
+muestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.
 
-|                                                                        |                        |                                  |                    |
-|-----------------------------|--------------|--------------|--------------|
-| **Programas**                                                          | **Respuesta encuesta** | **Matriculados primer semestre** | **% de respuesta** |
-| **Administración de negocios internacionales**                         | 15                     | 16                               | 94                 |
-| **Aministración financiera**                                           | 18                     | 23                               | 78                 |
-| **Antropología**                                                       | 7                      | 7                                | 100                |
-| **Bacteriología y laboratorio clínico**                                | 29                     | 29                               | 100                |
-| **Comunicación social y periodismo**                                   | 9                      | 10                               | 90                 |
-| **Contaduría pública**                                                 | 10                     | 10                               | 100                |
-| **Derecho**                                                            | 13                     | 20                               | 65                 |
-| **Enfermería**                                                         | 18                     | 24                               | 75                 |
-| **Fisioterapia**                                                       | 28                     | 37                               | 76                 |
-| **Fonoaudiología**                                                     | 18                     | 19                               | 95                 |
-| **Geología**                                                           | 5                      | 9                                | 56                 |
-| **Ingeniería agroindustrial**                                          | 9                      | 11                               | 82                 |
-| **Ingeniería civil**                                                   | 15                     | 20                               | 75                 |
-| **Ingeniería de software**                                             | 56                     | 60                               | 93                 |
-| **Ingeniería en ciencias de la computación e inteligencia artificial** | 8                      | 10                               | 80                 |
-| **Ingeniería industrial**                                              | 7                      | 9                                | 78                 |
-| **Instrumentación quirúrgica**                                         | 51                     | 52                               | 98                 |
-| **Instrumentación quirúrgica - BOG**                                   | 27                     | 28                               | 96                 |
-| **Licenciatura en educación infantil**                                 | 11                     | 11                               | 100                |
-| **Medicina**                                                           | 51                     | 57                               | 89                 |
-| **Medicina veterinaria**                                               | 66                     | 73                               | 90                 |
-| **Mercadeo y publicidad**                                              | 26                     | 26                               | 100                |
-| **Microbiología industrial**                                           | 14                     | 14                               | 100                |
-| **Psicología**                                                         | 25                     | 25                               | 100                |
-| **Tecnología en comunicación grafica**                                 | 22                     | 24                               | 92                 |
-| **Tecnología supervisión de obras civiles**                            | 5                      | 5                                | 100                |
-| **Terapia ocupacional**                                                | 17                     | 17                               | 100                |
-| **Total**                                                              | **560**                | **646**                          | **86**             |
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(kableExtra)
+library(dplyr)
+
+# Datos para la tabla
+tabla_programas <- data.frame(
+  Programa = c(
+    "Administración de negocios internacionales", "Administración financiera", "Antropología",
+    "Bacteriología y laboratorio clínico", "Comunicación social y periodismo", "Contaduría pública",
+    "Derecho", "Enfermería", "Fisioterapia", "Fonoaudiología", "Geología", "Ingeniería agroindustrial",
+    "Ingeniería civil", "Ingeniería de software",
+    "Ingeniería en ciencias de la computación e inteligencia artificial", "Ingeniería industrial",
+    "Instrumentación quirúrgica", "Instrumentación quirúrgica - BOG", "Licenciatura en educación infantil",
+    "Medicina", "Medicina veterinaria", "Mercadeo y publicidad", "Microbiología industrial",
+    "Psicología", "Tecnología en comunicación gráfica", "Tecnología supervisión de obras civiles",
+    "Terapia ocupacional", "Total"
+  ),
+  Respuesta_encuesta = c(
+    15, 18, 7, 29, 9, 10, 13, 18, 28, 18, 5, 9, 15, 56, 8, 7, 51, 27, 11,
+    51, 66, 26, 14, 25, 22, 5, 17, 560
+  ),
+  Matriculados_primer_semestre = c(
+    16, 23, 7, 29, 10, 10, 20, 24, 37, 19, 9, 11, 20, 60, 10, 9, 52, 28, 11,
+    57, 73, 26, 14, 25, 24, 5, 17, 646
+  ),
+  Porcentaje_respuesta = c(
+    94, 78, 100, 100, 90, 100, 65, 75, 76, 95, 56, 82, 75, 93, 80, 78, 98, 96,
+    100, 89, 90, 100, 100, 100, 92, 100, 100, 86
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Nombres de columnas con saltos de línea
+nombres_columnas <- c(
+  "Programa Académico",
+  "Respuesta<br>encuesta",
+  "Matriculados<br>primer semestre",
+  "% de<br>respuesta"
+)
+
+# Crear tabla sin la nota al pie
+kable(tabla_programas,
+      format = "html",
+      caption = "<span style='font-size:18px'>Participación por Programa Académico - Campus Bucaramanga</span>",
+      align = c("l", "c", "c", "c"),
+      col.names = nombres_columnas,
+      escape = FALSE) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 14,
+    html_font = "Arial, sans-serif",
+    fixed_thead = TRUE
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
+  column_spec(1, width = "35%", bold = TRUE, background = "#f8fafc", extra_css = "white-space: normal;") %>%
+  column_spec(2:4, width = "15%", extra_css = "text-align: center; vertical-align: middle;") %>%
+  row_spec(1:nrow(tabla_programas), extra_css = "height: auto; min-height: 40px; padding: 8px;") %>%
+  row_spec(nrow(tabla_programas), bold = TRUE, background = "#e6f3ff", color = "#003366") %>%
+  scroll_box(width = "100%", height = "600px")
+```
+
+## Tasa de respuesta Cúcuta
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(kableExtra)
+library(dplyr)
+
+# Datos para campus Cúcuta
+tabla_cucuta <- data.frame(
+  Programa = c(
+    "Administración financiera", 
+    "Bacteriología y laboratorio clínico", 
+    "Comercio exterior",
+    "Derecho", 
+    "Diseño gráfico", 
+    "Enfermería", 
+    "Fisioterapia",
+    "Ingeniería de sistemas", 
+    "Ingeniería industrial", 
+    "Medicina",
+    "Mercadeo y publicidad", 
+    "Psicología", 
+    "Terapia ocupacional", 
+    "Total"
+  ),
+  Respuesta = c(26, 35, 30, 10, 22, 35, 36, 46, 24, 41, 40, 26, 19, 390),
+  Matriculados = c(26, 35, 30, 10, 22, 35, 36, 46, 24, 41, 40, 26, 19, 390),
+  Porcentaje = c(100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
+)
+
+# Crear tabla con formato profesional
+kable(tabla_cucuta,
+      format = "html",
+      caption = "<span style='font-size:18px'>Participación por Programa Académico - Campus Cúcuta</span>",
+      col.names = c("Programa Académico", "Respuesta", "Matriculados", "% Respuesta"),
+      align = c("l", "c", "c", "c"),
+      escape = FALSE) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 14,
+    html_font = "Arial, sans-serif"
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
+  column_spec(1, width = "40%", bold = TRUE, background = "#f8fafc") %>%
+  column_spec(2:4, width = "20%", background = "white") %>%
+  row_spec(1:nrow(tabla_cucuta), extra_css = "height: 40px;") %>%
+  row_spec(nrow(tabla_cucuta), bold = TRUE, background = "#e6f3ff") %>%
+  column_spec(2:4, extra_css = "text-align: center;") %>%
+  scroll_box(width = "100%", height = "500px")
+```
+
+## Tasa de respuesta Valledupar
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(kableExtra)
+library(dplyr)
+
+# Datos para campus Valledupar
+tabla_valledupar <- data.frame(
+  Programa = c(
+    "Administración financiera", "Bacteriología y laboratorio clínico", "Comunicación social y periodismo",
+    "Derecho", "Diseño gráfico", "Fisioterapia", "Ingeniería industrial",
+    "Medicina", "Medicina veterinaria y zootecnia", "Psicología", "Total"
+  ),
+  Respuesta_encuesta = c(21, 31, 7, 31, 16, 39, 21, 31, 54, 29, 281),
+  Matriculados_primer_semestre = c(21, 31, 7, 44, 16, 41, 21, 31, 58, 30, 300),
+  Porcentaje_respuesta = c(100, 100, 100, 70, 100, 95, 100, 100, 93, 97, 94)
+)
+
+# Crear tabla con formato profesional
+kable(tabla_valledupar,
+      format = "html",
+      caption = "<span style='font-size:18px'>Participación por Programa Académico - Campus Valledupar</span>",
+      col.names = c("Programa Académico", "Respuesta", "Matriculados", "% Respuesta"),
+      align = c("l", "c", "c", "c"),
+      escape = FALSE) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 14,
+    html_font = "Arial, sans-serif"
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
+  column_spec(1, width = "40%", bold = TRUE, background = "#f8fafc") %>%
+  column_spec(2:4, width = "20%", background = "white") %>%
+  row_spec(1:nrow(tabla_valledupar), extra_css = "height: 40px;") %>%
+  row_spec(nrow(tabla_valledupar), bold = TRUE, background = "#e6f3ff") %>%
+  column_spec(2:4, extra_css = "text-align: center;") %>%
+  scroll_box(width = "100%", height = "500px")
+```
