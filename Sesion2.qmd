@@ -1,0 +1,1288 @@
+---
+title: "Sesión 2.Aspectos sociodemográficos"
+---
+
+## Movilidad
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(readxl)
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
+
+View(Data20252)
+datos<- Data20252
+
+attach(datos)
+
+# head(datos)
+
+# str(datos)
+
+# names(datos)
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Librerias necesarias
+#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
+library(ggplot2)
+library(psych)
+library(skimr)
+library(summarytools)
+library(corrplot)
+library(tidyr)
+library(RColorBrewer)
+library(ggpubr)
+library(plotly)
+library(lattice)
+library(Hmisc)
+library(skimr)
+library(summarytools)
+library(base)
+library(ggpubr)
+library(scales)
+library(dplyr)
+library(ggrepel)
+library(tidyverse)
+library(scales)
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+## Convertir las variables caracter a factor
+# Lista de columnas que se convertirán en factores
+cols_factor <- c(
+  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
+  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
+  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
+  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
+  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
+  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
+  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
+  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
+  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
+  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
+  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
+  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
+  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
+  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
+  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
+  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
+  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
+  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
+  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
+  "fam_formada"
+)
+
+# Convertir solo las columnas que realmente existen
+cols_existentes <- intersect(cols_factor, names(datos))
+datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
+
+```
+
+::: {.callout-warning title="Aclaración importante"}
+En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
+:::
+
+## Medio de transporte habitual de su casa a la universidad
+
+::: {.callout-note title="Descripción para todos los campus"}
+En términos generales, entre los estudiantes de nuevo ingreso a la UDES en los campus de Bucaramanga, Cúcuta y Valledupar, se observa que el medio de desplazamiento más habitual es el **transporte público** (29.8%), seguido por la **motocicleta** (26%). El **automóvil propio** representa el 17.7%, mientras que **desplazarse a pie** lo realiza el 12.8% de los estudiantes. Un 12.3% opta por transporte solicitado a través de **plataformas digitale**s. Los porcentajes restantes se distribuyen entre otros medios de transporte (1.03%) y **bicicleta** (0.238%).
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Medio de transporte habitual de su casa a la universidad
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(transp_hab), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, transp_hab) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(transp_hab)) %>%
+  count(transp_hab, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~transp_hab,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+120,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del medio de transporte \nhabitual de su casa a la universidad por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+## Su vehículo que tipo de combustible utiliza
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto al tipo de combustible que emplean los vehcículos usados por los estudiantes, la **Gasolina** es empleada por el 52.7% de los usuarios. Otros combustibles como el **Diése**l (2.38%), **Híbrido** (0.792%) y Eléctrico 100% (0.158%). Esta distribución es coherente con las tendencias nacionales donde la electrificación del parque automotor está en sus etapas iniciales. Sin embargo, un considerable 44% de los encuestados declara **"No tengo transporte propio"**.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y tipo de combustible utiliza
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(combust), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, combust) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(combust)) %>%
+  count(combust, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~combust,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del tipo de combustible \npor campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+## Comparte con otras personas durante el trayecto su medio de transporte habitual
+
+::: {.callout-note title="Descripción para todos los campus"}
+Entre los estudiantes que sí poseen vehículo, la mayoría (31.3%) No comparte su transporte, mientras que un 24.9% Sí lo hace; mientras que un 43.8% indican que "No tengo transporte propio", reiterando la proporción de estudiantes que se movilizan de otras maneras. Lo anterior sugiere una oportunidad para fomentar el ***carpooling*** y otras iniciativas de movilidad compartida, que podrían disminuir la congestión y reducir la huella de carbono.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Comparte con otras personas durante el trayecto su medio de transporte habitual
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(transp_comp), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, transp_comp) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(transp_comp)) %>%
+  count(transp_comp, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~transp_comp,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución de comparte transporte \npor campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+## ¿Estaría dispuesto a compartir su medio de transporte?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la disposición a compartir su medio de transporte, se observa que, el 42.6% de los estudiantes afirma que **Sí** estaría dispuesto a compartir su vehículo. Un 12.1% se muestra reacio.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Estaría dispuesto a compartir su medio de transporte?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(comp_dispo), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, comp_dispo) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(comp_dispo)) %>%
+  count(comp_dispo, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~comp_dispo,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución dispuesto a compartir \nsu medio de transporte por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+## Tiempo en promedio en desplazamiento de su casa a la universidad
+
+::: {.callout-note title="Descripción para todos los campus"}
+En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y tiempo de transporte
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(tiemp_trans), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, tiemp_trans) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(tiemp_trans)) %>%
+  count(tiemp_trans, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~tiemp_trans,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tiempo promedio de desplazamiento \n(en minutos) por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+## Dinero en transporte, en promedio, semanal en desplazamiento
+
+::: {.callout-note title="Descripción para todos los campus"}
+En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y dinero en transporte
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(din_trans) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, din_trans) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(din_trans)) %>%
+  count(din_trans, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de barras en celeste con filtro
+fig <- plot_ly(
+  data = datos_final,
+  x = ~din_trans,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del gasto semanal en transporte por campus",
+    xaxis = list(title = "Gasto en transporte"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+
+```
+
+## Familia cercana
+
+### ¿Cuál es la tipologia familiar de origen?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y tipologia familiar de origen
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(tip_familia) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, tip_familia) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(tip_familia)) %>%
+  count(tip_familia, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'tip_familia' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(tip_familia)
+
+datos_final <- datos_final %>%
+  mutate(tip_familia = factor(tip_familia, levels = niveles_din_trans))
+
+# 6. Crear gráfico de barras en celeste con filtro
+fig <- plot_ly(
+  data = datos_final,
+  x = ~tip_familia,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tipologia familiar \nde origen por campus",
+    xaxis = list(title = "Tipologia familiar"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### ¿Con cuántas personas convive?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y Con cuántas personas convive actualmente
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(convive) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, convive) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(convive)) %>%
+  count(convive, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'convive' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(convive)
+
+datos_final <- datos_final %>%
+  mutate(convive = factor(convive, levels = niveles_din_trans))
+
+# 6. Crear gráfico de barras en celeste con filtro
+fig <- plot_ly(
+  data = datos_final,
+  x = ~convive,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución con cuántas personas \nconvive actualmente de origen por campus",
+    xaxis = list(title = "Número de personas en el hogar"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### En cuántos cuartos duermen las personas de su hogar
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y En cuántos cuartos duermen las personas de su hogar
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(cuartos) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, cuartos) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(cuartos)) %>%
+  count(cuartos, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'cuartos' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(cuartos)
+
+datos_final <- datos_final %>%
+  mutate(cuartos = factor(cuartos, levels = niveles_din_trans))
+
+# 6. Crear gráfico de barras en celeste con filtro
+fig <- plot_ly(
+  data = datos_final,
+  x = ~cuartos,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución cuántos cuartos \nen el hogar por campus",
+    xaxis = list(title = "Número de cuartos en el hogar"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### ¿Tiene hijos?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Tiene hijos?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(tiene_hijos), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, tiene_hijos) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(tiene_hijos)) %>%
+  count(tiene_hijos, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~tiene_hijos,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 90,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tiene hijos\n por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Cuántos hijos tiene?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cuántos hijos tiene?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(num_hijos), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, num_hijos) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(num_hijos)) %>%
+  count(num_hijos, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~num_hijos,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 90,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución número de hijos\n por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+## Diversidad y Pertenencia a grupos poblacionales
+
+### Grupo poblacional
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Grupos poblacionales
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(grupo_pobl), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, grupo_pobl) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(grupo_pobl)) %>%
+  count(grupo_pobl, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~grupo_pobl,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 90,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución grupo poblacional \n por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### ¿A cuál de los siguientes grupos poblacionales considera usted que pertenece?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y grupo poblacional (excluyendo la categoría específica)
+datos_plot <- datos %>%
+  filter(
+    !is.na(campus),
+    !is.na(grupo_pert),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar"),
+    grupo_pert != "No pertenece a ningún grupo poblacional"
+  ) %>%
+  group_by(campus, grupo_pert) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos" (también excluyendo la categoría)
+todos <- datos %>%
+  filter(
+    !is.na(grupo_pert),
+    grupo_pert != "No pertenece a ningún grupo poblacional"
+  ) %>%
+  count(grupo_pert, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de grupo_pert por frecuencia total (grupo "Todos")
+niveles_grupo_pert <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(grupo_pert)
+
+datos_final <- datos_final %>%
+  mutate(grupo_pert = factor(grupo_pert, levels = niveles_grupo_pert))
+
+# 6. Crear gráfico de barras en celeste con filtro
+fig <- plot_ly(
+  data = datos_final,
+  x = ~grupo_pert,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución de pertenencia a grupos poblacionales \npor campus (sin categoría 'No pertenece')",
+    xaxis = list(title = "Grupos poblacionales", tickangle = -45),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿A cuál de los siguientes grupos étnicos pertenece?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y grupos étnicos pertenecea
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(grupo_etn), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, grupo_etn) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(grupo_etn)) %>%
+  count(grupo_etn, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~grupo_etn,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución de grupos étnicos a los \nque pertenece por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### Comunidad indígena a la que pertenece
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Comunidad indígena a la que pertenece
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(etnia_ind), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, etnia_ind) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(etnia_ind)) %>%
+  count(etnia_ind, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~etnia_ind,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución de Comunidad indígena \na la que pertenece por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+## Perfil económico y Académico de los padres
+
+### ¿Quién cubre sus gastos de matrícula?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Cuál es la forma de pago del semestre en la Universidad?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+### Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestres)
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Usted es el primero en su familia inmediata en asistir a la universidad?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+### ¿Cuál es el nivel educativo más alto alcanzado por su padre?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Cuál es el nivel educativo más alto alcanzado por su madre?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### Seleccione el estrato socioeconómico del lugar donde vive
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+## Servicios de Internet y Espacios en el hogar
+
+### ¿Cuenta su hogar con servicio de conexión a internet?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Cuenta su hogar con servicio de suscripción de televisión (cable, parabólica o satelital)?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Cuántos libros físicos o electrónicos hay en su hogar excluyendo periódicos, revistas, directorios telefónicos y libros del colegio?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### Usualmente, ¿cuánto tiempo al día dedica a leer por entretenimiento?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### Usualmente, ¿cuánto tiempo al día dedica a navegar en internet? Excluya actividades académica
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+### ¿Dispone de un espacio privado para estudiar en casa?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Cuánto tiempo le dedica semanalmente a su jornada de estudios en la Universidad?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```
+
+### ¿Cuánto tiempo permanece en la Universidad?
+
+::: {.callout-note title="Descripción para todos los campus"}
+En cuanto a la .....
+:::
+
+```{r}
+
+```

@@ -14,6 +14,10 @@ Los demás departamentos registran una participación conjunta del 15.7%, destac
 
 La distribución de los estudiantes en los municipios de Santander se refleja en el mapa. Bucaramanga concentra el 47.3% del total de estudiantes, mientras que el área metropolitana de Bucaramanga, incluyendo Floridablanca, Piedecuesta y Girón, alcanza una representación del 78.6%. Por su parte, Barrancabermeja registra una participación del 7.3%, siendo el municipio con mayor presencia fuera del área metropolitana. El resto de los municipios de Santander representan en conjunto el 14%.
 
+::: {.callout-warning title="Aclaración importante"}
+En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
+:::
+
 ## Perfil Demográfico
 
 ### Edad
@@ -94,46 +98,73 @@ cols_factor <- c(
 # Convertir solo las columnas que realmente existen
 cols_existentes <- intersect(cols_factor, names(datos))
 datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
-
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Cargar librerías necesarias
+# install.packages(c("dplyr", "plotly")) # Descomentar si no están instaladas
 library(dplyr)
 library(plotly)
 
-# 1. Agrupar por intervalos de edad y campus
-datos_plot <- datos %>%
-  filter(!is.na(edad), !is.na(campus), edad < 44) %>%
-  mutate(grupo_edad = cut(edad, breaks = seq(14, 44, by = 2), right = FALSE))
+# Asumiendo que tu dataframe se llama 'datos'
 
-# 2. Datos por campus
-por_campus <- datos_plot %>%
+# --- 0. Definir los campus de interés ---
+# Creamos un vector con los campus que queremos incluir en el gráfico.
+# El resto del código se basará en esta selección.
+campus_a_incluir <- c("Bucaramanga", "Cucuta", "Valledupar")
+
+
+# --- 1. Preparación y Limpieza de Datos ---
+# Filtramos de una sola vez para tener una base limpia y consistente.
+# **AJUSTE:** Añadimos un filtro para quedarnos solo con los campus definidos arriba.
+datos_limpios <- datos %>%
+  filter(
+    campus %in% campus_a_incluir, # <-- LÍNEA MODIFICADA
+    !is.na(edad),
+    !is.na(campus),
+    edad >= 14,
+    edad < 40
+  ) %>%
+  mutate(
+    grupo_edad = cut(edad, breaks = seq(14, 40, by = 2), right = FALSE)
+  )
+
+# --- 2. Cálculo de Porcentajes por Campus ---
+# (Este bloque no necesita cambios)
+por_campus <- datos_limpios %>%
   group_by(campus, grupo_edad) %>%
   summarise(n = n(), .groups = "drop") %>%
   group_by(campus) %>%
   mutate(pct = round(100 * n / sum(n), 1)) %>%
   ungroup()
 
-# 3. Datos totales ("Todos")
-todos <- datos_plot %>%
+# --- 3. Cálculo de Porcentajes Totales ("Todos") ---
+# "Todos" ahora representará la suma de Bucaramanga, Cúcuta y Valledupar.
+# (Este bloque no necesita cambios, ya que opera sobre 'datos_limpios' que ya fue filtrado)
+todos <- datos_limpios %>%
   group_by(grupo_edad) %>%
   summarise(n = n(), .groups = "drop") %>%
-  mutate(campus = "Todos") %>%
-  mutate(pct = round(100 * n / sum(n), 1))
+  mutate(
+    pct = round(100 * n / sum(n), 1),
+    campus = "Todos"
+  )
 
-# 4. Combinar y ordenar manualmente los niveles de campus
-niveles_ordenados <- c("Todos", sort(unique(por_campus$campus)))
+# --- 4. Combinar Datos y Preparar para el Gráfico ---
+# **AJUSTE:** Definimos manualmente el orden y contenido del menú desplegable.
+niveles_ordenados <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar") # <-- LÍNEA MODIFICADA
+
+# Unimos los datos por campus con los datos totales.
 datos_final <- bind_rows(por_campus, todos) %>%
   mutate(
     campus = factor(campus, levels = niveles_ordenados),
     hover_text = paste0(
-      "Campus: ", campus, "<br>",
-      "Edad: ", grupo_edad, "<br>",
-      "Porcentaje: ", pct, "%"
+      "<b>Campus:</b> ", campus, "<br>",
+      "<b>Rango de Edad:</b> ", grupo_edad, "<br>",
+      "<b>Porcentaje:</b> ", pct, "%"
     )
   )
 
-# 5. Crear gráfico con menú desplegable correctamente etiquetado
+# --- 5. Creación del Gráfico Interactivo con Plotly ---
 plot_ly(
   data = datos_final,
   x = ~grupo_edad,
@@ -146,27 +177,32 @@ plot_ly(
       type = 'filter',
       target = ~campus,
       operation = '=',
-      value = "Todos"
+      value = niveles_ordenados[1]
     )
   )
 ) %>%
   layout(
-    title = "Distribución porcentual de la Edad por campus (hasta 40 años)",
-    xaxis = list(title = "Edad (intervalos de 2 años)", tickangle = -45),
-    yaxis = list(title = "Porcentaje", ticksuffix = "%"),
+    title = list(text = "<b>Distribución Porcentual de Edad por Campus (14 a 39 años)</b>", x = 0.5),
+    xaxis = list(title = "<b>Rango de Edad</b>", tickangle = -45),
+    yaxis = list(title = "<b>Porcentaje (%)</b>", ticksuffix = "%"),
+    # Aquí configuramos el menú desplegable.
     updatemenus = list(
       list(
         type = 'dropdown',
         active = 0,
+        # **AJUSTE:** Cambiamos las coordenadas y el anclaje para moverlo a la izquierda.
+        x = 0, xanchor = "left",   # <-- LÍNEA MODIFICADA
+        y = 1.2, yanchor = "top",    # <-- LÍNEA MODIFICADA
         buttons = lapply(niveles_ordenados, function(c) {
-          list(method = "restyle",
-               args = list("transforms[0].value", c),
-               label = c)
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
         })
       )
     )
   )
-
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -317,7 +353,7 @@ fig
 ### Sexo
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En relación con el sexo, el 61.3% de los participantes eran mujeres y el 38.8% eran hombres.
+En relación con el sexo, el 61.5% de los participantes eran mujeres y el 38.5% eran hombres.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -327,14 +363,14 @@ library(RColorBrewer)
 
 # 1. Preparar los datos por campus y sexo
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(sexo_id), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, sexo_id) %>%
+  filter(!is.na(campus), !is.na(genero), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, genero) %>%
   summarise(n = n(), .groups = "drop")
 
 # 2. Agregar grupo "Todos"
 todos <- datos %>%
-  filter(!is.na(sexo_id)) %>%
-  count(sexo_id, name = "n") %>%
+  filter(!is.na(genero)) %>%
+  count(genero, name = "n") %>%
   mutate(campus = "Todos")
 
 # 3. Fijar niveles de campus (con "Todos" primero)
@@ -347,7 +383,7 @@ datos_final <- bind_rows(datos_plot, todos) %>%
 # 5. Crear gráfico de pastel con filtro
 fig <- plot_ly(
   data = datos_final,
-  labels = ~sexo_id,
+  labels = ~genero,
   values = ~n,
   type = "pie",
   textinfo = "label+percent",
@@ -1112,6 +1148,7 @@ if("Mensaje" %in% colnames(tabla_final)) {
 ## Habilidades de comunicación y Socialización
 
 ### Cuándo hablo en público, generalmente me siento:
+
 ::: {.callout-note title="Descripción para todos los campus"}
 El sentimiento predominante es el nerviosismo, con un 46.5% de los estudiantes Cuando hablan en público. En segundo lugar, se encuentran las emociones de tensión y tranquilidad, con un 21.6% y un 21% respectivamente. Finalmente, solo un 10.9% de los encuestados se siente seguro o confiado al hablar en público.
 :::
@@ -1179,6 +1216,7 @@ fig
 ```
 
 ### ¿He realizado estudios de oratoria?
+
 ::: {.callout-note title="Descripción para todos los campus"}
 De los estudiantes encuestados, el 87.7% indicaron no haber tomado cursos de oratoria, mientras que alrededor del 12.3% sí los han realizado.
 :::
@@ -1246,6 +1284,7 @@ fig
 ```
 
 ### ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente?
+
 ::: {.callout-note title="Descripción para todos los campus"}
 En lo que respecta a la interacción social, la gran mayoría de los estudiantes (92.5%) se sienten cómodos y se expresan abiertamente dentro de su grupo de amigos, mientras que una minoría (7.53%) no experimenta la misma comodidad.
 :::

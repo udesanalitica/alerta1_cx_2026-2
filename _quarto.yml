@@ -55,6 +55,7 @@ book:
     - intro.qmd
     - summary.qmd
     - Sesion1.qmd
+    - Sesion2.qmd
     - filtro.qmd
     - references.qmd
 
