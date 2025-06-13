@@ -919,3 +919,156 @@ fig <- fig %>%
 fig
 
 ```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y ¿Quién cubre sus gastos de matrícula?
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(gastos_mat) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, gastos_mat) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(gastos_mat)) %>%
+  count(gastos_mat, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'gastos_mat' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(gastos_mat)
+
+datos_final <- datos_final %>%
+  mutate(gastos_mat = factor(gastos_mat, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", gastos_mat, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+fig <- plot_ly(
+  data = datos_final,
+  x = ~gastos_mat,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución gastos de matrícular \n por campus",
+    xaxis = list(title = "Quién cubre los gastos de matrícula"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y dinero en transporte
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(din_trans) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, din_trans) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(din_trans)) %>%
+  count(din_trans, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de barras en celeste con filtro
+fig <- plot_ly(
+  data = datos_final,
+  x = ~din_trans,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del gasto semanal en transporte por campus",
+    xaxis = list(title = "Gasto en transporte"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+
+```

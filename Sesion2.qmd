@@ -1,5 +1,5 @@
 ---
-title: "Sesión 2.Aspectos sociodemográficos"
+title: "Sesión 2. Aspectos sociodemográficos"
 ---
 
 ## Movilidad
@@ -10,13 +10,9 @@ Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
 
 View(Data20252)
 datos<- Data20252
-
 attach(datos)
-
 # head(datos)
-
 # str(datos)
-
 # names(datos)
 ```
 
@@ -43,7 +39,6 @@ library(dplyr)
 library(ggrepel)
 library(tidyverse)
 library(scales)
-
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
@@ -75,17 +70,16 @@ cols_factor <- c(
 # Convertir solo las columnas que realmente existen
 cols_existentes <- intersect(cols_factor, names(datos))
 datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
-
 ```
 
 ::: {.callout-warning title="Aclaración importante"}
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 :::
 
-## Medio de transporte habitual de su casa a la universidad
+### Medio de transporte habitual de su casa a la universidad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En términos generales, entre los estudiantes de nuevo ingreso a la UDES en los campus de Bucaramanga, Cúcuta y Valledupar, se observa que el medio de desplazamiento más habitual es el **transporte público** (29.8%), seguido por la **motocicleta** (26%). El **automóvil propio** representa el 17.7%, mientras que **desplazarse a pie** lo realiza el 12.8% de los estudiantes. Un 12.3% opta por transporte solicitado a través de **plataformas digitale**s. Los porcentajes restantes se distribuyen entre otros medios de transporte (1.03%) y **bicicleta** (0.238%).
+En términos generales, entre los estudiantes de nuevo ingreso a la UDES en los campus de Bucaramanga, Cúcuta y Valledupar, se observa que el medio de desplazamiento más habitual es el **transporte público** (29.8%), seguido por la **motocicleta** (26%). El **automóvil propio** representa el 17.7%, mientras que **desplazarse a pie** lo realiza el 12.8% de los estudiantes. Un 12.3% opta por transporte solicitado a través de **plataformas digitales**. Los porcentajes restantes se distribuyen entre otros medios de transporte (1.03%) y **bicicleta** (0.238%).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -149,7 +143,7 @@ fig <- plot_ly(
 fig
 ```
 
-## Su vehículo que tipo de combustible utiliza
+### Su vehículo que tipo de combustible utiliza
 
 ::: {.callout-note title="Descripción para todos los campus"}
 En cuanto al tipo de combustible que emplean los vehcículos usados por los estudiantes, la **Gasolina** es empleada por el 52.7% de los usuarios. Otros combustibles como el **Diése**l (2.38%), **Híbrido** (0.792%) y Eléctrico 100% (0.158%). Esta distribución es coherente con las tendencias nacionales donde la electrificación del parque automotor está en sus etapas iniciales. Sin embargo, un considerable 44% de los encuestados declara **"No tengo transporte propio"**.
@@ -216,7 +210,7 @@ fig <- plot_ly(
 fig
 ```
 
-## Comparte con otras personas durante el trayecto su medio de transporte habitual
+### Comparte con otras personas durante el trayecto su medio de transporte habitual
 
 ::: {.callout-note title="Descripción para todos los campus"}
 Entre los estudiantes que sí poseen vehículo, la mayoría (31.3%) No comparte su transporte, mientras que un 24.9% Sí lo hace; mientras que un 43.8% indican que "No tengo transporte propio", reiterando la proporción de estudiantes que se movilizan de otras maneras. Lo anterior sugiere una oportunidad para fomentar el ***carpooling*** y otras iniciativas de movilidad compartida, que podrían disminuir la congestión y reducir la huella de carbono.
@@ -283,7 +277,7 @@ fig <- plot_ly(
 fig
 ```
 
-## ¿Estaría dispuesto a compartir su medio de transporte?
+### ¿Estaría dispuesto a compartir su medio de transporte?
 
 ::: {.callout-note title="Descripción para todos los campus"}
 En cuanto a la disposición a compartir su medio de transporte, se observa que, el 42.6% de los estudiantes afirma que **Sí** estaría dispuesto a compartir su vehículo. Un 12.1% se muestra reacio.
@@ -351,10 +345,10 @@ fig
 
 ```
 
-## Tiempo en promedio en desplazamiento de su casa a la universidad
+### Tiempo en promedio en desplazamiento de su casa a la universidad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+El 55.2% de los encuestados reporta invertir entre 10 y 30 minutos en su desplazamiento. En contraste, solo un 24.6% de los participantes gasta menos de 10 minutos. Un 15.5% pasa entre 30 y 60 minutos en el camino, mientras que un 4.6% más de 60 minutos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -418,17 +412,17 @@ fig <- plot_ly(
 fig
 ```
 
-## Dinero en transporte, en promedio, semanal en desplazamiento
+### Dinero en transporte, en promedio, semanal en desplazamiento
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+El 21% de los estudiantes **no gasta nada** en transpote para llegar a la UDES. Minetras que el 17.4%, reporta gastos semanales de **más de \$50.000**. El 15.1% invierten **entre \$10.000 y \$20.000** semanalmente. Aproximadamente 12.5% gastan **entre \$30.000 y \$40.000**, mientras que cerca del 11.7% destinan **entre \$20.000 y \$30.000**. Finalmente, un grupo de alrededor del 11.6% de los encuestados reporta gastos semanales **entre \$5.000 y \$10.000**, y un número similar, aproximadamente del 10.6%, gasta **entre \$40.000 y \$50.000**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 
-# 1. Preparar los datos por campus y dinero en transporte
+# 1. Preparar los datos por campus y Dinero en transporte, en promedio, semanal en desplazamiento
 datos_plot <- datos %>%
   filter(!is.na(campus) & !is.na(din_trans) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, din_trans) %>%
@@ -447,13 +441,44 @@ niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de barras en celeste con filtro
+# 5. Ordenar niveles de 'din_trans' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(din_trans)
+
+datos_final <- datos_final %>%
+  mutate(din_trans = factor(din_trans, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", din_trans, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
   x = ~din_trans,
   y = ~n,
   type = "bar",
   marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -464,8 +489,8 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución del gasto semanal en transporte por campus",
-    xaxis = list(title = "Gasto en transporte"),
+    title = "Distribución gastos semanales \nen desplazamiento por campus",
+    xaxis = list(title = "Gastos semanales por desplazamiento"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
       list(
@@ -481,8 +506,6 @@ fig <- plot_ly(
   )
 
 fig
-
-
 ```
 
 ## Familia cercana
@@ -490,14 +513,14 @@ fig
 ### ¿Cuál es la tipologia familiar de origen?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+El 64,8% de los estudiantes de reién ingreso en la UDES Bucaramanga provienen de familias biparentales en su mayoria.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 
-# 1. Preparar los datos por campus y tipologia familiar de origen
+# 1. Preparar los datos por campus y ¿Cuál es la tipologia familiar de origen?
 datos_plot <- datos %>%
   filter(!is.na(campus) & !is.na(tip_familia) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, tip_familia) %>%
@@ -525,13 +548,35 @@ niveles_din_trans <- datos_final %>%
 datos_final <- datos_final %>%
   mutate(tip_familia = factor(tip_familia, levels = niveles_din_trans))
 
-# 6. Crear gráfico de barras en celeste con filtro
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", tip_familia, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
   x = ~tip_familia,
   y = ~n,
   type = "bar",
   marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -542,8 +587,8 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución tipologia familiar \nde origen por campus",
-    xaxis = list(title = "Tipologia familiar"),
+    title = "Distribución tipologia familiar de origen \n por campus",
+    xaxis = list(title = "Tipologia familiar de origen"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
       list(
@@ -565,14 +610,14 @@ fig
 ### ¿Con cuántas personas convive?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+El tamaño de las familias, el 57.2% de los estudiantes pertenecen a núcleos familiares de 3 a 4 personas, seguido por hogares de 1 a 2 personas (19.7%).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 
-# 1. Preparar los datos por campus y Con cuántas personas convive actualmente
+# 1. Preparar los datos por campus y ¿Cuál es la tipologia familiar de origen?
 datos_plot <- datos %>%
   filter(!is.na(campus) & !is.na(convive) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, convive) %>%
@@ -600,13 +645,35 @@ niveles_din_trans <- datos_final %>%
 datos_final <- datos_final %>%
   mutate(convive = factor(convive, levels = niveles_din_trans))
 
-# 6. Crear gráfico de barras en celeste con filtro
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", convive, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
   x = ~convive,
   y = ~n,
   type = "bar",
   marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -617,8 +684,8 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución con cuántas personas \nconvive actualmente de origen por campus",
-    xaxis = list(title = "Número de personas en el hogar"),
+    title = "Distribución con cuántas personas \nconvive actualmente por campus",
+    xaxis = list(title = "Con cuántas personas convive"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
       list(
@@ -640,7 +707,7 @@ fig
 ### En cuántos cuartos duermen las personas de su hogar
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+En cuanto al tamaño de las viviendas, el 46.7% de los estudiantes reside en casas con 3 habitaciones, mientras que el 25.5% habita en inmuebles con 2 habitaciones. Por otro lado, el 15.1% vive en propiedades con 4 habitaciones.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -675,13 +742,35 @@ niveles_din_trans <- datos_final %>%
 datos_final <- datos_final %>%
   mutate(cuartos = factor(cuartos, levels = niveles_din_trans))
 
-# 6. Crear gráfico de barras en celeste con filtro
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", cuartos, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
   x = ~cuartos,
   y = ~n,
   type = "bar",
   marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -692,8 +781,8 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución cuántos cuartos \nen el hogar por campus",
-    xaxis = list(title = "Número de cuartos en el hogar"),
+    title = "Distribución con cuántas personas \nconvive actualmente por campus",
+    xaxis = list(title = "COn cuántas personas convive"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
       list(
@@ -715,7 +804,7 @@ fig
 ### ¿Tiene hijos?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+En relación con la paternidad, el 97.1% de los estudiantes manifestaron no tener hijo, mientras que el 2,9% sí tienen.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -782,7 +871,7 @@ fig
 ### ¿Cuántos hijos tiene?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+De aquellos estudiantes con hijos, el 56.8% tiene un hijo, el 37.8% dos hijos y restante 3 hijos o más de 4 hijos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -852,7 +941,7 @@ fig
 ### Grupo poblacional
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+El 30.1% de los estudiantes se identifica con algún grupo poblacional.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -920,7 +1009,9 @@ fig
 ### ¿A cuál de los siguientes grupos poblacionales considera usted que pertenece?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+De los 380 estudiantes que indicaron pertenecer a un grupo poblacional específico, la mayoría, un 20%, corresponde a la población víctima del conflicto armado (76 estudiantes). Le siguen con un 17.6%, los grupos étnicos (67 estudiantes) y el 15.5% las culturas urbanas (59 estudiantes).
+
+Otros porcentajes significativos incluyen a la población LGBTIQ+A, que representa un 11.6% (44 estudiantes). Un 10.3% de los encuestados se identifica como población desplazada (39 estudiantes). Finalmente, la población campesina constituye un 9.5% (36 estudiantes).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1002,7 +1093,7 @@ fig
 ### ¿A cuál de los siguientes grupos étnicos pertenece?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+Dentro de los grupos étnicos, el 49.3% corresponde a pueblos indígenas, el 43.3% a comunidades negras afrocolombianas y el 4.48% a mestizos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1070,7 +1161,7 @@ fig
 ### Comunidad indígena a la que pertenece
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+Entre los pueblos indígenas representados se encuentran Wayúu (42.4%), Kankuamo (33.3%), Cariachiles (6.06%), Jayariyu (6.0%), entre otros.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1132,7 +1223,6 @@ fig <- plot_ly(
   )
 
 fig
-
 ```
 
 ## Perfil económico y Académico de los padres
@@ -1143,7 +1233,94 @@ fig
 En cuanto a la .....
 :::
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y ¿Quién cubre sus gastos de matrícula?
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(gastos_mat) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, gastos_mat) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(gastos_mat)) %>%
+  count(gastos_mat, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'gastos_mat' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(gastos_mat)
+
+datos_final <- datos_final %>%
+  mutate(gastos_mat = factor(gastos_mat, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", gastos_mat, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+fig <- plot_ly(
+  data = datos_final,
+  x = ~gastos_mat,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución gastos de matrícular \n por campus",
+    xaxis = list(title = "Quién cubre los gastos de matrícula"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
 
 ```
 
@@ -1153,8 +1330,94 @@ En cuanto a la .....
 En cuanto a la .....
 :::
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
 
+# 1. Preparar los datos por campus y ¿Cuál es la forma de pago del semestre en la Universidad?
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(pago_sem) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, pago_sem) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(pago_sem)) %>%
+  count(pago_sem, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'pago_sem' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(pago_sem)
+
+datos_final <- datos_final %>%
+  mutate(pago_sem = factor(pago_sem, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", pago_sem, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+fig <- plot_ly(
+  data = datos_final,
+  x = ~pago_sem,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución forma de pago del \nsemestre por campus",
+    xaxis = list(title = "Forma de pago del semestre"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
 ```
 
 ### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
@@ -1162,6 +1425,128 @@ En cuanto a la .....
 ::: {.callout-note title="Descripción para todos los campus"}
 En cuanto a la .....
 :::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(tm)
+library(SnowballC)
+library(wordcloud2)
+library(RColorBrewer)
+
+# 1. Extraer y limpiar texto de la variable 'eligio_udes'
+text <- datos$eligio_udes %>%
+  na.omit() %>% 
+  paste(collapse = " ")  # Unir todas las respuestas en un solo texto
+
+# 2. Crear corpus
+docs <- Corpus(VectorSource(text))
+
+# 3. Limpiar texto
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+docs <- tm_map(docs, toSpace, "'")
+docs <- tm_map(docs, toSpace, "`")
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish"))  # Español
+docs <- tm_map(docs, removeWords, c("udes", "universidad", "santander", "porque"))  # Palabras irrelevantes
+docs <- tm_map(docs, stripWhitespace)
+removeSpecialChars <- function(x) gsub("[^a-zA-Z0-9 ]", "", x)
+docs <- tm_map(docs, content_transformer(removeSpecialChars))
+
+# 4. Calcular frecuencia de palabras
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = TRUE)
+d <- data.frame(word = names(v), freq = v)
+
+# 5. Visualizar como nube de palabras
+wordcloud2(d, color = "random-light", backgroundColor = "white")
+
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Cargar librerías necesarias
+library(dplyr)
+library(tm)
+library(SnowballC)
+library(wordcloud2)
+library(RColorBrewer)
+
+# 1. Extraer y procesar las categorías de elección
+text <- datos$eligio_udes %>%
+  na.omit() %>%
+  # Primero limpiar y estandarizar separadores
+  gsub("\\s+", " ", .) %>%  # Normalizar espacios múltiples
+  # Separar por punto y coma
+  strsplit(";") %>%
+  unlist() %>%
+  trimws() %>%  # Eliminar espacios al inicio y final
+  .[. != ""] %>%  # Eliminar elementos vacíos
+  paste(collapse = " ")  # Unir todas las respuestas
+
+# 2. Crear corpus
+docs <- Corpus(VectorSource(text))
+
+# 3. Limpiar y transformar texto
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish"))
+
+# Remover solo palabras verdaderamente irrelevantes - conservando palabras clave
+palabras_irrelevantes <- c("por", "porque", "la", "el", "en", "de", "para", 
+                          "con", "una", "un", "es", "son", "fue", "muy", 
+                          "más", "menos", "solo", "no", "mi", "los", "las", 
+                          "del", "al", "se", "su", "sus", "como", "pero", 
+                          "que", "le", "udes", "universidad", "santander")
+
+docs <- tm_map(docs, removeWords, palabras_irrelevantes)
+docs <- tm_map(docs, stripWhitespace)
+
+# 4. Crear matriz de términos y calcular frecuencias
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = TRUE)
+d <- data.frame(word = names(v), freq = v)
+
+# Mostrar TODAS las palabras encontradas para diagnóstico
+print("TODAS las palabras encontradas:")
+print(d)
+
+# Filtrar palabras con frecuencia mínima de 1 (mostrar todas)
+d <- d[d$freq >= 1, ]
+
+# 5. Crear nube de palabras
+wordcloud2(d, 
+           size = 1.5,                    # Tamaño aumentado
+           color = "random-dark",         # Colores oscuros para contraste
+           backgroundColor = "white",     # Fondo blanco
+           minRotation = 0,              # Sin rotación mínima
+           maxRotation = 0,              # Sin rotación máxima (texto horizontal)
+           rotateRatio = 0,              # Sin rotación
+           fontFamily = "Arial",         # Fuente
+           ellipticity = 0.6,            # Forma
+           minSize = 10)                 # Tamaño mínimo de fuente
+
+# Mostrar las palabras más frecuentes
+print("Palabras clave de motivos de elección UDES:")
+print("==============================================")
+head(d, 15)
+
+# Opcional: Crear un resumen de las categorías principales
+print("\nCategorías esperadas en la nube de palabras:")
+print("- referencias, positivas")
+print("- carrera, preferencia") 
+print("- otra")
+print("- instituciones")
+print("- visita, colegio")
+print("- economía")
+print("- decisión, padres")
+```
 
 ### Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestres)
 
@@ -1231,7 +1616,7 @@ En cuanto a la .....
 
 ```
 
-### ¿Cuántos libros físicos o electrónicos hay en su hogar excluyendo periódicos, revistas, directorios telefónicos y libros del colegio?
+### ¿Cuántos libros físicos o electrónicos hay en su hogar excluyendo periódicos, revistas,directorios telefónicos y libros del colegio?
 
 ::: {.callout-note title="Descripción para todos los campus"}
 En cuanto a la .....
