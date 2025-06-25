@@ -1230,7 +1230,7 @@ fig
 ### ¿Quién cubre sus gastos de matrícula?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+La mayor parte de la responsabilidad financiera recae en los **padres** (47.5%). Aunque en menor medida, el esfuerzo individual de cada progenitor también es notable. Aquellos estudiantes cuyos gastos son cubiertos **solo por el padre** representan un grupo considerable, con aproximadamente 268 casos (21.2%). De manera similar, la dedicación de las madres es evidente, con alrededor de 159 (12.6%) estudiantes que cuentan con el apoyo financiero exclusivo de la **madre**. Más allá del núcleo parental, las **entidades financieras** apoyan a poco más de 112 estudiantes, lo que sugiere el recurso a créditos educativos. La **financiación propia** por parte del estudiante o de **otros familiares** (ambos por debajo de los 100 casos) también contribuyen, aunque de forma más limitada. Finalmente, un número mínimo de estudiantes (apenas visible en el gráfico) se beneficia de **becas**, destacando la necesidad de ampliar estas oportunidades para aliviar la carga económica.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1327,7 +1327,7 @@ fig
 ### ¿Cuál es la forma de pago del semestre en la Universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+La forma de pago del semestre en el 44,5% de los estudiantes es en efectivo, el 28,4% mediante entidades financieras, el 6% con el ICETEX, entre otros medios. 
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1545,33 +1545,209 @@ print("- otra")
 print("- instituciones")
 print("- visita, colegio")
 print("- economía")
-print("- decisión, padres")
+# print("- decisión, padres")
 ```
 
 ### Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestres)
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+La distribución del tiempo transcurrido entre el grado del colegio y el ingreso a la Universidad de Santander (UDES) por campus, se observa que la mayoría de los estudiantes (57.1%) ingresaron inmediatamente después de graduarse del colegio, lo que indica una transición directa hacia la educación superior. Un 18.5% de los estudiantes ingresó dos semestres después, lo que sugiere una pausa corta. Un 12.4% inició sus estudios entre dos y tres años después del grado. El grupo que esperó más de cuatro años para ingresar representa el 6.97%, mientras que un 4.99% lo hizo un semestre después del grado.
 :::
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestre
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(tiempo_ing), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, tiempo_ing) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(tiempo_ing)) %>%
+  count(tiempo_ing, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~tiempo_ing,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución número de semestres para \ningresar a la UDES por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
 
 ```
 
 ### ¿Usted es el primero en su familia inmediata en asistir a la universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+El 25.4% de los estudiantes reporta ser el primero en su familia inmediata en asistir a la universidad. Por otro lado, el 74.6% restante proviene de familias en las que ya existía experiencia previa universitaria, lo que puede influir positivamente en el acompañamiento académico y en la toma de decisiones educativas.
 :::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Usted es el primero en su familia inmediata en asistir a la universidad?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(prim_univ), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, prim_univ) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(prim_univ)) %>%
+  count(prim_univ, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~prim_univ,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución del primero en la familia \nen asisitir a la universidad por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
 
 ### ¿Cuál es el nivel educativo más alto alcanzado por su padre?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+La mayoría de los padres de los estudiantes encuestados alcanzaron niveles de educación profesional completa (22.1%) o secundaria completa (21.3%), seguidos por educación técnica o tecnológica completa (11.9%). Un menor porcentaje reportó nivel de posgrado (7.77%), mientras que el 6.5% no sabe el nivel educativo alcanzado por su padre. Otros niveles, como primaria completa, incompleta o educación incompleta en distintos niveles, tienen una representación menor.
 :::
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
 
+# 1. Preparar los datos por campus y ¿Cuál es el nivel educativo más alto alcanzado por su padre?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(niv_padre), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, niv_padre) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(niv_padre)) %>%
+  count(niv_padre, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~niv_padre,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270+45,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución nivel educativo más alto \nalcanzado por su padre por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
 ```
 
 ### ¿Cuál es el nivel educativo más alto alcanzado por su madre?
