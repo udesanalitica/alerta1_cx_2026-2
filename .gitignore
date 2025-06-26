@@ -13,4 +13,6 @@ Data20252.xlsx
 *.RData
 *.rds
 
+# Ignorar toda la carpeta data
 data/Data20252.xlsx
+data/
