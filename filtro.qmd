@@ -15,6 +15,73 @@ attach(datos)
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Cargar librerías necesarias
+library(dplyr)
+library(tm)
+library(SnowballC)
+library(wordcloud2)
+library(RColorBrewer)
+
+# 1. Extraer y procesar las categorías de elección
+text <- datos$eligio_udes %>%
+  na.omit() %>%
+  # Primero limpiar y estandarizar separadores
+  gsub("\\s+", " ", .) %>%  # Normalizar espacios múltiples
+  # Separar por punto y coma
+  strsplit(";") %>%
+  unlist() %>%
+  trimws() %>%  # Eliminar espacios al inicio y final
+  .[. != ""] %>%  # Eliminar elementos vacíos
+  paste(collapse = " ")  # Unir todas las respuestas
+
+# 2. Crear corpus
+docs <- Corpus(VectorSource(text))
+
+# 3. Limpiar y transformar texto
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish"))
+
+# Remover solo palabras verdaderamente irrelevantes - conservando palabras clave
+palabras_irrelevantes <- c("por", "porque", "la", "el", "en", "de", "para", 
+                          "con", "una", "un", "es", "son", "fue", "muy", 
+                          "más", "menos", "solo", "no", "mi", "los", "las", 
+                          "del", "al", "se", "su", "sus", "como", "pero", 
+                          "que", "le", "udes", "universidad", "santander")
+
+docs <- tm_map(docs, removeWords, palabras_irrelevantes)
+docs <- tm_map(docs, stripWhitespace)
+
+# 4. Crear matriz de términos y calcular frecuencias
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = TRUE)
+d <- data.frame(word = names(v), freq = v)
+
+# Mostrar TODAS las palabras encontradas para diagnóstico
+print("TODAS las palabras encontradas:")
+print(d)
+
+# Filtrar palabras con frecuencia mínima de 1 (mostrar todas)
+d <- d[d$freq >= 1, ]
+
+# 5. Crear nube de palabras
+wordcloud2(d, 
+           size = 1.5,                    # Tamaño aumentado
+           color = "random-dark",         # Colores oscuros para contraste
+           backgroundColor = "white",     # Fondo blanco
+           minRotation = 0,              # Sin rotación mínima
+           maxRotation = 0,              # Sin rotación máxima (texto horizontal)
+           rotateRatio = 0,              # Sin rotación
+           fontFamily = "Arial",         # Fuente
+           ellipticity = 0.6,            # Forma
+           minSize = 10)                 # Tamaño mínimo de fuente
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 
@@ -58,6 +125,97 @@ pd <- data_plot_drop |>
   )
 
 pd
+
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y ¿Cuál es la tipologia familiar de origen?
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(horas_sem) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, horas_sem) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(horas_sem)) %>%
+  count(horas_sem, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'horas_sem' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(horas_sem)
+
+datos_final <- datos_final %>%
+  mutate(horas_sem = factor(horas_sem, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", horas_sem, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+fig <- plot_ly(
+  data = datos_final,
+  x = ~horas_sem,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución con cuántas personas \nconvive actualmente por campus",
+    xaxis = list(title = "Con cuántas personas convive"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
 
 ```
 
@@ -115,7 +273,7 @@ pd <- data_all |>
     )
   )
 
-pd
+pdf()
 
 ```
 
@@ -176,6 +334,97 @@ plot_ly(
       )
     )
   )
+
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y ¿Cuál es la tipologia familiar de origen?
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(convive) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, convive) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(convive)) %>%
+  count(convive, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'convive' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(convive)
+
+datos_final <- datos_final %>%
+  mutate(convive = factor(convive, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", convive, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+fig <- plot_ly(
+  data = datos_final,
+  x = ~convive,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución con cuántas personas \nconvive actualmente por campus",
+    xaxis = list(title = "Con cuántas personas convive"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
 
 ```
 

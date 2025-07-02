@@ -1427,110 +1427,51 @@ En cuanto a la .....
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(dplyr)
-library(tm)
-library(SnowballC)
-library(wordcloud2)
-library(RColorBrewer)
+# Instala y carga las librerías necesarias
+if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
+if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
+if(!require(wordcloud2)) install.packages("wordcloud2", dependencies = TRUE); library(wordcloud2)
+if(!require(RColorBrewer)) install.packages("RColorBrewer", dependencies = TRUE); library(RColorBrewer)
 
-# 1. Extraer y limpiar texto de la variable 'eligio_udes'
-text <- datos$eligio_udes %>%
-  na.omit() %>% 
-  paste(collapse = " ")  # Unir todas las respuestas en un solo texto
+# ✅ Extraer la variable beligio_udescomo texto
+text <- paste(na.omit(datos$eligio_udes), collapse = " ")
 
-# 2. Crear corpus
+# ✅ Crear el corpus
 docs <- Corpus(VectorSource(text))
 
-# 3. Limpiar texto
-toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+# ✅ Limpieza del texto
+toSpace <- content_transformer(function (x, pattern) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "/")
 docs <- tm_map(docs, toSpace, "@")
 docs <- tm_map(docs, toSpace, "\\|")
 docs <- tm_map(docs, toSpace, "'")
 docs <- tm_map(docs, toSpace, "`")
+
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, content_transformer(tolower))
 docs <- tm_map(docs, removeNumbers)
-docs <- tm_map(docs, removeWords, stopwords("spanish"))  # Español
-docs <- tm_map(docs, removeWords, c("udes", "universidad", "santander", "porque"))  # Palabras irrelevantes
+docs <- tm_map(docs, removeWords, stopwords("spanish")) 
 docs <- tm_map(docs, stripWhitespace)
-removeSpecialChars <- function(x) gsub("[^a-zA-Z0-9 ]", "", x)
-docs <- tm_map(docs, content_transformer(removeSpecialChars))
 
-# 4. Calcular frecuencia de palabras
-dtm <- TermDocumentMatrix(docs)
-m <- as.matrix(dtm)
-v <- sort(rowSums(m), decreasing = TRUE)
-d <- data.frame(word = names(v), freq = v)
-
-# 5. Visualizar como nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
-
-```
-
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-# Cargar librerías necesarias
-library(dplyr)
-library(tm)
-library(SnowballC)
-library(wordcloud2)
-library(RColorBrewer)
-
-# 1. Extraer y procesar las categorías de elección
-text <- datos$eligio_udes %>%
-  na.omit() %>%
-  # Primero limpiar y estandarizar separadores
-  gsub("\\s+", " ", .) %>%  # Normalizar espacios múltiples
-  # Separar por punto y coma
-  strsplit(";") %>%
-  unlist() %>%
-  trimws() %>%  # Eliminar espacios al inicio y final
-  .[. != ""] %>%  # Eliminar elementos vacíos
-  paste(collapse = " ")  # Unir todas las respuestas
-
-# 2. Crear corpus
-docs <- Corpus(VectorSource(text))
-
-# 3. Limpiar y transformar texto
-docs <- tm_map(docs, content_transformer(tolower))
-docs <- tm_map(docs, removePunctuation)
-docs <- tm_map(docs, removeNumbers)
-docs <- tm_map(docs, removeWords, stopwords("spanish"))
-
-# Remover solo palabras verdaderamente irrelevantes - conservando palabras clave
-palabras_irrelevantes <- c("por", "porque", "la", "el", "en", "de", "para", 
+# ✅ Eliminar palabras poco informativas según tu contexto
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "ninguno", "ninguna", "por", "porque", "la", "el", "en", "de", "para", 
                           "con", "una", "un", "es", "son", "fue", "muy", 
                           "más", "menos", "solo", "no", "mi", "los", "las", 
                           "del", "al", "se", "su", "sus", "como", "pero", 
-                          "que", "le", "udes", "universidad", "santander")
+                          "que", "le", "udes", "universidad", "santander"))
 
-docs <- tm_map(docs, removeWords, palabras_irrelevantes)
-docs <- tm_map(docs, stripWhitespace)
+# ✅ Eliminar caracteres especiales preservando tildes y ñ
+removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
+docs <- tm_map(docs, content_transformer(removeSpecialChars))
 
-# 4. Crear matriz de términos y calcular frecuencias
+# ✅ Crear matriz de términos y frecuencias
 dtm <- TermDocumentMatrix(docs)
 m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 
-# Mostrar TODAS las palabras encontradas para diagnóstico
-print("TODAS las palabras encontradas:")
-print(d)
-
-# Filtrar palabras con frecuencia mínima de 1 (mostrar todas)
-d <- d[d$freq >= 1, ]
-
-# 5. Crear nube de palabras
-wordcloud2(d, 
-           size = 1.5,                    # Tamaño aumentado
-           color = "random-dark",         # Colores oscuros para contraste
-           backgroundColor = "white",     # Fondo blanco
-           minRotation = 0,              # Sin rotación mínima
-           maxRotation = 0,              # Sin rotación máxima (texto horizontal)
-           rotateRatio = 0,              # Sin rotación
-           fontFamily = "Arial",         # Fuente
-           ellipticity = 0.6,            # Forma
-           minSize = 10)                 # Tamaño mínimo de fuente
+# ✅ Generar la nube de palabras
+wordcloud2(d, color = "random-light", backgroundColor = "white")
 
 ```
 
