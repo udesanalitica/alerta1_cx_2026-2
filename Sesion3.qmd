@@ -37,6 +37,10 @@ library(dplyr)
 library(ggrepel)
 library(tidyverse)
 library(scales)
+library(tm)
+library(SnowballC)
+library(wordcloud2)
+library(RColorBrewer)
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
@@ -513,11 +517,7 @@ docs <- tm_map(docs, removeWords, stopwords("spanish"))
 docs <- tm_map(docs, stripWhitespace)
 
 # ✅ Eliminar palabras poco informativas según tu contexto
-docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "ninguno", "ninguna", "etc", "hogar", "tiene", "con", "sin", "ninguno", "ninguna", "por", "porque", "la", "el", "en", "de", "para", 
-                          "con", "una", "un", "es", "son", "fue", "muy", 
-                          "más", "menos", "solo", "no", "mi", "los", "las", 
-                          "del", "al", "se", "su", "sus", "como", "pero", 
-                          "que", "le", "udes", "universidad", "santander"))
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "ninguno", "ninguna", "etc", "hogar", "tiene", "con", "sin", "ninguno", "ninguna", "por", "porque", "la", "el", "en", "de", "para", "con", "una", "un", "es", "son", "fue", "muy", "más", "menos", "solo", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
 
 # ✅ Eliminar caracteres especiales preservando tildes y ñ
 removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
@@ -537,7 +537,7 @@ wordcloud2(d, color = "random-light", backgroundColor = "white")
 ### ¿Cuántas horas remuneradas trabajó usted la semana pasada?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 42.9% de los estudiantes no realiza trabajo remunerado, mientras que el 32% respondió “no aplica”. Un porcentaje menor (10.) trabaja menos de 10 horas o más de 30 horas semanales. Esto indica que la mayoría no realiza actividades laborales, lo cual puede estar relacionado con dedicación exclusiva a estudios o falta de oportunidades laborales.
+El 42.9% de los estudiantes no realiza trabajo remunerado, mientras que el 32% respondió "no aplica". Un porcentaje menor (10.) trabaja menos de 10 horas o más de 30 horas semanales. Esto indica que la mayoría no realiza actividades laborales, lo cual puede estar relacionado con dedicación exclusiva a estudios o falta de oportunidades laborales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1020,6 +1020,74 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
+    title = "Distribución tipo de \nayuda recibida por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### Tipo de ayuda recibido para superar el consumo de sustancias psicoactivas
+
+::: {.callout-note title="Descripción para todos los campus"}
+La palabra "ninguna" aparece como la más frecuente, lo que indica que muchas personas no han tenido una experiencia institucional previa. También se observan menciones a entornos "familiares" y "centro de binestar", lo cual sugiere que, en los casos donde sí hubo experiencia, esta estuvo relacionada con instituciones de atención familiar o de paso temporal.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y Tipo de ayuda recibido para superar el consumo de sustancias psicoactivas
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(tipo_ayuda), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, tipo_ayuda) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(tipo_ayuda)) %>%
+  count(tipo_ayuda, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~tipo_ayuda,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 135,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
     title = "Distribución si ha recibido orientación o \nayuda profesional por campus",
     updatemenus = list(
       list(
@@ -1038,56 +1106,6 @@ fig
 
 ```
 
-### Si su respuesta anterior fue sí, indique qué tipo de ayuda recibió
-
-::: {.callout-note title="Descripción para todos los campus"}
-La palabra "ninguna" aparece como la más frecuente, lo que indica que muchas personas no han tenido una experiencia institucional previa. También se observan menciones a entornos "familiares" y "centro de binestar", lo cual sugiere que, en los casos donde sí hubo experiencia, esta estuvo relacionada con instituciones de atención familiar o de paso temporal.
-:::
-
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-# Instala y carga las librerías necesarias
-if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
-if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
-if(!require(wordcloud2)) install.packages("wordcloud2", dependencies = TRUE); library(wordcloud2)
-if(!require(RColorBrewer)) install.packages("RColorBrewer", dependencies = TRUE); library(RColorBrewer)
-
-# ✅ Extraer la variable btipo_ayudacomo texto
-text <- paste(na.omit(datos$tipo_ayuda), collapse = " ")
-
-# ✅ Crear el corpus
-docs <- Corpus(VectorSource(text))
-
-# ✅ Limpieza del texto
-toSpace <- content_transformer(function (x, pattern) gsub(pattern, " ", x))
-docs <- tm_map(docs, toSpace, "/")
-docs <- tm_map(docs, toSpace, "@")
-docs <- tm_map(docs, toSpace, "\\|")
-docs <- tm_map(docs, toSpace, "'")
-docs <- tm_map(docs, toSpace, "`")
-
-docs <- tm_map(docs, removePunctuation)
-docs <- tm_map(docs, content_transformer(tolower))
-docs <- tm_map(docs, removeNumbers)
-docs <- tm_map(docs, removeWords, stopwords("spanish")) 
-docs <- tm_map(docs, stripWhitespace)
-
-# ✅ Eliminar palabras poco informativas según tu contexto
-docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "hogar", "tiene", "con", "sin",  "por", "porque", "la", "el", "en", "de", "para", "con", "una", "un", "es", "son", "fue", "muy", "más", "menos", "solo", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
-
-# ✅ Eliminar caracteres especiales preservando tildes y ñ
-removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
-docs <- tm_map(docs, content_transformer(removeSpecialChars))
-
-# ✅ Crear matriz de términos y frecuencias
-dtm <- TermDocumentMatrix(docs)
-m <- as.matrix(dtm)
-v <- sort(rowSums(m), decreasing = TRUE)
-d <- data.frame(word = names(v), freq = v)
-
-# ✅ Generar la nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
-
-```
 
 ## Consumo de Cigarrillo: Hábitos y Motivaciones
 
@@ -1167,11 +1185,10 @@ Entre quienes fuman, las edades más comunes de inicio son los 14, 15 y 17 años
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
 
-# 1. Preparar los datos por campus y Si su respuesta anterior fue sí, indique la edad en la que empezó a fumar
+# 1. Preparar los datos por campus y Edad de inicio del consumo de alcohol por primera vez
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(edad_fuma), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(!is.na(campus) & !is.na(edad_fuma) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, edad_fuma) %>%
   summarise(n = n(), .groups = "drop")
 
@@ -1188,16 +1205,44 @@ niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
+# 5. Ordenar niveles de 'edad_fuma' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(edad_fuma)
+
+datos_final <- datos_final %>%
+  mutate(edad_fuma = factor(edad_fuma, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", edad_fuma, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
-  labels = ~edad_fuma,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  x = ~edad_fuma,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -1208,14 +1253,16 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución edad en la que empezó \na fumar por campus",
+    title = "Distribución edad de inicio del consumo de \ncigarrillo por campus",
+    xaxis = list(title = "Edad de inicio del consumo de cigarrillo"),
+    yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
       list(
         type = 'dropdown',
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -1223,7 +1270,10 @@ fig <- plot_ly(
   )
 
 fig
+
 ```
+
+
 
 ### ¿Cuál fue el motivo por el cual probó por primera vez el cigarrillo?
 
@@ -1290,54 +1340,6 @@ fig <- plot_ly(
   )
 
 fig
-```
-
-### Si su respuesta anterior fue otra, indicar cuál
-
-::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
-:::
-
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(dplyr)
-library(tm)
-library(SnowballC)
-library(wordcloud2)
-library(RColorBrewer)
-
-# 1. Extraer y limpiar texto de la variable 'eligio_udes'
-text <- datos$eligio_udes %>%
-  na.omit() %>% 
-  paste(collapse = " ")  # Unir todas las respuestas en un solo texto
-
-# 2. Crear corpus
-docs <- Corpus(VectorSource(text))
-
-# 3. Limpiar texto
-toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
-docs <- tm_map(docs, toSpace, "/")
-docs <- tm_map(docs, toSpace, "@")
-docs <- tm_map(docs, toSpace, "\\|")
-docs <- tm_map(docs, toSpace, "'")
-docs <- tm_map(docs, toSpace, "`")
-docs <- tm_map(docs, removePunctuation)
-docs <- tm_map(docs, content_transformer(tolower))
-docs <- tm_map(docs, removeNumbers)
-docs <- tm_map(docs, removeWords, stopwords("spanish"))  # Español
-docs <- tm_map(docs, removeWords, c("udes", "universidad", "santander", "porque"))  # Palabras irrelevantes
-docs <- tm_map(docs, stripWhitespace)
-removeSpecialChars <- function(x) gsub("[^a-zA-Z0-9 ]", "", x)
-docs <- tm_map(docs, content_transformer(removeSpecialChars))
-
-# 4. Calcular frecuencia de palabras
-dtm <- TermDocumentMatrix(docs)
-m <- as.matrix(dtm)
-v <- sort(rowSums(m), decreasing = TRUE)
-d <- data.frame(word = names(v), freq = v)
-
-# 5. Visualizar como nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
-
 ```
 
 ### ¿Cuántos cigarrillos fuma diariamente?
@@ -1413,7 +1415,7 @@ fig
 ### ¿Usted consume alcohol normalmente?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 25.4% de los estudiantes reporta ser el primero en su familia inmediata en asistir a la universidad. Por otro lado, el 74.6% restante proviene de familias en las que ya existía experiencia previa universitaria, lo que puede influir positivamente en el acompañamiento académico y en la toma de decisiones educativas.
+La mayoría de los estudiantes encuestados manifestó no consumir alcohol, representando el 94.8% del total. Solo el 5.2% reportó que sí lo hace. Esto indica que el consumo de alcohol es poco frecuente dentro de la muestra evaluada.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1480,7 +1482,7 @@ fig
 ### Edad de inicio del consumo de alcohol por primera vez
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los padres de los estudiantes encuestados alcanzaron niveles de educación profesional completa (22.1%) o secundaria completa (21.3%), seguidos por educación técnica o tecnológica completa (11.9%). Un menor porcentaje reportó nivel de posgrado (7.77%), mientras que el 6.5% no sabe el nivel educativo alcanzado por su padre. Otros niveles, como primaria completa, incompleta o educación incompleta en distintos niveles, tienen una representación menor.
+Las edades más comunes de inicio del consumo de alcohol se concentran entre los 16, 17 y 18 años. Hay casos aislados de inicio desde los 11 años y hasta los 20. La tendencia muestra que el primer contacto con el alcohol se da principalmente en la adolescencia media.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1577,7 +1579,7 @@ fig
 ### ¿Cuál fue el motivo por el cual probó por primera vez el alcohol?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto al nivel educativo más alto alcanzado por las madres de los estudiantes, se observa que el 30.2%, reporta que su madre culminó estudios profesionales universitarios. Le sigue la secundaria completa, con un 20.9%, y la educación técnica o tecnológica completa con un 15.8%. Por otro lado, solo un 10.2% alcanzó estudios de posgrado.
+El 71.2% de los estudiantes que han probado alcohol indicaron que lo hicieron por curiosidad o iniciativa propia. Un 27.3% mencionó otras razones y solo un 1.5% lo hizo por imitación de conductas familiares. Esto sugiere que la decisión fue principalmente individual, más que influenciada por el entorno familiar.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1613,7 +1615,7 @@ fig <- plot_ly(
   textinfo = "label+percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 50,
+  rotation = 52,
   transforms = list(
     list(
       type = 'filter',
@@ -1644,7 +1646,7 @@ fig
 ###¿Cuántas veces a la semana ingiere alcohol?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gran mayoría de los estudiantes encuestados (95,2%) reporta tener acceso a servicio de internet en su lugar de residencia, lo que indica una alta conectividad. Sin embargo, un 4,8% aún no cuenta con este recurso fundamental, lo cual representa una brecha digital que puede incidir en sus condiciones de acceso, permanencia y aprovechamiento de las oportunidades educativas, especialmente en entornos virtuales o con componentes digitales.
+Entre quienes consumen alcohol, el 95.5% lo hace solo los fines de semana, mientras que el 4.5% lo hace entre dos y tres veces al día. El patrón de consumo es ocasional y concentrado en los fines de semana.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1680,7 +1682,7 @@ fig <- plot_ly(
   textinfo = "label+percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  rotation = 53,
   transforms = list(
     list(
       type = 'filter',
@@ -1758,12 +1760,13 @@ d <- data.frame(word = names(v), freq = v)
 wordcloud2(d, color = "random-light", backgroundColor = "white")
 
 ```
+
 ## Vida sexual
 
 ### A qué edad inició su vida sexual
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mitad de los estudiantes (50.5%) vive en hogares con entre 0 y 10 libros, lo cual evidencia un acceso limitado a material de lectura. Solo un 4.1% reporta tener más de 100 libros, lo que sugiere que la disponibilidad de bibliografía en casa es escasa para la mayoría.
+El 43.5% de los estudiantes señaló no haber iniciado su vida sexual. Un porcentaje similar (42.4%) lo hizo entre los 14 y 17 años, mientras que el 11.7% lo hizo entre los 18 y 21 años. Los casos de inicio antes de los 13 años o después de los 22 son muy pocos. La mayoría de quienes han iniciado su vida sexual lo hizo en la adolescencia.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1830,7 +1833,7 @@ fig
 ### ¿Ha utilizado alguna vez métodos anticonceptivos?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 35.5% de los estudiantes lee por entretenimiento durante 30 minutos o menos al día, mientras que un 31.9% no realiza esta práctica. Apenas un 3.4% dedica más de dos horas a la lectura recreativa, mostrando un bajo hábito lector con fines personales.
+El 84.2% de los estudiantes encuestados indicó utilizar métodos anticonceptivos, frente al 15.8% que no los usa. Esto sugiere un nivel alto de conciencia sobre la protección en las relaciones sexuales entre la población estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1900,7 +1903,7 @@ fig
 La mayoría de los estudiantes (36.3%) navega entre 1 y 3 horas diarias, seguido por un 28.1% que lo hace por más de 3 horas. Solo un 1.9% dice no usar Internet, lo que confirma su alto grado de penetración como herramienta cotidiana.
 :::
 
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE, }
 # Cargar librerías necesarias
 if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
 if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
@@ -1943,11 +1946,10 @@ wordcloud2(data = d, size = 1.6, color = "random-light", backgroundColor = "whit
 
 ```
 
-
 ### ¿De acuerdo con la definición de identidad de género, usted como se identifica?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 85.8% de los estudiantes cuenta con un espacio privado en casa para estudiar, lo que favorece la concentración y el aprendizaje. Sin embargo, un 14.2% aún no dispone de este recurso básico.
+La mayoría de los estudiantes se identifican como mujeres cisgénero (47.2%) y hombres cisgénero (41.2%). El 10,8% prefirió no responder. Las identidades de género diversas como no-binario (0.5%) y hombre transgénero (0.33%) están presentes, aunque en una proporción mucho menor. Esto indica una mayoría de identidad cisgénero con visibilidad de diversidades de género.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2014,7 +2016,7 @@ fig
 ### ¿Cuál es su orientación sexual?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+La mayoría de los encuestados se identifican como heterosexuales (90.5%). Las orientaciones no heterosexuales están representadas en menor proporción, destacando la orientación bisexual (5.63%) y la homosexual (1.98%). Las categorías pansexual, asexual y otras tienen frecuencias inferiores al 1.5%. Esto indica una baja diversidad de orientación sexual en la muestra o una posible subdeclaración por parte de los participantes.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2083,7 +2085,7 @@ fig
 ### ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+El 7.37% de los estudiantes reportó tener alguna enfermedad diagnosticada, mientras que el 92.6% indicó no tener enfermedades.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2148,8 +2150,9 @@ fig
 ```
 
 ### Indique si toma medicamentos como tratamiento de la enfermedad diagnosticada
+
 ::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+Tres de cada cuatro estudiantes (75.3%) indicaron estar tomando medicamentos. Esto contrasta con el porcentaje que reportó tener una enfermedad (7.37%), lo cual sugiere que el uso de medicamentos podría estar relacionado con condiciones no crónicas o tratamientos temporales (por ejemplo, anticonceptivos, analgésicos, suplementos, entre otros).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2216,8 +2219,9 @@ fig
 ## Discapacidad
 
 ### Tiene alguna discapacidad
+
 ::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+El 12.5% de los encuestados reportó tener algún tipo de discapacidad, mientras que el 87.5% indicó no tener ninguna. Este valor refleja la presencia de personas con discapacidad en el entorno universitario y puede orientar estrategias de inclusión y accesibilidad.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2282,8 +2286,9 @@ fig
 ```
 
 ### ¿Qué tipo de discapacidad posee?
+
 ::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+Del total de encuestados, el tipo de discapacidad más reportado fue la visual (9.03%), seguida por la física (1.66%) y la psicosocial (1.11%). Las discapacidades intelectual (0.396%) y auditiva (0.317%) fueron menos frecuentes.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2347,203 +2352,4 @@ fig <- plot_ly(
 fig
 ```
 
-### ¿Cuáles de las siguientes disciplinas artísticas le atrae?
-::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
-:::
 
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(dplyr)
-library(plotly)
-library(RColorBrewer)
-
-# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
-datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, enf_diag) %>%
-  summarise(n = n(), .groups = "drop")
-
-# 2. Agregar grupo "Todos"
-todos <- datos %>%
-  filter(!is.na(enf_diag)) %>%
-  count(enf_diag, name = "n") %>%
-  mutate(campus = "Todos")
-
-# 3. Fijar niveles de campus (con "Todos" primero)
-niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
-
-# 4. Unir todos los datos
-datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
-
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~enf_diag,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-  layout(
-    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
-    updatemenus = list(
-      list(
-        type = 'dropdown',
-        active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
-        })
-      )
-    )
-  )
-
-fig
-```
-
-### ¿Cuenta con alguna habilidad artística?
-::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
-:::
-
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(dplyr)
-library(plotly)
-library(RColorBrewer)
-
-# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
-datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, enf_diag) %>%
-  summarise(n = n(), .groups = "drop")
-
-# 2. Agregar grupo "Todos"
-todos <- datos %>%
-  filter(!is.na(enf_diag)) %>%
-  count(enf_diag, name = "n") %>%
-  mutate(campus = "Todos")
-
-# 3. Fijar niveles de campus (con "Todos" primero)
-niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
-
-# 4. Unir todos los datos
-datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
-
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~enf_diag,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-  layout(
-    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
-    updatemenus = list(
-      list(
-        type = 'dropdown',
-        active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
-        })
-      )
-    )
-  )
-
-fig
-```
-
-### Si su anterior respuesta fue afirmativa, menciona cuál (les)
-
-::: {.callout-note title="Descripción para todos los campus"}
-El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
-:::
-
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(dplyr)
-library(plotly)
-library(RColorBrewer)
-
-# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
-datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, enf_diag) %>%
-  summarise(n = n(), .groups = "drop")
-
-# 2. Agregar grupo "Todos"
-todos <- datos %>%
-  filter(!is.na(enf_diag)) %>%
-  count(enf_diag, name = "n") %>%
-  mutate(campus = "Todos")
-
-# 3. Fijar niveles de campus (con "Todos" primero)
-niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
-
-# 4. Unir todos los datos
-datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
-
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~enf_diag,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-  layout(
-    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
-    updatemenus = list(
-      list(
-        type = 'dropdown',
-        active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
-        })
-      )
-    )
-  )
-
-fig
-```
-
-### 

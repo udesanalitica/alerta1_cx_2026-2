@@ -80,7 +80,6 @@ wordcloud2(d,
 
 ```
 
-
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)

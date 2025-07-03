@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Introducción – Alerta 1. Caracterización de estudiantes</title>
+<title>6&nbsp; Sesión 4. Fomento de la cultura – Alerta 1. Caracterización de estudiantes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./filtro.html" rel="next">
+<link href="./Sesion3.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -70,6 +70,24 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
 
 
 <link rel="stylesheet" href="style.css">
@@ -84,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Sesion4.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sesión 4. Fomento de la cultura</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -128,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
   </div>
 </li>
@@ -158,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Sesion4.html" class="sidebar-item-text sidebar-link">
+  <a href="./Sesion4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sesión 4. Fomento de la cultura</span></span></a>
   </div>
 </li>
@@ -179,20 +197,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#fomento-de-la-cultura" id="toc-fomento-de-la-cultura" class="nav-link active" data-scroll-target="#fomento-de-la-cultura"><span class="header-section-number">6.1</span> ##Fomento de la cultura</a>
+  <ul class="collapse">
+  <li><a href="#cuáles-de-las-siguientes-disciplinas-artísticas-le-atrae" id="toc-cuáles-de-las-siguientes-disciplinas-artísticas-le-atrae" class="nav-link" data-scroll-target="#cuáles-de-las-siguientes-disciplinas-artísticas-le-atrae"><span class="header-section-number">6.1.1</span> ¿Cuáles de las siguientes disciplinas artísticas le atrae?</a></li>
+  <li><a href="#cuenta-con-alguna-habilidad-artística" id="toc-cuenta-con-alguna-habilidad-artística" class="nav-link" data-scroll-target="#cuenta-con-alguna-habilidad-artística"><span class="header-section-number">6.1.2</span> ¿Cuenta con alguna habilidad artística?</a></li>
+  <li><a href="#si-su-anterior-respuesta-fue-afirmativa-menciona-cuál-les" id="toc-si-su-anterior-respuesta-fue-afirmativa-menciona-cuál-les" class="nav-link" data-scroll-target="#si-su-anterior-respuesta-fue-afirmativa-menciona-cuál-les"><span class="header-section-number">6.1.3</span> Si su anterior respuesta fue afirmativa, menciona cuál (les)</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">6.1.4</span> </a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sesión 4. Fomento de la cultura</span></h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -204,12 +234,93 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>La caracterización de estudiantes es una herramienta fundamental que permite a la Universidad conocer a los alumnos de nuevo ingreso, analizando aspectos socioeconómicos, académicos, culturales y biopsicosociales. Su propósito principal es ofrecer un acercamiento integral al estudiante, facilitando la identificación de factores que influyen en su desempeño y bienestar durante la vida universitaria.</p>
-<p>Este proceso no solo beneficia a los estudiantes, al proporcionar alertas y recomendaciones sobre hábitos de autocuidado, sino también a la Universidad, al optimizar los programas y servicios de Bienestar Institucional. A través de la recopilación de datos, se construye un perfil general del estudiante UDES, permitiendo identificar aspectos clave como salud, seguridad social, situación académica, condiciones sociofamiliares, nivel socioeconómico, empleo, bienestar psicológico y afectivo, identidad de género, orientación sexual, nutrición y actividad física, entre otros.</p>
-<p>En el segundo semestre de 2024, se implementaron actualizaciones en la caracterización estudiantil, especialmente en las secciones de aspectos sociodemográficos y salud integral. Entre las nuevas preguntas, se incluyeron temas sobre movilidad, como el tipo de combustible utilizado en los vehículos de los estudiantes, su medio de transporte habitual para llegar a la Universidad y la posibilidad de compartirlo con otros compañeros de la misma zona. En el ámbito de salud integral, se incorporaron interrogantes relacionadas con la pertenencia a grupos poblacionales y étnicos, identidad de género y orientación sexual, con el fin de fomentar un ambiente universitario más inclusivo y diverso.</p>
-<p>Gracias a esta caracterización, la Universidad podrá reconocer mejor las necesidades de los estudiantes de primer ingreso y orientar acciones de intervención que contribuyan a su adaptación y éxito académico.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Aclaración importante">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Aclaración importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.</p>
+</div>
+</div>
+<section id="fomento-de-la-cultura" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="fomento-de-la-cultura"><span class="header-section-number">6.1</span> ##Fomento de la cultura</h2>
+<section id="cuáles-de-las-siguientes-disciplinas-artísticas-le-atrae" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="cuáles-de-las-siguientes-disciplinas-artísticas-le-atrae"><span class="header-section-number">6.1.1</span> ¿Cuáles de las siguientes disciplinas artísticas le atrae?</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Descripción para todos los campus">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descripción para todos los campus
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-bfd1c22b616974b7635c" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-bfd1c22b616974b7635c">{"x":{"visdat":{"423078082dd5":["function () ","plotlyVisDat"]},"cur_data":"423078082dd5","attrs":{"423078082dd5":{"labels":{},"values":{},"textinfo":"label+percent","hoverinfo":"label+percent+value","marker":{"colors":["#FBB4AE","#B3CDE3","#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC"]},"rotation":270,"transforms":[{"type":"filter","target":{},"operation":"=","value":"Todos"}],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"pie"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Distribución tiene alguna enfermedad <br />diagnosticada por campus","updatemenus":[{"type":"dropdown","active":0,"buttons":[{"method":"restyle","args":["transforms.0.value","Todos"],"label":"Todos"},{"method":"restyle","args":["transforms.0.value","Bucaramanga"],"label":"Bucaramanga"},{"method":"restyle","args":["transforms.0.value","Cucuta"],"label":"Cucuta"},{"method":"restyle","args":["transforms.0.value","Valledupar"],"label":"Valledupar"}]}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"labels":["No","Sí","No","Sí","No","Sí","No","Sí"],"values":[539,51,374,16,256,26,1169,93],"textinfo":"label+percent","hoverinfo":["label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value"],"marker":{"color":"rgba(31,119,180,1)","colors":["#FBB4AE","#B3CDE3","#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC"],"line":{"color":"rgba(255,255,255,1)"}},"rotation":270,"transforms":[{"type":"filter","target":["Bucaramanga","Bucaramanga","Cucuta","Cucuta","Valledupar","Valledupar","Todos","Todos"],"operation":"=","value":"Todos"}],"type":"pie","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="cuenta-con-alguna-habilidad-artística" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="cuenta-con-alguna-habilidad-artística"><span class="header-section-number">6.1.2</span> ¿Cuenta con alguna habilidad artística?</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Descripción para todos los campus">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descripción para todos los campus
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-f544efcb5fa8d975fbe4" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f544efcb5fa8d975fbe4">{"x":{"visdat":{"4230294c7ca0":["function () ","plotlyVisDat"]},"cur_data":"4230294c7ca0","attrs":{"4230294c7ca0":{"labels":{},"values":{},"textinfo":"label+percent","hoverinfo":"label+percent+value","marker":{"colors":["#FBB4AE","#B3CDE3","#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC"]},"rotation":270,"transforms":[{"type":"filter","target":{},"operation":"=","value":"Todos"}],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"pie"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Distribución tiene alguna enfermedad <br />diagnosticada por campus","updatemenus":[{"type":"dropdown","active":0,"buttons":[{"method":"restyle","args":["transforms.0.value","Todos"],"label":"Todos"},{"method":"restyle","args":["transforms.0.value","Bucaramanga"],"label":"Bucaramanga"},{"method":"restyle","args":["transforms.0.value","Cucuta"],"label":"Cucuta"},{"method":"restyle","args":["transforms.0.value","Valledupar"],"label":"Valledupar"}]}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"labels":["No","Sí","No","Sí","No","Sí","No","Sí"],"values":[539,51,374,16,256,26,1169,93],"textinfo":"label+percent","hoverinfo":["label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value"],"marker":{"color":"rgba(31,119,180,1)","colors":["#FBB4AE","#B3CDE3","#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC"],"line":{"color":"rgba(255,255,255,1)"}},"rotation":270,"transforms":[{"type":"filter","target":["Bucaramanga","Bucaramanga","Cucuta","Cucuta","Valledupar","Valledupar","Todos","Todos"],"operation":"=","value":"Todos"}],"type":"pie","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="si-su-anterior-respuesta-fue-afirmativa-menciona-cuál-les" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="si-su-anterior-respuesta-fue-afirmativa-menciona-cuál-les"><span class="header-section-number">6.1.3</span> Si su anterior respuesta fue afirmativa, menciona cuál (les)</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Descripción para todos los campus">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descripción para todos los campus
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-61a26e88b7187dd95d45" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-61a26e88b7187dd95d45">{"x":{"visdat":{"42305adc3373":["function () ","plotlyVisDat"]},"cur_data":"42305adc3373","attrs":{"42305adc3373":{"labels":{},"values":{},"textinfo":"label+percent","hoverinfo":"label+percent+value","marker":{"colors":["#FBB4AE","#B3CDE3","#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC"]},"rotation":270,"transforms":[{"type":"filter","target":{},"operation":"=","value":"Todos"}],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"pie"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Distribución tiene alguna enfermedad <br />diagnosticada por campus","updatemenus":[{"type":"dropdown","active":0,"buttons":[{"method":"restyle","args":["transforms.0.value","Todos"],"label":"Todos"},{"method":"restyle","args":["transforms.0.value","Bucaramanga"],"label":"Bucaramanga"},{"method":"restyle","args":["transforms.0.value","Cucuta"],"label":"Cucuta"},{"method":"restyle","args":["transforms.0.value","Valledupar"],"label":"Valledupar"}]}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"labels":["No","Sí","No","Sí","No","Sí","No","Sí"],"values":[539,51,374,16,256,26,1169,93],"textinfo":"label+percent","hoverinfo":["label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value","label+percent+value"],"marker":{"color":"rgba(31,119,180,1)","colors":["#FBB4AE","#B3CDE3","#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC"],"line":{"color":"rgba(255,255,255,1)"}},"rotation":270,"transforms":[{"type":"filter","target":["Bucaramanga","Bucaramanga","Cucuta","Cucuta","Valledupar","Valledupar","Todos","Todos"],"operation":"=","value":"Todos"}],"type":"pie","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="section" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="section"><span class="header-section-number">6.1.4</span> </h3>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -611,15 +722,15 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Créditos">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Créditos</span>
+      <a href="./Sesion3.html" class="pagination-link" aria-label="Sesión 3. Salud integral">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Sesión 3. Salud integral</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link" aria-label="Aspectos metodológicos">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Aspectos metodológicos</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./filtro.html" class="pagination-link" aria-label="Campus Filtro">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Campus Filtro</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

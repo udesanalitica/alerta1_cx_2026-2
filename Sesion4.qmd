@@ -1,0 +1,284 @@
+---
+title: "Sesión 4. Fomento de la cultura"
+---
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(readxl)
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
+
+View(Data20252)
+datos<- Data20252
+attach(datos)
+# head(datos)
+# str(datos)
+# names(datos)
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Librerias necesarias
+#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
+library(ggplot2)
+library(psych)
+library(skimr)
+library(summarytools)
+library(corrplot)
+library(tidyr)
+library(RColorBrewer)
+library(ggpubr)
+library(plotly)
+library(lattice)
+library(Hmisc)
+library(skimr)
+library(summarytools)
+library(base)
+library(ggpubr)
+library(scales)
+library(dplyr)
+library(ggrepel)
+library(tidyverse)
+library(scales)
+library(tm)
+library(SnowballC)
+library(wordcloud2)
+library(RColorBrewer)
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+## Convertir las variables caracter a factor
+# Lista de columnas que se convertirán en factores
+cols_factor <- c(
+  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
+  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
+  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
+  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
+  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
+  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
+  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
+  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
+  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
+  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
+  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
+  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
+  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
+  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
+  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
+  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
+  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
+  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
+  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
+  "fam_formada"
+)
+
+# Convertir solo las columnas que realmente existen
+cols_existentes <- intersect(cols_factor, names(datos))
+datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
+```
+
+::: {.callout-warning title="Aclaración importante"}
+En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
+:::
+
+## ##Fomento de la cultura
+
+### ¿Cuáles de las siguientes disciplinas artísticas le atrae?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, enf_diag) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(enf_diag)) %>%
+  count(enf_diag, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~enf_diag,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Cuenta con alguna habilidad artística?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, enf_diag) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(enf_diag)) %>%
+  count(enf_diag, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~enf_diag,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### Si su anterior respuesta fue afirmativa, menciona cuál (les)
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo que duran sus clases. En contraste, un 25.9% permanece todo el día en el campus, lo que puede estar asociado a actividades extracurriculares, estudio o desplazamientos largos.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, enf_diag) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(enf_diag)) %>%
+  count(enf_diag, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~enf_diag,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### 
