@@ -1710,7 +1710,7 @@ fig
 ### Ocasiones en las cuales consume alcohol
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gran mayoría de los estudiantes encuestados (80.7%) cuenta en su hogar con servicio de televisión por suscripción (cable, parabólica o satelital). No obstante, un 19.3% aún no dispone de este recurso, lo que podría reflejar diferencias en el acceso a medios de entretenimiento e información dentro de los hogares.
+Esta nube de palabras refleja un patrón de consumo **principalmente social, familiar y orientado a eventos grupales**. Es útil para entender que, dentro de la comunidad estudiantil encuestada, el alcohol se vincula más con la vida social que con el consumo individual o por hábito.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -1897,56 +1897,36 @@ La mayoría de los estudiantes (36.3%) navega entre 1 y 3 horas diarias, seguido
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
-# Librerías necesarias
-library(tm)
+# Librerías
 library(ggplot2)
 library(ggwordcloud)
+library(dplyr)
+library(stringr)
 
-# Paso 1: Consolidar y limpiar texto desde la variable tipo_antc
-texto <- paste(na.omit(datos$tipo_antc), collapse = " ")
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$tipo_antc
+palabras <- str_split(na.omit(datos$tipo_antc), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
 
-# 🔧 Corregir palabras unidas conocidas
-replacements <- list(
-  "preservativ[oa]s?p[ií]ldora[s]?" = "preservativo píldora",
-  "oralp[ií]ldora[s]?" = "oral píldora",
-  "preservativoinyectable[s]?" = "preservativo inyectables",
-  "preservativodiut" = "preservativo DIU"
-)
-for (pattern in names(replacements)) {
-  texto <- gsub(pattern, replacements[[pattern]], texto, ignore.case = TRUE)
-}
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
 
-# Paso 2: Crear y procesar el corpus
-docs <- Corpus(VectorSource(texto))
-toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
-docs <- tm_map(docs, toSpace, "/|@|'|`|\\|")
-docs <- tm_map(docs, content_transformer(tolower))
-docs <- tm_map(docs, removePunctuation)
-docs <- tm_map(docs, removeNumbers)
-docs <- tm_map(docs, removeWords, stopwords("spanish"))
-docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "por", "porque", "la", "el", "en", "de", "para", "una", "un", "es", "son", "muy", "más", "menos", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
-docs <- tm_map(docs, stripWhitespace)
-removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
-docs <- tm_map(docs, content_transformer(removeSpecialChars))
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
 
-# Paso 3: Crear matriz de términos y frecuencias
-dtm <- TermDocumentMatrix(docs)
-m <- as.matrix(dtm)
-v <- sort(rowSums(m), decreasing = TRUE)
-d <- data.frame(word = names(v), freq = v)
-
-# ✅ Paso 4: Visualizar con ggwordcloud usando colores por palabra
-set.seed(123)  # para reproducibilidad
-ggplot(d[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(
-    rm_outside = TRUE,
-    grid_size = 2,
-    shape = "circle"
-  ) +
-  scale_size_area(max_size = 90) +
+# Paso 4: Visualización con ggwordcloud
+set.seed(123)
+ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
   scale_color_manual(values = sample(colors(), 50)) +
   theme_minimal()
 ```
+
 
 ### ¿De acuerdo con la definición de identidad de género, usted como se identifica?
 
