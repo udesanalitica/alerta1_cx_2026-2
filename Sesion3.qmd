@@ -1106,7 +1106,6 @@ fig
 
 ```
 
-
 ## Consumo de Cigarrillo: Hábitos y Motivaciones
 
 ### ¿Usted fuma cigarrillo?
@@ -1272,8 +1271,6 @@ fig <- plot_ly(
 fig
 
 ```
-
-
 
 ### ¿Cuál fue el motivo por el cual probó por primera vez el cigarrillo?
 
@@ -1716,49 +1713,45 @@ fig
 La gran mayoría de los estudiantes encuestados (80.7%) cuenta en su hogar con servicio de televisión por suscripción (cable, parabólica o satelital). No obstante, un 19.3% aún no dispone de este recurso, lo que podría reflejar diferencias en el acceso a medios de entretenimiento e información dentro de los hogares.
 :::
 
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-# Instala y carga las librerías necesarias
-if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
-if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
-if(!require(wordcloud2)) install.packages("wordcloud2", dependencies = TRUE); library(wordcloud2)
-if(!require(RColorBrewer)) install.packages("RColorBrewer", dependencies = TRUE); library(RColorBrewer)
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías necesarias
+library(tm)
+library(ggplot2)
+library(ggwordcloud)
 
-# ✅ Extraer la variable aocas_alc  texto
-text <- paste(na.omit(datos$ocas_alc), collapse = " ")
+# Paso 1: Consolidar y limpiar texto desde la variable ocas_alc
+texto <- paste(na.omit(datos$ocas_alc), collapse = " ")
 
-# ✅ Crear el corpus
-docs <- Corpus(VectorSource(text))
-
-# ✅ Limpieza del texto
-toSpace <- content_transformer(function (x, pattern) gsub(pattern, " ", x))
-docs <- tm_map(docs, toSpace, "/")
-docs <- tm_map(docs, toSpace, "@")
-docs <- tm_map(docs, toSpace, "\\|")
-docs <- tm_map(docs, toSpace, "'")
-docs <- tm_map(docs, toSpace, "`")
-
-docs <- tm_map(docs, removePunctuation)
+# Paso 2: Crear y procesar el corpus
+docs <- Corpus(VectorSource(texto))
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/|@|'|`|\\|")
 docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, removeNumbers)
-docs <- tm_map(docs, removeWords, stopwords("spanish")) 
+docs <- tm_map(docs, removeWords, stopwords("spanish"))
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "por", "porque", "la", "el", "en", "de", "para", "una", "un", "es", "son", "muy", "más", "menos", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
 docs <- tm_map(docs, stripWhitespace)
-
-# ✅ Eliminar palabras poco informativas según tu contexto
-docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "hogar", "tiene", "con", "sin",  "por", "porque", "la", "el", "en", "de", "para", "con", "una", "un", "es", "son", "fue", "muy", "más", "menos", "solo", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
-
-# ✅ Eliminar caracteres especiales preservando tildes y ñ
 removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
 docs <- tm_map(docs, content_transformer(removeSpecialChars))
 
-# ✅ Crear matriz de términos y frecuencias
+# Paso 3: Crear matriz de términos y frecuencias
 dtm <- TermDocumentMatrix(docs)
 m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 
-# ✅ Generar la nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
-
+# ✅ Paso 4: Visualizar con ggwordcloud usando colores por palabra
+set.seed(123)  # para reproducibilidad
+ggplot(d[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(
+    rm_outside = TRUE,
+    grid_size = 2,
+    shape = "circle"
+  ) +
+  scale_size_area(max_size = 90) +
+  scale_color_manual(values = sample(colors(), 50)) +  # Paleta aleatoria
+  theme_minimal()
 ```
 
 ## Vida sexual
@@ -1903,47 +1896,56 @@ fig
 La mayoría de los estudiantes (36.3%) navega entre 1 y 3 horas diarias, seguido por un 28.1% que lo hace por más de 3 horas. Solo un 1.9% dice no usar Internet, lo que confirma su alto grado de penetración como herramienta cotidiana.
 :::
 
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE, }
-# Cargar librerías necesarias
-if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
-if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
-if(!require(wordcloud2)) install.packages("wordcloud2", dependencies = TRUE); library(wordcloud2)
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías necesarias
+library(tm)
+library(ggplot2)
+library(ggwordcloud)
 
-# Preparar el texto de la columna tipo_antc
-text <- paste(na.omit(datos$tipo_antc), collapse = " ")
-text <- tolower(text)
+# Paso 1: Consolidar y limpiar texto desde la variable tipo_antc
+texto <- paste(na.omit(datos$tipo_antc), collapse = " ")
 
-# Corregir palabras unidas conocidas
+# 🔧 Corregir palabras unidas conocidas
 replacements <- list(
-  "preservativ[oa]s?p[ií]ldora[s]?" = "preservativo_píldora",
-  "oralp[ií]ldora[s]?" = "oral_píldora",
-  "preservativoinyectable[s]?" = "preservativo_inyectables"
+  "preservativ[oa]s?p[ií]ldora[s]?" = "preservativo píldora",
+  "oralp[ií]ldora[s]?" = "oral píldora",
+  "preservativoinyectable[s]?" = "preservativo inyectables",
+  "preservativodiut" = "preservativo DIU"
 )
 for (pattern in names(replacements)) {
-  text <- gsub(pattern, replacements[[pattern]], text)
+  texto <- gsub(pattern, replacements[[pattern]], texto, ignore.case = TRUE)
 }
 
-# Crear corpus y limpiar texto
-docs <- Corpus(VectorSource(text))
-docs <- tm_map(docs, content_transformer(function(x) gsub("[/@\\|`']", " ", x)))
+# Paso 2: Crear y procesar el corpus
+docs <- Corpus(VectorSource(texto))
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/|@|'|`|\\|")
 docs <- tm_map(docs, content_transformer(tolower))
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, removeWords, stopwords("spanish"))
-docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "por", "porque", "la", "el", "en", "de", "para", "una", "un", "es", "son", "fue", "muy", "más", "menos", "solo", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "por", "porque", "la", "el", "en", "de", "para", "una", "un", "es", "son", "muy", "más", "menos", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
 docs <- tm_map(docs, stripWhitespace)
-removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúñÑ0-9 ]", "", x)
+removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
 docs <- tm_map(docs, content_transformer(removeSpecialChars))
 
-# Crear data.frame de frecuencias
+# Paso 3: Crear matriz de términos y frecuencias
 dtm <- TermDocumentMatrix(docs)
 m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
-d <- data.frame(word = names(v), freq = v, stringsAsFactors = FALSE)
+d <- data.frame(word = names(v), freq = v)
 
-# Generar la nube de palabras con tamaño ajustado
-wordcloud2(data = d, size = 1.6, color = "random-light", backgroundColor = "white")
-
+# ✅ Paso 4: Visualizar con ggwordcloud usando colores por palabra
+set.seed(123)  # para reproducibilidad
+ggplot(d[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(
+    rm_outside = TRUE,
+    grid_size = 2,
+    shape = "circle"
+  ) +
+  scale_size_area(max_size = 90) +
+  scale_color_manual(values = sample(colors(), 50)) +
+  theme_minimal()
 ```
 
 ### ¿De acuerdo con la definición de identidad de género, usted como se identifica?
@@ -2351,5 +2353,3 @@ fig <- plot_ly(
 
 fig
 ```
-
-

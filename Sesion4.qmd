@@ -154,6 +154,51 @@ El 51.6% de los estudiantes permanece en la universidad solo durante el tiempo q
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Instala y carga las librerías necesarias
+if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
+if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
+if(!require(wordcloud2)) install.packages("wordcloud2", dependencies = TRUE); library(wordcloud2)
+if(!require(RColorBrewer)) install.packages("RColorBrewer", dependencies = TRUE); library(RColorBrewer)
+
+# ✅ Extraer la variable aocas_alc  texto
+text <- paste(na.omit(datos$ocas_alc), collapse = " ")
+
+# ✅ Crear el corpus
+docs <- Corpus(VectorSource(text))
+
+# ✅ Limpieza del texto
+toSpace <- content_transformer(function (x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+docs <- tm_map(docs, toSpace, "'")
+docs <- tm_map(docs, toSpace, "`")
+
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish")) 
+docs <- tm_map(docs, stripWhitespace)
+
+# ✅ Eliminar palabras poco informativas según tu contexto
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "hogar", "tiene", "con", "sin",  "por", "porque", "la", "el", "en", "de", "para", "con", "una", "un", "es", "son", "fue", "muy", "más", "menos", "solo", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
+
+# ✅ Eliminar caracteres especiales preservando tildes y ñ
+removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
+docs <- tm_map(docs, content_transformer(removeSpecialChars))
+
+# ✅ Crear matriz de términos y frecuencias
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = TRUE)
+d <- data.frame(word = names(v), freq = v)
+
+# ✅ Generar la nube de palabras
+wordcloud2(d, color = "random-light", backgroundColor = "white")
+
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 library(RColorBrewer)
@@ -212,6 +257,102 @@ fig <- plot_ly(
   )
 
 fig
+```
+
+<br>
+
+```{r wordcloud-ocas-alc2, message=FALSE, warning=FALSE, echo=FALSE}
+
+# Cargar librerías necesarias
+library(tidyverse)
+library(tm)
+library(wordcloud2)
+library(hrbrthemes)
+
+# Si tienes una columna con texto (como 'ocas_alc'), combínala en un solo vector de texto
+texto <- paste(na.omit(datos$ocas_alc), collapse = " ")
+
+# Crear corpus y limpiar
+docs <- Corpus(VectorSource(texto))
+
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/|@|'|`|\\|")
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish"))
+docs <- tm_map(docs, stripWhitespace)
+
+# Eliminar caracteres especiales (mantiene tildes y ñ)
+removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]", "", x)
+docs <- tm_map(docs, content_transformer(removeSpecialChars))
+
+# Crear matriz de términos
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+frecuencias <- sort(rowSums(m), decreasing = TRUE)
+data <- data.frame(word = names(frecuencias), freq = frecuencias)
+
+# Filtrar las 30 palabras más frecuentes
+top_words <- data %>%
+  arrange(desc(freq)) %>%
+  slice_head(n = 30)
+
+# Crear la nube de palabras con parámetros ajustados
+wordcloud2(top_words,
+           minRotation = -pi/2,
+           maxRotation = -pi/2,
+           backgroundColor = "white",
+           color = "#69b3a2")
+
+
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Librerías necesarias
+library(tm)
+library(wordcloud2)
+library(htmltools)
+
+# Función para generar dataframe de frecuencia de palabras
+procesar_texto <- function(texto, idioma = "spanish") {
+  if (all(is.na(texto)) || length(na.omit(texto)) == 0) return(NULL)
+  
+  texto <- paste(na.omit(texto), collapse = " ")
+  docs <- Corpus(VectorSource(texto))
+  
+  toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+  docs <- tm_map(docs, toSpace, "/|@|'|`|\\|")
+  docs <- tm_map(docs, content_transformer(tolower))
+  docs <- tm_map(docs, removePunctuation)
+  docs <- tm_map(docs, removeNumbers)
+  docs <- tm_map(docs, removeWords, stopwords(idioma))
+  docs <- tm_map(docs, stripWhitespace)
+  removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]", "", x)
+  docs <- tm_map(docs, content_transformer(removeSpecialChars))
+  
+  dtm <- TermDocumentMatrix(docs)
+  m <- as.matrix(dtm)
+  if (nrow(m) == 0) return(NULL)
+  
+  v <- sort(rowSums(m), decreasing = TRUE)
+  df <- data.frame(word = names(v), freq = v)
+  return(df)
+}
+
+# Generar dataframes para cada variable de texto
+df1 <- procesar_texto(datos$ocas_alc)
+
+# Crear las nubes de palabras solo si hay datos válidos
+wc1 <- if (!is.null(df1)) wordcloud2(head(df1, 30), size = 1, color = "random-dark", backgroundColor = "white")
+# Mostrar múltiples nubes de palabras en un solo chunk
+browsable(tagList(
+  if (!is.null(wc1)) tagList(tags$h3("Nube de palabras: ocas_alc"), wc1),
+  ))
+
+
+
 ```
 
 ### Si su anterior respuesta fue afirmativa, menciona cuál (les)

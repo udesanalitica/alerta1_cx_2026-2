@@ -80,6 +80,47 @@ wordcloud2(d,
 
 ```
 
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías necesarias
+library(tm)
+library(ggplot2)
+library(ggwordcloud)
+
+# Paso 1: Consolidar y limpiar texto desde la variable ocas_alc
+texto <- paste(na.omit(datos$ocas_alc), collapse = " ")
+
+# Paso 2: Crear y procesar el corpus
+docs <- Corpus(VectorSource(texto))
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/|@|'|`|\\|")
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish"))
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "por", "porque", "la", "el", "en", "de", "para", "una", "un", "es", "son", "muy", "más", "menos", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
+docs <- tm_map(docs, stripWhitespace)
+removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
+docs <- tm_map(docs, content_transformer(removeSpecialChars))
+
+# Paso 3: Crear matriz de términos y frecuencias
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = TRUE)
+d <- data.frame(word = names(v), freq = v)
+
+# ✅ Paso 4: Visualizar con ggwordcloud usando colores por palabra
+set.seed(123)  # para reproducibilidad
+ggplot(d[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(
+    rm_outside = TRUE,
+    grid_size = 2,
+    shape = "circle"
+  ) +
+  scale_size_area(max_size = 90) +
+  scale_color_manual(values = sample(colors(), 50)) +  # Paleta aleatoria
+  theme_minimal()
+```
+
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
