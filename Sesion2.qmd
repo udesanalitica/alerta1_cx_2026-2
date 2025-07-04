@@ -2,6 +2,8 @@
 title: "Sesión 2. Aspectos sociodemográficos"
 ---
 
+## Sesión 2. Aspectos sociodemográficos
+
 ## Movilidad
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1327,7 +1329,7 @@ fig
 ### ¿Cuál es la forma de pago del semestre en la Universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La forma de pago del semestre en el 44,5% de los estudiantes es en efectivo, el 28,4% mediante entidades financieras, el 6% con el ICETEX, entre otros medios. 
+La forma de pago del semestre en el 44,5% de los estudiantes es en efectivo, el 28,4% mediante entidades financieras, el 6% con el ICETEX, entre otros medios.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1749,7 +1751,7 @@ fig
 ### ¿Cuenta su hogar con servicio de conexión a internet?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gran mayoría de los estudiantes encuestados (95,2%) reporta tener acceso a servicio de internet en su lugar de residencia, lo que indica una alta conectividad. Sin embargo, un 4,8% aún no cuenta con este recurso fundamental, lo cual representa una brecha digital que puede incidir en sus condiciones de acceso, permanencia y aprovechamiento de las oportunidades educativas, especialmente en entornos virtuales o con componentes digitales. 
+La gran mayoría de los estudiantes encuestados (95,2%) reporta tener acceso a servicio de internet en su lugar de residencia, lo que indica una alta conectividad. Sin embargo, un 4,8% aún no cuenta con este recurso fundamental, lo cual representa una brecha digital que puede incidir en sus condiciones de acceso, permanencia y aprovechamiento de las oportunidades educativas, especialmente en entornos virtuales o con componentes digitales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1812,9 +1814,6 @@ fig <- plot_ly(
 
 fig
 ```
-
-
-
 
 ### ¿Cuenta su hogar con servicio de suscripción de televisión (cable, parabólica o satelital)?
 
@@ -1882,8 +1881,6 @@ fig <- plot_ly(
 
 fig
 ```
-
-
 
 ### ¿Cuántos libros físicos o electrónicos hay en su hogar excluyendo periódicos, revistas,directorios telefónicos y libros del colegio?
 

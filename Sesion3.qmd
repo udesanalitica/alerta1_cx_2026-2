@@ -78,6 +78,8 @@ datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 :::
 
+## Sesión 3. Salud integral
+
 ## Alimentación
 
 ### ¿Cuántas veces come al día?
