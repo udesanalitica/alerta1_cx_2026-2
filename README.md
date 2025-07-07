@@ -104,10 +104,10 @@ las y los estudiantes que participaron de manera voluntaria en las caracterizaci
 
 Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
-¿Tienes aportes o sugerencias? Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
+## ¿Tienes aportes o sugerencias?
 
-Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal:
+Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
 
-## https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
+Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
 
 ¡Gracias por su interés!
