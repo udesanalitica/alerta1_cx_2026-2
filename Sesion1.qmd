@@ -2,7 +2,6 @@
 title: "Sesión 1. Información personal y Académica"
 ---
 
-
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
 Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
@@ -82,7 +81,6 @@ datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 ::: {.callout-warning title="Aclaración importante"}
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 :::
-
 
 ## Distribución geográfica
 

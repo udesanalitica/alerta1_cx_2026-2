@@ -2,3 +2,24 @@
 
 ::: {#refs}
 :::
+
+
+## Conclusiones generales del sistema de alerta académica
+
+La incorporación de nuevos indicadores —como transporte, pertenencia étnica e identidad de género— ha favorecido una caracterización más inclusiva y respetuosa de la diversidad del estudiantado, fortaleciendo el enfoque diferencial.
+
+La exploración de las condiciones de conectividad, espacio de estudio y medios de transporte mostró que los estudiantes con menores recursos tienden a presentar mayor riesgo de rezago académico, lo que respalda la necesidad de activar alertas tempranas y acciones de acompañamiento.
+
+La asociación entre factores como jornada académica, promedio acumulado y condiciones de salud permite diseñar alertas específicas que atienden tanto el rendimiento académico como el bienestar integral de los estudiantes.
+
+La georreferenciación de la población estudiantil evidenció zonas con alta concentración de riesgo, abriendo la posibilidad de generar alertas territoriales que orienten intervenciones diferenciales y focalizadas por campus o región.
+
+Se identificó que los estudiantes que enfrentan mayores tiempos y costos de transporte pueden presentar menor regularidad en su asistencia y desempeño, justificando alertas automáticas asociadas a variables de movilidad.
+
+Las alertas académicas son una herramienta clave para guiar al estudiante en la toma de decisiones: desde solicitar tutorías, reorganizar su carga académica o fortalecer sus hábitos de estudio.
+
+La visualización dinámica de alertas permite monitorear qué programas, sedes o grupos presentan mayores niveles de riesgo, facilitando la toma de decisiones basada en datos por parte de las unidades académicas.
+
+Este documento, construido con herramientas abiertas y alojado en GitHub, ofrece a los distintos campus una hoja de ruta para el diseño y despliegue de alertas personalizadas, útiles para cerrar brechas de desempeño académico.
+
+La documentación y socialización del sistema de alertas promueve una cultura institucional de prevención, corresponsabilidad y cuidado, en la que todas las dependencias académicas y de bienestar trabajan de forma articulada por el éxito estudiantil.
