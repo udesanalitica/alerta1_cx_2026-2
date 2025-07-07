@@ -94,7 +94,7 @@ Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, I
 
 **Reutilizable (Reusable)**: Incluye documentación completa, condiciones claras de licencia y pautas para su citación y uso responsable.
 
-Consulta la carpeta fair/ para acceder al desglose completo de cumplimiento FAIR.
+Consulta el documento detallado de cumplimiento fair/FAIR-Statement.md  para acceder al desglose completo.
 
 ## Agradecimientos
 Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a
