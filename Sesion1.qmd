@@ -2,31 +2,6 @@
 title: "Sesión 1. Información personal y Académica"
 ---
 
-## Sesión 1. Información personal y académica
-
-## Distribución geográfica
-
-### Nacional (pendiente actualizar)
-
-La distribución de los departamentos de procedencia de los estudiantes se refleja en el mapa de Colombia. Entre los departamentos con mayor procedencia están Santander liderando la participación con un XXX% del total de estudiantes. Le siguen Cesar con XXX% y Norte de Santander con XXX%, consolidándose como las regiones con mayor representación.
-
-Los demás departamentos registran una participación conjunta del 15.7%, destacando entre ellos Amazonas, Huila, Tolima y Antioquia, entre otros. Aunque su presencia es menor, su participación evidencia la diversidad geográfica de los estudiantes y el alcance regional de la institución.
-
-### Departamental (pendiente actualizar)
-
-La distribución de los estudiantes en los municipios de Santander se refleja en el mapa. Bucaramanga concentra el 47.3% del total de estudiantes, mientras que el área metropolitana de Bucaramanga, incluyendo Floridablanca, Piedecuesta y Girón, alcanza una representación del 78.6%. Por su parte, Barrancabermeja registra una participación del 7.3%, siendo el municipio con mayor presencia fuera del área metropolitana. El resto de los municipios de Santander representan en conjunto el 14%.
-
-::: {.callout-warning title="Aclaración importante"}
-En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
-:::
-
-## Perfil Demográfico
-
-### Edad
-
-::: {.callout-note title="Descripción para todos los campus"}
-En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
-:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
@@ -68,7 +43,7 @@ library(dplyr)
 library(ggrepel)
 library(tidyverse)
 library(scales)
-
+library(htmltools)
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
@@ -101,6 +76,40 @@ cols_factor <- c(
 cols_existentes <- intersect(cols_factor, names(datos))
 datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 ```
+
+## Sesión. Información personal y académica
+
+::: {.callout-warning title="Aclaración importante"}
+En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
+:::
+
+
+## Distribución geográfica
+
+### Nacional (pendiente actualizar)
+
+La distribución por departamentos de procedencia de los estudiantes se refleja en el mapa de Colombia.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(htmltools)
+
+tags$iframe(
+  src = "https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Lugardeprocedencia?:embed=yes&:showVizHome=no",
+  width = "100%",
+  height = "800",
+  frameborder = "0",
+  allowfullscreen = NA
+)
+
+```
+
+## Perfil Demográfico
+
+### Edad
+
+::: {.callout-note title="Descripción para todos los campus"}
+En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+:::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 # Cargar librerías necesarias

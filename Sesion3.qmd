@@ -78,7 +78,7 @@ datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 :::
 
-## Sesión 3. Salud integral
+## Sesión. Salud integral
 
 ## Alimentación
 
@@ -1928,7 +1928,6 @@ ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
   scale_color_manual(values = sample(colors(), 50)) +
   theme_minimal()
 ```
-
 
 ### ¿De acuerdo con la definición de identidad de género, usted como se identifica?
 
