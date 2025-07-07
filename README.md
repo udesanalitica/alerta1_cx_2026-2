@@ -14,6 +14,7 @@ apoyado en herramientas de ciencia de datos, georreferenciación y visualizació
 
 ## 📂 Estructura del proyecto
 
+```
 Alerta1_Cx_2025-1/
 ├── _quarto.yml              # Configuración general del sitio Quarto
 ├── index.qmd                # Página principal del sitio
@@ -25,6 +26,7 @@ Alerta1_Cx_2025-1/
 ├── /shapes                  # Capas geográficas (GeoJSON u otros)
 ├── README.md                # Este archivo
 └── *.R                      # Scripts utilizados en el análisis
+```
 
 ## ⚙️ Requisitos
 
@@ -75,19 +77,6 @@ Por favor cite el dataset y el reporte como se muestra
   note         = {Coordinación de Analítica Académica},
   url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
   type         = {Informe técnico}
-}
-```
-## 📚 Citation
-
-Please cite both the dataset and the corresponding paper:
-
-```bibtex
-@techreport{PerezPulido2025,
-  title     = {Sistema de Alerta Temprana para la Caracterización de la Población Estudiantil en Riesgo Académico en la Universidad de Santander - Alerta1_Cx_2025-1},
-  author    = {Miguel Oswaldo Pérez Pulido and Francisco Javier León and Leonardo Andrés Pinto Guarguatí and Omar Camilo Mejía Ardila},
-  institution = {Universidad de Santander (UDES)},
-  year      = {2025},
-  note      = {Coordinación de Analítica Académica. Disponible en: \url{https://analiticaudes.github.io/Alerta1_Cx_2025-1/}}
 }
 ```
 
