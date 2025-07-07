@@ -66,6 +66,7 @@ datos-territoriales · quarto · alerta-temprana · visualización · rstats · 
 ## 📑 Citación
 Por favor cite el dataset y el reporte como se muestra
 
+```bibtex
 @techreport{PerezPulido2025,
   author       = {Pérez Pulido, Miguel Oswaldo; León, Francisco Javier__; Pinto Guarguatí, Leonardo Andrés and Mejía Ardila, Omar Camilo},
   title        = {Sistema de alerta temprana para la caracterización de la población estudiantil en riesgo académico en la Universidad de Santander - Alerta1\_Cx\_2025-1},
@@ -75,6 +76,22 @@ Por favor cite el dataset y el reporte como se muestra
   url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
   type         = {Informe técnico}
 }
+```
+## 📚 Citation
+
+Please cite both the dataset and the corresponding paper:
+
+```bibtex
+@techreport{PerezPulido2025,
+  title     = {Sistema de Alerta Temprana para la Caracterización de la Población Estudiantil en Riesgo Académico en la Universidad de Santander - Alerta1_Cx_2025-1},
+  author    = {Miguel Oswaldo Pérez Pulido and Francisco Javier León and Leonardo Andrés Pinto Guarguatí and Omar Camilo Mejía Ardila},
+  institution = {Universidad de Santander (UDES)},
+  year      = {2025},
+  note      = {Coordinación de Analítica Académica. Disponible en: \url{https://analiticaudes.github.io/Alerta1_Cx_2025-1/}}
+}
+```
+
+
 
 ##✅ Cumplimiento FAIR
 Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, Interoperable y Reutilizable):
