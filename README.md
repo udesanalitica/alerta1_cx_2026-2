@@ -81,6 +81,7 @@ Por favor cite el dataset y el reporte como se muestra
   note         = {Vicerrectoria de Enseñanza},
   url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
   type         = {Informe técnico}
+  doi          = {https://doi.org/10.5281/zenodo.15832245}
 }
 ```
 
