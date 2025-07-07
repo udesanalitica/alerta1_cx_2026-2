@@ -85,7 +85,7 @@ Por favor cite el dataset y el reporte como se muestra
 ## Cumplimiento FAIR
 Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, Interoperable y Reutilizable):
 
-Encontrable (Findable): El conjunto cuenta con identificadores únicos persistentes y metadatos indexados en repositorios abiertos.
+**Encontrable (Findable)**: El conjunto cuenta con identificadores únicos persistentes y metadatos indexados en repositorios abiertos.
 Accesible (Accessible): Está licenciado abiertamente bajo CC-BY 4.0, sin restricciones de acceso.
 Interoperable (Interoperable): Se proporciona en formatos estándar acompañados de metadatos legibles por máquina.
 Reutilizable (Reusable): Incluye documentación completa, condiciones claras de licencia y pautas para su citación y uso responsable.
