@@ -74,13 +74,14 @@ Por favor cite el dataset y el reporte como se muestra
 
 ```bibtex
 @techreport{PerezPulido2025,
-  author       = {Pérez, M.; León, F.; Pinto, L.; and Mejía, O.},
-  title        = {Sistema de alerta temprana para la caracterización de la población estudiantil en riesgo académico en la Universidad de Santander - Alerta1\_Cx\_2025-1},
+  author       = {Pérez, M., León, F., Pinto, L., y Mejía, O.},
+  title        = {Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1.},
   institution  = {Universidad de Santander (UDES)},
   year         = {2025},
-  note         = {Coordinación de Analítica Académica},
+  note         = {Vicerrectoria de Enseñanza},
   url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
   type         = {Informe técnico}
+  doi          = {https://doi.org/10.5281/zenodo.15832245}
 }
 ```
 
@@ -93,7 +94,7 @@ Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, I
 - **Interoperable**: Formatos estándar legibles por máquina.
 - **Reutilizable**: Documentación completa y condiciones claras de uso.
 
-🔗 Consulta el detalle completo en [`fair/fair-compliance.md`](./fair/fair-compliance.md).
+Consulta el detalle completo en [`fair/fair-compliance.md`](./fair/fair-compliance.md).
 
 
 ## Agradecimientos
@@ -109,5 +110,8 @@ Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
 
 Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
+
+## doi
+https://doi.org/10.5281/zenodo.15832245
 
 ¡Gracias por su interés!
