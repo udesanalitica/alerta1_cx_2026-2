@@ -58,7 +58,6 @@ book:
     - Sesion2.qmd
     - Sesion3.qmd
     - Sesion4.qmd
-    - filtro.qmd
     - Conclusiones.qmd
 
 bibliography: references.bib

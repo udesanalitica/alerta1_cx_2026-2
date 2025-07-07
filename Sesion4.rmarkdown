@@ -1,0 +1,1413 @@
+---
+title: "Sesiones 4, 5 y 6: Fomento de la cultura, Deportes y esparcimiento, y  Desarrollo humano"
+---
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(readxl)
+Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
+
+View(Data20252)
+datos<- Data20252
+attach(datos)
+# head(datos)
+# str(datos)
+# names(datos)
+```
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Librerias necesarias
+#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
+library(ggplot2)
+library(psych)
+library(skimr)
+library(summarytools)
+library(corrplot)
+library(tidyr)
+library(RColorBrewer)
+library(ggpubr)
+library(plotly)
+library(lattice)
+library(Hmisc)
+library(skimr)
+library(summarytools)
+library(base)
+library(ggpubr)
+library(scales)
+library(dplyr)
+library(ggrepel)
+library(tidyverse)
+library(scales)
+library(tm)
+library(SnowballC)
+library(wordcloud2)
+library(RColorBrewer)
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+## Convertir las variables caracter a factor
+# Lista de columnas que se convertirán en factores
+cols_factor <- c(
+  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
+  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
+  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
+  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
+  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
+  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
+  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
+  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
+  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
+  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
+  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
+  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
+  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
+  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
+  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
+  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
+  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
+  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
+  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
+  "fam_formada"
+)
+
+# Convertir solo las columnas que realmente existen
+cols_existentes <- intersect(cols_factor, names(datos))
+datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
+```
+
+::: {.callout-warning title="Aclaración importante"}
+En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
+:::
+
+## Sesión: Fomento de la cultura
+
+### ¿Cuáles de las siguientes disciplinas artísticas le atrae?
+
+::: {.callout-note title="Descripción para todos los campus"}
+La nube de palabras muestra que las disciplinas artísticas con mayor atracción entre los estudiantes son la música, danzas, pintura y dibujo, seguidas de literatura y teatro. También se evidencian intereses en áreas como artes y manualidades, y en menor medida, museología. La prominencia de música y danzas sugiere una preferencia por expresiones artísticas performativas y sensoriales.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$arte_atra
+palabras <- str_split(na.omit(datos$arte_atra), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+set.seed(123)
+ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = sample(colors(), 50)) +
+  theme_minimal()
+```
+
+### ¿Cuenta con alguna habilidad artística?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 32.6% de los estudiantes afirma poseer alguna habilidad artística, mientras que el 67.4% no se identifica con alguna. Esto indica que una tercera parte de la población estudiantil se reconoce con capacidades en expresiones artísticas, lo que puede ser relevante para promover actividades o programas de desarrollo cultural dentro de la universidad.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cuenta con alguna habilidad artística?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(hab_art), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, hab_art) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(hab_art)) %>%
+  count(hab_art, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~hab_art,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución habilidad artística por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### Habilidad artística que posee.
+
+::: {.callout-note title="Descripción para todos los campus"}
+En esta nube de palabras predominan habilidades como dibujo, manualidades, pintura y danza. También destacan actividades relacionadas con la música como cantar, tocar instrumentos y bailar. Aunque en menor proporción, aparecen habilidades como escritura, canto, guitarra, piano y creatividad. Esto refleja una diversidad de expresiones artísticas desarrolladas por los estudiantes, siendo las visuales y escénicas las más comunes.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+# Instala y carga las librerías necesarias
+if(!require(tm)) install.packages("tm", dependencies = TRUE); library(tm)
+if(!require(SnowballC)) install.packages("SnowballC", dependencies = TRUE); library(SnowballC)
+if(!require(wordcloud2)) install.packages("wordcloud2", dependencies = TRUE); library(wordcloud2)
+if(!require(RColorBrewer)) install.packages("RColorBrewer", dependencies = TRUE); library(RColorBrewer)
+
+# ✅ Extraer la variable aocas_alc  texto
+text <- paste(na.omit(datos$tipo_art), collapse = " ")
+
+# ✅ Crear el corpus
+docs <- Corpus(VectorSource(text))
+
+# ✅ Limpieza del texto
+toSpace <- content_transformer(function (x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+docs <- tm_map(docs, toSpace, "'")
+docs <- tm_map(docs, toSpace, "`")
+
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("spanish")) 
+docs <- tm_map(docs, stripWhitespace)
+
+# ✅ Eliminar palabras poco informativas según tu contexto
+docs <- tm_map(docs, removeWords, c("hogar", "tiene", "con", "sin", "etc", "hogar", "tiene", "con", "sin",  "por", "porque", "la", "el", "en", "de", "para", "con", "una", "un", "es", "son", "fue", "muy", "más", "menos", "solo", "no", "mi", "los", "las", "del", "al", "se", "su", "sus", "como", "pero", "que", "le", "udes", "universidad", "santander"))
+
+# ✅ Eliminar caracteres especiales preservando tildes y ñ
+removeSpecialChars <- function(x) gsub("[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]", "", x)
+docs <- tm_map(docs, content_transformer(removeSpecialChars))
+
+# ✅ Crear matriz de términos y frecuencias
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = TRUE)
+d <- data.frame(word = names(v), freq = v)
+
+# ✅ Generar la nube de palabras
+wordcloud2(d, color = "random-light", backgroundColor = "white")
+
+```
+
+### ¿Le gustaría dedicar tiempo de su actividad académica o laboral para aprender o fortalecer sus habilidades artísticas?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 72.8% de los estudiantes manifiesta contar con tiempo para desarrollar o fortalecer sus habilidades artísticas. Este dato contrasta con la proporción de estudiantes que actualmente no se identifican con una habilidad artística (67.4%), lo cual sugiere una oportunidad para fomentar programas de formación artística extracurriculares.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(aprend_art), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, aprend_art) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(aprend_art)) %>%
+  count(aprend_art, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~aprend_art,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución tiempo para aprender o fortalecer \nsus habilidades artísticas por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Qué día de la semana tiene más disponibilidad de tiempo, para dedicarle a éste aprendizaje artístico?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El día más mencionado para dedicar tiempo al aprendizaje artístico es el sábado (21.6%), seguido por lunes (16.8%) y viernes (15.6%). Días como miércoles y martes presentan menor frecuencia. Esto puede indicar que los estudiantes priorizan los fines de semana para actividades complementarias, posiblemente debido a menor carga académica o disponibilidad horaria.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+
+# 1. Preparar los datos por campus y Edad de inicio del consumo de alcohol por primera vez
+datos_plot <- datos %>%
+  filter(!is.na(campus) & !is.na(dia_art) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, dia_art) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(dia_art)) %>%
+  count(dia_art, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Ordenar niveles de 'dia_art' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(dia_art)
+
+datos_final <- datos_final %>%
+  mutate(dia_art = factor(dia_art, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", dia_art, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+fig <- plot_ly(
+  data = datos_final,
+  x = ~dia_art,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución día de la semana para \naprendizaje artísitico por campus",
+    xaxis = list(title = "Día de la semana para aprendizaje artísitico"),
+    yaxis = list(title = "Número de estudiantes"),
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms[0].value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+
+```
+
+### ¿Cuáles de las siguientes prácticas ambientales practica usted diariamente?
+
+::: {.callout-note title="Descripción para todos los campus"}
+Las prácticas más mencionadas por los estudiantes son reciclar, ahorrar agua, evitar generar residuos y ahorrar energía. También se evidencian acciones como separar los residuos y usar transporte sostenible. Estas respuestas sugieren un nivel de conciencia ambiental entre los estudiantes, especialmente en torno al manejo de residuos y el consumo responsable de recursos.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$amb_prac
+palabras <- str_split(na.omit(datos$amb_prac), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+set.seed(123)
+ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = sample(colors(), 50)) +
+  theme_minimal()
+```
+
+## Sesión. Deportes y Esparcimiento
+
+### ¿Realiza actividad física?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 49.8% de los estudiantes afirma realizar actividad física de manera regular, mientras que un 33.9% lo hace a veces. Solo el 16.2% no realiza ninguna. Esto indica que cerca de la mitad mantiene hábitos activos, y que existe una proporción importante que lo hace de forma intermitente, lo que abre espacio para incentivar la regularidad en estas prácticas.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Realiza actividad física?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(act_fisica), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, act_fisica) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(act_fisica)) %>%
+  count(act_fisica, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~act_fisica,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución realiza actividad \nfísica por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Cuántas veces a la semana realiza actividad física?
+
+::: {.callout-note title="Descripción para todos los campus"}
+La mayoría de los estudiantes que realizan actividad física lo hacen entre 1 y 2 veces por semana (41%). Un 37.7% la practica entre 3 y 4 veces, y solo el 21.4% supera las 5 veces a la semana. Estos resultados sugieren que, aunque una parte importante de la población estudiantil incorpora la actividad física en su rutina, en la mayoría de los casos esta se realiza con una frecuencia baja o moderada.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cuántas veces a la semana realiza actividad física?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(freq_fis
+), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, freq_fis) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(freq_fis)) %>%
+  count(freq_fis, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~freq_fis,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución veces a la semana realiza \nactividad física por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### Su tiempo libre lo dedica, generalmente a:
+
+::: {.callout-note title="Descripción para todos los campus"}
+Las actividades más comunes en el tiempo libre de los estudiantes incluyen navegar en internet, ir al gimnasio, salir con los amigos, ir al cine y otras actividades diversas. La navegación en internet y la actividad física son las más destacadas, lo cual indica una combinación de intereses digitales y hábitos saludables.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+library(viridis)
+
+# Paso 1: Separar y limpiar
+palabras <- str_split(na.omit(datos$tiempo_lib), ";") |> unlist()
+palabras <- str_trim(palabras)
+palabras <- tolower(palabras)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 2: Tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  filter(freq >= 2) |>  # Mostrar palabras que aparecen al menos dos veces
+  arrange(desc(freq))
+
+# Paso 3: Visualización
+set.seed(123)
+mis_colores <- c("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
+                 "#9467bd", "#8c564b", "#e377c2", "#7f7f7f")
+
+ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
+  scale_size_area(max_size = 100) +
+  scale_color_manual(values = rep(mis_colores, length.out = nrow(df_palabras))) +
+  theme_minimal()
+```
+
+### ¿Qué otras actividades realiza durante su tiempo libre?
+
+::: {.callout-note title="Descripción para todos los campus"}
+Entre las respuestas abiertas, la lectura, el fútbol, caminar, dormir, estudiar, y asistir al gimnasio son recurrentes. También se menciona pasar tiempo en familia, cocinar, trabajar y realizar actividades académicas. Se evidencia un equilibrio entre actividades de ocio, académicas, sociales y de autocuidado.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$amb_prac
+palabras <- str_split(na.omit(datos$otras_lib), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+set.seed(123)
+ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = sample(colors(), 50)) +
+  theme_minimal()
+```
+
+### ¿Le gusta la lectura?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 62.9% de los estudiantes manifestó que le gusta leer, mientras que un 37.1% no comparte ese interés. Esta proporción favorable hacia la lectura puede ser aprovechada para fomentar clubes de lectura o espacios de intercambio cultural dentro del campus.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Le gusta la lectura?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(lectura), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, lectura) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(lectura)) %>%
+  count(lectura, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~lectura,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución le gusta la lectura por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Cuántos libros lee al año?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El grupo más representativo lee entre 1 y 2 libros al año (43.7%), seguido de quienes leen entre 3 y 4 libros (32.7%), y finalmente, quienes leen más de 4 libros (23.6%). Aunque la mayoría declara gusto por la lectura, la frecuencia lectora parece estar concentrada en niveles bajos o moderados, lo cual puede estar relacionado con limitaciones de tiempo o acceso a materiales.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cuántos libros lee al año?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(libros_año), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, libros_año) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(libros_año)) %>%
+  count(libros_año, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~libros_año,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución cuántos libros lee al año por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Practica algún deporte?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 42.6% de los estudiantes practica algún deporte, mientras que el 57.4% no lo hace. Esto indica que poco menos de la mitad tiene hábitos deportivos activos, lo que representa una oportunidad para ampliar las estrategias de promoción de la actividad física en la población estudiantil.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Practica algún deporte?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(deporte), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, deporte) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(deporte)) %>%
+  count(deporte, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~deporte,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución practica algún deporte por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Qué tipo de deporte practica con más frecuencia?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El fútbol es el deporte más practicado, seguido de otras menciones como baloncesto, natación, atletismo, gimnasia y ciclismo. También aparece ajedrez, lo que muestra una amplitud en las concepciones de deporte, incluyendo actividades tanto físicas como mentales.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+library(RColorBrewer)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$tipo_dep
+palabras <- str_split(na.omit(datos$tipo_dep), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+# Usar una paleta predefinida de RColorBrewer
+paleta <- brewer.pal(8, "Dark2")  # Otras: "Set1", "Paired", "Pastel1"
+
+ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
+  theme_minimal()
+```
+
+### ¿Qué otros deportes practica?
+
+::: {.callout-note title="Descripción para todos los campus"}
+Además del fútbol y baloncesto, se destacan deportes como voleibol, patinaje, taekwondo, tenis, boxeo, crossfit y gimnasia. La diversidad de disciplinas es amplia, incluyendo también deportes menos comunes como parapentismo, halterofilia y rugby. Esto refleja una variedad de intereses deportivos en la comunidad estudiantil.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$otros_dep
+palabras <- str_split(na.omit(datos$otros_dep), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+set.seed(123)
+ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = sample(colors(), 50)) +
+  theme_minimal()
+```
+
+## Sesión. Desarrollo humano
+
+### ¿Cuál es su estado de salud mental actualmente?
+
+::: {.callout-note title="Descripción para todos los campus"}
+La mayoría de los estudiantes califica su estado de salud mental como bueno (52.5%) o excelente (33.8%). Un 10.4% lo percibe como regular y un 3.3% no sabe cómo evaluarlo. En conjunto, más del 85% se siente en condiciones mentales favorables, aunque llama el interés el grupo minoritario que reporta estados menos óptimos.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cuál es su estado de salud mental actualmente?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(salud_ment), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, salud_ment) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(salud_ment)) %>%
+  count(salud_ment, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~salud_ment,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución estado de salud mental por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Siente apoyo emocional por parte de su familia?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 92.4% de los estudiantes reporta recibir apoyo emocional de su familia, mientras que solo un 7.6% indica no contar con este respaldo. Esta alta proporción sugiere que la mayoría de los estudiantes tiene una red afectiva estable desde el núcleo familiar, lo cual es un factor protector relevante para su bienestar emocional y académico.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Siente apoyo emocional por parte de su familia?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(apoyo_fam), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, apoyo_fam) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(apoyo_fam)) %>%
+  count(apoyo_fam, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~apoyo_fam,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución apoyo emocional por \nparte de su familia por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Quiénes considera que son sus redes de apoyo actualmente?
+
+::: {.callout-note title="Descripción para todos los campus"}
+Las figuras de apoyo más mencionadas por los estudiantes son la madre, el padre, los hermanos y la pareja. También se destacan los compañeros y otros familiares. En menor proporción aparecen el área espiritual y la mención explícita de no contar con redes de apoyo. Esto confirma que la familia sigue siendo el principal pilar emocional para los estudiantes, aunque también encuentran contención en su entorno social y académico.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+library(RColorBrewer)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$red_apoyo
+palabras <- str_split(na.omit(datos$red_apoyo), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+# Usar una paleta predefinida de RColorBrewer
+paleta <- brewer.pal(8, "Dark2")  # Otras: "Set1", "Paired", "Pastel1"
+
+ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
+  theme_minimal()
+```
+
+### ¿Tiene actualmente pareja sentimental?
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 35.7% de los estudiantes manifiesta tener pareja sentimental, mientras que el 64.3% no. Esto indica que una proporción significativa se encuentra soltera.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Tiene actualmente pareja sentimental?
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(pareja), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, pareja) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(pareja)) %>%
+  count(pareja, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~pareja,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución actualmente tiene pareja \nsentimental por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### ¿Cómo percibe que es su relación con su pareja?
+
+::: {.callout-note title="Descripción para todos los campus"}
+Quienes tienen pareja describen su relación con términos como cariñosa, compatible, romántica y adaptable. Sin embargo, también aparecen descripciones como tóxica, distante o peligrosa, aunque en menor frecuencia. Estos datos sugieren que, en general, la percepción es positiva, pero existe un grupo que podría requerir acompañamiento emocional o psicosocial.
+:::
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
+# Librerías
+library(ggplot2)
+library(ggwordcloud)
+library(dplyr)
+library(stringr)
+library(RColorBrewer)
+
+# Paso 1: Separar las respuestas múltiples por ';' y limpiar
+# Suponiendo que la variable se llama datos$rel_pareja
+palabras <- str_split(na.omit(datos$rel_pareja), ";") |> unlist()
+palabras <- str_trim(palabras) # quitar espacios extra
+palabras <- tolower(palabras)  # pasar a minúsculas
+
+# Paso 2: Limpiar texto (remover palabras vacías y triviales)
+palabras <- palabras[palabras != ""]
+palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+
+# Paso 3: Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |> 
+  count(word, name = "freq") |> 
+  arrange(desc(freq))
+
+# Paso 4: Visualización con ggwordcloud
+# Usar una paleta predefinida de RColorBrewer
+paleta <- brewer.pal(8, "Dark2")  # Otras: "Set1", "Paired", "Pastel1"
+
+ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
+  scale_size_area(max_size = 120) +
+  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
+  theme_minimal()
+```
+
+### ¿Cómo considera su relación con sus padres (con quien conviva-madre o padre):
+
+::: {.callout-note title="Descripción para todos los campus"}
+La mayoría de los estudiantes califica su relación con los padres como cercana (54.4%) o muy estrecha (29.6%). Un 12.4% reporta una relación muy estrecha pero conflictiva y solo un 3.6% la considera distante. En conjunto, más del 80% reporta una buena vinculación con sus padres, lo que coincide con el alto nivel de apoyo emocional ya descrito.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cómo considera su relación con sus padres (con quien conviva-madre o padre)
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(rel_padres), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, rel_padres) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(rel_padres)) %>%
+  count(rel_padres, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~rel_padres,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución relación con sus \npadres por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### En su contexto familiar (familia de origen) usted experimenta o experimentó
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 91.2% de los estudiantes indica no haber experimentado ningún tipo de violencia en su familia de origen. Las formas de violencia más reportadas, aunque en porcentajes bajos, son la psicológica (5.2%) y la física (2%). Violencias sexual, económica y patrimonial son mucho menos frecuentes. Estos resultados indican que la gran mayoría proviene de entornos familiares no violentos.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y En su contexto familiar (familia de origen) usted experimenta o experimentó
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(fam_origen), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, fam_origen) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(fam_origen)) %>%
+  count(fam_origen, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~fam_origen,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "Distribución en familia de origen experimenta \no experimentó por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
+### En su contexto familiar (familia conformada) usted experimenta o experimentó
+
+::: {.callout-note title="Descripción para todos los campus"}
+El 95.2% de los estudiantes aún no ha conformado una familia. Entre quienes sí lo han hecho, los porcentajes de violencia experimentada son bajos, pero destacan nuevamente la violencia psicológica (2.6%) y física (0.95%) como las más mencionadas.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(RColorBrewer)
+
+# 1. Preparar los datos por campus y ¿Cómo considera su relación con sus padres (con quien conviva-madre o padre)
+datos_plot <- datos %>%
+  filter(!is.na(campus), !is.na(fam_formada), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  group_by(campus, fam_formada) %>%
+  summarise(n = n(), .groups = "drop")
+
+# 2. Agregar grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(fam_formada)) %>%
+  count(fam_formada, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Fijar niveles de campus (con "Todos" primero)
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir todos los datos
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus))
+
+# 5. Crear gráfico de pastel con filtro
+fig <- plot_ly(
+  data = datos_final,
+  labels = ~fam_formada,
+  values = ~n,
+  type = "pie",
+  textinfo = "label+percent",
+  hoverinfo = "label+percent+value",
+  marker = list(colors = brewer.pal(8, "Pastel1")),
+  rotation = 270,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~campus,
+      operation = '=',
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title =  "Distribución en familia conformada experimenta \no experimentó por campus",
+    updatemenus = list(
+      list(
+        type = 'dropdown',
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(method = "restyle",
+               args = list("transforms.0.value", c),
+               label = c)
+        })
+      )
+    )
+  )
+
+fig
+```
+
