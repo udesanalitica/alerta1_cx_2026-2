@@ -24,6 +24,28 @@ Alerta1_Cx_2025-1/
 ├── README.md                # Este archivo
 └── *.R                      # Scripts utilizados en el análisis
 
+## 📁 Estructura del proyecto
+Haz clic en los enlaces para saltar a cada sección:
+
+🔧 _quarto.yml
+
+🏠 index.qmd
+
+📊 Conclusiones.qmd
+
+📁 data/
+
+📁 docs/
+
+📁 images/
+
+📁 shapes/
+
+📄 README.md
+
+📄 Scripts por sesión
+
+
 ## ⚙️ Requisitos
 
 Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
@@ -85,16 +107,8 @@ Reutilizable (Reusable): Incluye documentación completa, condiciones claras de 
 ➡️ Consulta la carpeta fair/ para acceder al desglose completo de cumplimiento FAIR.
 
 ## 🙏 Agradecimientos
-Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a:
-
-La Universidad de Santander (UDES) y su Coordinación de Analítica Académica, por liderar el desarrollo del sistema de alerta.
-
-Todos los profesionales involucrados en la recolección, análisis y visualización de los datos.
-
-Las unidades académicas que facilitaron el acceso a la información.
-
-Las y los estudiantes que participaron de manera voluntaria en las caracterizaciones y encuestas.
-
+Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a
+las y los estudiantes que participaron de manera voluntaria en las caracterizaciones y encuestas.
 
 ## 👩‍🏫 Contribución y Contacto
 
