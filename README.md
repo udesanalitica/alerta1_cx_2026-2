@@ -75,10 +75,10 @@ Por favor cite el dataset y el reporte como se muestra
 ```bibtex
 @techreport{PerezPulido2025,
   author       = {Pérez, M.; León, F.; Pinto, L.; and Mejía, O.},
-  title        = {Sistema de alerta temprana para la caracterización de la población estudiantil en riesgo académico en la Universidad de Santander - Alerta1\_Cx\_2025-1},
+  title        = {Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1.},
   institution  = {Universidad de Santander (UDES)},
   year         = {2025},
-  note         = {Coordinación de Analítica Académica},
+  note         = {Vicerrectoria de Enseñanza},
   url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
   type         = {Informe técnico}
 }
