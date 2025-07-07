@@ -1,81 +1,81 @@
-# Alerta1_Cx_2025-1
+Alerta1_Cx_2025-1 – Sistema de Alerta Temprana Territorial
 
-Este repositorio contiene el sitio web generado en [Quarto](https://quarto.org) para la línea de análisis académico de la **Alerta 1 Temprana UDES** correspondiente al periodo 2025-1.
+📌 Descripción
 
-📍 Sitio web en línea:  
-👉 [https://analiticaudes.github.io/Alerta1_Cx_2025-1](https://analiticaudes.github.io/Alerta1_Cx_2025-1)
+Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
----
+📂 Estructura del proyecto
 
-## 📘 Descripción
-
-El propósito de este sitio es la caracterización de los estudiantes de reciente ingreso para el periodo 2025-1, en todos los campus de la Universidad de Santander mediante visualizaciones interactivas.
-
-El contenido incluye:
-- Informe descriptivo por todos los campues e indivualmente Bucaramanga, Cúcuta y Valledupar.
-- Visualizaciones con `ggplot2` y `plotly`.
-- Tableros integrados desde Tableau Public.
-- Tablas dinámicas y resumenes por municipio y departamento.
-- Entre otras visualizaciones
-
----
-
-## 📁 Estructura del proyecto
 Alerta1_Cx_2025-1/
-├── .quarto/                  # Configuración adicional de Quarto
-├── data/                     # Archivos de datos fuente
-├── Divipola/                 # Archivos geográficos (GeoJSON, Excel DIVIPOLA)
-├── docs/                     # Salida HTML publicada en GitHub Pages
-├── images/                   # Imágenes utilizadas en el sitio
-├── renv/                     # Entorno de paquetes R (renv)
-├── Sesion1_files/            # Recursos generados por Quarto para Sesión 1
-├── Shapes/                   # Archivos shapefile (mapas vectoriales)
-├── .gitignore                # Exclusiones de Git
-├── _quarto.yml               # Configuración global del sitio Quarto
-├── apa.csl                   # Estilo de citación APA para referencias
-├── colombia-municipios.json # GeoJSON de municipios colombianos
-├── DIVIPOLA_Municipios.R    # Script para carga y manejo DIVIPOLA
-├── index.qmd                # Página principal del informe
-├── index.tex                # Plantilla LaTeX base (opcional)
-├── Conclusiones.qmd         # Documento de conclusiones
-├── references.qmd           # Bibliografía y enlaces
-├── README.md                # Este archivo README
-├── intro.qmd                # Introducción general
-├── header.qmd               # Encabezado reutilizable (inclusión)
-├── filtro.qmd               # Filtros para tablas/quizzes (interactivo)
-├── style.scss               # Estilos personalizados del sitio
-├── Libro1.R                 # Análisis u objetos auxiliares
+├── _quarto.yml               # Configuración general del sitio Quarto
+├── index.qmd                # Página principal del sitio
+├── Conclusiones.qmd         # Sección de conclusiones del análisis
+├── /data                    # Archivos de datos utilizados (.xlsx, .csv)
+├── /docs                    # Archivos HTML generados (salida del sitio)
 ├── Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
-├── Rplots.pdf               # Gráficos exportados desde R
-├── renv.lock                # Registro de versiones de paquetes
+├── /images                  # Recursos gráficos utilizados
+├── /shapes                  # Capas geográficas (GeoJSON u otros)
+├── README.md                # Este archivo
+└── *.R                      # Scripts utilizados en el análisis
 
+⚙️ Requisitos
 
----
+Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
 
-## ⚙️ Requisitos
+Manipulación y análisis: dplyr, tidyverse, psych, skimr, summarytools, Hmisc
+Visualización: ggplot2, plotly, corrplot, ggpubr, ggrepel, scales, lattice
+Tablas y estilos: kableExtra, htmltools
+Datos espaciales: sf, geojsonio, tmap, leaflet
+Lectura de datos: readxl, jsonlite
 
-Este proyecto fue desarrollado en R 4.3+ con los siguientes paquetes:
-
-- `dplyr`, `ggplot2`, `tmap`, `leaflet`, `plotly`, `readxl`
-- `kableExtra`, `sf`, `geojsonio`, `htmltools`, `quarto`
-
-Instalación recomendada:
-
-```r
 install.packages(c(
-  "dplyr", "ggplot2", "tmap", "leaflet", "plotly",
-  "readxl", "kableExtra", "sf", "geojsonio", "htmltools"
+  "dplyr", "ggplot2", "plotly", "readxl", "sf", "geojsonio",
+  "leaflet", "tmap", "kableExtra", "htmltools", "psych",
+  "skimr", "summarytools", "corrplot", "ggpubr", "Hmisc",
+  "ggrepel", "tidyverse", "scales", "lattice", "jsonlite"
 ))
 
-▶️ Ejecución local: quarto preview
+🧽 Navegación del sitio
 
-▶️ Para publicar en GitHub Pages: quarto publish gh-pages
+El sitio se encuentra publicado en:🔗 https://analiticaudes.github.io/Alerta1_Cx_2025-1/
 
-🌐 Fuentes de datos
-Los datos utilizados provienen de:
+Secciones principales:
 
-Master: Sistema de Gestión Administrativa y Académica, 2025-1.
-Tableros de Tableau Public asociados al proceso de caracterización.
+Inicio – Presentación del sistema de alerta territorial
+Filtros – Exploración de variables por departamento y municipio
+Conclusiones – Principales hallazgos y líneas de acción
+Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
+Fuentes y marcos metodológicos
 
-Universidad de Santander – Campus Cúcuta. (2025). Alerta Temprana Académica UDES 2025-1. https://analiticaudes.github.io/Alerta1_Cx_2025-1
+👩‍🏫 Contribución y Contacto
+
+Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
+
+¿Tienes aportes o sugerencias? Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
+
+📜 Licencia
+
+Este proyecto se publica bajo la Licencia MIT. Puedes usar, modificar y distribuir el contenido siempre que se dé el debido crédito.
+
+🍿 Temas clave
+
+datos-territoriales · quarto · alerta-temprana · visualización · rstats · georreferenciación · educación-superior · ciencia-de-datos
+
+📑 Citation
+Please cite the dataset and report as follows:
+
+@techreport{PerezPulido2025,
+  author       = {Pérez Pulido, Miguel Oswaldo and León, Francisco Javier and Pinto Guarguatí, Leonardo Andrés and Mejía Ardila, Omar Camilo},
+  title        = {Sistema de alerta temprana para la caracterización de la población estudiantil en riesgo académico en la Universidad de Santander - Alerta1\_Cx\_2025-1},
+  institution  = {Universidad de Santander (UDES)},
+  year         = {2025},
+  note         = {Coordinación de Analítica Académica},
+  url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
+  type         = {Informe técnico}
+}
+
+
+
+
+Hecho con ❤️ y R por Analítica Académica UDES.
 
