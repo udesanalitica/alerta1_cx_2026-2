@@ -55,9 +55,8 @@ El sitio se encuentra publicado en:🔗 https://analiticaudes.github.io/Alerta1_
 Secciones principales:
 
 Inicio – Presentación del sistema de alerta territorial
-Filtros – Exploración de variables por departamento y municipio
+Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 6)
 Conclusiones – Principales hallazgos y líneas de acción
-Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
 Fuentes y marcos metodológicos
 ```
 
@@ -65,7 +64,7 @@ Fuentes y marcos metodológicos
 
 Este proyecto se publica bajo la Licencia MIT. Puedes usar, modificar y distribuir el contenido siempre que se dé el debido crédito.
 
-## Temas clave
+## Palabras clave
 
 datos-territoriales · quarto · alerta-temprana · visualización · rstats · georreferenciación · educación-superior · ciencia-de-datos
 
