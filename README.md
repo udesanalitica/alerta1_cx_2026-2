@@ -32,6 +32,7 @@ Alerta1_Cx_2025-1/
 
 Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
 
+```
 **Manipulación y análisis**: dplyr, tidyverse, psych, skimr, summarytools, Hmisc
 **Visualización**: ggplot2, plotly, corrplot, ggpubr, ggrepel, scales, lattice
 **Tablas y estilos**: kableExtra, htmltools
@@ -47,13 +48,13 @@ install.packages(c(
   "ggrepel", "tidyverse", "scales", "lattice", "jsonlite"
 ))
 ```
+
 ## Navegación del sitio
 
 El sitio se encuentra publicado en: https://analiticaudes.github.io/Alerta1_Cx_2025-1/
 
-```
 Secciones principales:
-
+```
 Inicio – Presentación del sistema de alerta territorial
 Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 6)
 Conclusiones – Principales hallazgos y líneas de acción
