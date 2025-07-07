@@ -6,7 +6,7 @@
 ![FAIR Data](https://img.shields.io/badge/FAIR-Data-blue)
 
 
-##📌 Descripción
+## 📌 Descripción
 
 Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
