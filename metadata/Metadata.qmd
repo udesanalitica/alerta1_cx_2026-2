@@ -1,0 +1,130 @@
+---
+title: "metadata"
+---
+| Variable | Descripción | Tipo | Escala |
+|---|---|---|---|
+| tipo_id | Tipo ID | Categórica nominal | cualitativa |
+| genero | Género | Categórica nominal | cualitativa |
+| depto | Departamento | Categórica nominal | cualitativa |
+| ciudad | Ciudad | Categórica nominal | cualitativa |
+| programa | Programa | Categórica nominal | cualitativa |
+| campus | Campus | Categórica nominal | cualitativa |
+| prog_acad | Programa académico | Categórica nominal | cualitativa |
+| edad | Edad | Numérica entera | cuantitativa |
+| sexo_id | Seleccione el sexo con el cual se identifica | Categórica nominal | cualitativa |
+| pais | País de origen | Categórica nominal | cualitativa |
+| est_civ | Estado civil | Categórica nominal | cualitativa |
+| ciu_orig | Ciudad de origen | Categórica nominal | cualitativa |
+| desemp_aca | ¿Cómo describe su desempeño durante su vida académica? | Categórica ordinal | cualitativa |
+| leng_ext | ¿Domina una lengua extranjera? | Categórica dicotómica | cualitativa |
+| cert_leng | ¿Posee alguna certificación relacionada con el dominio de una lengua extranjera? | Categórica dicotómica | cualitativa |
+| ingles | Inglés | Categórica dicotómica | cualitativa |
+| frances | Francés | Categórica dicotómica | cualitativa |
+| portug | Portugués | Categórica dicotómica | cualitativa |
+| aleman | Alemán | Categórica dicotómica | cualitativa |
+| italiano | Italiano | Categórica dicotómica | cualitativa |
+| otra_leng | Otra | Categórica nominal | cualitativa |
+| matema | Matemáticas | Categórica ordinal | cualitativa |
+| comp_lec | Comprensión de lectora | Categórica ordinal | cualitativa |
+| expr_oral | Expresión oral | Categórica ordinal | cualitativa |
+| acompa | ¿Ha recibido algún tipo de acompañamiento para fortalecer su desempeño académico? | Categórica dicotómica | cualitativa |
+| tipo_acomp | Si su respuesta es sí en la pregunta anterior, ¿cual tipo de acompañamiento recibió? | Categórica nominal | cualitativa |
+| memoria | Memoria | Categórica dicotómica | cualitativa |
+| comp | Comprensión | Categórica dicotómica | cualitativa |
+| adaptac | Adaptación | Categórica dicotómica | cualitativa |
+| atencion | Atención | Categórica dicotómica | cualitativa |
+| analisis | Análisis | Categórica dicotómica | cualitativa |
+| hab_pub | ¿Cuándo hablo en público, generalmente me siento? | Categórica ordinal | cualitativa |
+| est_orat | ¿He realizado estudios de oratoria? | Categórica dicotómica | cualitativa |
+| expr_amig | ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente? | Categórica ordinal | cualitativa |
+| comp_nvos | Cuando conozco nuevas personas, mi comportamiento es: | Categórica ordinal | cualitativa |
+| transp_hab | ¿Cuál es el medio de transporte habitual de su casa a la universidad? | Categórica nominal | cualitativa |
+| combust | Su vehículo que tipo de combustible utiliza | Categórica nominal | cualitativa |
+| transp_comp | Su medio de transporte habitual para llegar a la Universidad... | Categórica dicotómica | cualitativa |
+| comp_dispo | ¿Estaría dispuesto a compartir su medio de transporte...? | Categórica dicotómica | cualitativa |
+| tiemp_trans | ¿Cuánto tiempo tarda en su desplazamiento (en minutos)...? | Categórica ordinal | cuantitativa |
+| din_trans | ¿Cuánto dinero gasta en transporte semanalmente? | Categórica ordinal | cuantitativa |
+| tip_familia | ¿Cuál es la tipología familiar de origen? | Categórica nominal | cualitativa |
+| convive | ¿Con cuántas personas convive actualmente? | Numérica entera | cuantitativa |
+| cuartos | ¿Cuántos cuartos hay en su hogar? | Categórica ordinal | cuantitativa |
+| tiene_hijos | ¿Tiene hijos? | Categórica dicotómica | cualitativa |
+| num_hijos | ¿Cuántos hijos tiene? | Categórica ordinal | cuantitativa |
+| grupo_pobl | Grupos poblacionales | Categórica nominal | cualitativa |
+| grupo_pert | ¿A qué grupo poblacional pertenece? | Categórica nominal | cualitativa |
+| grupo_etn | ¿A qué grupo étnico pertenece? | Categórica nominal | cualitativa |
+| etnia_ind | ¿Pertenece a comunidad indígena? | Categórica nominal | cualitativa |
+| gastos_mat | ¿Quién cubre sus gastos de matrícula? | Categórica nominal | cualitativa |
+| pago_sem | ¿Forma de pago del semestre? | Categórica nominal | cualitativa |
+| eligio_udes | ¿Por qué eligió la Universidad de Santander? | Categórica nominal | cualitativa |
+| tiempo_ing | ¿Tiempo desde terminar colegio hasta ingresar? | Numérica entera | cuantitativa |
+| prim_univ | ¿Es el primero en su familia en asistir a la universidad? | Categórica dicotómica | cualitativa |
+| niv_padre | Nivel educativo del padre | Categórica ordinal | cualitativa |
+| niv_madre | Nivel educativo de la madre | Categórica ordinal | cualitativa |
+| estrato | Estrato socioeconómico | Categórica ordinal | cuantitativa |
+| internet | ¿Cuenta con servicio de internet? | Categórica dicotómica | cualitativa |
+| tv_suscrip | ¿Cuenta con suscripción de TV? | Categórica dicotómica | cualitativa |
+| libros | ¿Cuántos libros hay en su hogar? | Categórica ordinal | cuantitativa |
+| tiempo_lect | ¿Tiempo diario de lectura recreativa? | Numérica continua | cuantitativa |
+| tiemp_net | ¿Tiempo navegando en internet? | Numérica continua | cuantitativa |
+| esp_estud | ¿Tiene espacio privado para estudiar? | Categórica dicotómica | cualitativa |
+| jorn_univ | ¿Horas semanales de estudio? | Numérica continua | cuantitativa |
+| tiemp_univ | ¿Tiempo total en la universidad? | Numérica continua | cuantitativa |
+| alim_carn | Consumo de carnes por semana | Categórica ordinal | cuantitativa |
+| alim_cere | Consumo de cereales/legumbres | Categórica ordinal | cuantitativa |
+| trab_padre | Trabajo del padre | Categórica nominal | cualitativa |
+| trab_madre | Trabajo de la madre | Categórica nominal | cualitativa |
+| bienes_hog | Bienes del hogar | Categórica nominal | cualitativa |
+| horas_sem | Horas trabajadas semana pasada | Numérica continua | cuantitativa |
+| remunera | ¿Recibe remuneración por trabajar? | Categórica dicotómica | cualitativa |
+| sit_ec_hog | Situación económica del hogar | Categórica ordinal | cualitativa |
+| comidas_dia | ¿Cuántas veces come al día? | Categórica ordinal | cuantitativa |
+| sust_psic | ¿Consume algún tipo de sustancia psicoactiva? | Categórica dicotómica | cualitativa |
+| edad_psic | ¿Cuál fue la edad de inicio de consumo de sustancias psicoactivas? | Numérica entera | cuantitativa |
+| tipo_psic | ¿Qué tipo de sustancia psicoactiva consume? | Categórica nominal | cualitativa |
+| ayuda_psic | ¿Ha recibido orientación o ayuda profesional...? | Categórica dicotómica | cualitativa |
+| tipo_ayuda | Tipo de ayuda recibida | Categórica nominal | cualitativa |
+| fuma | ¿Usted fuma cigarrillo? | Categórica dicotómica | cualitativa |
+| edad_fuma | Edad en la que empezó a fumar | Numérica entera | cuantitativa |
+| mot_fuma | Motivo por el cual probó el cigarrillo | Categórica nominal | cualitativa |
+| otra_resp | Otra respuesta sobre fumar | Categórica nominal | cualitativa |
+| cig_dia | ¿Cuántos cigarrillos fuma diariamente? | Categórica ordinal | cuantitativa |
+| alcohol | ¿Consume alcohol normalmente? | Categórica dicotómica | cualitativa |
+| edad_alc | Edad que empezó a consumir alcohol | Numérica entera | cuantitativa |
+| mot_alc | Motivo por el cual probó alcohol | Categórica nominal | cualitativa |
+| alc_semana | ¿Cuántas veces a la semana ingiere alcohol? | Categórica ordinal | cuantitativa |
+| ocas_alc | ¿En qué ocasiones lo hace? | Categórica nominal | cualitativa |
+| edad_sex | Edad de inicio de vida sexual | Numérica entera | cuantitativa |
+| anticoncep | ¿Ha usado métodos anticonceptivos? | Categórica dicotómica | cualitativa |
+| tipo_antc | ¿Cuáles ha usado? | Categórica nominal | cualitativa |
+| id_gen | Identidad de género | Categórica nominal | cualitativa |
+| gen_otro | Otro género (especificar) | Categórica nominal | cualitativa |
+| orient_sex | Orientación sexual | Categórica nominal | cualitativa |
+| otra_orsex | Otra orientación sexual | Categórica nominal | cualitativa |
+| enf_diag | ¿Padece enfermedad que requiere tratamiento? | Categórica dicotómica | cualitativa |
+| tipo_enf | Tipo de enfermedad | Categórica nominal | cualitativa |
+| medic_enf | ¿Toma medicamentos por enfermedad? | Categórica dicotómica | cualitativa |
+| discap | ¿Tiene alguna discapacidad? | Categórica dicotómica | cualitativa |
+| tipo_disc | Tipo de discapacidad | Categórica nominal | cualitativa |
+| arte_atra | Disciplinas artísticas que le atraen | Categórica nominal | cualitativa |
+| hab_art | ¿Tiene habilidad artística? | Categórica dicotómica | cualitativa |
+| tipo_art | ¿Cuál habilidad artística? | Categórica nominal | cualitativa |
+| aprend_art | ¿Le gustaría dedicar tiempo a fortalecer habilidad artística? | Categórica dicotómica | cualitativa |
+| dia_art | ¿Qué día tiene más disponibilidad para ello? | Categórica nominal | cualitativa |
+| amb_prac | Prácticas ambientales diarias | Categórica nominal | cualitativa |
+| act_fisica | ¿Realiza actividad física? | Categórica dicotómica | cualitativa |
+| freq_fis | ¿Con qué frecuencia practica actividad física? | Numérica entera | cuantitativa |
+| tiempo_lib | ¿A qué dedica su tiempo libre? | Categórica nominal | cualitativa |
+| otras_lib | ¿Otras actividades en el tiempo libre? | Categórica nominal | cualitativa |
+| lectura | ¿Le gusta la lectura? | Categórica dicotómica | cualitativa |
+| libros_año | ¿Cuántos libros lee al año? | Categórica ordinal | cuantitativa |
+| deporte | ¿Practica algún deporte? | Categórica dicotómica | cualitativa |
+| tipo_dep | Tipo de deporte que practica | Categórica nominal | cualitativa |
+| otros_dep | Otros deportes que practica | Categórica nominal | cualitativa |
+| salud_ment | Estado de salud mental actual | Categórica ordinal | cualitativa |
+| apoyo_fam | ¿Siente apoyo emocional familiar? | Categórica dicotómica | cualitativa |
+| red_apoyo | ¿Quiénes son sus redes de apoyo? | Categórica nominal | cualitativa |
+| pareja | ¿Tiene pareja sentimental? | Categórica dicotómica | cualitativa |
+| rel_pareja | ¿Cómo percibe su relación de pareja? | Categórica ordinal | cualitativa |
+| rel_padres | ¿Cómo percibe su relación con sus padres? | Categórica ordinal | cualitativa |
+| fam_origen | Experiencias en familia de origen | Categórica nominal | cualitativa |
+| fam_formada | Experiencias en familia conformada | Categórica nominal | cualitativa |

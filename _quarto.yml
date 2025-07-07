@@ -53,13 +53,13 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - summary.qmd
+    - Sesion0.qmd
     - Sesion1.qmd
     - Sesion2.qmd
     - Sesion3.qmd
     - Sesion4.qmd
     - filtro.qmd
-    - references.qmd
+    - Conclusiones.qmd
 
 bibliography: references.bib
 csl: apa.csl

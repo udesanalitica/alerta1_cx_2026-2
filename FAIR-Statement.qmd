@@ -1,0 +1,55 @@
+---
+title: "FAIR-Statement"
+---
+
+# Declaración FAIR
+
+Este proyecto sigue los Principios FAIR (Findable, Accessible, Interoperable, Reusable) para promover el manejo responsable de datos académicos.
+
+## Findable
+
+- **F1:** Los metadatos cuentan con un identificador persistente dentro del repositorio institucional de Analítica Académica.
+- **F2:** Incluyen descripciones detalladas del contenido, propósito y contexto del conjunto de datos.
+- **F3:** El identificador está claramente referenciado en la documentación del proyecto.
+- **F4:** Los metadatos están disponibles en un repositorio indexado públicamente (GitHub).
+
+## Accessible
+
+- **A1:** Los metadatos se pueden recuperar mediante protocolos estándar (HTTPS).
+- **A1.1:** **Los datos están restringidos** y requieren autorización institucional previa.
+- **A1.2:** Los metadatos permanecen accesibles incluso si los datos no están disponibles públicamente.
+- **A2:** Los derechos de acceso se definen por las políticas internas de la Universidad de Santander.
+
+## Interoperable
+
+- **I1:** Los datos están estructurados en formatos abiertos y estándares (CSV, XLSX, GeoJSON).
+- **I2:** Los metadatos se presentan en formatos legibles por humanos y máquinas (Markdown, JSON).
+- **I3:** La terminología usada sigue estándares del sector educativo y analítico en Colombia.
+
+## Reusable
+
+- **R1:** El conjunto de datos incluye documentación suficiente para su interpretación.
+- **R1.1:** El uso está regulado por licencia institucional, no pública.
+- **R1.2:** Se proporciona trazabilidad y origen de los datos en la documentación.
+- **R1.3:** La documentación sigue buenas prácticas de informes académicos en educación superior.
+
+---
+
+### 3. (Opcional) Agrega otros archivos útiles dentro de `fair/`
+
+Puedes agregar más archivos para reforzar la transparencia:
+
+| Archivo | Contenido sugerido |
+|--------|---------------------|
+| `metadata.json` | Descripción estructurada del dataset (usando Dublin Core, schema.org o DataCite). |
+| `license.txt` | Declaración de uso interno o confidencialidad. |
+| `protocolo_etico.md` | Detalles sobre consentimiento y uso responsable si aplican. |
+
+---
+
+### 4. Enlaza la hoja `fair/` en tu README
+
+Agrega un enlace desde tu `README.md` para que cualquier visitante lo encuentre fácilmente:
+
+```markdown
+️ Ver [Declaración FAIR](fair/FAIR-Statement.md) para conocer cómo este proyecto gestiona los datos con buenas prácticas.
