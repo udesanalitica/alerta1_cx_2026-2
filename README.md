@@ -38,6 +38,7 @@ Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías u
 **Datos espaciales**: sf, geojsonio, tmap, leaflet
 **Lectura de datos**: readxl, jsonlite
 ```
+
 ```
 install.packages(c(
   "dplyr", "ggplot2", "plotly", "readxl", "sf", "geojsonio",
