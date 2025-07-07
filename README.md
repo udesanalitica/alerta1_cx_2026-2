@@ -51,6 +51,7 @@ install.packages(c(
 
 El sitio se encuentra publicado en:🔗 https://analiticaudes.github.io/Alerta1_Cx_2025-1/
 
+```
 Secciones principales:
 
 Inicio – Presentación del sistema de alerta territorial
@@ -58,6 +59,7 @@ Filtros – Exploración de variables por departamento y municipio
 Conclusiones – Principales hallazgos y líneas de acción
 Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
 Fuentes y marcos metodológicos
+```
 
 ## Licencia
 
