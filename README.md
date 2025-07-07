@@ -74,7 +74,7 @@ Por favor cite el dataset y el reporte como se muestra
 
 ```bibtex
 @techreport{PerezPulido2025,
-  author       = {Pérez, M.; León, F.; Pinto, L.; and Mejía, O.},
+  author       = {Pérez, M., León, F., Pinto, L., y Mejía, O.},
   title        = {Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1.},
   institution  = {Universidad de Santander (UDES)},
   year         = {2025},
