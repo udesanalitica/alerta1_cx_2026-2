@@ -8,12 +8,14 @@
 
 ## 📌 Descripción
 
-Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
+Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). 
+Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, 
+apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
 ## 📂 Estructura del proyecto
 
 Alerta1_Cx_2025-1/
-├── _quarto.yml               # Configuración general del sitio Quarto
+├── _quarto.yml              # Configuración general del sitio Quarto
 ├── index.qmd                # Página principal del sitio
 ├── Conclusiones.qmd         # Sección de conclusiones del análisis
 ├── /data                    # Archivos de datos utilizados (.xlsx, .csv)
@@ -23,28 +25,6 @@ Alerta1_Cx_2025-1/
 ├── /shapes                  # Capas geográficas (GeoJSON u otros)
 ├── README.md                # Este archivo
 └── *.R                      # Scripts utilizados en el análisis
-
-## 📁 Estructura del proyecto
-Haz clic en los enlaces para saltar a cada sección:
-
-🔧 _quarto.yml
-
-🏠 index.qmd
-
-📊 Conclusiones.qmd
-
-📁 data/
-
-📁 docs/
-
-📁 images/
-
-📁 shapes/
-
-📄 README.md
-
-📄 Scripts por sesión
-
 
 ## ⚙️ Requisitos
 
