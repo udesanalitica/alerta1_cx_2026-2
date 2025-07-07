@@ -1,4 +1,4 @@
-Alerta1_Cx_2025-1 – Sistema de Alerta Temprana Territorial
+## Alerta1_Cx_2025-1 – Sistema de Alerta Temprana Territorial
 
 📌 Descripción
 
@@ -18,7 +18,7 @@ Alerta1_Cx_2025-1/
 ├── README.md                # Este archivo
 └── *.R                      # Scripts utilizados en el análisis
 
-⚙️ Requisitos
+## ⚙️ Requisitos
 
 Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
 
