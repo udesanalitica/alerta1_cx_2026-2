@@ -110,4 +110,7 @@ Puedes: Contactar a través del correo institucional: analitica.academica@udes.e
 
 Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
 
+## doi
+https://doi.org/10.5281/zenodo.15832245
+
 ¡Gracias por su interés!
