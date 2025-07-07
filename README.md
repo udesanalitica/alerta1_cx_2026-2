@@ -1,6 +1,12 @@
-## Alerta1_Cx_2025-1 – Sistema de Alerta Temprana Territorial
+# Sistema de Alerta Temprana - Alerta1_Cx_2025-1
 
-📌 Descripción
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Repo size](https://img.shields.io/github/repo-size/AnaliticaUDES/Alerta1_Cx_2025-1)
+![Last commit](https://img.shields.io/github/last-commit/AnaliticaUDES/Alerta1_Cx_2025-1)
+![FAIR Data](https://img.shields.io/badge/FAIR-Data-blue)
+
+
+##📌 Descripción
 
 Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
@@ -35,7 +41,7 @@ install.packages(c(
   "ggrepel", "tidyverse", "scales", "lattice", "jsonlite"
 ))
 
-🧽 Navegación del sitio
+##🧽 Navegación del sitio
 
 El sitio se encuentra publicado en:🔗 https://analiticaudes.github.io/Alerta1_Cx_2025-1/
 
@@ -47,25 +53,19 @@ Conclusiones – Principales hallazgos y líneas de acción
 Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
 Fuentes y marcos metodológicos
 
-👩‍🏫 Contribución y Contacto
-
-Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
-
-¿Tienes aportes o sugerencias? Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
-
-📜 Licencia
+##📜 Licencia
 
 Este proyecto se publica bajo la Licencia MIT. Puedes usar, modificar y distribuir el contenido siempre que se dé el debido crédito.
 
-🍿 Temas clave
+##🍿 Temas clave
 
 datos-territoriales · quarto · alerta-temprana · visualización · rstats · georreferenciación · educación-superior · ciencia-de-datos
 
-📑 Citation
-Please cite the dataset and report as follows:
+##📑 Citación
+Por favor cite el dataset y el reporte como se muestra
 
 @techreport{PerezPulido2025,
-  author       = {Pérez Pulido, Miguel Oswaldo and León, Francisco Javier and Pinto Guarguatí, Leonardo Andrés and Mejía Ardila, Omar Camilo},
+  author       = {Pérez Pulido, Miguel Oswaldo; León, Francisco Javier__; Pinto Guarguatí, Leonardo Andrés and Mejía Ardila, Omar Camilo},
   title        = {Sistema de alerta temprana para la caracterización de la población estudiantil en riesgo académico en la Universidad de Santander - Alerta1\_Cx\_2025-1},
   institution  = {Universidad de Santander (UDES)},
   year         = {2025},
@@ -74,8 +74,36 @@ Please cite the dataset and report as follows:
   type         = {Informe técnico}
 }
 
+##✅ Cumplimiento FAIR
+Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, Interoperable y Reutilizable):
+
+Encontrable (Findable): El conjunto cuenta con identificadores únicos persistentes y metadatos indexados en repositorios abiertos.
+Accesible (Accessible): Está licenciado abiertamente bajo CC-BY 4.0, sin restricciones de acceso.
+Interoperable (Interoperable): Se proporciona en formatos estándar acompañados de metadatos legibles por máquina.
+Reutilizable (Reusable): Incluye documentación completa, condiciones claras de licencia y pautas para su citación y uso responsable.
+
+➡️ Consulta la carpeta fair/ para acceder al desglose completo de cumplimiento FAIR.
+
+##🙏 Agradecimientos
+Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a:
+
+La Universidad de Santander (UDES) y su Coordinación de Analítica Académica, por liderar el desarrollo del sistema de alerta.
+
+Todos los profesionales involucrados en la recolección, análisis y visualización de los datos.
+
+Las unidades académicas que facilitaron el acceso a la información.
+
+Las y los estudiantes que participaron de manera voluntaria en las caracterizaciones y encuestas.
 
 
+##👩‍🏫 Contribución y Contacto
 
-Hecho con ❤️ y R por Analítica Académica UDES.
+Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
+¿Tienes aportes o sugerencias? Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
+
+
+Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal:
+##🔗 https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
+
+¡Gracias por su interés! 🚀📊
