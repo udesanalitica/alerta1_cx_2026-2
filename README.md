@@ -33,11 +33,11 @@ Alerta1_Cx_2025-1/
 Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
 
 ```
-Manipulación y análisis: dplyr, tidyverse, psych, skimr, summarytools, Hmisc
-Visualización: ggplot2, plotly, corrplot, ggpubr, ggrepel, scales, lattice
-Tablas y estilos: kableExtra, htmltools
-Datos espaciales: sf, geojsonio, tmap, leaflet
-Lectura de datos: readxl, jsonlite
+**Manipulación y análisis**: dplyr, tidyverse, psych, skimr, summarytools, Hmisc
+**Visualización**: ggplot2, plotly, corrplot, ggpubr, ggrepel, scales, lattice
+**Tablas y estilos**: kableExtra, htmltools
+**Datos espaciales**: sf, geojsonio, tmap, leaflet
+**Lectura de datos**: readxl, jsonlite
 ```
 ```
 install.packages(c(
