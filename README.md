@@ -6,13 +6,13 @@
 ![FAIR Data](https://img.shields.io/badge/FAIR-Data-blue)
 
 
-## 📌 Descripción
+## Descripción
 
 Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). 
 Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, 
 apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
-## 📂 Estructura del proyecto
+## Estructura del proyecto
 
 ```
 Alerta1_Cx_2025-1/
@@ -28,24 +28,26 @@ Alerta1_Cx_2025-1/
 └── *.R                      # Scripts utilizados en el análisis
 ```
 
-## ⚙️ Requisitos
+## Requisitos
 
 Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
 
+```
 Manipulación y análisis: dplyr, tidyverse, psych, skimr, summarytools, Hmisc
 Visualización: ggplot2, plotly, corrplot, ggpubr, ggrepel, scales, lattice
 Tablas y estilos: kableExtra, htmltools
 Datos espaciales: sf, geojsonio, tmap, leaflet
 Lectura de datos: readxl, jsonlite
-
+```
+```
 install.packages(c(
   "dplyr", "ggplot2", "plotly", "readxl", "sf", "geojsonio",
   "leaflet", "tmap", "kableExtra", "htmltools", "psych",
   "skimr", "summarytools", "corrplot", "ggpubr", "Hmisc",
   "ggrepel", "tidyverse", "scales", "lattice", "jsonlite"
 ))
-
-## 🧽 Navegación del sitio
+```
+## Navegación del sitio
 
 El sitio se encuentra publicado en:🔗 https://analiticaudes.github.io/Alerta1_Cx_2025-1/
 
@@ -57,15 +59,15 @@ Conclusiones – Principales hallazgos y líneas de acción
 Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
 Fuentes y marcos metodológicos
 
-## 📜 Licencia
+## Licencia
 
 Este proyecto se publica bajo la Licencia MIT. Puedes usar, modificar y distribuir el contenido siempre que se dé el debido crédito.
 
-##🍿 Temas clave
+## Temas clave
 
 datos-territoriales · quarto · alerta-temprana · visualización · rstats · georreferenciación · educación-superior · ciencia-de-datos
 
-## 📑 Citación
+## Citación
 Por favor cite el dataset y el reporte como se muestra
 
 ```bibtex
@@ -80,9 +82,7 @@ Por favor cite el dataset y el reporte como se muestra
 }
 ```
 
-
-
-##✅ Cumplimiento FAIR
+## Cumplimiento FAIR
 Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, Interoperable y Reutilizable):
 
 Encontrable (Findable): El conjunto cuenta con identificadores únicos persistentes y metadatos indexados en repositorios abiertos.
@@ -90,13 +90,13 @@ Accesible (Accessible): Está licenciado abiertamente bajo CC-BY 4.0, sin restri
 Interoperable (Interoperable): Se proporciona en formatos estándar acompañados de metadatos legibles por máquina.
 Reutilizable (Reusable): Incluye documentación completa, condiciones claras de licencia y pautas para su citación y uso responsable.
 
-➡️ Consulta la carpeta fair/ para acceder al desglose completo de cumplimiento FAIR.
+Consulta la carpeta fair/ para acceder al desglose completo de cumplimiento FAIR.
 
-## 🙏 Agradecimientos
+## Agradecimientos
 Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a
 las y los estudiantes que participaron de manera voluntaria en las caracterizaciones y encuestas.
 
-## 👩‍🏫 Contribución y Contacto
+## Contribución y Contacto
 
 Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
@@ -104,6 +104,6 @@ Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
 Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal:
 
-## 🔗 https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
+## https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
 
-¡Gracias por su interés! 🚀📊
+¡Gracias por su interés!
