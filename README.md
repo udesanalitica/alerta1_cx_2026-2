@@ -94,7 +94,7 @@ Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, I
 - **Interoperable**: Formatos estándar legibles por máquina.
 - **Reutilizable**: Documentación completa y condiciones claras de uso.
 
-🔗 Consulta el detalle completo en [`fair/fair-compliance.md`](./fair/fair-compliance.md).
+Consulta el detalle completo en [`fair/fair-compliance.md`](./fair/fair-compliance.md).
 
 
 ## Agradecimientos
