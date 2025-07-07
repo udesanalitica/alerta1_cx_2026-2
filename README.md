@@ -32,7 +32,6 @@ Alerta1_Cx_2025-1/
 
 Este proyecto fue desarrollado con R 4.3+ y Quarto. Las principales librerías utilizadas fueron:
 
-```
 **Manipulación y análisis**: dplyr, tidyverse, psych, skimr, summarytools, Hmisc
 **Visualización**: ggplot2, plotly, corrplot, ggpubr, ggrepel, scales, lattice
 **Tablas y estilos**: kableExtra, htmltools
@@ -84,7 +83,7 @@ Por favor cite el dataset y el reporte como se muestra
 ```
 
 ## Cumplimiento FAIR
-```
+
 Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, Interoperable y Reutilizable):
 
 - **Encontrable**: Identificadores únicos y metadatos indexados.
@@ -93,7 +92,7 @@ Este conjunto de datos cumple con los principios FAIR (Encontrable, Accesible, I
 - **Reutilizable**: Documentación completa y condiciones claras de uso.
 
 🔗 Consulta el detalle completo en [`fair/fair-compliance.md`](./fair/fair-compliance.md).
-```
+
 
 ## Agradecimientos
 Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a
