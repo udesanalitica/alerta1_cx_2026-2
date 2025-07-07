@@ -10,7 +10,7 @@
 
 Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-1 de estudiantes de la Universidad de Santander (UDES). Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
-📂 Estructura del proyecto
+## 📂 Estructura del proyecto
 
 Alerta1_Cx_2025-1/
 ├── _quarto.yml               # Configuración general del sitio Quarto
@@ -41,7 +41,7 @@ install.packages(c(
   "ggrepel", "tidyverse", "scales", "lattice", "jsonlite"
 ))
 
-##🧽 Navegación del sitio
+## 🧽 Navegación del sitio
 
 El sitio se encuentra publicado en:🔗 https://analiticaudes.github.io/Alerta1_Cx_2025-1/
 
@@ -53,7 +53,7 @@ Conclusiones – Principales hallazgos y líneas de acción
 Sesion0.R, Sesion1.R...  # Scripts por sesión (0 a 4)
 Fuentes y marcos metodológicos
 
-##📜 Licencia
+## 📜 Licencia
 
 Este proyecto se publica bajo la Licencia MIT. Puedes usar, modificar y distribuir el contenido siempre que se dé el debido crédito.
 
@@ -61,7 +61,7 @@ Este proyecto se publica bajo la Licencia MIT. Puedes usar, modificar y distribu
 
 datos-territoriales · quarto · alerta-temprana · visualización · rstats · georreferenciación · educación-superior · ciencia-de-datos
 
-##📑 Citación
+## 📑 Citación
 Por favor cite el dataset y el reporte como se muestra
 
 @techreport{PerezPulido2025,
@@ -84,7 +84,7 @@ Reutilizable (Reusable): Incluye documentación completa, condiciones claras de 
 
 ➡️ Consulta la carpeta fair/ para acceder al desglose completo de cumplimiento FAIR.
 
-##🙏 Agradecimientos
+## 🙏 Agradecimientos
 Este proyecto ha sido posible gracias al trabajo colaborativo de múltiples actores institucionales y académicos. Agradecemos especialmente a:
 
 La Universidad de Santander (UDES) y su Coordinación de Analítica Académica, por liderar el desarrollo del sistema de alerta.
@@ -96,14 +96,14 @@ Las unidades académicas que facilitaron el acceso a la información.
 Las y los estudiantes que participaron de manera voluntaria en las caracterizaciones y encuestas.
 
 
-##👩‍🏫 Contribución y Contacto
+## 👩‍🏫 Contribución y Contacto
 
 Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
 ¿Tienes aportes o sugerencias? Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
 
-
 Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal:
-##🔗 https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
+
+## 🔗 https://github.com/AnaliticaUDES/Alerta1_Cx_2025-1
 
 ¡Gracias por su interés! 🚀📊
