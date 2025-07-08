@@ -1047,7 +1047,7 @@ fig
 ### Distribución de niveles de idiomas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En relación con el dominio de una segunda lengua extranjera, el 12,5% de los estudiantes manifiestan dominar el idioma inglés.
+En relación con el dominio de una segunda lengua extranjera, el 12,5% de los estudiantes manifiestan dominar el idioma inglés en diferentes niveles.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

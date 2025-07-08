@@ -1425,7 +1425,7 @@ fig
 ### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto a la .....
+Al analizar las razones por las cuales los estudiantes eligieron a la Universidad de Santander frente a otras instituciones, destaca de forma predominante el concepto de **\"calidad\"** como factor decisivo. Asimismo, términos como **\"referencias\"**, **\"positivas\"** y **\"por ser admitido en la carrera de su preferencia\"** reflejan la influencia de la reputación institucional, las recomendaciones de terceros y la oferta académica disponible en la toma de decisiones. Igualmente, expresiones como **\"visita a los colegios\"** y **\"decisión de los padres\"** evidencian el papel de los procesos de orientación vocacional, el acompañamiento familiar y el vínculo previo con la universidad en la elección final del estudiantado.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1621,11 +1621,10 @@ La mayoría de los padres de los estudiantes encuestados alcanzaron niveles de e
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Cuál es el nivel educativo más alto alcanzado por su padre?
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(niv_padre), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(!is.na(campus) & !is.na(niv_padre) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, niv_padre) %>%
   summarise(n = n(), .groups = "drop")
 
@@ -1642,16 +1641,44 @@ niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
+# 5. Ordenar niveles de 'niv_padre' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(niv_padre)
+
+datos_final <- datos_final %>%
+  mutate(niv_padre = factor(niv_padre, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", niv_padre, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
-  labels = ~niv_padre,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  x = ~niv_padre,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -1662,14 +1689,16 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución nivel educativo más alto \nalcanzado por su padre por campus",
+    title = "Distribución nivel educativo \npadre por campus",
+    xaxis = list(title = " "),
+    yaxis = list(title = "Número de \nestudiantes"),
     updatemenus = list(
       list(
         type = 'dropdown',
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -1688,11 +1717,10 @@ En cuanto al nivel educativo más alto alcanzado por las madres de los estudiant
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Cuál es el nivel educativo más alto alcanzado por su madre?
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(niv_madre), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(!is.na(campus) & !is.na(niv_madre) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, niv_madre) %>%
   summarise(n = n(), .groups = "drop")
 
@@ -1709,16 +1737,44 @@ niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
+# 5. Ordenar niveles de 'niv_madre' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(niv_madre)
+
+datos_final <- datos_final %>%
+  mutate(niv_padre = factor(niv_madre, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", niv_madre, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
-  labels = ~niv_madre,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  x = ~niv_madre,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -1729,14 +1785,16 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución nivel educativo más alto \nalcanzado por su madre por campus",
+    title = "Distribución nivel educativo \nmadre por campus",
+    xaxis = list(title = " "),
+    yaxis = list(title = "Número de \nestudiantes"),
     updatemenus = list(
       list(
         type = 'dropdown',
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
