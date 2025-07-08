@@ -3,10 +3,9 @@
 ::: {#refs}
 :::
 
-
 ## Conclusiones generales del sistema de alerta académica
 
-La incorporación de nuevos indicadores —como transporte, pertenencia étnica e identidad de género— ha favorecido una caracterización más inclusiva y respetuosa de la diversidad del estudiantado, fortaleciendo el enfoque diferencial.
+La incorporación de nuevos indicadores ---como transporte, pertenencia étnica e identidad de género--- ha favorecido una caracterización más inclusiva y respetuosa de la diversidad del estudiantado, fortaleciendo el enfoque diferencial.
 
 La exploración de las condiciones de conectividad, espacio de estudio y medios de transporte mostró que los estudiantes con menores recursos tienden a presentar mayor riesgo de rezago académico, lo que respalda la necesidad de activar alertas tempranas y acciones de acompañamiento.
 

@@ -1,5 +1,5 @@
 ---
-title: "Sesiones 4, 5 y 6: Fomento de la cultura, Deportes y esparcimiento, y  Desarrollo humano"
+title: "Sesiones 4, 5 y 6: Fomento de la cultura, deportes y esparcimiento, y desarrollo humano"
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

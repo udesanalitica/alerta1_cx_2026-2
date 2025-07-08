@@ -1425,7 +1425,7 @@ fig
 ### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Al analizar las razones por las cuales los estudiantes eligieron a la Universidad de Santander frente a otras instituciones, destaca de forma predominante el concepto de **"calidad"** como factor decisivo. Asimismo, términos como **"referencias"**, **"positivas"** y **"por ser admitido en la carrera de su preferencia"** reflejan la influencia de la reputación institucional, las recomendaciones de terceros y la oferta académica disponible en la toma de decisiones. Igualmente, expresiones como **"visita a los colegios"** y **"decisión de los padres"** evidencian el papel de los procesos de orientación vocacional, el acompañamiento familiar y el vínculo previo con la universidad en la elección final del estudiantado.
+Al analizar las razones por las cuales los estudiantes eligieron a la Universidad de Santander frente a otras instituciones, destaca de forma predominante el concepto de **"calidad"** como factor decisivo. Asimismo, términos como **"referencias"**, **"positivas"** y **"por ser admitido en la carrera de su preferencia"** reflejan la influencia de la reputación institucional, las recomendaciones de terceros y la oferta académica disponible en la toma de decisiones. Igualmente, expresiones como **"visita a los colegíos"** y **"decisión de los padres"** evidencian el papel de los procesos de orientación vocacional, el acompañamiento familiar y el vínculo previo con la universidad en la elección final del estudiantado.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

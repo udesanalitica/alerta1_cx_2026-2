@@ -199,3 +199,7 @@ img[src*="cover.png"] {
   display: block;
   margin: 2rem auto;
 }
+
+.caption {
+  font-size: 0.85rem; /* Tamaño más pequeño */
+}
