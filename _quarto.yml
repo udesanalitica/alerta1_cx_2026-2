@@ -20,12 +20,7 @@ book:
     tools:
       - icon: github
         href: https://github.com/analiticaudes/Alerta1_Cx_2025-1
-        text: "Ver código fuente"
-      - icon: file-earmark-pdf
-        href: "#"
-        text: "Descargar PDF"
-      - icon: share
-        text: "Compartir"
+        text: "Repositorio GitHub"
       - icon: printer
         href: "javascript:window.print()"
         text: "Imprimir"
