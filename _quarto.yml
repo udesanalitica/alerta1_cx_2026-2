@@ -4,6 +4,8 @@ project:
 
 extensions: [quarto-ext/panel]
 
+lang: es  # <- idioma en español
+
 book:
   title: "Alerta 1. Caracterización de estudiantes"
   subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-1"
