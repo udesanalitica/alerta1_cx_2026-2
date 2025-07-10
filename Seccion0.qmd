@@ -25,7 +25,7 @@ metodologia_data <- data.frame(
     "Bucaramanga, Cúcuta, Valledupar",
     "Bucaramanga (560),<br>\nCúcuta (390), <br>\nValledupar (300)",
     "Formulario multicampus (111 preguntas)",
-    "Sesión 1. Información personal y académica <br> \nSesión 2. Aspectos sociodemográficos <br>\nSesión 3. Salud integral <br> \nSesión 4. Fomento de la cultura <br> \nSesión 5. Deportes y esparcimiento <br>\nSesión 6. Desarrollo humano",
+    "Sección 1. Información personal y académica <br> \nSección 2. Aspectos sociodemográficos <br>\nSección 3. Salud integral <br> \nSección 4. Fomento de la cultura <br> \nSección 5. Deportes y esparcimiento <br>\nSección 6. Desarrollo humano",
     "03 de febrero al 03 de marzo de 2025",
     "Bucaramanga [86% (560/646)],<br>\nCúcuta [100% (390/390)], <br>\nValledupar [94% (281/300)]",
     "Excel, RStudio, quarto, GitHub"
