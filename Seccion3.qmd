@@ -1,5 +1,5 @@
 ---
-title: "Sesión 3. Salud integral"
+title: "Sección 3. Salud integral"
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

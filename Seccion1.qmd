@@ -1,5 +1,5 @@
 ---
-title: "Sesión 1. Información personal y Académica"
+title: "Sección 1. Información personal y Académica"
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

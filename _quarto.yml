@@ -50,11 +50,11 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - Sesion0.qmd
-    - Sesion1.qmd
-    - Sesion2.qmd
-    - Sesion3.qmd
-    - Sesion4.qmd
+    - Seccion0.qmd
+    - Seccion1.qmd
+    - Seccion2.qmd
+    - Seccion3.qmd
+    - Seccion4.qmd
     - Conclusiones.qmd
 
 bibliography: references.bib
