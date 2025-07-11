@@ -12,8 +12,6 @@ book:
   author: "Dirección de Analítica Académica"
   date: "2025-05-05"
   reader-mode: true
-  
-  # Agregar imagen de portada
   cover-image: "images/cover.png"  # Ruta a tu imagen de portada
   cover-image-alt: "Portada del libro Alerta 1"
   

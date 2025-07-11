@@ -1,31 +1,27 @@
-# Créditos {.unnumbered}
-
-![](images/Imagen3.png){fig-align="center" width="387"}
-
-+--------------------------------------------+-------------------------------------------------------------------------------+
-| Directivas                                 | **Autores**                                                                   |
-+============================================+===============================================================================+
-| **Rector General\                          | **Director de Analítica Académica**[^index-1]\                                |
-| **José Patricio López Jaramillo            | [Miguel Oswaldo Pérez Pulido](https://orcid.org/0000-0003-2945-0526)\         |
-|                                            | \                                                                             |
-| **Rectora Campus Cúcuta\                   | **Coordinador de Analítica Académica**\                                       |
-| **Carmen Elisa Araque Pérez                | [Francisco Javier León](https://orcid.org/0000-0002-8904-5242)\               |
-|                                            | \                                                                             |
-| **Rector Campus Valledupar**\              | **Profesional en Investigación de Mercados**\                                 |
-| Carlos Darío Morón Cuello                  | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270)  \|\ |
-|                                            | **Director de Gestión Curricular** **\                                        |
-| **Vicerrector de Enseñanza\                | **[Omar Camilo Mejía Ardila](https://orcid.org/0000-0002-4040-1269)\          |
-| **César Augusto Serrano Novoa              |                                                                               |
-|                                            |                                                                               |
-| **Directora Administrativa y Financiera**\ |                                                                               |
-| Angélica María Calderón Plata              |                                                                               |
-|                                            |                                                                               |
-| **Directora de Desarrollo Estudiantil**\   |                                                                               |
-| Silvia Juliana Suescún Garcés              |                                                                               |
-|                                            |                                                                               |
-| **Directora de Bienestar Institucional**\  |                                                                               |
-| Ana Francisca Martínez Quintero            |                                                                               |
-+--------------------------------------------+-------------------------------------------------------------------------------+
++--------------------------------------------+---------------------------------------------------------------------------+
+| Directivas                                 | **Autores**                                                               |
++============================================+===========================================================================+
+| **Rector General\                          | **Director de Analítica Académica**[^index-1]\                            |
+| **José Patricio López Jaramillo            | [Miguel Oswaldo Pérez Pulido](https://orcid.org/0000-0003-2945-0526)\     |
+|                                            | \                                                                         |
+| **Rectora Campus Cúcuta\                   | **Coordinador de Analítica Académica**\                                   |
+| **Carmen Elisa Araque Pérez                | [Francisco Javier León](https://orcid.org/0000-0002-8904-5242)\           |
+|                                            | \                                                                         |
+| **Rector Campus Valledupar**\              | **Profesional en Investigación de Mercados**\                             |
+| Carlos Darío Morón Cuello                  | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270)\ |
+|                                            |                                                                           |
+| **Vicerrector de Enseñanza\                | **Director de Gestión Curricular** **\                                    |
+| **César Augusto Serrano Novoa              | **[Omar Camilo Mejía Ardila](https://orcid.org/0000-0002-4040-1269)\      |
+|                                            |                                                                           |
+| **Directora Administrativa y Financiera**\ |                                                                           |
+| Angélica María Calderón Plata              |                                                                           |
+|                                            |                                                                           |
+| **Directora de Desarrollo Estudiantil**\   |                                                                           |
+| Silvia Juliana Suescún Garcés              |                                                                           |
+|                                            |                                                                           |
+| **Directora de Bienestar Institucional**\  |                                                                           |
+| Ana Francisca Martínez Quintero            |                                                                           |
++--------------------------------------------+---------------------------------------------------------------------------+
 
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [analitica.academica\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 
