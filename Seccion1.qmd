@@ -84,21 +84,110 @@ En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 
 ## Distribución geográfica
 
-### Nacional (pendiente actualizar)
+La distribución por departamentos y municipios de procedencia de los estudiantes se refleja en el mapa de Colombia.
 
-La distribución por departamentos de procedencia de los estudiantes se refleja en el mapa de Colombia.
+```{r, fig.width=10, fig.height=12, echo=FALSE, message=FALSE, warning=FALSE}
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(stringr)
+library(tibble)
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(htmltools)
-
-tags$iframe(
-  src = "https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Lugardeprocedencia?:embed=yes&:showVizHome=no",
-  width = "100%",
-  height = "800",
-  frameborder = "0",
-  allowfullscreen = NA
+# Leer shapefile
+colombia <- suppressMessages(
+  st_read("https://raw.githubusercontent.com/santiblanko/colombia.geojson/master/mpio.json")
 )
 
+# Crear MPIO_CCDGO
+colombia <- colombia %>%
+  mutate(
+    DPTO = str_pad(DPTO, 2, pad = "0"),
+    MPIO = str_pad(MPIO, 3, pad = "0"),
+    MPIO_CCDGO = paste0(DPTO, MPIO)
+  ) %>%
+  filter(MPIO_CCDGO != "99999")
+
+# Leer CSV y preparar columna MPIO_CCDGO y campus
+ciudades <- read_delim("data/ciudades.csv", delim = ";", locale = locale(encoding = "Latin1"))
+names(ciudades) <- str_replace_all(names(ciudades), "[\r\n\t]", "")
+ciudades <- ciudades %>%
+  mutate(MPIO_CCDGO = str_pad(as.character(MPIO_CCDGO), 5, pad = "0"))
+
+# Unir shapefile con CSV por MPIO_CCDGO
+municipios_con_campus <- colombia %>%
+  inner_join(ciudades %>% select(MPIO_CCDGO, campus), by = "MPIO_CCDGO")
+
+# Diccionario de acrónimos (incluye CHOCÓ y SAN ANDRÉS)
+acronimos_dpt <- tribble(
+  ~NOMBRE_DPT,       ~ACRONIMO,
+  "ANTIOQUIA",       "ANTI",
+  "SANTANDER",       "SANT",
+  "CESAR",           "CESA",
+  "ARAUCA",          "ARAU",
+  "ATLANTICO",       "ATLA",
+  "BOYACA",          "BOYA",
+  "CALDAS",          "CALD",
+  "CAQUETA",         "CAQU",
+  "CAUCA",           "CAUC",
+  "CHOCÓ",           "CHOC",
+  "CHOCO",           "CHOC",
+  "CORDOBA",         "CORD",
+  "CUNDINAMARCA",    "CUND",
+  "GUAINIA",         "GUAI",
+  "GUAVIARE",        "GUAV",
+  "HUILA",           "HUIL",
+  "LA GUAJIRA",      "GUAJ",
+  "MAGDALENA",       "MAGD",
+  "META",            "META",
+  "NARINO",          "NARI",
+  "NORTE DE SANTANDER", "NSAN",
+  "PUTUMAYO",        "PUTU",
+  "QUINDIO",         "QUIN",
+  "RISARALDA",       "RISA",
+  "SAN ANDRES",      "SAND",
+  "ARCHIPIELAGO DE SAN ANDRES", "SAND",
+  "SUCRE",           "SUCR",
+  "TOLIMA",          "TOLI",
+  "VALLE DEL CAUCA", "VALL",
+  "VAUPES",          "VAUP",
+  "VICHADA",         "VICH",
+  "AMAZONAS",        "AMAZ",
+  "BOGOTA D.C.",     "BOGO"
+)
+
+# Geometría de departamentos con acrónimos
+departamentos <- colombia %>%
+  group_by(DPTO, NOMBRE_DPT) %>%
+  summarise(geometry = st_union(geometry), .groups = "drop") %>%
+  mutate(NOMBRE_DPT = str_replace_all(NOMBRE_DPT, c("Á" = "A", "É" = "E", "Í" = "I", "Ó" = "O", "Ú" = "U", "Ñ" = "N"))) %>%
+  left_join(acronimos_dpt, by = "NOMBRE_DPT") %>%
+  filter(!is.na(ACRONIMO))
+
+# 🔄 Reproyectar a coordenadas planas (MAGNA-SIRGAS / Colombia Bogotá)
+colombia <- st_transform(colombia, 3116)
+municipios_con_campus <- st_transform(municipios_con_campus, 3116)
+departamentos <- st_transform(departamentos, 3116)
+
+# Crear mapa
+ggplot() +
+  geom_sf(data = colombia, fill = "gray95", color = "white", size = 0.1) +
+  geom_sf(data = municipios_con_campus, aes(fill = campus), color = "black", size = 0.2) +
+  scale_fill_manual(
+    values = c(
+      "Cucuta" = "#FFD1DC",
+      "Bucaramanga" = "#A2CFFE",
+      "Valledupar" = "#AAF0D1"
+    ),
+    name = "Campus UDES"
+  ) +
+  geom_sf(data = departamentos, fill = NA, color = "black", size = 0.7) +
+  geom_sf_text(data = departamentos, aes(label = ACRONIMO), size = 2, fontface = "bold", check_overlap = TRUE) +
+  theme_minimal() +
+  labs(
+    title = "Municipios de origen de los estudiantes",
+    caption = "Fuente: Dirección de Analítica Académica, 2025-1"
+  )
 ```
 
 ## Perfil Demográfico
