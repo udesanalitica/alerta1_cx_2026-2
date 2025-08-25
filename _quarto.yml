@@ -3,20 +3,23 @@ project:
   output-dir: docs
 
 extensions: [quarto-ext/panel]
-
-lang: es  # <- idioma en español
+lang: es
 
 book:
   title: "Alerta 1. Caracterización de estudiantes"
   subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-1"
   author: "Dirección de Analítica Académica"
   date: "2025-05-05"
+  site-url: https://udesanalitica.github.io/Alerta1_Cx_2025-1/
+  repo-url: https://github.com/udesanalitica/Alerta1_Cx_2025-1
+  repo-actions: [edit, issue, source]
   reader-mode: true
-  cover-image: "images/cover.png"  # Ruta a tu imagen de portada
+  cover-image: images/cover.png
   cover-image-alt: "Portada del libro Alerta 1"
-  
-  # Configuración de la barra lateral con íconos
+
   sidebar:
+    style: docked
+    search: true
     tools:
       - icon: github
         href: https://github.com/udesanalitica/Alerta1_Cx_2025-1
@@ -24,27 +27,18 @@ book:
       - icon: printer
         href: "javascript:window.print()"
         text: "Imprimir"
-    style: "docked"
-    search: true
-  
-  # Configuración del pie de página
+
   page-footer:
     left: |
-      **Alerta 1. Caracterización de estudiantes** fue creado por la 
-      Dirección de Analítica Académica \Universidad de Santander.
+      **Alerta 1. Caracterización de estudiantes** fue creado por la
+      Dirección de Analítica Académica, Universidad de Santander.
     right: |
       Este libro fue construido con <a href="https://quarto.org/">Quarto</a>.
     center: |
-      <a href="https://github.com/udesanalitica/Alerta1_Cx_2025-1" target="_blank" aria-label="GitHub">
-        <i class="bi bi-github"></i>
-      </a>
-      <a href="#" aria-label="Compartir" style="margin-left: 10px;">
-        <i class="bi bi-share"></i>
-      </a>
-      <a href="javascript:window.print()" aria-label="Imprimir" style="margin-left: 10px;">
-        <i class="bi bi-printer"></i>
-      </a>
-  
+      <a href="https://github.com/udesanalitica/Alerta1_Cx_2025-1" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      <a href="#" aria-label="Compartir" style="margin-left: 10px;"><i class="bi bi-share"></i></a>
+      <a href="javascript:window.print()" aria-label="Imprimir" style="margin-left: 10px;"><i class="bi bi-printer"></i></a>
+
   chapters:
     - index.qmd
     - intro.qmd
@@ -60,9 +54,7 @@ csl: apa.csl
 
 format:
   html:
-    theme: 
-      - cosmo
-      - brand
+    theme: [cosmo, brand]
     toc: true
     toc-depth: 3
     number-sections: true
@@ -73,20 +65,16 @@ format:
     reference-location: margin
     cite-method: citeproc
     biblio-style: apa
-    
-    # Configuración del repositorio para íconos automáticos
-    repo-url: https://github.com/udesanalitica/Alerta1_Cx_2025-1
-    repo-actions: [edit, issue, source]
-    repo-subdir: ""
-    
-    # Incluir Bootstrap Icons para los íconos
     include-in-header: header.html
-      
-    crossref:
-      chapters: true
-      title-delim: "."
-      fig-prefix: "Figura"
-      tbl-prefix: "Tabla"
-    page-layout: full  # 🔸 Asegura que plotly use todo el ancho sin desbordes
+    page-layout: full
+
+execute:
+  freeze: auto
+
+resources:
+  - images/**
+  - Shapes/**
+  - metadata/**
+  - audios/**
 
 editor: visual
