@@ -68,13 +68,10 @@ format:
     include-in-header: header.html
     page-layout: full
 
-execute:
-  freeze: auto
-
-resources:
-  - images/**
-  - Shapes/**
-  - metadata/**
-  - audios/**
+crossref:
+  chapters: true
+  title-delim: "."
+  fig-prefix: "Figura"
+  tbl-prefix: "Tabla"
 
 editor: visual
