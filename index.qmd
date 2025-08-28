@@ -26,7 +26,7 @@
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [analitica.academica\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 
 ::: {.callout-warning title="Para citar"}
-Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1. Universidad de Santander. Vicerrectoría de Enseñanza. https://analiticaudes.github.io/Alerta1_Cx_2025-1/.
+Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1. Universidad de Santander. Vicerrectoría de Enseñanza. https://analiticaudes.github.io/Alerta1_Cx_2025-2/.
 :::
 
 ``` bibtex
@@ -36,9 +36,9 @@ Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica A
   institution  = {Universidad de Santander (UDES)},
   year         = {2025},
   note         = {Vicerrectoría de Enseñanza},
-  url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-1/},
+  url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-2/},
   type         = {Informe técnico}
-  doi          = {https://doi.org/10.5281/zenodo.15832245}
+  doi          = {https://doi.org/10.5281/zenodo.xxxxxx}
 }
 ```
 
