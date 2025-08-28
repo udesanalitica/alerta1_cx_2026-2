@@ -11,7 +11,7 @@
 | Carlos Darío Morón Cuello                  | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270)\ |
 |                                            |                                                                           |
 | **Vicerrector de Enseñanza\                | **Director de Gestión Curricular** **\                                    |
-| **César Augusto Serrano Novoa              | **[Omar Camilo Mejía Ardila](https://orcid.org/0000-0002-4040-1269)\      |
+| **José Asthul Rangel Chacón                | **[Omar Camilo Mejía Ardila](https://orcid.org/0000-0002-4040-1269)\      |
 |                                            |                                                                           |
 | **Directora Administrativa y Financiera**\ |                                                                           |
 | Angélica María Calderón Plata              |                                                                           |
@@ -26,13 +26,13 @@
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [analitica.academica\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 
 ::: {.callout-warning title="Para citar"}
-Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1. Universidad de Santander. Vicerrectoría de Enseñanza. https://analiticaudes.github.io/Alerta1_Cx_2025-2/.
+Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-2. Universidad de Santander. Vicerrectoría de Enseñanza. https://analiticaudes.github.io/Alerta1_Cx_2025-2/.
 :::
 
 ``` bibtex
 @techreport{PerezPulido2025,
   author       = {Pérez, M., León, F., Pinto, L., y Mejía, O.},
-  title        = {Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-1.},
+  title        = {Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-2.},
   institution  = {Universidad de Santander (UDES)},
   year         = {2025},
   note         = {Vicerrectoría de Enseñanza},
