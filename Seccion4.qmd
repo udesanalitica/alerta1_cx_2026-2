@@ -4,7 +4,7 @@ title: "Secciones 4, 5 y 6: Fomento de la cultura, deportes y esparcimiento, y d
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
+Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
 
 View(Data20252)
 datos<- Data20252

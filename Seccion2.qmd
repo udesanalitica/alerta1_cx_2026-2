@@ -8,8 +8,7 @@ title: "Sección 2. Aspectos sociodemográficos"
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
-
+Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
 View(Data20252)
 datos<- Data20252
 attach(datos)
@@ -20,7 +19,7 @@ attach(datos)
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 # Librerias necesarias
-install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
+#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
 library(ggplot2)
 library(psych)
 library(skimr)

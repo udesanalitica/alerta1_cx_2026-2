@@ -4,7 +4,7 @@ title: "Sección 1. Información personal y Académica"
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/LibroAlerta1/data/Data20252.xlsx")
+Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
 
 View(Data20252)
 datos<- Data20252
@@ -21,7 +21,7 @@ attach(datos)
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 # Librerias necesarias
-#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr", "Hmisc"))
+#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr", "Hmisc", "yaml"))
 library(ggplot2)
 library(psych)
 library(skimr)
