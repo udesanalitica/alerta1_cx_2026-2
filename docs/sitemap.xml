@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-1/Seccion3.html</loc>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/index.html</loc>
+    <lastmod>2025-08-25T14:35:50.451Z</lastmod>
+  </url>
+  <url>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/intro.html</loc>
+    <lastmod>2025-07-08T22:03:13.815Z</lastmod>
+  </url>
+  <url>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/Seccion0.html</loc>
+    <lastmod>2025-07-10T20:55:49.999Z</lastmod>
+  </url>
+  <url>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/Seccion1.html</loc>
+    <lastmod>2025-08-28T16:42:08.470Z</lastmod>
+  </url>
+  <url>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/Seccion2.html</loc>
+    <lastmod>2025-08-28T18:26:59.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/Seccion3.html</loc>
     <lastmod>2025-07-10T20:24:09.284Z</lastmod>
   </url>
   <url>
-    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-1/Seccion4.html</loc>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/Seccion4.html</loc>
     <lastmod>2025-07-10T20:24:09.466Z</lastmod>
   </url>
   <url>
-    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-1/Seccion1.html</loc>
-    <lastmod>2025-07-23T23:41:39.024Z</lastmod>
-  </url>
-  <url>
-    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-1/Seccion2.html</loc>
-    <lastmod>2025-07-10T20:24:08.818Z</lastmod>
-  </url>
-  <url>
-    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-1/Conclusiones.html</loc>
+    <loc>https://udesanalitica.github.io/Alerta1_Cx_2025-2/Conclusiones.html</loc>
     <lastmod>2025-07-08T18:58:56.762Z</lastmod>
   </url>
 </urlset>

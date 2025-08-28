@@ -9,9 +9,9 @@ book:
   title: "Alerta 1. Caracterización de estudiantes"
   subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-1"
   author: "Dirección de Analítica Académica"
-  date: "2025-05-05"
-  site-url: https://udesanalitica.github.io/Alerta1_Cx_2025-1/
-  repo-url: https://github.com/udesanalitica/Alerta1_Cx_2025-1
+  date: "2025-09-01"
+  site-url: https://udesanalitica.github.io/Alerta1_Cx_2025-2/
+  repo-url: https://github.com/udesanalitica/Alerta1_Cx_2025-2
   repo-actions: [edit, issue, source]
   reader-mode: true
   cover-image: images/cover.png
@@ -22,7 +22,7 @@ book:
     search: true
     tools:
       - icon: github
-        href: https://github.com/udesanalitica/Alerta1_Cx_2025-1
+        href: https://github.com/udesanalitica/Alerta1_Cx_2025-2
         text: "Repositorio GitHub"
       - icon: printer
         href: "javascript:window.print()"
@@ -35,7 +35,7 @@ book:
     right: |
       Este libro fue construido con <a href="https://quarto.org/">Quarto</a>.
     center: |
-      <a href="https://github.com/udesanalitica/Alerta1_Cx_2025-1" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://github.com/udesanalitica/Alerta1_Cx_2025-2" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
       <a href="#" aria-label="Compartir" style="margin-left: 10px;"><i class="bi bi-share"></i></a>
       <a href="javascript:window.print()" aria-label="Imprimir" style="margin-left: 10px;"><i class="bi bi-printer"></i></a>
 

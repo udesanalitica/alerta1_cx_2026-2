@@ -20,7 +20,7 @@ attach(datos)
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 # Librerias necesarias
-#install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
+install.packages(c("ggplot2", "psych", "skimr", "summarytools", "corrplot", "ggpubr"))
 library(ggplot2)
 library(psych)
 library(skimr)
