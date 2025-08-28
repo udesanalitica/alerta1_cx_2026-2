@@ -9,7 +9,7 @@ book:
   title: "Alerta 1. Caracterización de estudiantes"
   subtitle: "Encuesta de caracterización de estudiantes de primer ingreso - 2025-2"
   author: "Dirección de Analítica Académica"
-  date: "2025-05-05"
+  date: "2025-09-01"
   site-url: https://udesanalitica.github.io/Alerta1_Cx_2025-2/
   repo-url: https://github.com/udesanalitica/Alerta1_Cx_2025-2
   repo-actions: [edit, issue, source]
