@@ -81,19 +81,31 @@ En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 La distribución por departamentos y municipios de procedencia de los estudiantes se refleja en el mapa de Colombia.
 
 ```{r, fig.width=10, fig.height=12, echo=FALSE, message=FALSE, warning=FALSE}
+# 📦 Librerías
 library(sf)
 library(dplyr)
 library(ggplot2)
 library(readr)
 library(stringr)
 library(tibble)
+library(readxl)
 
-# Leer shapefile
+# --- 1) Cargar y preparar datos ---
+
+# Leer shapefile de todos los municipios de Colombia
 colombia <- suppressMessages(
   st_read("https://raw.githubusercontent.com/santiblanko/colombia.geojson/master/mpio.json")
 )
 
-# Crear MPIO_CCDGO
+# Leer y preparar datos de estudiantes (ciudades.csv)
+ciudades <- read_delim("C:/R-Proyectos/Alerta1_Cx_2025-2/data/ciudades.csv", delim = ";", locale = locale(encoding = "Latin1"))
+names(ciudades) <- str_replace_all(names(ciudades), "[\r\n\t]", "")
+
+# Crear MPIO_CCDGO en los datos de estudiantes para la unión
+ciudades <- ciudades %>%
+  mutate(MPIO_CCDGO = str_pad(paste0(DPTO_CCDGO, MPIO), 5, pad = "0"))
+
+# Crear MPIO_CCDGO en el mapa (nombre de columna corregido)
 colombia <- colombia %>%
   mutate(
     DPTO = str_pad(DPTO, 2, pad = "0"),
@@ -102,74 +114,58 @@ colombia <- colombia %>%
   ) %>%
   filter(MPIO_CCDGO != "99999")
 
-
-Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
-
-
-# Leer CSV y preparar columna MPIO_CCDGO y campus
-ciudades <- read_delim("C:/R-Proyectos/Alerta1_Cx_2025-2/data/ciudades.csv", delim = ";", locale = locale(encoding = "Latin1"))
-names(ciudades) <- str_replace_all(names(ciudades), "[\r\n\t]", "")
-ciudades <- ciudades %>%
-  mutate(MPIO_CCDGO = str_pad(as.character(MPIO_CCDGO), 5, pad = "0"))
-
-# Unir shapefile con CSV por MPIO_CCDGO
+# ¡AQUÍ ESTÁ LA LÍNEA QUE FALTABA!
+# Unir el mapa con los datos de los estudiantes para obtener solo los municipios con estudiantes
 municipios_con_campus <- colombia %>%
   inner_join(ciudades %>% select(MPIO_CCDGO, campus), by = "MPIO_CCDGO")
 
-# Diccionario de acrónimos (incluye CHOCÓ y SAN ANDRÉS)
+# --- 2) Preparar la capa de departamentos ---
+
+# Diccionario de acrónimos (se mantiene para las etiquetas de los departamentos)
 acronimos_dpt <- tribble(
-  ~NOMBRE_DPT,       ~ACRONIMO,
-  "ANTIOQUIA",       "ANTI",
-  "SANTANDER",       "SANT",
-  "CESAR",           "CESA",
-  "ARAUCA",          "ARAU",
-  "ATLANTICO",       "ATLA",
-  "BOYACA",          "BOYA",
-  "CALDAS",          "CALD",
-  "CAQUETA",         "CAQU",
-  "CAUCA",           "CAUC",
-  "CHOCÓ",           "CHOC",
-  "CHOCO",           "CHOC",
-  "CORDOBA",         "CORD",
-  "CUNDINAMARCA",    "CUND",
-  "GUAINIA",         "GUAI",
-  "GUAVIARE",        "GUAV",
-  "HUILA",           "HUIL",
-  "LA GUAJIRA",      "GUAJ",
-  "MAGDALENA",       "MAGD",
-  "META",            "META",
-  "NARINO",          "NARI",
+  ~NOMBRE_DPT, ~ACRONIMO,
+  "ANTIOQUIA", "ANTI",
+  "SANTANDER", "SANT",
+  "CESAR", "CESA",
   "NORTE DE SANTANDER", "NSAN",
-  "PUTUMAYO",        "PUTU",
-  "QUINDIO",         "QUIN",
-  "RISARALDA",       "RISA",
-  "SAN ANDRES",      "SAND",
-  "ARCHIPIELAGO DE SAN ANDRES", "SAND",
-  "SUCRE",           "SUCR",
-  "TOLIMA",          "TOLI",
+  "CUNDINAMARCA", "CUND",
+  "BOYACA", "BOYA",
+  "TOLIMA", "TOLI",
+  "ATLANTICO", "ATLA",
   "VALLE DEL CAUCA", "VALL",
-  "VAUPES",          "VAUP",
-  "VICHADA",         "VICH",
-  "AMAZONAS",        "AMAZ",
-  "BOGOTA D.C.",     "BOGO"
+  "CALDAS", "CALD",
+  "QUINDIO", "QUIN",
+  "RISARALDA", "RISA",
+  "META", "META",
+  "HUILA", "HUIL",
+  "CAQUETA", "CAQU",
+  "LA GUAJIRA", "GUAJ",
+  "MAGDALENA", "MAGD",
+  "ARAUCA", "ARAU",
+  "CASANARE", "CASA",
+  "PUTUMAYO", "PUTU",
+  "SUCRE", "SUCR",
+  "BOGOTA D.C.", "BOGO",
+  "BOLIVAR", "BOLI"
 )
 
-# Geometría de departamentos con acrónimos
+# Crear capa de departamentos a partir de los datos completos del mapa
 departamentos <- colombia %>%
   group_by(DPTO, NOMBRE_DPT) %>%
   summarise(geometry = st_union(geometry), .groups = "drop") %>%
   mutate(NOMBRE_DPT = str_replace_all(NOMBRE_DPT, c("Á" = "A", "É" = "E", "Í" = "I", "Ó" = "O", "Ú" = "U", "Ñ" = "N"))) %>%
-  left_join(acronimos_dpt, by = "NOMBRE_DPT") %>%
-  filter(!is.na(ACRONIMO))
+  left_join(acronimos_dpt, by = "NOMBRE_DPT")
 
-# 🔄 Reproyectar a coordenadas planas (MAGNA-SIRGAS / Colombia Bogotá)
+# --- 3) Reproyectar todas las capas a coordenadas planas ---
 colombia <- st_transform(colombia, 3116)
 municipios_con_campus <- st_transform(municipios_con_campus, 3116)
 departamentos <- st_transform(departamentos, 3116)
 
-# Crear mapa
+# --- 4) Generar el mapa con ggplot ---
 ggplot() +
+  # CAPA 1: Fondo de todos los municipios de Colombia
   geom_sf(data = colombia, fill = "gray95", color = "white", size = 0.1) +
+  # CAPA 2: Resaltar solo los municipios con estudiantes
   geom_sf(data = municipios_con_campus, aes(fill = campus), color = "black", size = 0.2) +
   scale_fill_manual(
     values = c(
@@ -179,6 +175,7 @@ ggplot() +
     ),
     name = "Campus UDES"
   ) +
+  # CAPA 3: Límites y etiquetas de todos los departamentos
   geom_sf(data = departamentos, fill = NA, color = "black", size = 0.7) +
   geom_sf_text(data = departamentos, aes(label = ACRONIMO), size = 2, fontface = "bold", check_overlap = TRUE) +
   theme_minimal() +
@@ -186,6 +183,7 @@ ggplot() +
     title = "Municipios de origen de los estudiantes",
     caption = "Fuente: Dirección de Analítica Académica, 2025-2"
   )
+
 ```
 
 ## Perfil Demográfico
@@ -203,8 +201,7 @@ library(dplyr)
 library(plotly)
 
 # Asumiendo que tu dataframe se llama 'datos'
-datos <- Data20252
-
+datos <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
 # --- 0. Definir los campus de interés ---
 campus_a_incluir <- c("Bucaramanga", "Cucuta", "Valledupar")
 
