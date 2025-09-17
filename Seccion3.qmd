@@ -4,9 +4,9 @@ title: "Sección 3. Salud integral"
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
-View(Data20252)
-datos<- Data20252
+datos <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
+#View(Data20252)
+#datos<- Data20252
 attach(datos)
 # head(datos)
 # str(datos)
@@ -671,7 +671,7 @@ fig <- plot_ly(
   textinfo = "label+percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 135+40,
+  rotation = 180,
   transforms = list(
     list(
       type = 'filter',
@@ -885,7 +885,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución edad de inicio del consumo de \nsustancias psicoactvas por campus",
+    title = "Distribución edad de inicio del consumo de \nsustancias psicoactivas por campus",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1680,7 +1680,7 @@ fig <- plot_ly(
   textinfo = "label+percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 53,
+  rotation = 140,
   transforms = list(
     list(
       type = 'filter',
@@ -2276,11 +2276,10 @@ Del total de encuestados, el tipo de discapacidad más reportado fue la visual (
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
 
-# 1. Preparar los datos por campus y ¿Qué tipo de discapacidad posee?
+# 1. 1. Preparar los datos por campus y ¿Qué tipo de discapacidad posee?
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(tipo_disc), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(!is.na(campus) & !is.na(tipo_disc) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, tipo_disc) %>%
   summarise(n = n(), .groups = "drop")
 
@@ -2297,16 +2296,44 @@ niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
+# 5. Ordenar niveles de 'tipo_disc' por frecuencia total (grupo "Todos")
+niveles_din_trans <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(tipo_disc)
+
+datos_final <- datos_final %>%
+  mutate(tipo_disc = factor(tipo_disc, levels = niveles_din_trans))
+
+# 6. Calcular porcentajes por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    total_campus = sum(n),
+    porcentaje = round((n / total_campus) * 100, 1)
+  ) %>%
+  ungroup()
+
+# 7. Crear texto personalizado para el hover
+datos_final <- datos_final %>%
+  mutate(
+    hover_text = paste0(
+      "<b>", tipo_disc, "</b><br>",
+      "Campus: ", campus, "<br>",
+      "Frecuencia: ", n, "<br>",
+      "Porcentaje: ", porcentaje, "%<br>",
+      "<extra></extra>"
+    )
+  )
+
+# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
 fig <- plot_ly(
   data = datos_final,
-  labels = ~tipo_disc,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
+  x = ~tipo_disc,
+  y = ~n,
+  type = "bar",
+  marker = list(color = "#a6cee3"),
+  hovertemplate = ~hover_text,
   transforms = list(
     list(
       type = 'filter',
@@ -2318,13 +2345,15 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = "Distribución tipo de discapacidad por campus",
+    xaxis = list(title = "Tipo"),
+    yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
       list(
         type = 'dropdown',
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -2332,4 +2361,7 @@ fig <- plot_ly(
   )
 
 fig
+
+
+
 ```

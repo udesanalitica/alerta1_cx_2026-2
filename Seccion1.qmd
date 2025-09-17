@@ -4,17 +4,11 @@ title: "Sección 1. Información personal y Académica"
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
-
-View(Data20252)
-datos<- Data20252
-
+datos <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
+#View(datos)
 attach(datos)
-
 # head(datos)
-
 # str(datos)
-
 # names(datos)
 
 ```
@@ -108,8 +102,12 @@ colombia <- colombia %>%
   ) %>%
   filter(MPIO_CCDGO != "99999")
 
+
+Data20252 <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
+
+
 # Leer CSV y preparar columna MPIO_CCDGO y campus
-ciudades <- read_delim("data/ciudades.csv", delim = ";", locale = locale(encoding = "Latin1"))
+ciudades <- read_delim("C:/R-Proyectos/Alerta1_Cx_2025-2/data/ciudades.csv", delim = ";", locale = locale(encoding = "Latin1"))
 names(ciudades) <- str_replace_all(names(ciudades), "[\r\n\t]", "")
 ciudades <- ciudades %>%
   mutate(MPIO_CCDGO = str_pad(as.character(MPIO_CCDGO), 5, pad = "0"))
@@ -186,7 +184,7 @@ ggplot() +
   theme_minimal() +
   labs(
     title = "Municipios de origen de los estudiantes",
-    caption = "Fuente: Dirección de Analítica Académica, 2025-1"
+    caption = "Fuente: Dirección de Analítica Académica, 2025-2"
   )
 ```
 
@@ -205,27 +203,29 @@ library(dplyr)
 library(plotly)
 
 # Asumiendo que tu dataframe se llama 'datos'
+datos <- Data20252
 
 # --- 0. Definir los campus de interés ---
-# Creamos un vector con los campus que queremos incluir en el gráfico.
-# El resto del código se basará en esta selección.
 campus_a_incluir <- c("Bucaramanga", "Cucuta", "Valledupar")
 
-
 # --- 1. Preparación y Limpieza de Datos ---
-# Filtramos de una sola vez para tener una base limpia y consistente.
-# **AJUSTE:** Añadimos un filtro para quedarnos solo con los campus definidos arriba.
 datos_limpios <- datos %>%
+  # Primero, limpia y convierte la columna 'edad'
+  mutate(
+    edad = as.numeric(gsub(" años", "", edad))
+  ) %>%
+  # Luego, filtra los datos y crea la nueva columna 'grupo_edad'
   filter(
-    campus %in% campus_a_incluir, # <-- LÍNEA MODIFICADA
+    campus %in% campus_a_incluir,
     !is.na(edad),
     !is.na(campus),
-    edad >= 14,
-    edad < 40
+    edad >= 16,
+    edad < 50
   ) %>%
   mutate(
-    grupo_edad = cut(edad, breaks = seq(14, 40, by = 2), right = FALSE)
+    grupo_edad = cut(edad, breaks = seq(16, 50, by = 2), right = FALSE)
   )
+
 
 # --- 2. Cálculo de Porcentajes por Campus ---
 # (Este bloque no necesita cambios)
@@ -280,7 +280,7 @@ plot_ly(
   )
 ) %>%
   layout(
-    title = list(text = "<b>Distribución Porcentual de Edad por Campus (14 a 39 años)</b>", x = 0.5),
+    title = list(text = "<b>Distribución Porcentual de Edad por Campus (16 a 50 años)</b>", x = 0.5),
     xaxis = list(title = "<b>Rango de Edad</b>", tickangle = -45),
     yaxis = list(title = "<b>Porcentaje (%)</b>", ticksuffix = "%"),
     # Aquí configuramos el menú desplegable.
@@ -371,7 +371,7 @@ fig
 ```
 
 ::: {.callout-note title="Abreviaturas de programas académicos"}
-<small> <strong>ANTR</strong>: Antropología, <strong>INQU</strong>: Instrumentación Quirúrgica, <strong>MYPB</strong>: Mercadeo y Publicidad, <strong>ADFI</strong>: Administración Financiera, <strong>TEOC</strong>: Terapia Ocupacional, <strong>FONO</strong>: Fonoaudiología, <strong>FISI</strong>: Fisioterapia, <strong>ININ</strong>: Ingeniería Industrial, <strong>TCGF</strong>: Tecnología en Comunicación Gráfica, <strong>BACT</strong>: Bacteriología y Laboratorio Clínico, <strong>MEDI</strong>: Medicina, <strong>ADNI</strong>: Administración de Negocios Internacionales, <strong>INCI</strong>: Ingeniería Civil, <strong>PSIC</strong>: Psicología, <strong>LEIN</strong>: Licenciatura en Educación Infantil, <strong>ENFE</strong>: Enfermería, <strong>DERE</strong>: Derecho, <strong>MBIN</strong>: Microbiología Industrial, <strong>MEVE</strong>: Medicina Veterinaria, <strong>INAG</strong>: Ingeniería Agroindustrial, <strong>INSO</strong>: Ingeniería de Software, <strong>CONT</strong>: Contaduría Pública, <strong>TSOC</strong>: Tecnología en Supervisión de Obras Civiles, <strong>COSP</strong>: Comunicación Social y Periodismo, <strong>GEOL</strong>: Geología, <strong>ICCI</strong>: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, <strong>INSI</strong>: Ingeniería de Sistemas, <strong>DIGR</strong>: Diseño Gráfico, <strong>COEX</strong>: Comercio Exterior, <strong>MVZC</strong>: Medicina Veterinaria y Zootecnia, <strong>IQBO</strong>: Instrumentación Quirúrgica (Bogotá), <strong>TLAC</strong>: Técnico Laboral en Competencias para Auxiliar de Clínica Veterinaria. </small>
+**INAM**: Ingenieria Ambiental, **ADNI**: Administración de Negocios Internacionales, **COSP**: Comunicación Social y Periodismo, **FONO**: Fonoaudiología, **INAG**: Ingeniería Agroindustrial, **TSOC**: Tecnología en Supervisión de Obras Civiles, **MBIN**: Microbiología Industrial, **CONT**: Contaduría Pública, **DIGR**: Diseño Gráfico, **ININ**: Ingeniería Industrial, **DERE**: Derecho, **COEX**: Comercio Exterior, **INCI**: Ingeniería Civil, **TEOC**: Terapia Ocupacional, **PSIC**: Psicología, **TCGF**: Tecnología en Comunicación Gráfica, **INSI**: Ingeniería de Sistemas, **ADFI**: Administración Financiera, **ICCI**: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, **INSO**: Ingeniería de Software, **INBO**: Instrumentación Quirúrgica (BOG), **INQU**: Instrumentación Quirúrgica, **ENFE**: Enfermería, **BACT**: Bacteriología y Laboratorio Clínico, **MYPB**: Mercadeo y Publicidad, **MVZC**: Medicina Veterinaria y Zootecnia, **FISI**: Fisioterapia, **MEDI**: Medicina, **MEVE**: Medicina Veterinaria.
 :::
 
 ### Estado civil
@@ -533,6 +533,7 @@ datos_plot <- datos %>%
   group_by(campus, pais) %>%
   summarise(n = n(), .groups = "drop")
 
+
 # 2. Agregar "Todos"
 todos <- datos %>%
   filter(!is.na(pais)) %>%
@@ -558,7 +559,7 @@ plot_ly(
   textinfo = "label+percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
+  rotation = 290,
   transforms = list(
     list(
       type = 'filter',
