@@ -191,7 +191,7 @@ ggplot() +
 ### Edad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En términos generales, entre los estudiantes de recién ingreso a la UDES se observa que la población estudiantil es menor de 20 años. En ese sentido el 52.4% se concentra en el rango etario de 16-18 años, mientras que el 29% se ubica entre los 18-20 años. En la siguiente grafica se muestra el box plot de la edad por programas.
+La mayor parte de los estudiantes de recien ingreso se concentra en edades jóvenes. En particular, los intervalos de 16 a 18 años y de 18 a 20 años representan más de la mitad de la población estudiantil, lo que evidencia que el acceso a la universidad se da principalmente en la etapa inmediatamente posterior al bachillerato. En contraste, a medida que aumenta la edad, la proporción de estudiantes disminuye de manera considerable, siendo pocos estudiantes en los grupos de 30 años en adelante.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -374,7 +374,7 @@ fig
 ### Estado civil
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 95.6% de estos estudiantes son solteros, lo cual representa la gran mayoría de la población estudiantil. La unión libre representa el 3.41% y los estudiantes casados constituyen apenas el 1.03%
+La gran mayoría de los estudiantes son solteros (más del 94%). Los porcentajes de unión libre, casados o divorciados son reducidos entre los estudiantes de primer ingreso.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -448,7 +448,7 @@ fig
 ### Sexo
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En relación con el sexo, el 61.5% de los participantes eran mujeres y el 38.5% eran hombres.
+Se observa un predominio femenino en la matrícula, pues cerca del 60% de los estudiantes son mujeres frente al 40% de hombres. Esta diferencia evidencia una participación activa de las mujeres en el acceso a la educación superior y podría relacionarse con la alta presencia femenina en programas como salud o ciencias sociales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -516,7 +516,7 @@ fig
 ### Pais de origen
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gráfica presenta la distribución porcentual de estudiantes según su país de origen. La población estudiantil es predominantemente colombiana (96.4%), mientras que al realizar un filtro y seleccionar solo los estudiantes extranjeros se distribuyen de la siguiente manera: venezolanos 80.4%, españoles 6.52%, mexicanos 6.52%, ecuatorianos 4.32% y estadounidenses 2.17%.
+La población estudiantil es esencialmente colombiana (más del 94%). Sin embargo, existe una participación extranjera, destacando los estudiantes provenientes de Venezuela (4%), quienes representan el grupo más numeroso dentro de esta categoría. En menor medida, aparecen países como Ecuador, Estados Unidos, España y México, lo que sugiere un contexto de internacionalización, pero con fuerte influencia regional fronteriza.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -587,7 +587,9 @@ plot_ly(
 ### Habilidades académicas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El grado de dificultad que presentaron los estudiantes durante la educación básica y media en las siguientes áreas Matemáticas, Comprensión Lectora y Expresión Oral fue. En **Matemáticas**, la mayoría de los estudiantes se ubicó en un nivel medio de dificultad (53.3%), seguido por un nivel alto (29.6%) y un nivel bajo (11.3%). En **Expresión Oral**, predomina también el nivel medio (40.6%), seguido por el nivel alto (32.3%) y el nivel bajo (13.1%). En **Comprensión Lectora**, destaca el nivel alto con el mayor porcentaje (42.3%), mientras que solo el 10.4% reportó un nivel bajo de dificultad.
+En el área de **Matemáticas**, más de la mitad de los estudiantes (52.9%) manifestó tener un nivel medio de dificultad, mientras que el 26.3% indicó un nivel alto. Esto refleja que, aunque la mayoría percibe un manejo aceptable, aún persiste un grupo considerable con retos significativos.
+En **Expresión Oral**, predomina también el nivel medio (43.3%), seguido por el nivel alto (32.1%), lo que evidencia que muchos estudiantes enfrentan dificultades para comunicarse verbalmente.
+Por su parte, la **Comprensión Lectora** destaca como la competencia con mayor porcentaje en nivel alto (44.6%), lo que sugiere que la lectura crítica y el análisis de textos son las áreas más exigentes para la población estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -787,7 +789,7 @@ fig
 ### Habilidades cognitivas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Los estudiantes reportaron dificultades significativas en diversas habilidades cognitivas, especialmente en **análisis** (37.6%), **comprensión** (36.4%), **atención** (37.3%), **memoria (37%)** y, en menor medida, en **adaptación** (29.6%). Estos resultados evidencian áreas clave que requieren atención para fortalecer los procesos de aprendizaje y desempeño académico.
+Los datos revelan que las mayores dificultades se concentran en **análisis** (37.6%), **atención** (37.3%), **memoria** (37%) y **comprensión** (36.4%), mientras que la **adaptación** (29.6%) muestra menor incidencia. La proporción de estudiantes que indica dificultades “casi siempre” oscila entre el 30% y 34%, lo que señala un reto constante en el desarrollo de estas capacidades cognitivas, esenciales para el aprendizaje autónomo y el rendimiento académico.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -998,7 +1000,7 @@ fig
 ## Desempeño académico en el colegio
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 70% de los encuestados describieron su desempeño académico como bueno, el 23.9% como excelente, y solo el 6.0% lo calificó como regular.
+El perfil académico previo de los estudiantes es favorable: 67.9% calificó su desempeño como bueno y un 25.8% como excelente, mientras que solo un 6.2% lo consideró regular y un 0.1% malo. Esto refleja que la mayoría llega a la universidad con bases sólidas, aunque existe un pequeño grupo que requerirá acompañamiento adicional.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1066,7 +1068,7 @@ fig
 ## Lenguas extranjeras
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 21.9% de los encuestados señalaron tener dominio de una lengua extranjera.
+En el manejo de un segundo idioma solo el 18.9% de los estudiantes reporta dominar alguna lengua extranjera, frente a un 81.1% que no lo hace.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1134,7 +1136,7 @@ fig
 ### Distribución de niveles de idiomas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En relación con el dominio de una segunda lengua extranjera, el 12,5% de los estudiantes manifiestan dominar el idioma inglés en diferentes niveles.
+Entre quienes sí dominan una segunda lengua, el inglés es el idioma predominante (9.7%), principalmente en niveles intermedios (B1). Otras lenguas como francés (1%), portugués (0.7%), alemán (0.6%), italiano (0.5%) y otras (0.6%) tienen presencia.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1246,7 +1248,7 @@ if("Mensaje" %in% colnames(tabla_final)) {
 ### Cuándo hablo en público, generalmente me siento:
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El sentimiento predominante es el nerviosismo, con un 46.5% de los estudiantes Cuando hablan en público. En segundo lugar, se encuentran las emociones de tensión y tranquilidad, con un 21.6% y un 21% respectivamente. Finalmente, solo un 10.9% de los encuestados se siente seguro o confiado al hablar en público.
+El nerviosismo es la emoción predominante cuando los estudiantes se expresan en público (43%), seguido por la tensión (23.4%) y la tranquilidad (22.2%). Apenas un 11.4% manifestó sentirse seguro o confiado. Estos resultados sugieren la necesidad de fortalecer habilidades blandas y de comunicación oral para mejorar la autoconfianza y el desempeño en contextos académicos y profesionales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1314,7 +1316,7 @@ fig
 ### ¿He realizado estudios de oratoria?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-De los estudiantes encuestados, el 87.7% indicaron no haber tomado cursos de oratoria, mientras que alrededor del 12.3% sí los han realizado.
+La gran mayoría de estudiantes no ha recibido formación formal en oratoria (86.7%), mientras que solo un 13.3% ha tomado algún curso en esta área. Esto refleja una oportunidad para mejorar en habilidades comunicativas, lo que puede estar relacionado con los altos niveles de nerviosismo identificados previamente al hablar en público.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1382,7 +1384,7 @@ fig
 ### ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En lo que respecta a la interacción social, la gran mayoría de los estudiantes (92.5%) se sienten cómodos y se expresan abiertamente dentro de su grupo de amigos, mientras que una minoría (7.53%) no experimenta la misma comodidad.
+En lo relacionado con la interacción social cercana, el panorama es mucho más positivo: el 93.8% manifiesta sentirse cómodo y expresarse libremente dentro de su grupo de amigos, frente a un 6.2% que no comparte esa misma percepción. Esto indica que la confianza en contextos familiares y de amistad está consolidada, aunque no necesariamente se traduce en la misma seguridad frente a públicos más amplios o desconocidos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1450,7 +1452,7 @@ fig
 ### Cuando conozco nuevas personas, mi comportamiento es:
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En lo que respecta a la interacción con personas desconocidas, casi la mitad de los estudiantes (49.1%) toman la iniciativa para iniciar una conversación al conocer a nuevas personas. Por otro lado, un porcentaje considerable (38.9%) prefiere esperar a que sean los otros quienes comiencen la interacción. Un grupo más pequeño (9.83%) indica que, en estas situaciones, solo escuchan sin hablar, y una minoría muy reducida (2.14%) evita completamente hablar con personas que no conocen.
+Cuando se trata de interacción con desconocidos, casi la mitad de los estudiantes (48.9%) toma la iniciativa para hablar, lo cual refleja un nivel aceptable de proactividad social. Sin embargo, un 37.5% prefiere esperar a que otros inicien la conversación, y un 10.8% se limita a escuchar sin intervenir. Finalmente, un grupo reducido (2.7%) evita totalmente interactuar con personas nuevas, lo que evidencia ciertos niveles de timidez o inseguridad en escenarios de socialización abierta.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
