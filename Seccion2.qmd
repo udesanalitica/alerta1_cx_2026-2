@@ -127,7 +127,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = list(
-      text = "<b>Distribución del medio de transporte habitual de su casa a la universidad por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -200,7 +200,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = list(
-      text = "<b>Distribución del tipo de combustible por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -272,7 +272,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución de comparte transporte por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -344,7 +344,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución dispuesto a compartir su medio de transporte por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -417,7 +417,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución tiempo promedio de desplazamiento (en minutos) Universidad por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -516,7 +516,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución gastos semanales en desplazamiento por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -618,7 +618,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución tipologia familiar de origen por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -720,7 +720,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución con cuántas personas convive actualmente por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -822,7 +822,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución en cuántos cuartos duermen las personas de su hogar por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -897,7 +897,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución si tiene hijos por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -969,7 +969,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución número de hijos por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -1042,7 +1042,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución pertenece a un grupo poblacional por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -1128,7 +1128,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución de pertenencia a grupos poblacionales por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -1202,7 +1202,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución de grupos étnicos a los que pertenece por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -1275,7 +1275,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución de Comunidad indígena a la que pertenece porcampus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -1377,7 +1377,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución gastos de matrícula por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -1477,7 +1477,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución forma de pago del semestre por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -1605,7 +1605,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-      text = "<b>Distribución número de semestres para \ningresar a la UDES por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -1679,7 +1679,7 @@ fig <- plot_ly(
 ) %>%
 layout(
     title = list(
-    text = "<b>Distribución del primero en la familia en asisitir a la Universidad por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -1776,7 +1776,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución nivel educativo padre por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -1876,7 +1876,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución nivel educativo madre por campus</b>", # negrilla y salto de línea
+    text = "<b></b>", # negrilla y salto de línea
     font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
     x = 0.5,                # centrar
     xanchor = "center"
@@ -1951,7 +1951,7 @@ fig <- plot_ly(
 ) %>%
 layout(
 title = list(
-    text = "<b>Distribución servicio de Internet por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -2021,7 +2021,7 @@ fig <- plot_ly(
 ) %>%
 layout(
 title = list(
-    text = "<b>Distribución servicio de suscripción de televisión por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -2091,7 +2091,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución de cuántos libros físicos, no electrónicos hay en su hogar por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -2162,7 +2162,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = list(
-      text = "<b>Distribución tiempo al día dedica a<br>lectura por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -2235,7 +2235,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = list(
-      text = "<b>Distribución tiempo al día dedica a<br>navegar en internet por campus</b>",
+      text = "<b></b>",
       font = list(size = 10),
       x = 0.5, xanchor = "center"
     ),
@@ -2308,7 +2308,7 @@ fig <- plot_ly(
 ) %>%
 layout(
   title = list(
-    text = "<b>Distribución de si cuenta con espacio privado para estudiar en casa Universidad por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -2379,7 +2379,7 @@ fig <- plot_ly(
 ) %>%
     layout(
     title = list(
-    text = "<b>Distribución dedicación semanal a estudios en la Universidad por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -2450,7 +2450,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = list(
-    text = "<b>Distribución del tiempo de permanencia en la Universidad por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),

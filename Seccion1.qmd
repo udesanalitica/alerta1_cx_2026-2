@@ -277,7 +277,7 @@ plot_ly(
   )
 ) %>%
   layout(
-    title = list(text = "<b>Distribución Porcentual de Edad por Campus (16 a 50 años)</b>", x = 0.5),
+    title = list(text = "<b></b>", x = 0.5),
     xaxis = list(title = "<b>Rango de Edad</b>", tickangle = -45),
     yaxis = list(title = "<b>Porcentaje (%)</b>", ticksuffix = "%"),
     # Aquí configuramos el menú desplegable.
@@ -340,7 +340,7 @@ for (i in seq_along(niveles_campus)) {
 # Layout con menú desplegable para filtrar por campus
 fig <- fig %>%
   layout(
-    title = "Distribución de edad por programa y campus",
+    title = "",
     yaxis = list(title = "Edad"),
     xaxis = list(title = "Programa", tickangle = -45),
     showlegend = FALSE,
@@ -426,7 +426,7 @@ for (i in seq_along(niveles_campus)) {
 
 # 7. Layout con menú desplegable
 fig <- fig %>% layout(
-  title = "Distribución del estado civil por campus",
+  title = "",
   showlegend = TRUE,
   updatemenus = list(list(
     type = "dropdown",
@@ -495,7 +495,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución del sexo por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -567,7 +567,7 @@ plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución del país de origen por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -587,9 +587,7 @@ plot_ly(
 ### Habilidades académicas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En el área de **Matemáticas**, más de la mitad de los estudiantes (52.9%) manifestó tener un nivel medio de dificultad, mientras que el 26.3% indicó un nivel alto. Esto refleja que, aunque la mayoría percibe un manejo aceptable, aún persiste un grupo considerable con retos significativos.
-En **Expresión Oral**, predomina también el nivel medio (43.3%), seguido por el nivel alto (32.1%), lo que evidencia que muchos estudiantes enfrentan dificultades para comunicarse verbalmente.
-Por su parte, la **Comprensión Lectora** destaca como la competencia con mayor porcentaje en nivel alto (44.6%), lo que sugiere que la lectura crítica y el análisis de textos son las áreas más exigentes para la población estudiantil.
+En el área de **Matemáticas**, más de la mitad de los estudiantes (52.9%) manifestó tener un nivel medio de dificultad, mientras que el 26.3% indicó un nivel alto. Esto refleja que, aunque la mayoría percibe un manejo aceptable, aún persiste un grupo considerable con retos significativos. En **Expresión Oral**, predomina también el nivel medio (43.3%), seguido por el nivel alto (32.1%), lo que evidencia que muchos estudiantes enfrentan dificultades para comunicarse verbalmente. Por su parte, la **Comprensión Lectora** destaca como la competencia con mayor porcentaje en nivel alto (44.6%), lo que sugiere que la lectura crítica y el análisis de textos son las áreas más exigentes para la población estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -752,7 +750,7 @@ fig <- fig %>%
 fig <- fig %>% 
   layout(
     title = list(
-      text = "Distribución de Competencias Académicas por Campus",
+      text = "",
       x = 0.5,
       font = list(size = 16)
     ),
@@ -789,7 +787,7 @@ fig
 ### Habilidades cognitivas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Los datos revelan que las mayores dificultades se concentran en **análisis** (37.6%), **atención** (37.3%), **memoria** (37%) y **comprensión** (36.4%), mientras que la **adaptación** (29.6%) muestra menor incidencia. La proporción de estudiantes que indica dificultades “casi siempre” oscila entre el 30% y 34%, lo que señala un reto constante en el desarrollo de estas capacidades cognitivas, esenciales para el aprendizaje autónomo y el rendimiento académico.
+Los datos revelan que las mayores dificultades se concentran en **análisis** (37.6%), **atención** (37.3%), **memoria** (37%) y **comprensión** (36.4%), mientras que la **adaptación** (29.6%) muestra menor incidencia. La proporción de estudiantes que indica dificultades "casi siempre" oscila entre el 30% y 34%, lo que señala un reto constante en el desarrollo de estas capacidades cognitivas, esenciales para el aprendizaje autónomo y el rendimiento académico.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -955,7 +953,7 @@ fig <- fig %>%
 fig <- fig %>% 
   layout(
     title = list(
-      text = "Distribución de Variables Cognitivas por Campus",
+      text = "",
       x = 0.5,
       font = list(size = 18, family = "Arial")
     ),
@@ -1047,7 +1045,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución del desempeño académico por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1115,7 +1113,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución del manejo de \nlenguas extranjeras por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1295,7 +1293,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución Cuándo \nhablo en público por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1363,7 +1361,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución de he realizado \nestudios de oratoria por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1431,7 +1429,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución me siento cómodo \nen mi grupo de amigos por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1499,7 +1497,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución de cuando conozco \nnuevas personas por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',

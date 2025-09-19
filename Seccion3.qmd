@@ -132,7 +132,7 @@ fig <- plot_ly(
 ) %>%
 layout(
 title = list(
-    text = "<b>Distribución cuántas veces come al día por campus</b>",
+    text = "<b></b>",
     font = list(size = 10),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
@@ -201,7 +201,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución consumo por semana de \nproteína animal por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -268,7 +268,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución consumo por semana de \nproteína vegetal por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -364,7 +364,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-  title = "Distribución trabajo del padre \n por campus",
+  title = "",
   xaxis = list(
     title = "Tipología familiar de origen",
     tickangle = -45  # Inclina las etiquetas en el eje X para mejor visualización
@@ -464,7 +464,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-  title = "Distribución trabajo del madre \n por campus",
+  title = "",
   xaxis = list(
     title = "Tipología familiar de origen",
     tickangle = -45  # Inclina las etiquetas en el eje X para mejor visualización
@@ -615,7 +615,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución horas remuneradas de \ntrabajó por campus",
+    title = "",
     xaxis = list(title = "Horas remuneradas de trabajó"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
@@ -752,7 +752,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución situación económica de su hogar \nrespecto al año anterior por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -821,7 +821,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución consumo de sustancias \npsicoactivas por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -888,7 +888,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución edad de inicio del consumo de \nsustancias psicoactivas por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -956,7 +956,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución tipo de sustancia psicoactiva \nque consume por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1024,7 +1024,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución tipo de \nayuda recibida por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1092,7 +1092,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución si ha recibido orientación o \nayuda profesional por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1162,7 +1162,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución de fuma cigarrillo por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1256,7 +1256,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución edad de inicio del consumo de \ncigarrillo por campus",
+    title = "",
     xaxis = list(title = "Edad de inicio del consumo de cigarrillo"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
@@ -1326,7 +1326,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución motivo por el cual probó por primera \nvez el cigarrillo por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1393,7 +1393,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución Cuántos cigarrillos fuma \ndiariamente por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1463,7 +1463,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución consumo de alcohol por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1557,7 +1557,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución edad de inicio del consumo de \nalcohol por primera vez por campus",
+    title = "",
     xaxis = list(title = "Edad de inicio del consumo de alcohol"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
@@ -1627,7 +1627,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución motivo por el cual probó por primera \nvez el alcohol por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1694,7 +1694,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución veces a la semana ingiere \nalcohol por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1810,7 +1810,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución edad de inició de su vida \nsexual por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1877,7 +1877,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución uso de métodos \nanticonceptivos por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1981,7 +1981,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución identidad de \ngénero por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -2048,7 +2048,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución orientación sexual por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -2117,7 +2117,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución tiene alguna enfermedad \ndiagnosticada por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -2184,7 +2184,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución toma medicamentos por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -2253,7 +2253,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución tiene alguna discapacidad por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -2347,7 +2347,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución tipo de discapacidad por campus",
+    title = "",
     xaxis = list(title = "Tipo"),
     yaxis = list(title = "Número de estudiantes"),
     updatemenus = list(
