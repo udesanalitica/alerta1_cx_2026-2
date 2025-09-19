@@ -1149,7 +1149,7 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-    title = "Distribución actualmente tiene pareja \nsentimental por campus",
+    title = "",
     updatemenus = list(
       list(
         type = 'dropdown',
