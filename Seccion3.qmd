@@ -130,8 +130,12 @@ fig <- plot_ly(
     )
   )
 ) %>%
-  layout(
-    title = "Distribución cuántas veces come al día por campus",
+layout(
+title = list(
+    text = "<b>Distribución cuántas veces come al día por campus</b>",
+    font = list(size = 10),   # ajusta 14 al tamaño que quieras
+    x = 0.5, xanchor = "center"
+  ),
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -144,7 +148,6 @@ fig <- plot_ly(
       )
     )
   )
-
 fig
 ```
 
