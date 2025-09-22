@@ -38,7 +38,8 @@ Pérez, M., León, F., Pinto, L., y Mejía, O. (2025). Documento de Analítica A
   note         = {Vicerrectoría de Enseñanza},
   url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-2/},
   type         = {Informe técnico}
-  doi          = {https://doi.org/10.5281/zenodo.xxxxxx}
+  doi          = {10.5281/zenodo.17177308}
+  url          = {https://doi.org/10.5281/zenodo.17177308}
 }
 ```
 
