@@ -62,14 +62,6 @@ format:
     include-in-header: header.html
     page-layout: article
 
-  pdf:
-    documentclass: scrreprt
-    prefer-html: true
-
-  docx:
-    toc: true
-    number-sections: true
-
 crossref:
   chapters: true
   title-delim: "."
