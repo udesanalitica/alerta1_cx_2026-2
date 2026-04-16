@@ -1,5 +1,6 @@
 ---
 title: "Sección 2. Aspectos sociodemográficos"
+format: html
 ---
 
 ## Sesión. Aspectos sociodemográficos
@@ -441,7 +442,7 @@ fig
 ### Dinero en transporte, en promedio, semanal en desplazamiento
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Se observa que el 21% no gasta nada, probablemente porque vive cerca o se desplaza a pie. Sin embargo, un 17.4% invierte más de **\$50.000** semanales, lo que representa un grupo con altos costos de movilidad. Otros rangos significativos son: **\$10.000** a **\$20.000** (15.1%), **\$30.000** a **\$40.000** (12.5%) y **\$20.000** a **\$30.000** (11.7%). 
+Se observa que el 21% no gasta nada, probablemente porque vive cerca o se desplaza a pie. Sin embargo, un 17.4% invierte más de **\$50.000** semanales, lo que representa un grupo con altos costos de movilidad. Otros rangos significativos son: **\$10.000** a **\$20.000** (15.1%), **\$30.000** a **\$40.000** (12.5%) y **\$20.000** a **\$30.000** (11.7%).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -993,6 +994,7 @@ layout(
 ## Diversidad y Pertenencia a grupos poblacionales
 
 ### Grupo poblacional
+
 ::: {.callout-note title="Descripción para todos los campus"}
 Entre los estudiantes de nuevo ingreso, se observa que cerca de un tercio de ellos, específicamente el 27.3%, manifestó identificarse con algún grupo poblacional, mientras que la mayoría (72.7%) no lo hace.
 :::
@@ -1154,7 +1156,7 @@ fig
 ### ¿A cuál de los siguientes grupos étnicos pertenece?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Dentro de los grupos étnicos, se identifica un 46.7% corresponde a pueblos indígenas, un 44.4% a comunidades afrocolombianas y un pequeño porcentaje a poblaciones raizales (2.2%) y mestizas (4.5%). 
+Dentro de los grupos étnicos, se identifica un 46.7% corresponde a pueblos indígenas, un 44.4% a comunidades afrocolombianas y un pequeño porcentaje a poblaciones raizales (2.2%) y mestizas (4.5%).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1227,7 +1229,7 @@ fig
 ### Comunidad indígena a la que pertenece
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre las comunidades indígenas con mayor presencia sobresalen los Wayúu (19%), los Kankuamo (19%) y los U’wa (9.5%), mientras que otros pueblos como los Zenú, Sinu, Mokana, Kichwa o Malamba aparecen en menor proporción.
+Entre las comunidades indígenas con mayor presencia sobresalen los Wayúu (19%), los Kankuamo (19%) y los U'wa (9.5%), mientras que otros pueblos como los Zenú, Sinu, Mokana, Kichwa o Malamba aparecen en menor proporción.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1502,7 +1504,7 @@ fig
 ### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Al indagar sobre las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, la palabra “calidad” emerge como el factor decisivo, acompañada de términos como “referencias”, “positivas”, “carrera” y “ofrece”, lo cual resalta la importancia de la reputación institucional y la pertinencia académica en el proceso de decisión. También aparecen menciones a la decisión de los padres, las visitas a colegios y aspectos relacionados con la economía, que complementan el panorama y ponen de relieve la influencia del entorno familiar y social en la elección universitaria.
+Al indagar sobre las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, la palabra "calidad" emerge como el factor decisivo, acompañada de términos como "referencias", "positivas", "carrera" y "ofrece", lo cual resalta la importancia de la reputación institucional y la pertinencia académica en el proceso de decisión. También aparecen menciones a la decisión de los padres, las visitas a colegios y aspectos relacionados con la economía, que complementan el panorama y ponen de relieve la influencia del entorno familiar y social en la elección universitaria.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

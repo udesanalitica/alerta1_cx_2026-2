@@ -398,8 +398,7 @@ fig
 
 ### ¿Cuáles de las siguientes prácticas ambientales practica usted diariamente?
 
-::: {.callout-note title="Descripción para todos los campus"}
-Entre las prácticas ambientales más habituales que manifiestan los estudiantes se encuentran el reciclaje, el ahorro de agua y energía, así como la prevención en la generación de residuos. También aparecen con menor frecuencia acciones como la separación de desechos y el uso de transporte sostenible. Estos resultados reflejan una conciencia ambiental en la comunidad estudiantil, orientada hacia el consumo responsable y la gestión adecuada de los recursos naturales.:::
+::: {.callout-note title="Descripción para todos los campus"} Entre las prácticas ambientales más habituales que manifiestan los estudiantes se encuentran el reciclaje, el ahorro de agua y energía, así como la prevención en la generación de residuos. También aparecen con menor frecuencia acciones como la separación de desechos y el uso de transporte sostenible. Estos resultados reflejan una conciencia ambiental en la comunidad estudiantil, orientada hacia el consumo responsable y la gestión adecuada de los recursos naturales.:::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
 # Librerías
@@ -572,7 +571,7 @@ fig
 ### Su tiempo libre lo dedica, generalmente a:
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Dentro de las actividades de ocio más destacadas se encuentran navegar en internet, asistir al gimnasio, salir con amigos e ir al cine. También se agrupa un conjunto de “otras actividades” de carácter diverso. Los resultados evidencian que los estudiantes combinan intereses digitales con actividades recreativas y sociales, lo que refleja un equilibrio entre entretenimiento virtual y dinámicas presenciales.
+Dentro de las actividades de ocio más destacadas se encuentran navegar en internet, asistir al gimnasio, salir con amigos e ir al cine. También se agrupa un conjunto de "otras actividades" de carácter diverso. Los resultados evidencian que los estudiantes combinan intereses digitales con actividades recreativas y sociales, lo que refleja un equilibrio entre entretenimiento virtual y dinámicas presenciales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}

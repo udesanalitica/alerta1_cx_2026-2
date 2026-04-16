@@ -1,11 +1,39 @@
 # Introducción
 
-La caracterización de estudiantes constituye un insumo estratégico para la Universidad de Santander (UDES), en tanto ofrece una mirada integral sobre los jóvenes que ingresan a la institución. Este proceso no se limita a recopilar información básica, sino que busca comprender las trayectorias y realidades de quienes comienzan su vida académica, abarcando dimensiones socioeconómicas, académicas, culturales y biopsicosociales. En este sentido, la caracterización se convierte en un punto de partida para identificar riesgos y oportunidades que impactan el bienestar, la permanencia y el rendimiento estudiantil.
+La caracterización de estudiantes de recién ingreso es un activo estratégico importante para la Universidad de Santander (UDES) en su misión de comprender y acompañar las trayectorias de vida de quienes inician su formación profesional. Para el periodo 2026-1, este ejercicio trasciende la descripción estadística tradicional, configurándose como un sistema de inteligencia institucional que permite anticipar necesidades y potenciar el éxito estudiantil desde el primer día.
 
-Durante el primer semestre de 2025, se introdujeron ajustes metodológicos en los instrumentos aplicados, incorporando nuevas preguntas que exploran hábitos de movilidad urbana, dinámicas familiares, expectativas profesionales, experiencias en salud mental y percepciones sobre el clima institucional. Con ello, se fortalece la capacidad diagnóstica de la universidad para responder a los retos de inclusión, diversidad y acompañamiento integral, al tiempo que se generan evidencias más finas para la toma de decisiones.
+El modelo de caracterización 2026-1 se fundamenta en una estructura técnica de 104 preguntas mapeadas, organizadas en siete dimensiones críticas que ofrecen una visión 360° del estudiante:
 
-El ejercicio analítico descansa en una infraestructura tecnológica de ciencia abierta, sustentada en herramientas como R, Quarto y GitHub, lo cual posibilita no solo la trazabilidad y transparencia del proceso, sino también la reutilización y validación de los resultados por parte de distintas dependencias universitarias. Esta apuesta por la apertura tecnológica y metodológica refuerza el compromiso de la UDES con la innovación educativa y la gestión basada en datos.
+1.  **Caracterización Sociodemográfica: Identidad y origen.**
 
-El documento que se presenta está estructurado en varios apartados que recorren desde la preparación y depuración de los datos hasta la construcción de indicadores de riesgo y alertas tempranas. Se destacan análisis descriptivos y sociodemográficos, indicadores académicos y de bienestar, así como visualizaciones que facilitan la interpretación de patrones emergentes. En particular, se abordan dimensiones novedosas como la movilidad, la identidad de género y la pertenencia a grupos poblacionales, aportando una perspectiva más completa sobre la diversidad estudiantil.
+2.  **Condiciones Académicas: Antecedentes y trayectoria escolar.**
 
-Cada sección integra tablas, gráficos y narrativas derivadas de datos reales anonimizados, con el propósito de alimentar estrategias de Bienestar Institucional, diseñar intervenciones personalizadas y servir de base para futuros modelos predictivos. De esta manera, la caracterización de 2025-2 no solo describe a la cohorte de estudiantes entrantes, sino que también abre un espacio de reflexión sobre cómo acompañarlos de manera efectiva para garantizar su desarrollo académico y humano dentro de la universidad.
+3.  **Habilidades y Competencias: Autopercepción de capacidades.**
+
+4.  **Condiciones Socioeconómicas: Entorno financiero y de vivienda.**
+
+5.  **Bienestar y Hábitos: Estilos de vida y uso del tiempo libre.**
+
+6.  **Cultura y Arte: Intereses y expresiones culturales.**
+
+7.  **Salud y Desarrollo Humano: Dimensión biopsicosocial y salud mental.**
+
+Lo más relevante en esta edición es la profundización en la dimensión de Salud y Desarrollo Humano (P107 a P114), diseñada para detectar alertas tempranas de riesgo psicosocial, y el fortalecimiento de la dimensión de Bienestar y Hábitos, que ahora integra una batería más amplia de preguntas sobre la vida cotidiana del estudiante.
+
+Siguiendo la vanguardia en el manejo de datos, este libro ha sido desarrollado bajo un ecosistema de Ciencia Abierta, utilizando herramientas de alto rendimiento como Python y Quarto. Este enfoque garantiza:
+
+-   **Trazabilidad: Cada cifra presentada tiene un respaldo directo en el diccionario de variables y los microdatos procesados.**
+
+-   **Reproducibilidad: El flujo de trabajo permite la validación de resultados por parte de las distintas unidades académicas y administrativas.**
+
+-   **Transparencia: El uso de código abierto asegura que la gestión de datos sea auditable y escalable.**
+
+-   **Anonimización: Se mantiene la confidenciadad de la información de los participantes.**
+
+El presente informe no solo busca describir a la cohorte 2026-1, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.
+
+Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-1.
+
+[Da clic aquí y conoce el Agente Analista Experto](https://gemini.google.com/gem/16XsuZxQcG5INwjAwhnZqbsAPBTgPOtWA?usp=sharing){.btn .btn-primary}
+
+Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.

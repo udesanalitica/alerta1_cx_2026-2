@@ -114,7 +114,6 @@ colombia <- colombia %>%
   ) %>%
   filter(MPIO_CCDGO != "99999")
 
-# ¡AQUÍ ESTÁ LA LÍNEA QUE FALTABA!
 # Unir el mapa con los datos de los estudiantes para obtener solo los municipios con estudiantes
 municipios_con_campus <- colombia %>%
   inner_join(ciudades %>% select(MPIO_CCDGO, campus), by = "MPIO_CCDGO")
@@ -225,7 +224,6 @@ datos_limpios <- datos %>%
 
 
 # --- 2. Cálculo de Porcentajes por Campus ---
-# (Este bloque no necesita cambios)
 por_campus <- datos_limpios %>%
   group_by(campus, grupo_edad) %>%
   summarise(n = n(), .groups = "drop") %>%
