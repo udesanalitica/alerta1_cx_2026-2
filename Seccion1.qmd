@@ -377,69 +377,166 @@ La gran mayoría de los estudiantes son solteros (más del 95.1%). Los porcentaj
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos (campus y estado civil)
+# =========================
+# 1. Preparar datos base
+# =========================
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(est_civ), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, est_civ) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(est_civ),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  count(campus, est_civ, name = "n")
 
-# 2. Agregar "Todos"
+# Total general
 todos <- datos %>%
   filter(!is.na(est_civ)) %>%
   count(est_civ, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Unir todos
+# Unir bases
 datos_final <- bind_rows(datos_plot, todos)
 
-# 4. Lista de campus
-niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
-
-# 5. Paleta pastel (tantos colores como categorías de estado civil)
-colores_pastel <- brewer.pal(n = max(3, length(unique(datos_final$est_civ))), name = "Pastel1")
-
-# 6. Crear gráfico base con todas las trazas invisibles excepto la inicial
-fig <- plot_ly(type = "pie")
-
-for (i in seq_along(niveles_campus)) {
-  datos_c <- datos_final %>% filter(campus == niveles_campus[i])
+# =========================
+# 2. Función para agrupar "Otros"
+# =========================
+agrupar_otros <- function(df, top_n = 10) {
+  df <- df %>% arrange(desc(n))
   
-  fig <- fig %>% add_trace(
-    labels = datos_c$est_civ,
-    values = datos_c$n,
-    type = "pie",
-    name = niveles_campus[i],
-    visible = ifelse(i == 1, TRUE, FALSE),
-    textinfo = "label+percent",
-    hoverinfo = "label+percent+value",
-    sort = FALSE,
-    marker = list(colors = colores_pastel),
-    direction = "clockwise",
-    rotation = 90
-  )
+  if (nrow(df) > top_n) {
+    top <- df %>% slice(1:top_n)
+    resto <- df %>% slice((top_n + 1):nrow(df))
+    
+    otros <- resto %>%
+      summarise(n = sum(n), .groups = "drop") %>%
+      mutate(est_civ = "Otros")
+    
+    bind_rows(top, otros)
+  } else {
+    df
+  }
 }
 
-# 7. Layout con menú desplegable
-fig <- fig %>% layout(
-  title = "",
-  showlegend = TRUE,
-  updatemenus = list(list(
-    type = "dropdown",
-    direction = "down",
-    x = 0.1, y = 1.2,
-    buttons = lapply(seq_along(niveles_campus), function(i) {
-      visibilidad <- rep(FALSE, length(niveles_campus))
-      visibilidad[i] <- TRUE
-      list(method = "restyle",
-           args = list("visible", visibilidad),
-           label = niveles_campus[i])
-    })
-  ))
-)
+# =========================
+# 3. Calcular porcentaje por campus
+# =========================
+campus_ordenados <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-fig
+lista_datos <- lapply(campus_ordenados, function(camp) {
+  datos_final %>%
+    filter(campus == camp) %>%
+    agrupar_otros(top_n = 10) %>%
+    mutate(
+      pct = n / sum(n) * 100,
+      campus_mostrar = recode(
+        camp,
+        "Todos" = "Todos",
+        "Bucaramanga" = "Bucaramanga",
+        "Cucuta" = "Cúcuta",
+        "Valledupar" = "Valledupar"
+      )
+    ) %>%
+    arrange(pct)
+})
+
+names(lista_datos) <- campus_ordenados
+
+# =========================
+# 4. Crear gráfico
+# =========================
+p <- plot_ly()
+
+for (i in seq_along(campus_ordenados)) {
+  camp <- campus_ordenados[i]
+  df <- lista_datos[[camp]]
+  
+  etiqueta_campus <- dplyr::recode(
+    camp,
+    "Todos" = "Todos",
+    "Bucaramanga" = "Bucaramanga",
+    "Cucuta" = "Cúcuta",
+    "Valledupar" = "Valledupar"
+  )
+  
+  p <- p %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(est_civ, pct),
+      type = "bar",
+      orientation = "h",
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste0(
+        "<b>Campus:</b> ", etiqueta_campus,
+        "<br><b>Estado civil:</b> %{y}",
+        "<br><b>Porcentaje:</b> %{x:.1f}%",
+        "<br><b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiqueta_campus
+    )
+}
+
+# =========================
+# 5. Botones dropdown
+# =========================
+botones <- lapply(seq_along(campus_ordenados), function(i) {
+  vis <- rep(FALSE, length(campus_ordenados))
+  vis[i] <- TRUE
+  
+  etiqueta_campus <- dplyr::recode(
+    campus_ordenados[i],
+    "Todos" = "Todos",
+    "Bucaramanga" = "Bucaramanga",
+    "Cucuta" = "Cúcuta",
+    "Valledupar" = "Valledupar"
+  )
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Estado civil de los estudiantes -", etiqueta_campus))
+    ),
+    label = etiqueta_campus
+  )
+})
+
+# =========================
+# 6. Layout final
+# =========================
+p %>%
+  layout(
+    title = "Estado civil de los estudiantes - Todos",
+    xaxis = list(
+      title = "Porcentaje (%)",
+      ticksuffix = "%",
+      range = c(
+        0,
+        max(sapply(lista_datos, function(df) max(df$pct, na.rm = TRUE))) * 1.15
+      )
+    ),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        direction = "down",
+        buttons = botones
+      )
+    ),
+    margin = list(l = 140, r = 120, t = 70, b = 50)
+  )
+
 ```
 
 ### Sexo
@@ -513,70 +610,166 @@ fig
 ### Pais de origen
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La población estudiantil es esencialmente colombiana (más del 94%). Sin embargo, existe una participación extranjera, destacando los estudiantes provenientes de Venezuela (4%), quienes representan el grupo más numeroso dentro de esta categoría. En menor medida, aparecen países como Ecuador, Estados Unidos, España y México, lo que sugiere un contexto de internacionalización, pero con fuerte influencia regional fronteriza.
+La población estudiantil es esencialmente colombiana (más del 95.5%). Sin embargo, existe una participación extranjera, destacando los estudiantes provenientes de Venezuela (3.6%), quienes representan el grupo más numeroso dentro de esta categoría. En menor medida, aparecen países como Ecuador, Estados Unidos, España y México, lo que sugiere un contexto de internacionalización, pero con fuerte influencia regional fronteriza.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos
+# =========================
+# 1. Preparar datos base
+# =========================
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(pais), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, pais) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(pais),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  count(campus, pais, name = "n")
 
-
-# 2. Agregar "Todos"
+# Total general
 todos <- datos %>%
   filter(!is.na(pais)) %>%
   count(pais, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Definir el orden específico de campus
-niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+# Unir bases
+datos_final <- bind_rows(datos_plot, todos)
 
-# 4. Unir todo y ordenar por el factor
-datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+# =========================
+# 2. Función para agrupar "Otros"
+# =========================
+agrupar_otros <- function(df, top_n = 10) {
+  df <- df %>% arrange(desc(n))
+  
+  if (nrow(df) > top_n) {
+    top <- df %>% slice(1:top_n)
+    resto <- df %>% slice((top_n + 1):n())
+    
+    otros <- resto %>%
+      summarise(n = sum(n), .groups = "drop") %>%
+      mutate(pais = "Otros")
+    
+    bind_rows(top, otros)
+  } else {
+    df
+  }
+}
 
-# 5. Crear lista ordenada de campus para el dropdown
+# =========================
+# 3. Calcular porcentaje por campus
+# =========================
 campus_ordenados <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 6. Pie chart con filtro por campus
-plot_ly(
-  data = datos_final,
-  labels = ~pais,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 290,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-  layout(
-    title = "",
-    updatemenus = list(
-      list(
-        type = 'dropdown',
-        active = 0,  # Primera opción activa (Todos)
-        buttons = lapply(campus_ordenados, function(c) {
-          list(method = "restyle",
-               args = list("transforms[0].value", c),
-               label = c)
-        })
+lista_datos <- lapply(campus_ordenados, function(camp) {
+  datos_final %>%
+    filter(campus == camp) %>%
+    agrupar_otros(top_n = 10) %>%
+    mutate(
+      pct = n / sum(n) * 100,
+      campus_mostrar = recode(camp,
+        "Todos" = "Todos",
+        "Bucaramanga" = "Bucaramanga",
+        "Cucuta" = "Cúcuta",
+        "Valledupar" = "Valledupar"
       )
-    )
+    ) %>%
+    arrange(pct)
+})
+
+names(lista_datos) <- campus_ordenados
+
+# =========================
+# 4. Crear gráfico
+# =========================
+p <- plot_ly()
+
+for (i in seq_along(campus_ordenados)) {
+  camp <- campus_ordenados[i]
+  df <- lista_datos[[camp]]
+  
+  etiqueta_campus <- dplyr::recode(camp,
+    "Todos" = "Todos",
+    "Bucaramanga" = "Bucaramanga",
+    "Cucuta" = "Cúcuta",
+    "Valledupar" = "Valledupar"
   )
+  
+  p <- p %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(pais, pct),
+      type = "bar",
+      orientation = "h",
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste0(
+        "<b>Campus:</b> ", etiqueta_campus,
+        "<br><b>País:</b> %{y}",
+        "<br><b>Porcentaje:</b> %{x:.1f}%",
+        "<br><b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiqueta_campus
+    )
+}
+
+# =========================
+# 5. Botones dropdown
+# =========================
+botones <- lapply(seq_along(campus_ordenados), function(i) {
+  vis <- rep(FALSE, length(campus_ordenados))
+  vis[i] <- TRUE
+  
+  etiqueta_campus <- dplyr::recode(campus_ordenados[i],
+    "Todos" = "Todos",
+    "Bucaramanga" = "Bucaramanga",
+    "Cucuta" = "Cúcuta",
+    "Valledupar" = "Valledupar"
+  )
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("País de procedencia de los estudiantes -", etiqueta_campus))
+    ),
+    label = etiqueta_campus
+  )
+})
+
+# =========================
+# 6. Layout final
+# =========================
+p %>%
+  layout(
+    title = "País de procedencia de los estudiantes - Todos",
+    xaxis = list(
+      title = "Porcentaje (%)",
+      ticksuffix = "%",
+      range = c(0, max(sapply(lista_datos, function(df) max(df$pct, na.rm = TRUE))) * 1.15)
+    ),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
+  list(
+    type = "dropdown",
+    active = 0,
+    x = 1.02,          # ligeramente fuera del gráfico a la derecha
+    y = 0.5,           # mitad vertical
+    xanchor = "left",  # el menú crece hacia la derecha
+    yanchor = "middle",
+    direction = "down",
+    buttons = botones
+      )
+    ),
+    margin = list(l = 140, r = 80, t = 70, b = 50)
+  )
+
 ```
 
 ## Dificultades
