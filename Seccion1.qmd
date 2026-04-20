@@ -365,13 +365,13 @@ fig
 ```
 
 ::: {.callout-note title="Abreviaturas de programas académicos"}
-**INAM**: Ingenieria Ambiental, **ADNI**: Administración de Negocios Internacionales, **COSP**: Comunicación Social y Periodismo, **FONO**: Fonoaudiología, **INAG**: Ingeniería Agroindustrial, **TSOC**: Tecnología en Supervisión de Obras Civiles, **MBIN**: Microbiología Industrial, **CONT**: Contaduría Pública, **DIGR**: Diseño Gráfico, **ININ**: Ingeniería Industrial, **DERE**: Derecho, **COEX**: Comercio Exterior, **INCI**: Ingeniería Civil, **TEOC**: Terapia Ocupacional, **PSIC**: Psicología, **TCGF**: Tecnología en Comunicación Gráfica, **INSI**: Ingeniería de Sistemas, **ADFI**: Administración Financiera, **ICCI**: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, **INSO**: Ingeniería de Software, **INBO**: Instrumentación Quirúrgica (BOG), **INQU**: Instrumentación Quirúrgica, **ENFE**: Enfermería, **BACT**: Bacteriología y Laboratorio Clínico, **MYPB**: Mercadeo y Publicidad, **MVZC**: Medicina Veterinaria y Zootecnia, **FISI**: Fisioterapia, **MEDI**: Medicina, **MEVE**: Medicina Veterinaria.
+**ADFI**: Administración Financiera, **ADNI**: Administración de Negocios Internacionales, **BACT**: Bacteriología y Laboratorio Clínico, **COEX**: Comercio Exterior, **CONT**: Contaduría Pública, **COVI**: Contaduría Pública - Virtual, **COSP**: Comunicación Social y Periodismo, **DERE**: Derecho, **DIGR**: Diseño Gráfico, **ENFE**: Enfermería, **FISI**: Fisioterapia, **FONO**: Fonoaudiología, **GEOL**: Geología, **ICCI**: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, **INAG**: Ingeniería Agroindustrial, **INAM**: Ingeniería Ambiental, **INBO**: Instrumentación Quirúrgica (Bogotá), **INCI**: Ingeniería Civil, **INEN**: Ingeniería en Energías, **ININ**: Ingeniería Industrial, **INQU**: Instrumentación Quirúrgica, **INSI**: Ingeniería de Sistemas, **INSO**: Ingeniería de Software, **ISVI**: Ingeniería de Software - Virtual, **LEIN**: Licenciatura en Educación Infantil, **MBIN**: Microbiología Industrial, **MEDI**: Medicina, **MEVE**: Medicina Veterinaria, **MYPB**: Mercadeo y Publicidad, **MVZC**: Medicina Veterinaria y Zootecnia, **PSIC**: Psicología, **TACV**: Técnico Laboral en Auxiliar de Clínica Veterinaria, **TAEP**: Técnico Laboral en Auxiliar de Educación para la Primera Infancia, **TCGF**: Tecnología en Comunicación Gráfica, **TGLE**: Tecnología en Gestión Logística del Comercio Exterior, **TSFV**: Técnico Laboral en Instalación y Mantenimiento de Sistemas Solares Fotovoltaicos, **TSOC**: Tecnología en Supervisión de Obras Civiles, **TVCD**: Técnico Laboral en Auxiliar de Ventas por Canales Digitales, **TEOC**: Terapia Ocupacional
 :::
 
 ### Estado civil
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gran mayoría de los estudiantes son solteros (más del 94%). Los porcentajes de unión libre, casados o divorciados son reducidos entre los estudiantes de primer ingreso.
+La gran mayoría de los estudiantes son solteros (más del 95.1%). Los porcentajes de unión libre, casados o divorciados son reducidos entre los estudiantes de primer ingreso.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -445,7 +445,7 @@ fig
 ### Sexo
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Se observa un predominio femenino en la matrícula, pues cerca del 60% de los estudiantes son mujeres frente al 40% de hombres. Esta diferencia evidencia una participación activa de las mujeres en el acceso a la educación superior y podría relacionarse con la alta presencia femenina en programas como salud o ciencias sociales.
+Se observa un predominio femenino en la matrícula, pues cerca del 62.3% de los estudiantes son mujeres frente al 37.7% de hombres. Esta diferencia evidencia una participación activa de las mujeres en el acceso a la educación superior y podría relacionarse con la alta presencia femenina en programas como salud o ciencias sociales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
