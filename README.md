@@ -1,14 +1,14 @@
-# Sistema de Alerta Temprana - Alerta1_Cx_2025-2
+# Sistema de Alerta Temprana -  alerta1_cx_2026-1
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Repo size](https://img.shields.io/github/repo-size/AnaliticaUDES/Alerta1_Cx_2025-2)
-![Last commit](https://img.shields.io/github/last-commit/AnaliticaUDES/Alerta1_Cx_2025-2)
+![Repo size](https://img.shields.io/github/repo-size/AnaliticaUDES/alerta1_cx_2026-1)
+![Last commit](https://img.shields.io/github/last-commit/AnaliticaUDES/alerta1_cx_2026-1)
 ![FAIR Data](https://img.shields.io/badge/FAIR-Data-blue)
 
 
 ## Descripción
 
-Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2025-2 de estudiantes de la Universidad de Santander (UDES). 
+Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2026-1 de estudiantes de la Universidad de Santander (UDES). 
 Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, 
 apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
@@ -51,7 +51,7 @@ install.packages(c(
 
 ## Navegación del sitio
 
-El sitio se encuentra publicado en: https://analiticaudes.github.io/Alerta1_Cx_2025-2/
+El sitio se encuentra publicado en: https://analiticaudes.github.io/alerta1_cx_2026-1/
 
 Secciones principales:
 ```
@@ -73,13 +73,13 @@ datos-territoriales · quarto · alerta-temprana · visualización · rstats · 
 Por favor cite el dataset y el reporte como se muestra
 
 ```bibtex
-@techreport{PerezPulido2025,
-  author       = {Pérez, M., León, F., Pinto, L., y Mejía, O.},
-  title        = {Documento de Analítica Académica No 28. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2025-2.},
+@techreport{PerezPulido2026,
+  author       = {Pérez, M., León, F., y Pinto, L.},
+  title        = {Documento de Planeación Institucional No 4. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-1.},
   institution  = {Universidad de Santander (UDES)},
-  year         = {2025},
+  year         = {2026},
   note         = {Vicerrectoria de Enseñanza},
-  url          = {https://analiticaudes.github.io/Alerta1_Cx_2025-2/},
+  url          = {https://analiticaudes.github.io/alerta1_cx_2026-1/},
   type         = {Informe técnico}
   doi          = {https://doi.org/10.5281/zenodo.xxxxxxx}
 }
@@ -109,7 +109,7 @@ Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
 Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
 
-Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/Alerta1_Cx_2025-2
+Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/alerta1_cx_2026-a
 
 ## doi
 https://doi.org/10.5281/zenodo.xxxxxxx
