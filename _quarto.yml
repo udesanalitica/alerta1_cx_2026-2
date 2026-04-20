@@ -48,17 +48,15 @@ csl: apa.csl
 
 format:
   html:
-    theme: [cosmo, brand]
+    theme: cosmo
     toc: true
     toc-depth: 3
     number-sections: true
-    linkcolor: "#046A38"
     fontsize: 1em
     css: style.css
     fig-cap-location: top
-    reference-location: margin
+    reference-location: document
     cite-method: citeproc
-    biblio-style: apa
     include-in-header: header.html
     page-layout: article
 

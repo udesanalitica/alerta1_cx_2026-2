@@ -9,7 +9,7 @@ format: html
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(readxl)
-datos <- read_excel("C:/R-Proyectos/Alerta1_Cx_2025-2/data/Data20252.xlsx")
+datos <- read_excel("C:/R-Proyectos/alerta1_Cx_2026-1/data/data20261.xlsx")
 #View(datos)
 attach(datos)
 # head(datos)

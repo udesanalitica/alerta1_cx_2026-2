@@ -9,10 +9,10 @@
 .DS_Store
 .quarto
 
-Data20252.xlsx
+data20261.xlsx
 *.RData
 *.rds
 
 # Ignorar toda la carpeta data
-data/Data20252.xlsx
+data/data20261.xlsx
 data/
