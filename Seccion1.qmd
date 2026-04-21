@@ -777,7 +777,7 @@ p %>%
 ### Habilidades académicas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En el área de **Matemáticas**, más de la mitad de los estudiantes (52.9%) manifestó tener un nivel medio de dificultad, mientras que el 26.3% indicó un nivel alto. Esto refleja que, aunque la mayoría percibe un manejo aceptable, aún persiste un grupo considerable con retos significativos. En **Expresión Oral**, predomina también el nivel medio (43.3%), seguido por el nivel alto (32.1%), lo que evidencia que muchos estudiantes enfrentan dificultades para comunicarse verbalmente. Por su parte, la **Comprensión Lectora** destaca como la competencia con mayor porcentaje en nivel alto (44.6%), lo que sugiere que la lectura crítica y el análisis de textos son las áreas más exigentes para la población estudiantil.
+En las tres áreas evaluadas se evidencia una **concentración en niveles medios de dificultad**, lo que indica que, aunque los estudiantes logran desempeños funcionales, aún existen retos importantes en el desarrollo de competencias clave. **Matemáticas** presenta el mayor peso en nivel medio (52.9%), pero también un porcentaje relevante en nivel alto (26.3%), lo que señala una base aceptable con brechas importantes en razonamiento y resolución de problemas. En **Expresión Oral**, aunque predomina el nivel medio (43.3%), se observa una proporción considerable en nivel alto (32.1%), evidenciando dificultades persistentes en la comunicación efectiva. **Comprensión Lectora** se posiciona como el área más crítica, con el mayor porcentaje en nivel alto (44.6%), lo que refleja debilidades en lectura crítica, análisis e interpretación de textos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -977,7 +977,9 @@ fig
 ### Habilidades cognitivas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Los datos revelan que las mayores dificultades se concentran en **análisis** (37.6%), **atención** (37.3%), **memoria** (37%) y **comprensión** (36.4%), mientras que la **adaptación** (29.6%) muestra menor incidencia. La proporción de estudiantes que indica dificultades "casi siempre" oscila entre el 30% y 34%, lo que señala un reto constante en el desarrollo de estas capacidades cognitivas, esenciales para el aprendizaje autónomo y el rendimiento académico.
+Los resultados evidencian que las principales dificultades cognitivas se concentran en **análisis (37.6%)**, **atención (37.3%)**, **memoria (37%)** y **comprensión (36.4%)**, donde cerca de **4 de cada 10 estudiantes** reportan experimentar estas dificultades con alta frecuencia.
+
+Estas capacidades están directamente asociadas con procesos clave del aprendizaje, como la **interpretación de información, la concentración sostenida y la retención de contenidos**, lo que sugiere un impacto potencial en el desempeño académico. En contraste, la **adaptación (29.6%)** presenta una menor incidencia, aunque sigue siendo relevante, indicando que cerca de **3 de cada 10 estudiantes** enfrentan dificultades para ajustarse a nuevas dinámicas académicas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1188,7 +1190,7 @@ fig
 ## Desempeño académico en el colegio
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El perfil académico previo de los estudiantes es favorable: 67.9% calificó su desempeño como bueno y un 25.8% como excelente, mientras que solo un 6.2% lo consideró regular y un 0.1% malo. Esto refleja que la mayoría llega a la universidad con bases sólidas, aunque existe un pequeño grupo que requerirá acompañamiento adicional.
+El perfil académico previo de los estudiantes en su **mayoria es favorable**, con una alta concentración en niveles positivos: **67.9% lo califica como bueno** y **25.5% como excelente**, lo que indica que más del **93% ingresa con una percepción sólida de su desempeño académico**. Sin embargo, un **6.4% se ubica en nivel regular** y una proporción mínima en nivel bajo (0.2%), lo que, aunque reducido, evidencia la existencia de un grupo que podría enfrentar mayores dificultades en su proceso de adaptación académica.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1256,7 +1258,7 @@ fig
 ## Lenguas extranjeras
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En el manejo de un segundo idioma solo el 18.9% de los estudiantes reporta dominar alguna lengua extranjera, frente a un 81.1% que no lo hace.
+En el manejo de un segundo idioma solo el 18% de los estudiantes reporta dominar alguna lengua extranjera, frente a un 80% que no lo hace.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
