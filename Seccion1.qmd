@@ -1,5 +1,10 @@
 ---
 title: "Sección 1. Información personal y Académica"
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: book
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
