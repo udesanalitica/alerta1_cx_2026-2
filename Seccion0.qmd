@@ -1,6 +1,5 @@
 ---
-format: html
-editor: visual
+title: "Aspectos metodológicos""
 ---
 
 # Aspectos metodológicos

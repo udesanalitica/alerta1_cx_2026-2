@@ -11,16 +11,19 @@ book:
   cover-image: images/cover.png
   cover-image-alt: "Portada del libro Alerta 1"
 
- sidebar:
-  style: docked
-  search: true
-  tools:
-    - icon: github
-      href: https://github.com/udesanalitica/alerta1_cx_2026-1
-      text: "Repositorio GitHub"
-    - icon: file-earmark-pdf
-      href: "Alerta1_2026-1.pdf"
-      text: "Descargar PDF"
+  sidebar:
+    style: docked
+    search: true
+    tools:
+      - icon: github
+        href: https://github.com/udesanalitica/alerta1_cx_2026-1
+        text: "Repositorio GitHub"
+      - icon: file-earmark-pdf
+        href: Alerta1_2026-1.pdf
+        text: "Descargar PDF"
+      - icon: printer
+        href: "javascript:window.print()"
+        text: "Imprimir"
 
   page-footer:
     left: |
