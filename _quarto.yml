@@ -19,11 +19,8 @@ book:
         href: https://github.com/udesanalitica/alerta1_cx_2026-1
         text: "Repositorio GitHub"
       - icon: file-earmark-pdf
-        href: Alerta1_2026-1.pdf
+        href: "Alerta1_2026-1.pdf"
         text: "Descargar PDF"
-      - icon: printer
-        href: "javascript:window.print()"
-        text: "Imprimir"
 
   page-footer:
     left: |

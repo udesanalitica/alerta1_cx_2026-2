@@ -46,26 +46,25 @@ library(scales)
 ## Convertir las variables caracter a factor
 # Lista de columnas que se convertirán en factores
 cols_factor <- c(
-  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
-  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
-  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
-  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
-  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
-  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
-  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
-  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
-  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
-  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
-  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
-  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
-  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
-  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
-  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
-  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
-  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
-  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
-  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
-  "fam_formada"
+  "tipo_doc","genero","campus","prog_acad","sexo_id","pais","est_civ",
+  "ciu_orig","desemp_aca","leng_ext","cert_leng","ingles","frances",
+  "portug","aleman","italiano","otra_leng","matema","comp_lec",
+  "expr_oral","acompa","tipo_acomp","memoria","comp","adaptac",
+  "atencion","analisis","hab_pub","est_orat","expr_amig","comp_nvos",
+  "hb_fortaleza","hb_mejorar","transp_hab","combust","transp_comp",
+  "comp_dispo","tip_familia","convive","grupo_pobl","grupo_pert",
+  "grupo_etn","etnia_ind","pago_sem","eligio_udes","prim_univ",
+  "niv_padre","niv_madre","estrato2","internet","tv_suscrip",
+  "esp_estud","jorn_univ","trab_padre","trab_madre","bienes_hog",
+  "remunera","sit_ec_hog","sust_psic","tipo_psic","ayuda_psic",
+  "tipo_ayuda","fuma","mot_fuma","otra_resp","alcohol","mot_alc",
+  "ocas_alc","anticoncep","tipo_antc","id_gen","gen_otro",
+  "orient_sex","otra_orsex","enf_diag","tipo_enf","medic_enf",
+  "discap","tipo_disc","arte_atra","hab_art","tipo_art",
+  "aprend_art","dia_art","amb_prac","act_fisica","lectura",
+  "deporte","tipo_dep","otros_dep","salud_ment","apoyo_fam",
+  "red_apoyo","pareja","rel_pareja","rel_padres",
+  "fam_origen","fam_formada"
 )
 
 # Convertir solo las columnas que realmente existen
@@ -80,152 +79,270 @@ En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 ### Medio de transporte habitual de su casa a la universidad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El **transporte público** es la opción más utilizada (30.6%), seguido muy de cerca por la **motocicleta** (28.3%). Otros medios de uso frecuente son el **carro particular** (14.6%), el **transporte por aplicaciones digitales** (13.9%) y el **desplazamiento a pie** (10.7%). En contraste, el uso de la **bicicleta** es casi nulo (0.6%), lo que muestra una oportunidad para promover el uso de medios de transporte alternativos sostenibles.
+A nivel general (todos los campus), la movilidad de los estudiantes muestra una **marcada predominancia de medios motorizados individuales**, destacándose la **motocicleta como el principal medio de transporte**, con cerca de una cuarta parte de los desplazamientos. Le siguen el **carro propio (19.6%)** y el **transporte público (14.3%)**, lo que confirma una fuerte dependencia de opciones motorizadas para el acceso a la universidad.
+
+El **desplazamiento a pie (15.3%)** también presenta una participación relevante, lo que sugiere que una proporción importante de estudiantes reside en zonas cercanas a las sedes. En contraste, la **ruta institucional (8.8%)** y el **transporte por plataformas digitales (11.2%)** tienen una menor incidencia en el total, aunque siguen siendo alternativas utilizadas por un grupo significativo.
+
+Los medios de transporte sostenibles como la **bicicleta (0.6%) y el monopatín (0.1%)** presentan una participación prácticamente marginal, lo que evidencia una muy baja adopción de estas opciones.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y Medio de transporte habitual de su casa a la universidad
+# 1. Preparar los datos por campus y medio de transporte habitual
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(transp_hab), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, transp_hab) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(transp_hab),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    transp_hab = str_trim(as.character(transp_hab))
+  ) %>%
+  count(campus, transp_hab, name = "n")
 
 # 2. Agregar grupo "Todos"
 todos <- datos %>%
   filter(!is.na(transp_hab)) %>%
+  mutate(
+    transp_hab = str_trim(as.character(transp_hab))
+  ) %>%
   count(transp_hab, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Fijar niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir y calcular porcentajes por campus
 datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  group_by(campus) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ungroup()
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~transp_hab,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 150,
-  transforms = list(
-    list(
-      type = "filter",
-      target = ~campus,
-      operation = "=",
-      value = "Todos"
+# 5. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+# 6. Etiquetas bonitas
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 7. Crear una traza por campus para que cambie color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp) %>%
+    arrange(pct)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(transp_hab, pct),
+      type = "bar",
+      orientation = "h",
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      marker = list(color = colores_campus[[camp]]),
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Transporte:</b> %{y}<br>",
+        "<b>Porcentaje:</b> %{x:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
     )
-  )
-) %>%
-  layout(
-    title = list(
-      text = "<b></b>",
-      font = list(size = 10),
-      x = 0.5, xanchor = "center"
+}
+
+# 8. Botones dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(
+        title = paste("Medio de transporte habitual de su casa a la universidad -", etiquetas_campus[[niveles_campus[i]]])
+      )
     ),
-    updatemenus = list(                         # <--- AQUÍ va el menú
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 9. Layout final
+fig %>%
+  layout(
+    title = "Medio de transporte habitual de su casa a la universidad - Todos",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
       list(
         type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(
-            method = "restyle",
-            args = list("transforms[0].value", c),  # apunta al 1er transform
-            label = c
-          )
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        direction = "down",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 180, r = 120, t = 60, b = 40)
   )
-
-fig
 ```
 
 ### Su vehículo que tipo de combustible utiliza
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre los estudiantes con transporte propio, la **gasolina** domina ampliamente (50%), mientras que combustibles como **diésel** (2%), **híbrido** (1.2%) y **eléctrico** (0.7%) tienen una participación mínima. Es relevante que el 46% no cuenta con transporte propio, lo cual reduce su dependencia directa del combustible y brinda la oportunidad de trabajar es estrageías que fomenten el transporte colectivo.
+El análisis centrado en los estudiantes que **sí cuentan con vehículo propio** muestra una clara predominancia de la **gasolina como principal tipo de combustible**, con una participación ampliamente mayoritaria (alrededor del 51%). Esto indica que la gran mayoría de los vehículos utilizados por los estudiantes corresponden a tecnologías tradicionales de combustión interna.
+
+En contraste, el uso de **diésel es muy bajo (2.5%)**, mientras que las alternativas más sostenibles como los **vehículos eléctricos (1%) e híbridos (0.8%) tienen poca presencia**. Estos resultados evidencian un uso **escaso de tecnologías limpias** dentro del parque automotor estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y tipo de combustible utiliza
+# 1. Preparar datos por campus y tipo de combustible
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(combust), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, combust) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(combust),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    combust = str_trim(as.character(combust))
+  ) %>%
+  count(campus, combust, name = "n")
 
 # 2. Agregar grupo "Todos"
 todos <- datos %>%
   filter(!is.na(combust)) %>%
+  mutate(
+    combust = str_trim(as.character(combust))
+  ) %>%
   count(combust, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir y calcular porcentajes
 datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  group_by(campus) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ungroup()
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~combust,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+# 5. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 6. Crear una traza por campus para que cambie el color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp) %>%
+    arrange(pct)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(combust, pct),
+      type = "bar",
+      orientation = "h",
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      marker = list(color = colores_campus[[camp]]),
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Combustible:</b> %{y}<br>",
+        "<b>Porcentaje:</b> %{x:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
     )
-  )
-) %>%
-  layout(
-    title = list(
-      text = "<b></b>",
-      font = list(size = 10),
-      x = 0.5, xanchor = "center"
+}
+
+# 7. Botones del dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(
+        title = paste("Tipo de combustible utilizado -", etiquetas_campus[[niveles_campus[i]]])
+      )
     ),
-    updatemenus = list(                         # <--- AQUÍ va el menú
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 8. Layout final
+fig %>%
+  layout(
+    title = "Tipo de combustible utilizado - Todos",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
       list(
         type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(
-            method = "restyle",
-            args = list("transforms[0].value", c),  # apunta al 1er transform
-            label = c
-          )
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        direction = "down",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 180, r = 120, t = 60, b = 40)
   )
-fig
 ```
 
 ### Comparte con otras personas durante el trayecto su medio de transporte habitual
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 36.7% de los estudiantes con vehículo no comparte sus desplazamientos, mientras que un 20.7% sí lo hace. Sin embargo, la proporción más alta (42.6%) corresponde a quienes no tienen transporte propio. Esto sugiere una baja práctica de movilidad compartida, pero al mismo tiempo deja ver un margen de mejora mediante estrategias de carpooling para reducir costos y emisiones.
+El 33.1% de los estudiantes con vehículo no comparte sus desplazamientos, mientras que un 24.5% sí lo hace. Sin embargo, la proporción más alta (42.3%) corresponde a quienes no tienen transporte propio. Esto sugiere una baja práctica de movilidad compartida, pero al mismo tiempo deja ver un margen de mejora mediante estrategias de carpooling para reducir costos y emisiones.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -297,7 +414,7 @@ fig
 ### ¿Estaría dispuesto a compartir su medio de transporte?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Aunque actualmente pocos lo practican, existe una buena disposición: el 42.9% de los estudiantes con vehículo afirma que estaría dispuesto a compartirlo, mientras que solo un 13.8% se niega. Esto abre una oportunidad para implementar políticas institucionales de movilidad sostenible.
+Aunque actualmente pocos lo practican, existe una buena disposición: el 45.6% de los estudiantes con vehículo afirma que estaría dispuesto a compartirlo, mientras que solo un 12.1% se niega. Esto abre una oportunidad para implementar políticas institucionales de movilidad sostenible.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -370,7 +487,7 @@ fig
 ### Tiempo en promedio en desplazamiento de su casa a la universidad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los estudiantes tarda entre 10 y 30 minutos en llegar a la universidad (56%), seguido de un 22.3% que invierte menos de 10 minutos. Un 16.1% dedica entre 30 y 60 minutos, y apenas un 5.6% supera la hora de viaje. Estos resultados evidencian que, en general, los campus se encuentran relativamente cercanos a las zonas de residencia estudiantil, aunque existe un grupo minoritario que enfrenta trayectos prolongados.
+La mayoría de los estudiantes tarda entre 10 y 30 minutos en llegar a la universidad (53.7%), seguido de un 27.9% que invierte menos de 10 minutos. Un 12.6% dedica entre 30 y 60 minutos, y apenas un 5.77% supera la hora de viaje. Estos resultados evidencian que, en general, los campus se encuentran relativamente cercanos a las zonas de residencia estudiantil, aunque existe un grupo minoritario que enfrenta trayectos prolongados.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -442,7 +559,7 @@ fig
 ### Dinero en transporte, en promedio, semanal en desplazamiento
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Se observa que el 21% no gasta nada, probablemente porque vive cerca o se desplaza a pie. Sin embargo, un 17.4% invierte más de **\$50.000** semanales, lo que representa un grupo con altos costos de movilidad. Otros rangos significativos son: **\$10.000** a **\$20.000** (15.1%), **\$30.000** a **\$40.000** (12.5%) y **\$20.000** a **\$30.000** (11.7%).
+La mayor proporción de estudiantes reporta **no incurrir en gastos de desplazamiento**, seguida de quienes gastan **más de \$50.000 semanales**. A partir de este punto, la distribución disminuye progresivamente en los rangos superiores, lo que indica que los **costos de transporte son generalmente bajos o moderados** para la mayoría..
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -544,109 +661,136 @@ fig
 ### ¿Cuál es la tipologia familiar de origen?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La familia nuclear biparental predomina ampliamente (64.8%), seguida por la monoparental y la extensa, aunque en menor medida. Otros tipos de familia (reconstruida, homoparental, adoptiva, acogida) aparecen con porcentajes mínimos. Esto sugiere que la mayoría de los estudiantes provienen de hogares tradicionales con padre y madre presentes.
+La tipología familiar de origen de los estudiantes se concentra principalmente en la **familia nuclear biparental**, que representa cerca del 60% del total, evidenciando que la mayoría proviene de hogares tradicionales con ambos padres. En menor proporción, se destacan la **familia nuclear monoparental (13%)** y la **familia extensa (11.7%)**, lo que indica una presencia relevante de estructuras familiares diversas.
+
+Las demás tipologías presentan participaciones considerablemente menores, cada una por debajo del 5%, lo que refleja que configuraciones como familias reconstruidas, homoparentales o adoptivas tienen poca incidencia en la población estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 
-# 1. Preparar los datos por campus y ¿Cuál es la tipologia familiar de origen?
+# 1. Preparar los datos
 datos_plot <- datos %>%
   filter(!is.na(campus) & !is.na(tip_familia) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, tip_familia) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(tip_familia)) %>%
   count(tip_familia, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Ordenar niveles de 'tip_familia' por frecuencia total (grupo "Todos")
-niveles_din_trans <- datos_final %>%
+# 5. Ordenar categorías por "Todos"
+niveles_tip <- datos_final %>%
   filter(campus == "Todos") %>%
   arrange(desc(n)) %>%
   pull(tip_familia)
 
 datos_final <- datos_final %>%
-  mutate(tip_familia = factor(tip_familia, levels = niveles_din_trans))
+  mutate(tip_familia = factor(tip_familia, levels = niveles_tip))
 
-# 6. Calcular porcentajes por campus
+# 6. Calcular porcentaje
 datos_final <- datos_final %>%
   group_by(campus) %>%
   mutate(
-    total_campus = sum(n),
-    porcentaje = round((n / total_campus) * 100, 1)
+    porcentaje = (n / sum(n)) * 100
   ) %>%
   ungroup()
 
-# 7. Crear texto personalizado para el hover
-datos_final <- datos_final %>%
-  mutate(
-    hover_text = paste0(
-      "<b>", tip_familia, "</b><br>",
-      "Campus: ", campus, "<br>",
-      "Frecuencia: ", n, "<br>",
-      "Porcentaje: ", porcentaje, "%<br>",
-      "<extra></extra>"
-    )
-  )
+# 7. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
 
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
-fig <- plot_ly(
-  data = datos_final,
-  x = ~tip_familia,
-  y = ~n,
-  type = "bar",
-  marker = list(color = "#a6cee3"),
-  hovertemplate = ~hover_text,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear gráfico con cambio de color por campus
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~tip_familia,
+      y = ~porcentaje,
+      type = "bar",
+      marker = list(color = colores_campus[[camp]]),
+      text = ~paste0(round(porcentaje,1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Tipología:</b> %{x}<br>",
+        "<b>Porcentaje:</b> %{y:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
     )
+}
+
+# 9. Dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Tipología familiar de origen -", etiquetas_campus[[niveles_campus[i]]]))
+    ),
+    label = etiquetas_campus[[niveles_campus[i]]]
   )
-) %>%
-layout(
-  title = list(
-    text = "<b></b>", # negrilla y salto de línea
-    font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
-    x = 0.5,                # centrar
-    xanchor = "center"
-  ),
-  xaxis = list(title = "Tipologia familiar de origen"),
-  yaxis = list(title = "Número de estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-        })
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Tipología familiar de origen - Todos",
+    xaxis = list(title = "Tipología familiar"),
+    yaxis = list(title = "Porcentaje (%)"),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 80, r = 120, t = 60, b = 120)
   )
-
-fig
-
 ```
 
 ### ¿Con cuántas personas convive?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Más de la mitad de los estudiantes (57.2%) vive en hogares de 3 a 4 integrantes, seguido por un 19.7% que convive con 1 o 2 personas. Los hogares más numerosos (5 a 6 miembros o más) son menos frecuentes, aunque aún representan un grupo importante de estudiantes. Esto indica una tendencia a familias de tamaño medio.
+Más de la mitad de los estudiantes (56%) vive en hogares de 3 a 4 integrantes, seguido por un 20.9% que convive con 1 o 2 personas. Los hogares más numerosos (5 a 6 miembros o más) son menos frecuentes, aunque aún representan un grupo importante de estudiantes. Esto indica una tendencia a familias de tamaño medio.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -748,7 +892,7 @@ fig
 ### En cuántos cuartos duermen las personas de su hogar
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría reside en viviendas de 3 cuartos (46.7%), seguidos por los que habitan en casas con 2 cuartos (25.5%). Un 15.1% vive en hogares con 4 habitaciones, mientras que un porcentaje reducido se distribuye entre 1 cuarto o más de 5 cuartos.
+La mayoría reside en viviendas de 3 cuartos (44.7%), seguidos por los que habitan en casas con 2 cuartos (26.1%). Un 15.8% vive en hogares con 4 habitaciones, mientras que un porcentaje reducido se distribuye entre 1 cuarto o más de 5 cuartos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -850,7 +994,7 @@ fig
 ### ¿Tiene hijos?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gran mayoría de los estudiantes no tiene hijos (95.2%), mientras que un pequeño grupo equivalente al 4.8% sí es padre o madre.
+La gran mayoría de los estudiantes no tiene hijos (97%), mientras que un pequeño grupo equivalente al 3% sí es padre o madre.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -922,73 +1066,136 @@ fig
 ### ¿Cuántos hijos tiene?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre quienes son padres, la mayoría tiene 1 hijo (65%), un 27.5% tiene 2 hijos, y un 7.5% cuenta con 3 o más hijos. Esto confirma que, aunque pocos estudiantes son padres, dentro de ese grupo predominan hogares pequeños.
+La distribución del número de hijos evidencia que la gran mayoría de los estudiantes no tiene hijos (97.7%), lo que confirma que se trata principalmente de población joven en etapa inicial de formación universitaria.
+
+La presencia de estudiantes con hijos es poca: apenas un 2.1% tiene un hijo y proporciones aún menores reportan dos o más. Este comportamiento sugiere bajas cargas familiares directas, lo que puede favorecer la dedicación académica, aunque existe un grupo reducido que podría requerir apoyos diferenciados para compatibilizar sus responsabilidades familiares con la vida universitaria.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y ¿Cuántos hijos tiene?
+# 1. Preparar datos por campus y número de hijos
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(num_hijos), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, num_hijos) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(num_hijos),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    num_hijos = str_trim(as.character(num_hijos))
+  ) %>%
+  count(campus, num_hijos, name = "n")
 
 # 2. Agregar grupo "Todos"
 todos <- datos %>%
   filter(!is.na(num_hijos)) %>%
+  mutate(
+    num_hijos = str_trim(as.character(num_hijos))
+  ) %>%
   count(num_hijos, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir y calcular porcentajes
 datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  group_by(campus) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ungroup()
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~num_hijos,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 90,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+# 5. Ordenar categorías según "Todos"
+orden_hijos <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(as.numeric(num_hijos)) %>%
+  pull(num_hijos)
+
+datos_final <- datos_final %>%
+  mutate(num_hijos = factor(num_hijos, levels = unique(orden_hijos)))
+
+# 6. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 7. Crear una traza por campus para cambio de color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~num_hijos,
+      y = ~pct,
+      type = "bar",
+      marker = list(color = colores_campus[[camp]]),
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Número de hijos:</b> %{x}<br>",
+        "<b>Porcentaje:</b> %{y:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
     )
-  )
-) %>%
-layout(
-    title = list(
-      text = "<b></b>",
-      font = list(size = 10),
-      x = 0.5, xanchor = "center"
+}
+
+# 8. Botones del dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Número de hijos -", etiquetas_campus[[niveles_campus[i]]]))
     ),
-    updatemenus = list(                         # <--- AQUÍ va el menú
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 9. Layout final
+fig %>%
+  layout(
+    title = "Número de hijos - Todos",
+    xaxis = list(title = "Número de hijos"),
+    yaxis = list(title = "Porcentaje (%)"),
+    showlegend = FALSE,
+    updatemenus = list(
       list(
         type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(
-            method = "restyle",
-            args = list("transforms[0].value", c),  # apunta al 1er transform
-            label = c
-          )
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        direction = "down",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 80, r = 120, t = 60, b = 80)
   )
-  fig
 ```
 
 ## Diversidad y Pertenencia a grupos poblacionales
@@ -996,7 +1203,7 @@ layout(
 ### Grupo poblacional
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre los estudiantes de nuevo ingreso, se observa que cerca de un tercio de ellos, específicamente el 27.3%, manifestó identificarse con algún grupo poblacional, mientras que la mayoría (72.7%) no lo hace.
+Entre los estudiantes de nuevo ingreso, se observa que cerca de un tercio de ellos, específicamente el 27.3%, manifestó identificarse con algún grupo poblacional, mientras que la mayoría (72.6%) no lo hace.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1069,14 +1276,19 @@ fig
 ### ¿A cuál de los siguientes grupos poblacionales considera usted que pertenece?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre los grupos poblacionales con mayor representación destacan aquellos que han sido víctimas del conflicto armado, que reúnen aproximadamente un 20% de los estudiantes, seguidos por los grupos étnicos (17.6%) y las culturas urbanas (15.5%). Asimismo, la población LGBTIQ+ alcanza una participación del 11.6% y un 10.3% se reconoce como población desplazada, mientras que un 9.5% proviene de contextos campesinos.
+El análisis de los grupos poblacionales muestra una **concentración clara en pocos grupos**. Destaca en primer lugar la **población víctima del conflicto (19.3%)**, seguida por los **grupos étnicos (18%)** y las **culturas urbanas (13.8%)**, lo que indica que una proporción importante de estudiantes pertenece a contextos sociales con características culturales o históricas particulares.
+
+En un segundo nivel aparecen la **población desmovilizada (10.1%)**, la **población campesina (9.5%)** y la **población desplazada o desvinculada del conflicto armado (8.3%)**, evidenciando la presencia de trayectorias marcadas por dinámicas territoriales y sociales complejas.
+
+Los demás grupos presentan participaciones menores, como **LGBTIQ+ (3.7%)**, **talentos excepcionales (2.5%)**, **migrantes (1.8%)**, **habitantes de frontera (1.5%)**, **personas con discapacidad (0.9%)** y **población en pobreza (0.9%)**, lo que sugiere una menor representación relativa, aunque igualmente relevante para la atención institucional.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
+library(stringr)
 
-# 1. Preparar los datos por campus y grupo poblacional (excluyendo la categoría específica)
+# 1. Preparar los datos por campus y grupo poblacional
 datos_plot <- datos %>%
   filter(
     !is.na(campus),
@@ -1084,26 +1296,31 @@ datos_plot <- datos %>%
     campus %in% c("Bucaramanga", "Cucuta", "Valledupar"),
     grupo_pert != "No pertenece a ningún grupo poblacional"
   ) %>%
-  group_by(campus, grupo_pert) %>%
-  summarise(n = n(), .groups = "drop")
+  mutate(
+    grupo_pert = str_trim(as.character(grupo_pert))
+  ) %>%
+  count(campus, grupo_pert, name = "n")
 
-# 2. Agregar grupo "Todos" (también excluyendo la categoría)
+# 2. Agregar grupo "Todos"
 todos <- datos %>%
   filter(
     !is.na(grupo_pert),
     grupo_pert != "No pertenece a ningún grupo poblacional"
   ) %>%
+  mutate(
+    grupo_pert = str_trim(as.character(grupo_pert))
+  ) %>%
   count(grupo_pert, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Fijar niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Ordenar niveles de grupo_pert por frecuencia total (grupo "Todos")
+# 5. Ordenar niveles de grupo_pert según "Todos"
 niveles_grupo_pert <- datos_final %>%
   filter(campus == "Todos") %>%
   arrange(desc(n)) %>%
@@ -1112,191 +1329,375 @@ niveles_grupo_pert <- datos_final %>%
 datos_final <- datos_final %>%
   mutate(grupo_pert = factor(grupo_pert, levels = niveles_grupo_pert))
 
-# 6. Crear gráfico de barras en celeste con filtro
-fig <- plot_ly(
-  data = datos_final,
-  x = ~grupo_pert,
-  y = ~n,
-  type = "bar",
-  marker = list(color = "#a6cee3"),
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-layout(
-  title = list(
-    text = "<b></b>", # negrilla y salto de línea
-    font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
-    x = 0.5,                # centrar
-    xanchor = "center"
-  ),
-  xaxis = list(title = "Grupos poblacionales"),
-  yaxis = list(title = "Número de <br>estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-        })
-      )
-    )
-  )
+# 6. Calcular porcentaje por campus
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(
+    porcentaje = (n / sum(n)) * 100
+  ) %>%
+  ungroup()
 
-fig
+# 7. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear una traza por campus para que cambie color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~grupo_pert,
+      y = ~porcentaje,
+      type = "bar",
+      marker = list(color = colores_campus[[camp]]),
+      text = ~paste0(round(porcentaje, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Grupo poblacional:</b> %{x}<br>",
+        "<b>Porcentaje:</b> %{y:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
+    )
+}
+
+# 9. Botones dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Grupos poblacionales -", etiquetas_campus[[niveles_campus[i]]]))
+    ),
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Grupos poblacionales - Todos",
+    xaxis = list(title = "Grupos poblacionales"),
+    yaxis = list(title = "Porcentaje (%)"),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        direction = "down",
+        buttons = botones
+      )
+    ),
+    margin = list(l = 80, r = 120, t = 60, b = 120)
+  )
 ```
 
 ### ¿A cuál de los siguientes grupos étnicos pertenece?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Dentro de los grupos étnicos, se identifica un 46.7% corresponde a pueblos indígenas, un 44.4% a comunidades afrocolombianas y un pequeño porcentaje a poblaciones raizales (2.2%) y mestizas (4.5%).
+La distribución de pertenencia a grupos étnicos muestra una **concentración clara en dos grupos principales**. Predominan los **pueblos indígenas (51%)**, seguidos por las **comunidades negras, afrocolombianas (43.5%)**, lo que evidencia que la gran mayoría de estudiantes que reportan pertenencia étnica se identifican con estos dos colectivos.
+
+En menor proporción aparecen los **mestizos (3.2%)** y las **poblaciones raizales (1.6%)**, con participaciones más bajas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y grupos étnicos pertenecea
+# 1. Preparar datos (solo quienes sí pertenecen)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(grupo_etn), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, grupo_etn) %>%
-  summarise(n = n(), .groups = "drop")
+  mutate(
+    grupo_etn = str_trim(as.character(grupo_etn))
+  ) %>%
+  filter(
+    !is.na(campus),
+    !is.na(grupo_etn),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar"),
+    !grupo_etn %in% c("0", "Ninguno", "No pertenece", "", "No aplica")
+  ) %>%
+  count(campus, grupo_etn, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
-  filter(!is.na(grupo_etn)) %>%
+  mutate(
+    grupo_etn = str_trim(as.character(grupo_etn))
+  ) %>%
+  filter(
+    !is.na(grupo_etn),
+    !grupo_etn %in% c("0", "Ninguno", "No pertenece", "", "No aplica")
+  ) %>%
   count(grupo_etn, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir
 datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  filter(n > 0)
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~grupo_etn,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+# 5. Ordenar categorías según "Todos"
+niveles_grupo <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(grupo_etn)
+
+datos_final <- datos_final %>%
+  mutate(grupo_etn = factor(grupo_etn, levels = niveles_grupo))
+
+# 6. Calcular porcentaje
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(pct = (n / sum(n)) * 100) %>%
+  ungroup()
+
+# 7. Colores por campus
+colores <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+labels_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear gráfico
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(grupo_etn, pct),
+      type = "bar",
+      orientation = "h",
+      marker = list(color = colores[[camp]]),
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Grupo étnico:</b> %{y}<br>",
+        "<b>Porcentaje:</b> %{x:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = labels_campus[[camp]]
     )
-  )
-) %>%
-layout(
-    title = list(
-      text = "<b></b>",
-      font = list(size = 10),
-      x = 0.5, xanchor = "center"
+}
+
+# 9. Dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Grupos étnicos -", labels_campus[[niveles_campus[i]]]))
     ),
-    updatemenus = list(                         # <--- AQUÍ va el menú
+    label = labels_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Grupos étnicos - Todos",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
       list(
         type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(
-            method = "restyle",
-            args = list("transforms[0].value", c),  # apunta al 1er transform
-            label = c
-          )
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 180, r = 120, t = 60, b = 40)
   )
-fig
-
 ```
 
 ### Comunidad indígena a la que pertenece
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre las comunidades indígenas con mayor presencia sobresalen los Wayúu (19%), los Kankuamo (19%) y los U'wa (9.5%), mientras que otros pueblos como los Zenú, Sinu, Mokana, Kichwa o Malamba aparecen en menor proporción.
+La distribución de pertenencia a comunidades indígenas muestra una **concentración en pocos grupos específicos**. Destaca principalmente la comunidad **Wayúu**, que registra la mayor participación (**31.3%**), seguida por la comunidad **Kankuama (15.6%)** y la comunidad **Zenú (9.4%)**.
+
+En un segundo nivel aparecen comunidades como **San Martín de Amacayacu**, **Resguardo indígena provincial Barrancas La Guajira** y **Chimila**, cada una con participaciones cercanas al **6.2%**. Las demás comunidades presentan proporciones menores, alrededor del **3.1%**, lo que evidencia una representación más dispersa pero significativa.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y Comunidad indígena a la que pertenece
+# 1. Preparar datos (limpiando valores inválidos)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(etnia_ind), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, etnia_ind) %>%
-  summarise(n = n(), .groups = "drop")
+  mutate(etnia_ind = str_trim(as.character(etnia_ind))) %>%
+  filter(
+    !is.na(campus),
+    !is.na(etnia_ind),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar"),
+    !etnia_ind %in% c("0", "Ninguno", "No pertenece", "", "No aplica")
+  ) %>%
+  count(campus, etnia_ind, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
-  filter(!is.na(etnia_ind)) %>%
+  mutate(etnia_ind = str_trim(as.character(etnia_ind))) %>%
+  filter(
+    !is.na(etnia_ind),
+    !etnia_ind %in% c("0", "Ninguno", "No pertenece", "", "No aplica")
+  ) %>%
   count(etnia_ind, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~etnia_ind,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+# 5. Ordenar categorías según "Todos"
+niveles_etnia <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(etnia_ind)
+
+datos_final <- datos_final %>%
+  mutate(etnia_ind = factor(etnia_ind, levels = niveles_etnia))
+
+# 6. Calcular porcentaje
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(pct = (n / sum(n)) * 100) %>%
+  ungroup()
+
+# 7. Colores por campus
+colores <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+labels_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear gráfico
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(etnia_ind, pct),
+      type = "bar",
+      orientation = "h",
+      marker = list(color = colores[[camp]]),
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Comunidad indígena:</b> %{y}<br>",
+        "<b>Porcentaje:</b> %{x:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = labels_campus[[camp]]
     )
-  )
-) %>%
-layout(
-    title = list(
-      text = "<b></b>",
-      font = list(size = 10),
-      x = 0.5, xanchor = "center"
+}
+
+# 9. Dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Comunidades indígenas -", labels_campus[[niveles_campus[i]]]))
     ),
-    updatemenus = list(                         # <--- AQUÍ va el menú
+    label = labels_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Comunidades indígenas - Todos",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
       list(
         type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(
-            method = "restyle",
-            args = list("transforms[0].value", c),  # apunta al 1er transform
-            label = c
-          )
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 180, r = 120, t = 60, b = 40)
   )
-
-fig
 ```
 
 ## Perfil económico y Académico de los padres

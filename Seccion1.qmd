@@ -1,10 +1,6 @@
 ---
 title: "Sección 1. Información personal y Académica"
-format:
-  html:
-    theme: cosmo
-  pdf:
-    documentclass: book
+format: html
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -102,15 +98,21 @@ colombia <- suppressMessages(
   st_read("https://raw.githubusercontent.com/santiblanko/colombia.geojson/master/mpio.json")
 )
 
-# Leer y preparar datos de estudiantes (ciudades.csv)
-ciudades <- read_delim("C:/R-Proyectos/alerta1_cx_2026-1/data/ciudades.csv", delim = ";", locale = locale(encoding = "Latin1"))
+# Leer y preparar datos de estudiantes
+ciudades <- read_delim(
+  "data/ciudades.csv",
+  delim = ";",
+  locale = locale(encoding = "Latin1"),
+  show_col_types = FALSE
+)
+
 names(ciudades) <- str_replace_all(names(ciudades), "[\r\n\t]", "")
 
 # Crear MPIO_CCDGO en los datos de estudiantes para la unión
 ciudades <- ciudades %>%
   mutate(MPIO_CCDGO = str_pad(paste0(DPTO_CCDGO, MPIO), 5, pad = "0"))
 
-# Crear MPIO_CCDGO en el mapa (nombre de columna corregido)
+# Crear MPIO_CCDGO en el mapa
 colombia <- colombia %>%
   mutate(
     DPTO = str_pad(DPTO, 2, pad = "0"),
@@ -119,13 +121,12 @@ colombia <- colombia %>%
   ) %>%
   filter(MPIO_CCDGO != "99999")
 
-# Unir el mapa con los datos de los estudiantes para obtener solo los municipios con estudiantes
+# Unir el mapa con los datos de los estudiantes
 municipios_con_campus <- colombia %>%
   inner_join(ciudades %>% select(MPIO_CCDGO, campus), by = "MPIO_CCDGO")
 
 # --- 2) Preparar la capa de departamentos ---
 
-# Diccionario de acrónimos (se mantiene para las etiquetas de los departamentos)
 acronimos_dpt <- tribble(
   ~NOMBRE_DPT, ~ACRONIMO,
   "ANTIOQUIA", "ANTI",
@@ -152,24 +153,26 @@ acronimos_dpt <- tribble(
   "VALLE DEL CAUCA", "VALL"
 )
 
-# Crear capa de departamentos a partir de los datos completos del mapa
 departamentos <- colombia %>%
   group_by(DPTO, NOMBRE_DPT) %>%
   summarise(geometry = st_union(geometry), .groups = "drop") %>%
-  mutate(NOMBRE_DPT = str_replace_all(NOMBRE_DPT, c("Á" = "A", "É" = "E", "Í" = "I", "Ó" = "O", "Ú" = "U", "Ñ" = "N"))) %>%
+  mutate(
+    NOMBRE_DPT = str_replace_all(
+      NOMBRE_DPT,
+      c("Á" = "A", "É" = "E", "Í" = "I", "Ó" = "O", "Ú" = "U", "Ñ" = "N")
+    )
+  ) %>%
   left_join(acronimos_dpt, by = "NOMBRE_DPT")
 
-# --- 3) Reproyectar todas las capas a coordenadas planas ---
+# --- 3) Reproyectar ---
 colombia <- st_transform(colombia, 3116)
 municipios_con_campus <- st_transform(municipios_con_campus, 3116)
 departamentos <- st_transform(departamentos, 3116)
 
-# --- 4) Generar el mapa con ggplot ---
+# --- 4) Generar el mapa ---
 ggplot() +
-  # CAPA 1: Fondo de todos los municipios de Colombia
-  geom_sf(data = colombia, fill = "gray95", color = "white", size = 0.1) +
-  # CAPA 2: Resaltar solo los municipios con estudiantes
-  geom_sf(data = municipios_con_campus, aes(fill = campus), color = "black", size = 0.2) +
+  geom_sf(data = colombia, fill = "gray95", color = "white", linewidth = 0.1) +
+  geom_sf(data = municipios_con_campus, aes(fill = campus), color = "black", linewidth = 0.2) +
   scale_fill_manual(
     values = c(
       "Cucuta" = "#FFD1DC",
@@ -178,15 +181,19 @@ ggplot() +
     ),
     name = "Campus UDES"
   ) +
-  # CAPA 3: Límites y etiquetas de todos los departamentos
-  geom_sf(data = departamentos, fill = NA, color = "black", size = 0.7) +
-  geom_sf_text(data = departamentos, aes(label = ACRONIMO), size = 2, fontface = "bold", check_overlap = TRUE) +
+  geom_sf(data = departamentos, fill = NA, color = "black", linewidth = 0.7) +
+  geom_sf_text(
+    data = departamentos,
+    aes(label = ACRONIMO),
+    size = 2,
+    fontface = "bold",
+    check_overlap = TRUE
+  ) +
   theme_minimal() +
   labs(
     title = "Municipios de origen de los estudiantes",
     caption = "Fuente: Planeación Institucional UDES, 2026-1"
   )
-
 ```
 
 ## Perfil Demográfico
@@ -782,7 +789,13 @@ p %>%
 ### Habilidades académicas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En las tres áreas evaluadas se evidencia una **concentración en niveles medios de dificultad**, lo que indica que, aunque los estudiantes logran desempeños funcionales, aún existen retos importantes en el desarrollo de competencias clave. **Matemáticas** presenta el mayor peso en nivel medio (52.9%), pero también un porcentaje relevante en nivel alto (26.3%), lo que señala una base aceptable con brechas importantes en razonamiento y resolución de problemas. En **Expresión Oral**, aunque predomina el nivel medio (43.3%), se observa una proporción considerable en nivel alto (32.1%), evidenciando dificultades persistentes en la comunicación efectiva. **Comprensión Lectora** se posiciona como el área más crítica, con el mayor porcentaje en nivel alto (44.6%), lo que refleja debilidades en lectura crítica, análisis e interpretación de textos.
+En las tres áreas evaluadas se evidencia una concentración en niveles **medios de dificultad**, lo que indica que, aunque los estudiantes alcanzan desempeños funcionales, persisten retos relevantes en el fortalecimiento de competencias clave.
+
+En **Matemáticas**, predomina el nivel medio (**53.5%**), acompañado de una proporción importante en nivel alto (**26.5%**), lo que sugiere una base aceptable, pero con dificultades en el razonamiento y la resolución de problemas.
+
+En **Expresión Oral**, el nivel medio (**40.7%**) continúa siendo el más representativo, seguido por un nivel alto (**33.5%**), evidenciando retos en la comunicación efectiva y la expresión de ideas.
+
+Por su parte, **Comprensión Lectora** se consolida como el área más crítica, al concentrar el mayor porcentaje en nivel alto (**40.1%**), junto con un nivel medio significativo (**37.1%**), lo que refleja dificultades en la lectura crítica, el análisis y la interpretación de textos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -982,9 +995,11 @@ fig
 ### Habilidades cognitivas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Los resultados evidencian que las principales dificultades cognitivas se concentran en **análisis (37.6%)**, **atención (37.3%)**, **memoria (37%)** y **comprensión (36.4%)**, donde cerca de **4 de cada 10 estudiantes** reportan experimentar estas dificultades con alta frecuencia.
+Los resultados evidencian que las principales dificultades cognitivas se concentran en **análisis (33.8%)**, **atención (31.9%)**, **memoria (34.6%)** y **comprensión (34.1%)**, donde cerca de **3 a 4 de cada 10 estudiantes** reportan experimentar estas dificultades con alta frecuencia (“casi siempre”).
 
-Estas capacidades están directamente asociadas con procesos clave del aprendizaje, como la **interpretación de información, la concentración sostenida y la retención de contenidos**, lo que sugiere un impacto potencial en el desempeño académico. En contraste, la **adaptación (29.6%)** presenta una menor incidencia, aunque sigue siendo relevante, indicando que cerca de **3 de cada 10 estudiantes** enfrentan dificultades para ajustarse a nuevas dinámicas académicas.
+Estas capacidades están directamente asociadas con procesos clave del aprendizaje, como la interpretación de información, la concentración sostenida y la retención de contenidos, lo que sugiere un posible impacto en el desempeño académico.
+
+Por su parte, la **adaptación (25.6%)** presenta una menor incidencia relativa, aunque continúa siendo relevante, indicando que alrededor de **1 de cada 4 estudiantes** enfrenta dificultades para ajustarse a nuevas dinámicas académicas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1263,75 +1278,107 @@ fig
 ## Lenguas extranjeras
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En el manejo de un segundo idioma solo el 18% de los estudiantes reporta dominar alguna lengua extranjera, frente a un 80% que no lo hace.
+En relación con el dominio de lenguas extranjeras, el **18%** de los estudiantes manifiesta contar con esta competencia (**Sí**). Por su parte, en cuanto a la certificación formal en lengua extranjera, el **8.8%** de los estudiantes indica disponer de este respaldo (**Sí**).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(tidyr)
+library(stringr)
 
-# 1. Preparar los datos por campus y lenguas extranjeras
-datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(leng_ext), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, leng_ext) %>%
-  summarise(n = n(), .groups = "drop")
+# =========================
+# 1. Limpiar datos
+# =========================
+datos_clean <- datos %>%
+  mutate(
+    leng_ext = str_trim(as.character(leng_ext)),
+    cert_leng = str_trim(as.character(cert_leng)),
 
-# 2. Agregar grupo "Todos"
-todos <- datos %>%
-  filter(!is.na(leng_ext)) %>%
-  count(leng_ext, name = "n") %>%
-  mutate(campus = "Todos")
+    leng_ext = case_when(
+      leng_ext %in% c("Si", "Sí") ~ "Sí",
+      leng_ext == "No" ~ "No",
+      TRUE ~ NA_character_
+    ),
 
-# 3. Fijar niveles de campus (con "Todos" primero)
-niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
-
-# 4. Unir todos los datos
-datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
-
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~leng_ext,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+    cert_leng = case_when(
+      cert_leng %in% c("Si", "Sí") ~ "Sí",
+      cert_leng %in% c("No", "0", "") ~ "No",
+      TRUE ~ NA_character_
     )
+  ) %>%
+  filter(!is.na(leng_ext), !is.na(cert_leng))
+
+# =========================
+# 2. Pasar a formato largo
+# =========================
+datos_long <- datos_clean %>%
+  pivot_longer(
+    cols = c(leng_ext, cert_leng),
+    names_to = "variable",
+    values_to = "respuesta"
+  ) %>%
+  mutate(
+    variable = recode(variable,
+      leng_ext = "Habla lengua extranjera",
+      cert_leng = "Tiene certificación"
+    )
+  )
+
+# =========================
+# 3. Calcular porcentajes correctamente
+# =========================
+tabla <- datos_long %>%
+  count(variable, respuesta) %>%
+  group_by(variable) %>%
+  mutate(
+    pct = n / sum(n) * 100
+  ) %>%
+  ungroup()
+
+# =========================
+# 4. Orden correcto
+# =========================
+tabla$respuesta <- factor(tabla$respuesta, levels = c("Sí", "No"))
+
+# =========================
+# 5. Gráfico final (CORRECTO)
+# =========================
+plot_ly(
+  data = tabla,
+  x = ~variable,
+  y = ~pct,
+  color = ~respuesta,
+  colors = c("#FFD1DC", "#A2CFFE"),
+  type = "bar",
+  text = ~paste0(round(pct,1), "%"),
+  textposition = "outside",
+  customdata = ~n,
+  hovertemplate = paste(
+    "<b>Variable:</b> %{x}<br>",
+    "<b>Respuesta:</b> %{color}<br>",
+    "<b>Porcentaje:</b> %{y:.1f}%<br>",
+    "<b>Frecuencia:</b> %{customdata}<extra></extra>"
   )
 ) %>%
   layout(
-    title = "",
-    updatemenus = list(
-      list(
-        type = 'dropdown',
-        active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms[0].value", c),
-               label = c)
-        })
-      )
-    )
+    barmode = "group",
+    title = "Lengua extranjera y certificación",
+    yaxis = list(title = "Porcentaje (%)"),
+    xaxis = list(title = ""),
+    legend = list(title = list(text = "Respuesta")),
+    margin = list(t = 60)
   )
-
-fig
-
 ```
 
 ### Distribución de niveles de idiomas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre quienes sí dominan una segunda lengua, el inglés es el idioma predominante (9.7%), principalmente en niveles intermedios (B1). Otras lenguas como francés (1%), portugués (0.7%), alemán (0.6%), italiano (0.5%) y otras (0.6%) tienen presencia.
+La distribución de niveles de competencia en lenguas extranjeras evidencia un claro predominio del inglés, que concentra el 8.8% del total de estudiantes. Dentro de este idioma, el nivel más frecuente es B1 (intermedio), seguido por B2, lo que indica que, aunque existe una base funcional, son pocos los estudiantes con dominio avanzado.
+
+En contraste, otros idiomas como francés (0.9%), italiano (0.6%) y las demás lenguas presentan una participación marginal, concentrada principalmente en niveles básicos (A1 y A2).
+
+En conjunto, estos resultados reflejan una baja diversificación lingüística y una limitada presencia de niveles avanzados (C1 y C2), lo que sugiere la necesidad de fortalecer las competencias en segunda lengua como parte del perfil de ingreso y permanencia estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1443,7 +1490,7 @@ if("Mensaje" %in% colnames(tabla_final)) {
 ### Cuándo hablo en público, generalmente me siento:
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El nerviosismo es la emoción predominante cuando los estudiantes se expresan en público (43%), seguido por la tensión (23.4%) y la tranquilidad (22.2%). Apenas un 11.4% manifestó sentirse seguro o confiado. Estos resultados sugieren la necesidad de fortalecer habilidades blandas y de comunicación oral para mejorar la autoconfianza y el desempeño en contextos académicos y profesionales.
+En relación con el estado emocional de los estudiantes al interactuar, el **49.4%** manifiesta sentirse **nervioso**, mientras que un **21.4%** se percibe **tranquilo**. Adicionalmente, el **19.2%** reporta sentirse **tenso**, y un **9.9%** se identifica como **seguro o confiado**. Estos resultados evidencian que una proporción importante de estudiantes experimenta emociones asociadas a la inquietud o la tensión en contextos de interacción.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1511,7 +1558,7 @@ fig
 ### ¿He realizado estudios de oratoria?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La gran mayoría de estudiantes no ha recibido formación formal en oratoria (86.7%), mientras que solo un 13.3% ha tomado algún curso en esta área. Esto refleja una oportunidad para mejorar en habilidades comunicativas, lo que puede estar relacionado con los altos niveles de nerviosismo identificados previamente al hablar en público.
+La gran mayoría de estudiantes no ha recibido formación formal en oratoria (87.7%), mientras que solo un 12.3% ha tomado algún curso en esta área. Esto refleja una oportunidad para mejorar en habilidades comunicativas, lo que puede estar relacionado con los altos niveles de nerviosismo identificados previamente al hablar en público.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1579,7 +1626,7 @@ fig
 ### ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En lo relacionado con la interacción social cercana, el panorama es mucho más positivo: el 93.8% manifiesta sentirse cómodo y expresarse libremente dentro de su grupo de amigos, frente a un 6.2% que no comparte esa misma percepción. Esto indica que la confianza en contextos familiares y de amistad está consolidada, aunque no necesariamente se traduce en la misma seguridad frente a públicos más amplios o desconocidos.
+En lo relacionado con la interacción social cercana, el panorama es mucho más positivo: el 93.9% manifiesta sentirse cómodo y expresarse libremente dentro de su grupo de amigos, frente a un 6.1% que no comparte esa misma percepción. Esto indica que la confianza en contextos familiares y de amistad está consolidada, aunque no necesariamente se traduce en la misma seguridad frente a públicos más amplios o desconocidos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1647,7 +1694,7 @@ fig
 ### Cuando conozco nuevas personas, mi comportamiento es:
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Cuando se trata de interacción con desconocidos, casi la mitad de los estudiantes (48.9%) toma la iniciativa para hablar, lo cual refleja un nivel aceptable de proactividad social. Sin embargo, un 37.5% prefiere esperar a que otros inicien la conversación, y un 10.8% se limita a escuchar sin intervenir. Finalmente, un grupo reducido (2.7%) evita totalmente interactuar con personas nuevas, lo que evidencia ciertos niveles de timidez o inseguridad en escenarios de socialización abierta.
+En cuanto a la forma en que los estudiantes abordan la interacción comunicativa, el **47.4%** indica que **toma la iniciativa para hablar**, seguido por un **39.6%** que prefiere **esperar a que le hablen**. Por su parte, el **9.9%** señala que **no habla y solo escucha**, mientras que el **3.0%** manifiesta que **evita hablar con personas que no conoce**. Estos resultados muestran una tendencia hacia la participación activa, aunque persisten comportamientos más pasivos o de evitación en un grupo menor.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
