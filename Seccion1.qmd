@@ -1243,7 +1243,8 @@ fig <- plot_ly(
   labels = ~desemp_aca,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270,
@@ -1523,7 +1524,8 @@ fig <- plot_ly(
   labels = ~hab_pub,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270,
@@ -1727,7 +1729,8 @@ fig <- plot_ly(
   labels = ~comp_nvos,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270,

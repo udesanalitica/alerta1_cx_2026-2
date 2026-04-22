@@ -32,8 +32,18 @@ Siguiendo la vanguardia en el manejo de datos, este libro ha sido desarrollado b
 
 El presente informe no solo busca describir a la cohorte 2026-1, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.
 
+# Novedades
+
+## Agente Analista Experto de la encuesta de caraterización
+
 Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-1.
 
 [Da clic aquí y conoce el Agente Analista Experto](https://gemini.google.com/gem/16XsuZxQcG5INwjAwhnZqbsAPBTgPOtWA?usp=sharing){.btn .btn-primary}
 
 Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.
+
+## Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11
+
+Este enlace permite explorar una herramienta interactiva de alerta temprana basada en los resultados de las pruebas Saber 11, la cual facilita la identificación de niveles de riesgo académico a partir de los puntajes en competencias genéricas. A través de esta visualización, es posible analizar el desempeño de los estudiantes y reconocer posibles brechas en habilidades clave, aportando información relevante para orientar estrategias de acompañamiento y fortalecer los procesos de permanencia y éxito académico, en línea con el uso de resultados de evaluaciones externas para la toma de decisiones educativas.
+
+[Da clic aquí y conoce la Alerta temprana: Identificación de niveles de riesgo puntajes genéricos saber 11](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Nivelesderiesgosaber11?:language=es-ES&:embed=y&:sid=&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}

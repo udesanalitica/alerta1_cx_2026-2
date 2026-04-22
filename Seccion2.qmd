@@ -447,7 +447,8 @@ fig <- plot_ly(
   labels = ~comp_dispo,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270+45,
@@ -463,7 +464,7 @@ fig <- plot_ly(
 layout(
     title = list(
       text = "<b></b>",
-      font = list(size = 10),
+      font = list(size = 18),
       x = 0.5, xanchor = "center"
     ),
     updatemenus = list(                         # <--- AQUÍ va el menú
@@ -520,7 +521,8 @@ fig <- plot_ly(
   labels = ~tiemp_trans,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270+45,
@@ -536,7 +538,7 @@ fig <- plot_ly(
 layout(
     title = list(
       text = "<b></b>",
-      font = list(size = 10),
+      font = list(size = 18),
       x = 0.5, xanchor = "center"
     ),
     updatemenus = list(                         # <--- AQUÍ va el menú
@@ -1705,7 +1707,9 @@ fig %>%
 ### ¿Quién cubre sus gastos de matrícula?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En el plano económico, la financiación de la matrícula recae principalmente en el núcleo familiar. El 47.5% de los estudiantes reportó que sus padres asumen conjuntamente este gasto, mientras que un 21.2% depende únicamente del padre y un 12.6% exclusivamente de la madre. En contraste, las becas cubren a cerca del 9% de los estudiantes y las entidades financieras al 7%, lo que muestra que, aunque existen alternativas externas de apoyo, estas aún tienen un alcance limitado frente a la alta proporción de estudiantes que dependen directamente de sus familias.
+En el plano económico, la financiación de la matrícula recae principalmente en el núcleo familiar. Aproximadamente el **45.7% de los estudiantes** depende de sus **padres**, constituyéndose en la principal fuente de apoyo. Le siguen quienes financian sus estudios con el respaldo exclusivo del **padre (alrededor del 20.8%)** y de la **madre (cerca del 14%)**.
+
+Las alternativas externas presentan una menor participación. La **financiación mediante entidades financieras** representa cerca del **7%**, mientras que la **financiación propia** alcanza aproximadamente el **6.6%**. Por su parte, los apoyos provenientes de **otros familiares** corresponden a cerca del **5.2%**, y las **becas** tienen una incidencia marginal, cercana al **0.7%**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1805,107 +1809,148 @@ fig
 ### ¿Cuál es la forma de pago del semestre en la Universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Respecto a la forma de pago del semestre, la opción más frecuente es el pago en efectivo (44.5%), seguido por el uso de créditos con entidades financieras (28.4%). Una proporción menor recurre a becas, al ICETEX o a otras modalidades, lo que evidencia que el acceso a la educación superior sigue asociado en buena medida a la capacidad de pago inmediato de las familias o al endeudamiento a corto y mediano plazo.
+La forma de pago del semestre evidencia una **alta dependencia de recursos propios y familiares**. El **efectivo** se posiciona como el principal mecanismo de financiación (**45.7%**), seguido por el **crédito con alguna entidad financiera (31.5%)**, lo que indica una combinación entre pago directo y endeudamiento como estrategias predominantes.
+
+En menor proporción, se encuentran alternativas como **otros mecanismos de pago (11.4%)** y el **autofinanciamiento (6.4%)**, que reflejan esfuerzos individuales o fuentes complementarias. Por su parte, opciones institucionales como **ICETEX (2.9%)** y **becas (1.2%)** presentan una participación limitada.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
+library(stringr)
 
-# 1. Preparar los datos por campus y ¿Cuál es la forma de pago del semestre en la Universidad?
+# 1. Preparar datos por campus y forma de pago
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(pago_sem) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, pago_sem) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(pago_sem),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    pago_sem = str_trim(as.character(pago_sem))
+  ) %>%
+  count(campus, pago_sem, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(pago_sem)) %>%
+  mutate(
+    pago_sem = str_trim(as.character(pago_sem))
+  ) %>%
   count(pago_sem, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Ordenar niveles de 'pago_sem' por frecuencia total (grupo "Todos")
-niveles_din_trans <- datos_final %>%
+# 5. Ordenar categorías según "Todos"
+niveles_pago <- datos_final %>%
   filter(campus == "Todos") %>%
   arrange(desc(n)) %>%
   pull(pago_sem)
 
 datos_final <- datos_final %>%
-  mutate(pago_sem = factor(pago_sem, levels = niveles_din_trans))
+  mutate(pago_sem = factor(pago_sem, levels = niveles_pago))
 
-# 6. Calcular porcentajes por campus
+# 6. Calcular porcentaje por campus
 datos_final <- datos_final %>%
   group_by(campus) %>%
   mutate(
-    total_campus = sum(n),
-    porcentaje = round((n / total_campus) * 100, 1)
+    porcentaje = (n / sum(n)) * 100
   ) %>%
   ungroup()
 
-# 7. Crear texto personalizado para el hover
-datos_final <- datos_final %>%
-  mutate(
-    hover_text = paste0(
-      "<b>", pago_sem, "</b><br>",
-      "Campus: ", campus, "<br>",
-      "Frecuencia: ", n, "<br>",
-      "Porcentaje: ", porcentaje, "%<br>",
-      "<extra></extra>"
-    )
-  )
-
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
-fig <- plot_ly(
-  data = datos_final,
-  x = ~pago_sem,
-  y = ~n,
-  type = "bar",
-  marker = list(color = "#a6cee3"),
-  hovertemplate = ~hover_text,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-layout(
-  title = list(
-    text = "<b></b>", # negrilla y salto de línea
-    font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
-    x = 0.5,                # centrar
-    xanchor = "center"
-  ),
-  xaxis = list(title = "Forma de pago del semestre"),
-  yaxis = list(title = "Número de estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-      })
-    )
-  )
+# 7. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
 )
-fig
+
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear una traza por campus para que cambie el color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pago_sem,
+      y = ~porcentaje,
+      type = "bar",
+      marker = list(color = colores_campus[[camp]]),
+      text = ~paste0(round(porcentaje, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Forma de pago:</b> %{x}<br>",
+        "<b>Porcentaje:</b> %{y:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
+    )
+}
+
+# 9. Botones dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Forma de pago del semestre -", etiquetas_campus[[niveles_campus[i]]]))
+    ),
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Forma de pago del semestre - Todos",
+    xaxis = list(title = "Forma de pago del semestre"),
+    yaxis = list(title = "Porcentaje (%)"),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
+      )
+    ),
+    margin = list(l = 80, r = 120, t = 60, b = 120)
+  )
 ```
 
 ### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Al indagar sobre las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, la palabra "calidad" emerge como el factor decisivo, acompañada de términos como "referencias", "positivas", "carrera" y "ofrece", lo cual resalta la importancia de la reputación institucional y la pertinencia académica en el proceso de decisión. También aparecen menciones a la decisión de los padres, las visitas a colegios y aspectos relacionados con la economía, que complementan el panorama y ponen de relieve la influencia del entorno familiar y social en la elección universitaria.
+Al analizar las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, se observa que la **“calidad”** se posiciona como el factor central en la decisión, destacándose con mayor relevancia frente a los demás términos. Este elemento está acompañado por palabras como **“positivas”** y **“referencias”**, lo que evidencia el peso de la percepción institucional y las recomendaciones en el proceso de elección.
+
+Asimismo, términos como **“carrera”**, **“ingreso”** y **“solicitó”** reflejan la relación con la oferta académica y el proceso de admisión, mientras que aparecen factores complementarios como **“colegio”**, **“padres”**, **“visita”** y **“economía”**, que dan cuenta de la influencia del entorno educativo, familiar y de las condiciones económicas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1960,81 +2005,147 @@ wordcloud2(d, color = "random-light", backgroundColor = "white")
 ### Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestres)
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El análisis del tiempo transcurrido entre el grado del colegio y el ingreso a la Universidad de Santander muestra que más de la mitad de los estudiantes (52.6%) ingresaron un semestre después de culminar sus estudios, lo que evidencia una transición rápida hacia la educación superior. Un grupo más reducido (5.16%) lo hizo de manera inmediata, mientras que un 12.1% ingresó dos semestres después, lo que sugiere pequeñas pausas. Por otro lado, un 18.2% retrasó su ingreso entre dos y tres años, y un 11.9% esperó más de cuatro años para iniciar estudios universitarios, reflejando trayectorias más prolongadas antes de acceder a la formación profesional.
+El tiempo de ingreso a la universidad evidencia una incorporación mayoritariamente inmediata al sistema educativo superior. El **62.4% de los estudiantes** accede **inmediatamente después de finalizar el colegio**, lo que refleja una continuidad directa en su trayectoria académica.
+
+En menor proporción, un **15.7% ingresa dos semestres después**, mientras que un **12% lo hace entre 2 y 3 años después**, indicando la existencia de pausas intermedias antes de iniciar la formación universitaria. Por su parte, un **6.9% tarda más de 4 años** en ingresar, y solo un **3% lo hace tras un semestre de espera**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestre
+# 1. Preparar datos por campus y tiempo de ingreso
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(tiempo_ing), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, tiempo_ing) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(tiempo_ing),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    tiempo_ing = str_trim(as.character(tiempo_ing))
+  ) %>%
+  count(campus, tiempo_ing, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(tiempo_ing)) %>%
+  mutate(
+    tiempo_ing = str_trim(as.character(tiempo_ing))
+  ) %>%
   count(tiempo_ing, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~tiempo_ing,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+# 5. Ordenar categorías según "Todos"
+niveles_tiempo <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(tiempo_ing)
+
+datos_final <- datos_final %>%
+  mutate(tiempo_ing = factor(tiempo_ing, levels = niveles_tiempo))
+
+# 6. Calcular porcentaje
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(pct = (n / sum(n)) * 100) %>%
+  ungroup()
+
+# 7. Colores por campus
+colores <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+labels_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear gráfico
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp) %>%
+    arrange(pct)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~reorder(tiempo_ing, pct),
+      type = "bar",
+      orientation = "h",
+      marker = list(color = colores[[camp]]),
+      text = ~paste0(round(pct, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Tiempo de ingreso:</b> %{y}<br>",
+        "<b>Porcentaje:</b> %{x:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = labels_campus[[camp]]
     )
-  )
-) %>%
-layout(
-    title = list(
-      text = "<b></b>",
-      font = list(size = 10),
-      x = 0.5, xanchor = "center"
+}
+
+# 9. Dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Tiempo de ingreso a la Universidad -", labels_campus[[niveles_campus[i]]]))
     ),
-    updatemenus = list(                         # <--- AQUÍ va el menú
+    label = labels_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Tiempo de ingreso a la Universidad - Todos",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
+    showlegend = FALSE,
+    updatemenus = list(
       list(
         type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(
-            method = "restyle",
-            args = list("transforms[0].value", c),  # apunta al 1er transform
-            label = c
-          )
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        direction = "down",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 180, r = 120, t = 60, b = 40)
   )
-
-fig
-
 ```
 
 ### ¿Usted es el primero en su familia inmediata en asistir a la universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En el ámbito familiar, un 27.5% de los estudiantes reportó ser el primero en su núcleo inmediato en asistir a la universidad, un dato que refleja un avance en la apertura de oportunidades educativas. Sin embargo, la mayoría (72.5%) proviene de familias donde ya existía experiencia universitaria previa, lo que podría constituir una ventaja en términos de acompañamiento académico y cultural.
+En el ámbito familiar, un 27.4% de los estudiantes reportó ser el primero en su núcleo inmediato en asistir a la universidad, un dato que refleja un avance en la apertura de oportunidades educativas. Sin embargo, la mayoría (72.6%) proviene de familias donde ya existía experiencia universitaria previa, lo que podría constituir una ventaja en términos de acompañamiento académico y cultural.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2104,201 +2215,281 @@ fig
 ### ¿Cuál es el nivel educativo más alto alcanzado por su padre?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto al nivel educativo de los padres, los datos revelan que el 22.1% alcanzó estudios profesionales completos y el 21.3% culminó la secundaria. Un 11.9% realizó formación técnica o tecnológica completa y apenas un 7.7% alcanzó un posgrado. El panorama es similar pero con ligeras diferencias en las madres: un 30.2% logró culminar estudios profesionales, seguido por un 20.9% con secundaria completa y un 15.8% con educación técnica o tecnológica. Apenas un 10.2% alcanzó el nivel de posgrado. Esto evidencia que, aunque ambos progenitores cuentan en su mayoría con formación media o superior, las cifras de posgrado son bajas y la educación profesional predomina más en las madres.
+El nivel educativo del padre se concentra principalmente en niveles medios. Predomina la **secundaria completa (22.8%)** y la **educación profesional completa (21.8%)**, lo que indica que una proporción importante de estudiantes proviene de hogares con formación académica consolidada.
+
+En un segundo nivel se encuentran la **educación técnica o tecnológica completa (11.4%)** y categorías como **no sabe (8.4%)** y **secundaria incompleta (8.2%)**, lo que evidencia cierta heterogeneidad en la formación.
+
+Los niveles más bajos, como **primaria** y **educación incompleta**, presentan participaciones menores, mientras que el **posgrado (7.3%)** tiene una presencia moderada.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
+library(stringr)
 
-# 1. Preparar los datos por campus y ¿Cuál es el nivel educativo más alto alcanzado por su padre?
+# 1. Preparar datos por campus y nivel educativo del padre
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(niv_padre) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, niv_padre) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(niv_padre),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    niv_padre = str_trim(as.character(niv_padre))
+  ) %>%
+  count(campus, niv_padre, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(niv_padre)) %>%
+  mutate(
+    niv_padre = str_trim(as.character(niv_padre))
+  ) %>%
   count(niv_padre, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Ordenar niveles de 'niv_padre' por frecuencia total (grupo "Todos")
-niveles_din_trans <- datos_final %>%
+# 5. Ordenar categorías según "Todos"
+niveles_padre <- datos_final %>%
   filter(campus == "Todos") %>%
   arrange(desc(n)) %>%
   pull(niv_padre)
 
 datos_final <- datos_final %>%
-  mutate(niv_padre = factor(niv_padre, levels = niveles_din_trans))
+  mutate(niv_padre = factor(niv_padre, levels = niveles_padre))
 
-# 6. Calcular porcentajes por campus
+# 6. Calcular porcentaje por campus
 datos_final <- datos_final %>%
   group_by(campus) %>%
   mutate(
-    total_campus = sum(n),
-    porcentaje = round((n / total_campus) * 100, 1)
+    porcentaje = (n / sum(n)) * 100
   ) %>%
   ungroup()
 
-# 7. Crear texto personalizado para el hover
-datos_final <- datos_final %>%
-  mutate(
-    hover_text = paste0(
-      "<b>", niv_padre, "</b><br>",
-      "Campus: ", campus, "<br>",
-      "Frecuencia: ", n, "<br>",
-      "Porcentaje: ", porcentaje, "%<br>",
-      "<extra></extra>"
-    )
-  )
-
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
-fig <- plot_ly(
-  data = datos_final,
-  x = ~niv_padre,
-  y = ~n,
-  type = "bar",
-  marker = list(color = "#a6cee3"),
-  hovertemplate = ~hover_text,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-layout(
-  title = list(
-    text = "<b></b>", # negrilla y salto de línea
-    font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
-    x = 0.5,                # centrar
-    xanchor = "center"
-  ),
-  xaxis = list(title = "Nivel educativo padre"),
-  yaxis = list(title = "Número de \n estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-      })
-    )
-  )
+# 7. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
 )
-fig
+
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear una traza por campus para que cambie el color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~niv_padre,
+      y = ~porcentaje,
+      type = "bar",
+      marker = list(color = colores_campus[[camp]]),
+      text = ~paste0(round(porcentaje, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Nivel educativo del padre:</b> %{x}<br>",
+        "<b>Porcentaje:</b> %{y:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
+    )
+}
+
+# 9. Botones dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Nivel educativo del padre -", etiquetas_campus[[niveles_campus[i]]]))
+    ),
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Nivel educativo del padre - Todos",
+    xaxis = list(title = "Nivel educativo del padre"),
+    yaxis = list(title = "Porcentaje (%)"),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
+      )
+    ),
+    margin = list(l = 80, r = 120, t = 60, b = 140)
+  )
 ```
 
 ### ¿Cuál es el nivel educativo más alto alcanzado por su madre?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Los datos evidencian que la mayoría de las madres de los estudiantes alcanzaron la educación profesional completa, con más de 220 (26.3%) casos registrados, lo que constituye la categoría con mayor peso. En segundo lugar, se destaca la secundaria completa, con una cifra cercana a 200 (24.3%) respuestas, mostrando también una presencia significativa. Un grupo importante, aunque menor, corresponde a la educación técnica o tecnológica completa, con alrededor de 130 casos. En contraste, niveles como posgrado y primaria completa alcanzan valores más bajos, cercanos a 70 estudiantes cada uno, lo que refleja que una proporción menor accedió a estudios avanzados o se quedó en niveles básicos de escolaridad.
+El nivel educativo de la madre presenta una mayor concentración en niveles medios y altos. Predomina la **educación profesional completa (26.7%)**, seguida de la **secundaria completa (20.8%)** y la **educación técnica o tecnológica completa (17.1%)**, lo que indica que una proporción significativa de estudiantes proviene de hogares con formación académica consolidada.
+
+En niveles intermedios se ubican el **posgrado (8.5%)** y la **secundaria incompleta (5.9%)**, mientras que los niveles básicos como **primaria completa e incompleta** tienen una participación menor. Asimismo, categorías como **no sabe** y niveles técnicos incompletos reflejan cierta heterogeneidad en la formación.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
+library(stringr)
 
-# 1. Preparar los datos por campus y ¿Cuál es el nivel educativo más alto alcanzado por su madre?
+# 1. Preparar datos por campus y nivel educativo de la madre
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(niv_madre) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, niv_madre) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(niv_madre),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    niv_madre = str_trim(as.character(niv_madre))
+  ) %>%
+  count(campus, niv_madre, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(niv_madre)) %>%
+  mutate(
+    niv_madre = str_trim(as.character(niv_madre))
+  ) %>%
   count(niv_madre, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Orden de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Ordenar niveles de 'niv_madre' por frecuencia total (grupo "Todos")
-niveles_din_trans <- datos_final %>%
+# 5. Ordenar categorías según "Todos"
+niveles_madre <- datos_final %>%
   filter(campus == "Todos") %>%
   arrange(desc(n)) %>%
   pull(niv_madre)
 
 datos_final <- datos_final %>%
-  mutate(niv_padre = factor(niv_madre, levels = niveles_din_trans))
+  mutate(niv_madre = factor(niv_madre, levels = niveles_madre))
 
-# 6. Calcular porcentajes por campus
+# 6. Calcular porcentaje por campus
 datos_final <- datos_final %>%
   group_by(campus) %>%
   mutate(
-    total_campus = sum(n),
-    porcentaje = round((n / total_campus) * 100, 1)
+    porcentaje = (n / sum(n)) * 100
   ) %>%
   ungroup()
 
-# 7. Crear texto personalizado para el hover
-datos_final <- datos_final %>%
-  mutate(
-    hover_text = paste0(
-      "<b>", niv_madre, "</b><br>",
-      "Campus: ", campus, "<br>",
-      "Frecuencia: ", n, "<br>",
-      "Porcentaje: ", porcentaje, "%<br>",
-      "<extra></extra>"
-    )
-  )
-
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
-fig <- plot_ly(
-  data = datos_final,
-  x = ~niv_madre,
-  y = ~n,
-  type = "bar",
-  marker = list(color = "#a6cee3"),
-  hovertemplate = ~hover_text,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
-    )
-  )
-) %>%
-layout(
-  title = list(
-    text = "<b></b>", # negrilla y salto de línea
-    font = list(size = 10), # tamaño más pequeño (ajústalo a gusto: 12, 14, 16…)
-    x = 0.5,                # centrar
-    xanchor = "center"
-  ),
-  xaxis = list(title = "Nivel educativo madre"),
-  yaxis = list(title = "Número de \n estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-      })
-    )
-  )
+# 7. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
 )
-fig
+
+etiquetas_campus <- c(
+  "Todos" = "Todos",
+  "Bucaramanga" = "Bucaramanga",
+  "Cucuta" = "Cúcuta",
+  "Valledupar" = "Valledupar"
+)
+
+# 8. Crear una traza por campus para que cambie el color
+fig <- plot_ly()
+
+for (i in seq_along(niveles_campus)) {
+  camp <- niveles_campus[i]
+  
+  df <- datos_final %>%
+    filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~niv_madre,
+      y = ~porcentaje,
+      type = "bar",
+      marker = list(color = colores_campus[[camp]]),
+      text = ~paste0(round(porcentaje, 1), "%"),
+      textposition = "outside",
+      customdata = ~n,
+      hovertemplate = paste(
+        "<b>Nivel educativo de la madre:</b> %{x}<br>",
+        "<b>Porcentaje:</b> %{y:.1f}%<br>",
+        "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = etiquetas_campus[[camp]]
+    )
+}
+
+# 9. Botones dropdown
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("Nivel educativo de la madre -", etiquetas_campus[[niveles_campus[i]]]))
+    ),
+    label = etiquetas_campus[[niveles_campus[i]]]
+  )
+})
+
+# 10. Layout final
+fig %>%
+  layout(
+    title = "Nivel educativo de la madre - Todos",
+    xaxis = list(title = "Nivel educativo de la madre"),
+    yaxis = list(title = "Porcentaje (%)"),
+    showlegend = FALSE,
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
+      )
+    ),
+    margin = list(l = 80, r = 120, t = 60, b = 140)
+  )
 ```
 
 ## Servicios de Internet y Espacios en el hogar
@@ -2306,7 +2497,7 @@ fig
 ### ¿Cuenta su hogar con servicio de conexión a internet?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En cuanto al acceso a recursos digitales, la gran mayoría de los hogares (93,3%) dispone de conexión a internet, lo que asegura un nivel adecuado de conectividad. Sin embargo, un 6,7% aún no cuenta con este servicio, lo que puede representar limitaciones para el acceso a plataformas virtuales de aprendizaje
+En cuanto al acceso a recursos digitales, la gran mayoría de los hogares (93,6%) dispone de conexión a internet, lo que asegura un nivel adecuado de conectividad. Sin embargo, un 6,4% aún no cuenta con este servicio, lo que puede representar limitaciones para el acceso a plataformas virtuales de aprendizaje
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2376,7 +2567,7 @@ fig
 ### ¿Cuenta su hogar con servicio de suscripción de televisión (cable, parabólica o satelital)?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 79,1% de los hogares tiene acceso a televisión por suscripción, frente a un 20,9% que carece de este servicio, evidenciando una diferencia en el acceso a medios de información y entretenimiento.
+El 79,9% de los hogares tiene acceso a televisión por suscripción, frente a un 20,1% que carece de este servicio, evidenciando una diferencia en el acceso a medios de información y entretenimiento.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2446,7 +2637,7 @@ fig
 ### ¿Cuántos libros físicos o electrónicos hay en su hogar excluyendo periódicos, revistas,directorios telefónicos y libros del colegio?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Respecto a la disponibilidad de material de lectura en los hogares, se observa que más de la mitad de los estudiantes (52,3%) cuenta con entre 0 y 10 libros. Otro 26,3% dispone de entre 11 y 25 libros, mientras que un 16,5% tiene entre 26 y 100, y apenas un 4,9% supera los 100 libros.
+Respecto a la disponibilidad de material de lectura en los hogares, se observa que más de la mitad de los estudiantes (51,1%) cuenta con entre 0 y 10 libros. Otro 26,8% dispone de entre 11 y 25 libros, mientras que un 14.2% tiene entre 26 y 100, y apenas un 3.85% supera los 100 libros.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2479,7 +2670,8 @@ fig <- plot_ly(
   labels = ~libros,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270+45,
@@ -2495,7 +2687,7 @@ fig <- plot_ly(
 layout(
   title = list(
     text = "<b></b>",
-    font = list(size = 10),   # ajusta 14 al tamaño que quieras
+    font = list(size = 18),   # ajusta 14 al tamaño que quieras
     x = 0.5, xanchor = "center"
   ),
     updatemenus = list(
@@ -2504,7 +2696,7 @@ layout(
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -2517,7 +2709,9 @@ fig
 ### ¿Cuánto tiempo al día dedica a leer por entretenimiento?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El tiempo dedicado a la lectura por entretenimiento es bajo. El 38% lee 30 minutos o menos al día, mientras que un 29,9% afirma no leer en absoluto con fines recreativos. Un 21,1% dedica entre 30 y 60 minutos, y apenas un 7,7% invierte entre una y dos horas. Solo el 3,2% lee más de dos horas diarias, lo que refleja la necesidad de fortalecer los hábitos lectores como parte de la formación integral.
+Los hábitos de lectura por entretenimiento evidencian una **baja dedicación de tiempo entre los estudiantes**. El **35.6% manifiesta no leer por entretenimiento**, proporción que se iguala con quienes leen **30 minutos o menos (35.6%)**, lo que indica que cerca de **7 de cada 10 estudiantes presentan una vinculación limitada con la lectura recreativa**.
+
+En niveles intermedios, un **18.1% dedica entre 30 y 60 minutos**, mientras que solo un **7.2% lee entre 1 y 2 horas**, y un **3.5% supera las 2 horas**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2550,7 +2744,8 @@ fig <- plot_ly(
   labels = ~tiempo_lect,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270 + 45,
@@ -2566,7 +2761,7 @@ fig <- plot_ly(
   layout(
     title = list(
       text = "<b></b>",
-      font = list(size = 10),
+      font = list(size = 18),
       x = 0.5, xanchor = "center"
     ),
     updatemenus = list(                         # <--- AQUÍ va el menú
@@ -2590,7 +2785,9 @@ fig
 ### ¿Cuánto tiempo al día dedica a navegar en internet? Excluya actividades académica
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los estudiantes (36,7%) dedica entre 1 y 3 horas diarias a navegar en internet con fines no académicos, seguido por un 25,8% que lo hace entre 30 minutos y 1 hora. Casi una cuarta parte (24,8%) pasa más de 3 horas en estas actividades, lo que refleja un uso intensivo de la red en entretenimiento y redes sociales. En contraste, un 10,9% se conecta 30 minutos o menos, y solo un 1,8% afirma no usar internet fuera del ámbito académico. Estos datos evidencian que internet es parte fundamental de la vida cotidiana de los estudiantes, aunque con intensidades variables.
+El tiempo de uso de internet muestra una **alta intensidad de conexión entre los estudiantes**. La mayor proporción se concentra en quienes navegan **entre 1 y 3 horas (35.5%)**, seguida por un **27.1% que supera las 3 horas**, lo que indica que más del **60% dedica al menos una hora diaria a internet**.
+
+En niveles intermedios, un **23.3% navega entre 30 y 60 minutos**, mientras que un **12.1% lo hace por 30 minutos o menos**. Por su parte, el porcentaje de estudiantes que **no utiliza internet es marginal (1.9%)**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2623,7 +2820,8 @@ fig <- plot_ly(
   labels = ~tiemp_net,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270 + 45,
@@ -2639,7 +2837,7 @@ fig <- plot_ly(
   layout(
     title = list(
       text = "<b></b>",
-      font = list(size = 10),
+      font = list(size = 18),
       x = 0.5, xanchor = "center"
     ),
     updatemenus = list(                         # <--- AQUÍ va el menú
@@ -2663,7 +2861,7 @@ fig
 ### ¿Dispone de un espacio privado para estudiar en casa?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 85,3% de los estudiantes reporta contar con un espacio privado para estudiar en casa, lo que constituye una ventaja importante en términos de concentración y desempeño académico. Sin embargo, un 14,7% no dispone de este recurso, lo que puede generar desventajas frente a ruidos, falta de privacidad y ambientes menos propicios para el aprendizaje autónomo.
+El **86% de los estudiantes** reporta contar con un espacio privado para estudiar en casa, lo que constituye una ventaja importante en términos de concentración y desempeño académico. Sin embargo, un **14% no dispone de este recurso**, lo que puede generar desventajas frente a ruidos, falta de privacidad y ambientes menos propicios para el aprendizaje autónomo.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2734,7 +2932,9 @@ fig
 ### ¿Cuánto tiempo le dedica semanalmente a su jornada de estudios en la Universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El tiempo de estudio semanal está distribuido principalmente en jornadas moderadas, ya que un 32,9% dedica entre 6 y 10 horas a actividades académicas fuera de clase, seguido por un 24,7% que invierte solo de 1 a 5 horas. Un 17,6% dedica entre 11 y 15 horas, mientras que los niveles más altos que corresponden a quienes destinan más de 20 horas (12,6%) o entre 16 y 20 horas (12,2%).
+El tiempo de estudio semanal se concentra principalmente en niveles moderados. El **32.1% de los estudiantes dedica entre 1 y 5 horas**, seguido muy de cerca por un **31.8% que invierte entre 6 y 10 horas**, lo que evidencia que la mayoría mantiene una dedicación académica intermedia fuera de clase.
+
+**A medida que aumenta la intensidad del estudio**, un **18.2% destina entre 11 y 15 horas**, mientras que un **9.6% alcanza entre 16 y 20 horas**. Finalmente, un **8.3% supera las 20 horas semanales**, conformando el grupo con mayor nivel de dedicación.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2742,7 +2942,7 @@ library(dplyr)
 library(plotly)
 library(RColorBrewer)
 
-# 1. Preparar los datos por campus y ¿Cuánto tiempo le dedica semanalmente a su jornada de estudios en la Universidad?
+# 1. Preparar los datos por campus y jornada de estudios en la Universidad
 datos_plot <- datos %>%
   filter(!is.na(campus), !is.na(jorn_univ), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, jorn_univ) %>%
@@ -2754,7 +2954,7 @@ todos <- datos %>%
   count(jorn_univ, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Fijar niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
 # 4. Unir todos los datos
@@ -2767,33 +2967,36 @@ fig <- plot_ly(
   labels = ~jorn_univ,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  rotation = 315,
   transforms = list(
     list(
-      type = 'filter',
+      type = "filter",
       target = ~campus,
-      operation = '=',
+      operation = "=",
       value = "Todos"
     )
   )
 ) %>%
-    layout(
+  layout(
     title = list(
-    text = "<b></b>",
-    font = list(size = 10),   # ajusta 14 al tamaño que quieras
-    x = 0.5, xanchor = "center"
-  ),
+      text = "<b></b>",
+      x = 0.5,
+      xanchor = "center"
+    ),
     updatemenus = list(
       list(
-        type = 'dropdown',
+        type = "dropdown",
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
         })
       )
     )
@@ -2805,7 +3008,9 @@ fig
 ### ¿Cuánto tiempo permanece en la Universidad?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Más de la mitad de los estudiantes (55,5%) permanece en la universidad únicamente durante el tiempo de clases, lo que sugiere una dinámica centrada en asistir y retirarse. En contraste, un 22,7% permanece todo el día, posiblemente aprovechando espacios de estudio, servicios institucionales o actividades extracurriculares. Los grupos más reducidos son aquellos que asisten solo en la mañana (18,3%) o en la tarde (3,5%), reflejando rutinas académicas más específicas.
+La permanencia de los estudiantes en la universidad se concentra principalmente en el tiempo estrictamente académico. El **58.1% permanece únicamente durante las clases**, lo que evidencia una dinámica centrada en asistir y retirarse sin prolongar su estancia en el campus.
+
+Por su parte, un **21% asiste solo en la mañana**, mientras que un **17.2% permanece todo el día**, lo que sugiere un mayor aprovechamiento de espacios institucionales o actividades complementarias. En contraste, el grupo más reducido corresponde a quienes asisten **solo en la tarde (3.7%)**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2813,9 +3018,13 @@ library(dplyr)
 library(plotly)
 library(RColorBrewer)
 
-# 1. Preparar los datos por campus y ¿Cuánto tiempo permanece en la Universidad?
+# 1. Preparar los datos por campus y tiempo de permanencia en la universidad
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(tiemp_univ), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(tiemp_univ),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, tiemp_univ) %>%
   summarise(n = n(), .groups = "drop")
 
@@ -2825,7 +3034,7 @@ todos <- datos %>%
   count(tiemp_univ, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Fijar niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
 # 4. Unir todos los datos
@@ -2838,33 +3047,37 @@ fig <- plot_ly(
   labels = ~tiemp_univ,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  rotation = 315,
   transforms = list(
     list(
-      type = 'filter',
+      type = "filter",
       target = ~campus,
-      operation = '=',
+      operation = "=",
       value = "Todos"
     )
   )
 ) %>%
   layout(
     title = list(
-    text = "<b></b>",
-    font = list(size = 10),   # ajusta 14 al tamaño que quieras
-    x = 0.5, xanchor = "center"
-  ),
+      text = "<b></b>",
+      font = list(size = 10),
+      x = 0.5,
+      xanchor = "center"
+    ),
     updatemenus = list(
       list(
-        type = 'dropdown',
+        type = "dropdown",
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
         })
       )
     )
