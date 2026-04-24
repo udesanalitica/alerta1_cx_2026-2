@@ -36,14 +36,26 @@ El presente informe no solo busca describir a la cohorte 2026-1, sino servir com
 
 ## Agente Analista Experto de la encuesta de caraterización
 
+::: callout-tip
 Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-1.
+
+Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.
+:::
 
 [Da clic aquí y conoce el Agente Analista Experto](https://gemini.google.com/gem/16XsuZxQcG5INwjAwhnZqbsAPBTgPOtWA?usp=sharing){.btn .btn-primary}
 
-Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.
-
 ## Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11
 
+::: callout-tip
 Este enlace permite explorar una herramienta interactiva de alerta temprana basada en los resultados de las pruebas Saber 11, la cual facilita la identificación de niveles de riesgo académico a partir de los puntajes en competencias genéricas. A través de esta visualización, es posible analizar el desempeño de los estudiantes y reconocer posibles brechas en habilidades clave, aportando información relevante para orientar estrategias de acompañamiento y fortalecer los procesos de permanencia y éxito académico, en línea con el uso de resultados de evaluaciones externas para la toma de decisiones educativas.
+:::
 
 [Da clic aquí y conoce la Alerta temprana: Identificación de niveles de riesgo puntajes genéricos saber 11](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Nivelesderiesgosaber11?:language=es-ES&:embed=y&:sid=&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}
+
+## Historico de la caracterización
+
+::: callout-tip
+El **histórico de la caracterización** presenta una visión consolidada del comportamiento académico de los estudiantes de nuevo ingreso a partir de los resultados de la prueba **Saber 11**, permitiendo identificar niveles de riesgo mediante puntajes genéricos. A través de esta herramienta de **alerta temprana**, se facilita el análisis multicampus y la toma de decisiones oportunas orientadas al acompañamiento académico y la permanencia estudiantil.
+:::
+
+[Da clic aquí y conoce el histórico de la caratcerización](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/caracterizacionmulticampus2022-2?:language=es-ES&:embed=y&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}

@@ -1,5 +1,6 @@
 ---
 title: "Secciones 4, 5 y 6: Fomento de la cultura, deportes y esparcimiento, y desarrollo humano"
+format: html
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -44,26 +45,25 @@ library(RColorBrewer)
 ## Convertir las variables caracter a factor
 # Lista de columnas que se convertirán en factores
 cols_factor <- c(
-  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
-  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
-  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
-  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
-  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
-  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
-  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
-  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
-  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
-  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
-  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
-  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
-  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
-  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
-  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
-  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
-  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
-  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
-  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
-  "fam_formada"
+  "tipo_doc","genero","campus","prog_acad","sexo_id","pais","est_civ",
+  "ciu_orig","desemp_aca","leng_ext","cert_leng","ingles","frances",
+  "portug","aleman","italiano","otra_leng","matema","comp_lec",
+  "expr_oral","acompa","tipo_acomp","memoria","comp","adaptac",
+  "atencion","analisis","hab_pub","est_orat","expr_amig","comp_nvos",
+  "hb_fortaleza","hb_mejorar","transp_hab","combust","transp_comp",
+  "comp_dispo","tip_familia","convive","grupo_pobl","grupo_pert",
+  "grupo_etn","etnia_ind","pago_sem","eligio_udes","prim_univ",
+  "niv_padre","niv_madre","estrato2","internet","tv_suscrip",
+  "esp_estud","jorn_univ","trab_padre","trab_madre","bienes_hog",
+  "remunera","sit_ec_hog","sust_psic","tipo_psic","ayuda_psic",
+  "tipo_ayuda","fuma","mot_fuma","otra_resp","alcohol","mot_alc",
+  "ocas_alc","anticoncep","tipo_antc","id_gen","gen_otro",
+  "orient_sex","otra_orsex","religion","tipo_enf","medic_enf",
+  "discap","tipo_disc","arte_atra","hab_art","tipo_art",
+  "aprend_art","dia_art","amb_prac","act_fisica","lectura",
+  "deporte","tipo_dep","otros_dep","salud_ment","apoyo_fam",
+  "red_apoyo","pareja","rel_pareja","rel_padres",
+  "fam_origen","fam_formada"
 )
 
 # Convertir solo las columnas que realmente existen
@@ -80,7 +80,7 @@ En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 ### ¿Cuáles de las siguientes disciplinas artísticas le atrae?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La nube de palabras revela que los campos con mayor atracción entre los estudiantes son la música, las danzas y las artes plásticas, especialmente pintura y dibujo. En menor medida aparecen literatura y teatro, además de intereses adicionales en artes manuales y museología. La relevancia de música y danza refleja una marcada inclinación por expresiones performativas y creativas.
+La nube de palabras muestra que las áreas de mayor interés son **música** y **danzas**, seguidas por **pintura y dibujo** y **artes y manualidades**, que también presentan alta frecuencia. En menor proporción aparecen **literatura** y **teatro**, junto con menciones puntuales a **museología**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -117,7 +117,7 @@ ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
 ### ¿Cuenta con alguna habilidad artística?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Alrededor del 29,6% de los estudiantes afirma tener alguna habilidad artística, mientras que la mayoría, equivalente al 70,4%, no se identifica con este tipo de capacidades. Estos resultados muestran que, aunque la proporción de estudiantes con inclinaciones artísticas no es mayoritaria, sí existe un grupo significativo que puede aportar a la vida cultural universitaria.
+Alrededor del **29,6% de los estudiantes afirma tener alguna habilidad artística**, mientras que la mayoría, equivalente al **70,4%, no se identifica con este tipo de capacidades**. Estos resultados muestran que, aunque la proporción de estudiantes con inclinaciones artísticas no es mayoritaria, sí existe un grupo significativo que puede aportar a la vida cultural universitaria.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -184,7 +184,7 @@ fig
 ### Habilidad artística que posee.
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre las habilidades artísticas mencionadas por los estudiantes destacan principalmente el dibujo, la pintura y la danza. También sobresalen actividades relacionadas con la música, como tocar instrumentos, cantar y bailar. Otras prácticas como manualidades, escritura, creatividad y ejecución de guitarra o piano aparecen con menor frecuencia. En conjunto, se observa una diversidad de expresiones que van desde las artes visuales hasta las escénicas.
+La nube de palabras muestra que la habilidad predominante es el **dibujo**, seguida por **pintura** y **danza**. También destacan actividades musicales como **canto**, **bailar** y **tocar instrumentos**. En menor medida aparecen **escritura**, **guitarra** y otras expresiones creativas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -235,7 +235,7 @@ wordcloud2(d, color = "random-light", backgroundColor = "white")
 ### ¿Le gustaría dedicar tiempo de su actividad académica o laboral para aprender o fortalecer sus habilidades artísticas?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Un 73,6% de los estudiantes manifestó interés en dedicar tiempo de su vida académica o laboral para aprender o fortalecer sus habilidades artísticas, frente a un 26,4% que no lo considera. Este hallazgo evidencia una oportunidad para ampliar la oferta de programas extracurriculares de formación artística dentro de la universidad.
+Un **70.5% de los estudiantes manifestó interés en dedicar tiempo de su vida académica o laboral** para aprender o fortalecer sus habilidades artísticas, frente a un 29.5% que no lo considera. Este hallazgo evidencia una oportunidad para ampliar la oferta de programas extracurriculares de formación artística dentro de la universidad.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -302,7 +302,7 @@ fig
 ### ¿Qué día de la semana tiene más disponibilidad de tiempo, para dedicarle a éste aprendizaje artístico?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El sábado fue identificado como el día más utilizado por los estudiantes para actividades de formación artística, concentrando un 21,6% de las menciones. Le siguen el lunes (16,8%) y el viernes (15,6%), mientras que martes y miércoles son los días con menor frecuencia. Esto sugiere que los fines de semana y el inicio de semana son momentos en los que los estudiantes encuentran mayor disposición horaria para este tipo de actividades.
+A la pregunta sobre **qué día de la semana tienen mayor disponibilidad de tiempo para dedicar al aprendizaje artístico**, los resultados muestran que el **sábado** concentra la mayor proporción (**28.5%**), seguido por el **lunes (16.8%)** y el **viernes (15%)**. En un nivel intermedio se encuentran el **domingo (12.2%)** y el **miércoles (11.5%)**, mientras que **jueves** y **martes** presentan las menores disponibilidades (≈8%).
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -362,7 +362,7 @@ datos_final <- datos_final %>%
 fig <- plot_ly(
   data = datos_final,
   x = ~dia_art,
-  y = ~n,
+  y = ~porcentaje,
   type = "bar",
   marker = list(color = "#a6cee3"),
   hovertemplate = ~hover_text,
@@ -378,7 +378,7 @@ fig <- plot_ly(
   layout(
     title = "",
     xaxis = list(title = ""),
-    yaxis = list(title = "Número de estudiantes"),
+    yaxis = list(title = "Porcenta de estudiantes"),
     updatemenus = list(
       list(
         type = 'dropdown',

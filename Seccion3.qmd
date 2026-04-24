@@ -1,5 +1,6 @@
 ---
 title: "Sección 3. Salud integral"
+format: html
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -46,26 +47,25 @@ library(RColorBrewer)
 ## Convertir las variables caracter a factor
 # Lista de columnas que se convertirán en factores
 cols_factor <- c(
-  "tipo_doc", "genero", "depto", "ciudad", "barrio", "estrato...12",
-  "colegio", "salud", "programa", "pensum", "jornada", "campus", 
-  "prog_acad", "sexo_id", "pais", "est_civ", "ciu_orig", "desemp_aca", 
-  "leng_ext", "cert_leng", "ingles", "frances", "portug", "aleman", 
-  "italiano", "otra_leng", "matema", "comp_lec", "expr_oral", "acompa", 
-  "tipo_acomp", "memoria", "comp", "adaptac", "atencion", "analisis", 
-  "hab_pub", "est_orat", "expr_amig", "comp_nvos", "transp_hab", 
-  "combust", "transp_comp", "comp_dispo", "tip_familia", "grupo_pobl", 
-  "grupo_pert", "grupo_etn", "etnia_ind", "pago_sem", "eligio_udes", 
-  "prim_univ", "niv_padre", "niv_madre", "internet", "tv_suscrip", 
-  "esp_estud", "jorn_univ", "trab_padre", "trab_madre", "bienes_hog", 
-  "remunera", "sit_ec_hog", "sust_psic", "tipo_psic", "ayuda_psic", 
-  "tipo_ayuda", "fuma", "mot_fuma", "otra_resp", "alcohol", "mot_alc", 
-  "ocas_alc", "anticoncep", "tipo_antc", "id_gen", "gen_otro", 
-  "orient_sex", "otra_orsex", "enf_diag", "tipo_enf", "medic_enf", 
-  "discap", "tipo_disc", "arte_atra", "hab_art", "tipo_art", 
-  "aprend_art", "dia_art", "amb_prac", "act_fisica", "lectura", 
-  "deporte", "tipo_dep", "otros_dep", "salud_ment", "apoyo_fam", 
-  "red_apoyo", "pareja", "rel_pareja", "rel_padres", "fam_origen", 
-  "fam_formada"
+  "tipo_doc","genero","campus","prog_acad","sexo_id","pais","est_civ",
+  "ciu_orig","desemp_aca","leng_ext","cert_leng","ingles","frances",
+  "portug","aleman","italiano","otra_leng","matema","comp_lec",
+  "expr_oral","acompa","tipo_acomp","memoria","comp","adaptac",
+  "atencion","analisis","hab_pub","est_orat","expr_amig","comp_nvos",
+  "hb_fortaleza","hb_mejorar","transp_hab","combust","transp_comp",
+  "comp_dispo","tip_familia","convive","grupo_pobl","grupo_pert",
+  "grupo_etn","etnia_ind","pago_sem","eligio_udes","prim_univ",
+  "niv_padre","niv_madre","estrato2","internet","tv_suscrip",
+  "esp_estud","jorn_univ","trab_padre","trab_madre","bienes_hog",
+  "remunera","sit_ec_hog","sust_psic","tipo_psic","ayuda_psic",
+  "tipo_ayuda","fuma","mot_fuma","otra_resp","alcohol","mot_alc",
+  "ocas_alc","anticoncep","tipo_antc","id_gen","gen_otro",
+  "orient_sex","otra_orsex","religion","tipo_enf","medic_enf",
+  "discap","tipo_disc","arte_atra","hab_art","tipo_art",
+  "aprend_art","dia_art","amb_prac","act_fisica","lectura",
+  "deporte","tipo_dep","otros_dep","salud_ment","apoyo_fam",
+  "red_apoyo","pareja","rel_pareja","rel_padres",
+  "fam_origen","fam_formada"
 )
 
 # Convertir solo las columnas que realmente existen
@@ -84,7 +84,7 @@ En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 ### ¿Cuántas veces come al día?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los estudiantes (78.5%) reportan consumir alimentos entre 3 y 5 veces al día. Un 18.8% lo hace solo entre 1 y 2 veces al día, y un porcentaje reducido (2.7%) lo hace más de 5 veces al día. Esto indica una frecuencia alimentaria adecuada en la mayoría, aunque hay un grupo que podría estar en riesgo nutricional por baja frecuencia.
+La mayoría de los estudiantes (78.1%) reportan consumir alimentos entre 3 y 5 veces al día. Un 17.7% lo hace solo entre 1 y 2 veces al día, y un porcentaje reducido (4.1%) lo hace más de 5 veces al día. Esto indica una frecuencia alimentaria adecuada en la mayoría, aunque hay un grupo que podría estar en riesgo nutricional por baja frecuencia.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -117,10 +117,11 @@ fig <- plot_ly(
   labels = ~comidas_dia,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),   # <- AQUÍ va el tamaño del porcentaje
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+120,
+  rotation = 270,
   transforms = list(
     list(
       type = 'filter',
@@ -142,7 +143,7 @@ title = list(
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -154,7 +155,9 @@ fig
 ### ¿Cuántas veces por semana consumen los siguientes alimentos en su hogar? (carne, pollo, pavo, res, cordero, cerdo, conejo, pescado o huevos, etc)
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Casi el 30% de los estudiantes consume proteína animal casi todos los días, seguido de un 27.3% que lo hace todos los días. El 24% lo hace entre 3 y 5 veces por semana. Un grupo menor presenta un consumo reducido: 17.7% lo hace solo 1 a 2 veces por semana y 1.5% nunca o rara vez. Esto refleja una tendencia general a consumir proteína animal regularmente, aunque hay un grupo con baja frecuencia.
+El consumo de proteína animal entre los estudiantes muestra que el 30.4% la consume todos los días, seguido muy de cerca por un 30% que lo hace casi todos los días, lo que indica que alrededor de 6 de cada 10 estudiantes mantienen un consumo constante.
+
+En un nivel intermedio, el 22.3% la consume entre 3 y 5 veces por semana, mientras que un 15.9% presenta una frecuencia más baja (1 a 2 veces por semana); mientras que solo un 1.4% manifiesta no consumirla o hacerlo rara vez.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -187,7 +190,8 @@ fig <- plot_ly(
   labels = ~alim_carn,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270+120,
@@ -208,7 +212,7 @@ fig <- plot_ly(
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -221,7 +225,7 @@ fig
 ### ¿Cuántas veces por semana consumen los siguientes alimentos en su hogar? Cereales (avena, granola), frutos secos (almendras, maní) o legumbres (fríjoles, garbanzos, lentejas)
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 36.9% de los estudiantes consume proteína vegetal entre 1 a 2 veces por semana. Un 26.2% lo hace entre 3 y 5 veces por semana, mientras que el 17.5% casi todos los días y el 9.75% todos los días. Un 9.6% reporta no consumirla o hacerlo rara vez. Aunque hay consumo frecuente en una parte del grupo, destaca la necesidad de promover una mayor ingesta regular de proteína vegetal.
+El 33.9% de los estudiantes consume proteína vegetal entre 1 a 2 veces por semana. Un 23.7% lo hace entre 3 y 5 veces por semana, mientras que el 21% casi todos los días y el 12% todos los días. Un 9.7% reporta no consumirla o hacerlo rara vez. Aunque hay consumo frecuente en una parte del grupo, destaca la necesidad de promover una mayor ingesta regular de proteína vegetal.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -254,7 +258,8 @@ fig <- plot_ly(
   labels = ~alim_cere,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270+45,
@@ -275,7 +280,7 @@ fig <- plot_ly(
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
           list(method = "restyle",
-               args = list("transforms.0.value", c),
+               args = list("transforms[0].value", c),
                label = c)
         })
       )
@@ -290,14 +295,16 @@ fig
 ### Señale aquella labor que sea más similar al trabajo que realizó su padre durante la mayor parte del último año.
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Las ocupaciones paternas más comunes incluyen el trabajo como profesional (por ejemplo, médico o ingeniero), seguido por la propiedad de negocios medianos o pequeños y oficios técnicos como operarios o conductores. También hay una proporción considerable de estudiantes que no saben o no aplican la pregunta. La diversidad en la ocupación paterna muestra un perfil socioeconómico variado.
+La ocupación del padre presenta una distribución diversa, aunque con predominio de algunas categorías específicas. La más frecuente corresponde al **trabajo profesional** (por ejemplo, médico, abogado o ingeniero) con aproximadamente **17%**. Le siguen quienes son **dueños de un negocio mediano con empleados**, con cerca de **10%**, y quienes tienen un **negocio pequeño** o desempeñan oficios como tendero o papelería, también alrededor de **10%**.
+
+Entre las demás categorías se observan proporciones importantes de estudiantes que **no saben** la ocupación del padre (**9%**) o para quienes **no aplica** (**8%**). También se destacan los **operarios de máquinas o conductores** (**8%**) y los **pensionados** (**7%**). Las ocupaciones restantes, como trabajo por cuenta propia, actividades agropecuarias, labores auxiliares, ventas, empleo público, trabajo en el hogar y oficios de limpieza o construcción, presentan participaciones menores, en general inferiores al **6%**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
 
-# 1. Preparar los datos por campus y ¿Cuál es la tipologia familiar de origen?
+# 1. Preparar los datos por campus y trabajo del padre
 datos_plot <- datos %>%
   filter(!is.na(campus) & !is.na(trab_padre) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
   group_by(campus, trab_padre) %>%
@@ -346,11 +353,11 @@ datos_final <- datos_final %>%
     )
   )
 
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+# 8. Crear gráfico de barras con porcentaje
 fig <- plot_ly(
   data = datos_final,
   x = ~trab_padre,
-  y = ~n,
+  y = ~porcentaje,   # <- CAMBIO CLAVE
   type = "bar",
   marker = list(color = "#a6cee3"),
   hovertemplate = ~hover_text,
@@ -364,59 +371,79 @@ fig <- plot_ly(
   )
 ) %>%
   layout(
-  title = "",
-  xaxis = list(
-    title = "Tipología familiar de origen",
-    tickangle = -45  # Inclina las etiquetas en el eje X para mejor visualización
-  ),
-  yaxis = list(title = "Número de estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-      })
-    )
+    title = "",
+    xaxis = list(
+      title = "Trabajo del padre",
+      tickangle = -45
+    ),
+    yaxis = list(title = "Porcentaje (%)"),   # <- CAMBIO CLAVE
+    updatemenus = list(
+  list(
+    type = "dropdown",
+    active = 0,
+    x = 0.5,
+    y = 1.18,
+    xanchor = "center",
+    yanchor = "top",
+    buttons = lapply(niveles_campus, function(c) {
+      list(
+        method = "restyle",
+        args = list("transforms[0].value", c),
+        label = c
+      )
+    })
   )
+)
 )
 
 fig
-
 ```
 
 ### Señale aquella labor que sea más similar al trabajo que realizó su madre durante la mayor parte del último año.
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Predomina el trabajo en el hogar o que no trabaja, seguido por ocupaciones profesionales y trabajos en negocios propios. Esto sugiere una participación laboral femenina menor que la paterna y refuerza patrones tradicionales de distribución del trabajo por género.
+La ocupación de la madre se concentra principalmente en el **trabajo en el hogar o sin actividad laboral formal**, con cerca del **30%**. Le sigue el grupo de madres vinculadas a **pequeños negocios o actividades comerciales** (como tiendas o papelerías), con aproximadamente **20%**.
+
+También se observan proporciones relevantes en quienes **no saben o no aplica la información** (alrededor del **15%**), así como en ocupaciones como **ventas o atención al público** (cerca del **10%**).
+
+El resto de las actividades, como trabajos administrativos, cargos directivos, oficios de limpieza, construcción o labores agropecuarias, presentan participaciones menores, generalmente por debajo del **8%.**
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
+library(stringr)
 
-# 1. Preparar los datos por campus y Señale aquella labor que sea más similar al trabajo que realizó su madre durante la mayor parte del último año.
+# 1. Preparar los datos por campus y trabajo de la madre
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(trab_madre) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(trab_madre),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(
+    trab_madre = str_trim(as.character(trab_madre))
+  ) %>%
   group_by(campus, trab_madre) %>%
   summarise(n = n(), .groups = "drop")
 
 # 2. Agregar grupo "Todos"
 todos <- datos %>%
   filter(!is.na(trab_madre)) %>%
+  mutate(
+    trab_madre = str_trim(as.character(trab_madre))
+  ) %>%
   count(trab_madre, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Fijar niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
 # 4. Unir todos los datos
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Ordenar niveles de 'trab_padre' por frecuencia total (grupo "Todos")
+# 5. Ordenar niveles de 'trab_madre' por frecuencia total (grupo "Todos")
 niveles_din_trans <- datos_final %>%
   filter(campus == "Todos") %>%
   arrange(desc(n)) %>%
@@ -446,42 +473,45 @@ datos_final <- datos_final %>%
     )
   )
 
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+# 8. Crear gráfico de barras con porcentaje
 fig <- plot_ly(
   data = datos_final,
   x = ~trab_madre,
-  y = ~n,
+  y = ~porcentaje,
   type = "bar",
   marker = list(color = "#a6cee3"),
   hovertemplate = ~hover_text,
   transforms = list(
     list(
-      type = 'filter',
+      type = "filter",
       target = ~campus,
-      operation = '=',
+      operation = "=",
       value = "Todos"
     )
   )
 ) %>%
   layout(
-  title = "",
-  xaxis = list(
-    title = "Tipología familiar de origen",
-    tickangle = -45  # Inclina las etiquetas en el eje X para mejor visualización
-  ),
-  yaxis = list(title = "Número de estudiantes"),
-  updatemenus = list(
-    list(
-      type = 'dropdown',
-      active = 0,
-      buttons = lapply(niveles_campus, function(c) {
-        list(method = "restyle",
-             args = list("transforms[0].value", c),
-             label = c)
-      })
-    )
+    title = "",
+    xaxis = list(
+      title = "Trabajo de la madre",
+      tickangle = -45
+    ),
+    yaxis = list(title = "Porcentaje (%)"),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        buttons = lapply(niveles_campus, function(c) {
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
+        })
+      )
+    ),
+    margin = list(l = 80, r = 80, t = 80, b = 180)
   )
-)
 
 fig
 
@@ -490,7 +520,7 @@ fig
 ### ¿Cuáles de los siguientes bienes hay en su hogar?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En esta nube de palabras destacan términos como "horno", "lavadora", "máquina", "ropa", y "gas", lo cual indica que estos elementos son comunes en los hogares de los encuestados. También se identifican bienes de valor como "automóvil", "moto", y artículos de entretenimiento como "consola", "xbox", "nintendo" y "playstation", aunque con menor frecuencia. Esto sugiere una diversidad en la disponibilidad de bienes, desde necesidades básicas hasta elementos de ocio.
+En esta nube de palabras destacan términos como "horno", "nevera", "lavadora", "máquina", "ropa", y "gas", lo cual indica que estos elementos son comunes en los hogares de los encuestados. También se identifican bienes de valor como "automóvil", "moto", y artículos de entretenimiento como "consola", "xbox", "nintendo" y "playstation", aunque con menor frecuencia. Esto sugiere una diversidad en la disponibilidad de bienes, desde necesidades básicas hasta elementos de ocio.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -541,7 +571,7 @@ wordcloud2(d, color = "random-light", backgroundColor = "white")
 ### ¿Cuántas horas remuneradas trabajó usted la semana pasada?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 42.9% de los estudiantes no realiza trabajo remunerado, mientras que el 32% respondió "no aplica". Un porcentaje menor (10.) trabaja menos de 10 horas o más de 30 horas semanales. Esto indica que la mayoría no realiza actividades laborales, lo cual puede estar relacionado con dedicación exclusiva a estudios o falta de oportunidades laborales.
+El 43.8% de los estudiantes no realiza trabajo remunerado, mientras que el 30.8% respondió "no aplica". Un porcentaje menor (10%) trabaja menos de 10 horas y el el 6.5% más de 30 horas semanales. Esto indica que la mayoría no realiza actividades laborales, lo cual puede estar relacionado con dedicación exclusiva a estudios o falta de oportunidades laborales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -601,7 +631,7 @@ datos_final <- datos_final %>%
 fig <- plot_ly(
   data = datos_final,
   x = ~horas_sem,
-  y = ~n,
+  y = ~porcentaje,
   type = "bar",
   marker = list(color = "#a6cee3"),
   hovertemplate = ~hover_text,
@@ -638,74 +668,130 @@ fig
 ### ¿Usted recibe algún tipo de remuneración por trabajar?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 73.6% no recibe remuneración laboral. El 24.2% recibe pago en efectivo y menos del 2.5% recibe algún tipo de remuneración en especie o mixta. Esto refuerza el hallazgo previo sobre baja proporción de estudiantes que trabajan y reciben ingresos.
+El **73.4% de los estudiantes no recibe remuneración laboral**, mientras que el **24.9%** reporta recibir pago **en efectivo**. Las formas menos frecuentes corresponden a la remuneración **en efectivo y especie (0.9%)** y **solo en especie (0.8%)**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y ¿Usted recibe algún tipo de remuneración por trabajar?
+# 1. Preparar datos
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(remunera), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, remunera) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(remunera),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  mutate(remunera = str_trim(as.character(remunera))) %>%
+  count(campus, remunera, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar "Todos"
 todos <- datos %>%
   filter(!is.na(remunera)) %>%
+  mutate(remunera = str_trim(as.character(remunera))) %>%
   count(remunera, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
-fig <- plot_ly(
-  data = datos_final,
-  labels = ~remunera,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 180,
-  transforms = list(
-    list(
-      type = 'filter',
-      target = ~campus,
-      operation = '=',
-      value = "Todos"
+# 5. Ordenar categorías según "Todos"
+niveles_remunera <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(n)) %>%
+  pull(remunera)
+
+datos_final <- datos_final %>%
+  mutate(remunera = factor(remunera, levels = rev(niveles_remunera)))
+
+# 6. Calcular porcentaje
+datos_final <- datos_final %>%
+  group_by(campus) %>%
+  mutate(pct = round(n / sum(n) * 100, 1)) %>%
+  ungroup()
+
+# 7. Colores por campus
+colores <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+# 8. Gráfico
+fig <- plot_ly()
+
+for(i in seq_along(niveles_campus)) {
+  
+  camp <- niveles_campus[i]
+  df <- datos_final %>% filter(campus == camp)
+  
+  fig <- fig %>%
+    add_trace(
+      data = df,
+      x = ~pct,
+      y = ~remunera,
+      type = "bar",
+      orientation = "h",
+      marker = list(color = colores[camp]),
+      text = ~paste0(pct, "%"),
+      textposition = "outside",
+      hovertemplate = paste0(
+        "<b>Respuesta:</b> %{y}<br>",
+        "<b>Porcentaje:</b> %{x}%<br>",
+        "<b>Frecuencia:</b> ", df$n,
+        "<extra></extra>"
+      ),
+      visible = ifelse(i == 1, TRUE, FALSE),
+      name = camp
     )
+}
+
+# 9. Botones
+botones <- lapply(seq_along(niveles_campus), function(i) {
+  vis <- rep(FALSE, length(niveles_campus))
+  vis[i] <- TRUE
+  
+  list(
+    method = "update",
+    args = list(
+      list(visible = vis),
+      list(title = paste("¿Recibe remuneración por trabajar? -", niveles_campus[i]))
+    ),
+    label = niveles_campus[i]
   )
-) %>%
+})
+
+# 10. Layout
+fig %>%
   layout(
-    title = "Distribución tipo de remuneración \npor el trabajó por campus",
+    title = "¿Recibe remuneración por trabajar? - Todos",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
     updatemenus = list(
       list(
-        type = 'dropdown',
+        type = "dropdown",
         active = 0,
-        buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
-        })
+        x = 1.02,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = botones
       )
-    )
+    ),
+    margin = list(l = 180, r = 120, t = 60, b = 40)
   )
-
-fig
 ```
 
 ### Con respecto al año pasado, la situación económica de su hogar es:
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 61.2% de los estudiantes considera que su situación económica no ha cambiado respecto al año anterior. Un 33.1% percibe una mejoría, y solo el 5.7% considera que ha empeorado. Esto indica estabilidad económica en la mayoría de los hogares y un panorama positivo general.
+El **59.8% de los estudiantes** considera que su situación económica no ha cambiado respecto al año anterior. Un **36.4% percibe una mejoría**, y solo el **3.7% considera que ha empeorado**. Esto indica estabilidad económica en la mayoría de los hogares y un panorama positivo general.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -738,10 +824,11 @@ fig <- plot_ly(
   labels = ~sit_ec_hog,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 135+40,
+  rotation = 135,
   transforms = list(
     list(
       type = 'filter',
@@ -774,7 +861,7 @@ fig
 ### ¿Consume algún tipo de sustancia psicoactiva?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 99.5% de los estudiantes reporta no haber consumido sustancias psicoactivas, lo cual es un hallazgo positivo en términos de salud pública. Solo un 0.5% reconoce consumo, lo cual representa una proporción marginal dentro de la muestra.
+El **99.8% de los estudiantes reporta no haber consumido sustancias psicoactivas**, lo cual es un hallazgo positivo en términos de salud pública. Solo un 0.2% reconoce consumo, lo cual representa una proporción marginal dentro de la muestra.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -841,7 +928,7 @@ fig
 ### ¿Cuál fue la edad de inicio de consumo de sustancias psicoactivas?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los estudiantes que reportan consumo de sustancias psicoactivas iniciaron entre los 14 y 16 años (50%). Un 33.3% comenzó entre los 17 y 19 años, mientras que un 16.7% empezó antes de los 13 años. Estos datos indican que el inicio del consumo suele darse en la adolescencia media, lo cual es un periodo de mayor vulnerabilidad y riesgo conductual.
+De los estudiantes (n=2) que reportan consumo de sustancias psicoactivas el 50% iniciaron entre los 14 y 16 años, mientras que el otro 50% comenzó entre los 17 y 19 años. Estos datos indican que el inicio del consumo suele darse en la adolescencia media, lo cual es un periodo de mayor vulnerabilidad y riesgo conductual.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -849,26 +936,34 @@ library(dplyr)
 library(plotly)
 library(RColorBrewer)
 
-# 1. Preparar los datos por campus y ¿Cuál fue la edad de inicio de consumo de sustancias psicoactivas?
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(edad_psic), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(edad_psic),
+    edad_psic != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, edad_psic) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(edad_psic)) %>%
+  filter(
+    !is.na(edad_psic),
+    edad_psic != 0   # <- CLAVE
+  ) %>%
   count(edad_psic, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir
 datos_final <- bind_rows(datos_plot, todos) %>%
   mutate(campus = factor(campus, levels = niveles_campus))
 
-# 5. Crear gráfico de pastel con filtro
+# 5. Gráfico
 fig <- plot_ly(
   data = datos_final,
   labels = ~edad_psic,
@@ -894,22 +989,23 @@ fig <- plot_ly(
         type = 'dropdown',
         active = 0,
         buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),  # <- corregido también
+            label = c
+          )
         })
       )
     )
   )
 
 fig
-
 ```
 
 ### ¿Qué tipo de sustancia psicoactiva consume?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre los estudiantes que consumen sustancias psicoactivas, el 50% reporta el uso de cannabis (marihuana), y el otro 50% menciona otras sustancias sin especificar.
+Entre los estudiantes que consumen sustancias psicoactivas, el 100% reporta el uso de cannabis.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -917,15 +1013,23 @@ library(dplyr)
 library(plotly)
 library(RColorBrewer)
 
-# 1. Preparar los datos por campus y ¿Qué tipo de sustancia psicoactiva consume?
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(tipo_psic), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(tipo_psic),
+    tipo_psic != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, tipo_psic) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(tipo_psic)) %>%
+  filter(
+    !is.na(tipo_psic),
+    tipo_psic != 0   # <- CLAVE
+  ) %>%
   count(tipo_psic, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -977,7 +1081,7 @@ fig
 ### ¿Ha recibido orientación o ayuda profesional o especializada para superar la situación del consumo de sustancias psicoactivas y mitigar los riesgos y daños asociados al mismo?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Dos de cada tres estudiantes (66.7%) que consumen sustancias psicoactivas no han recibido orientación o ayuda profesional, mientras que un tercio (33.3%) sí lo ha hecho. Esta baja proporción de acompañamiento profesional evidencia una posible barrera en el acceso o solicitud de servicios de salud mental y apoyo psicosocial.
+Los estudiantes que consumen sustancias psicoactivas refieren que han recibido orientación o ayuda profesional para superar la situación del consumo.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -986,14 +1090,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Ha recibido orientación o ayuda profesional o especializada para superar la situación del consumo de sustancias psicoactivas y mitigar los riesgos y daños asociados al mismo?
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(ayuda_psic), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(ayuda_psic),
+    ayuda_psic != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, ayuda_psic) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(ayuda_psic)) %>%
+  filter(
+    !is.na(ayuda_psic),
+    ayuda_psic != 0   # <- CLAVE
+  ) %>%
   count(ayuda_psic, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1045,7 +1159,7 @@ fig
 ### Tipo de ayuda recibido para superar el consumo de sustancias psicoactivas
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La palabra "ninguna" aparece como la más frecuente, lo que indica que muchas personas no han tenido una experiencia institucional previa. También se observan menciones a entornos "familiares" y "centro de binestar", lo cual sugiere que, en los casos donde sí hubo experiencia, esta estuvo relacionada con instituciones de atención familiar o de paso temporal.
+El tipo de ayuda recibida para superar el consumo de sustancias psicoactivas muestra que el **50% de los estudiantes no ha recibido ningún tipo de apoyo**. Entre quienes sí han accedido a algún tipo de atención, el **25% reporta acompañamiento psicológico y terapéutico**, mientras que otro **25% ha recibido apoyo combinado de psicología y psiquiatría**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1054,14 +1168,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y Tipo de ayuda recibido para superar el consumo de sustancias psicoactivas
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(tipo_ayuda), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(tipo_ayuda),
+    tipo_ayuda != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, tipo_ayuda) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(tipo_ayuda)) %>%
+  filter(
+    !is.na(tipo_ayuda),
+    tipo_ayuda != 0   # <- CLAVE
+  ) %>%
   count(tipo_ayuda, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1115,7 +1239,7 @@ fig
 ### ¿Usted fuma cigarrillo?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 99.3% de los estudiantes indica que no fuma cigarrillo, y solo el 0.7% afirma que sí lo hace. Esto sugiere que el hábito de fumar cigarrillo es poco frecuente en la población estudiada.
+El 99.5% de los estudiantes indica que no fuma cigarrillo, y solo el 0.5% afirma que sí lo hace. Esto sugiere que el hábito de fumar cigarrillo es poco frecuente entre los estudiantes de recien ingreso.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1182,7 +1306,7 @@ fig
 ### Edad en la que empezó a fumar
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre quienes fuman, las edades más comunes de inicio son los 14, 15 y 17 años, con un 22.2% cada una. En menor proporción, algunos iniciaron a los 16, 18 o 19 años (11.1% cada uno). Esta información señala que el inicio del consumo de tabaco también ocurre típicamente en la adolescencia temprana o media.
+Entre quienes fuman, las edades más comunes de inicio son los 18, 19 y 32 años. Esta información señala que el inicio del consumo de tabaco también ocurre típicamente en la adolescencia temprana o media.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1190,14 +1314,24 @@ library(dplyr)
 library(plotly)
 
 # 1. Preparar los datos por campus y Edad de inicio del consumo de alcohol por primera vez
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(edad_fuma) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(edad_fuma),
+    edad_fuma != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, edad_fuma) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(edad_fuma)) %>%
+  filter(
+    !is.na(edad_fuma),
+    edad_fuma != 0   # <- CLAVE
+  ) %>%
   count(edad_fuma, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1279,7 +1413,7 @@ fig
 ### ¿Cuál fue el motivo por el cual probó por primera vez el cigarrillo?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El motivo más frecuente por el que los estudiantes probaron cigarrillos fue la curiosidad o iniciativa propia (55.6%). El 22.2% lo hizo por sentimientos de tristeza o aburrimiento, y el resto por imitación de conductas familiares u otras razones (11.1% cada una). Esto sugiere que el entorno emocional y la búsqueda de nuevas experiencias juegan un papel importante en el inicio del consumo.
+El motivo más frecuente por el que los estudiantes probaron cigarrillos fue la curiosidad o iniciativa propia (66.7%) y por sentimientos de tristeza o aburrimiento lo hizo el 16.7%. Esto sugiere que el entorno emocional y la búsqueda de nuevas experiencias juegan un papel importante en el inicio del consumo.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1288,14 +1422,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Cuál fue el motivo por el cual probó por primera vez el cigarrillo?
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(mot_fuma), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(mot_fuma),
+    mot_fuma != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, mot_fuma) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(mot_fuma)) %>%
+  filter(
+    !is.na(mot_fuma),
+    mot_fuma != 0   # <- CLAVE
+  ) %>%
   count(mot_fuma, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1312,7 +1456,8 @@ fig <- plot_ly(
   labels = ~mot_fuma,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 235,
@@ -1355,14 +1500,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Cuántos cigarrillos fuma diariamente?
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(cig_dia), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(cig_dia),
+    cig_dia != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, cig_dia) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(cig_dia)) %>%
+  filter(
+    !is.na(cig_dia),
+    cig_dia != 0   # <- CLAVE
+  ) %>%
   count(cig_dia, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1379,7 +1534,8 @@ fig <- plot_ly(
   labels = ~cig_dia,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list (size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270+45,
@@ -1483,7 +1639,7 @@ fig
 ### Edad de inicio del consumo de alcohol por primera vez
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Las edades más comunes de inicio del consumo de alcohol se concentran entre los 16, 17 y 18 años. Hay casos aislados de inicio desde los 11 años y hasta los 20. La tendencia muestra que el primer contacto con el alcohol se da principalmente en la adolescencia media.
+El inicio del consumo de alcohol se concentra principalmente en la adolescencia. La edad más frecuente es **17 años (24.5%)**, seguida por **18 años (21%)** y **16 años (19.5%)**. En menor proporción aparecen los **15 años (13%)** y **14 años (11.2%)**. Los demás casos corresponden a edades más dispersas, con participaciones inferiores al **3%**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1491,14 +1647,24 @@ library(dplyr)
 library(plotly)
 
 # 1. Preparar los datos por campus y Edad de inicio del consumo de alcohol por primera vez
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(edad_alc) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(edad_alc),
+    edad_alc != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, edad_alc) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(edad_alc)) %>%
+  filter(
+    !is.na(edad_alc),
+    edad_alc != 0   # <- CLAVE
+  ) %>%
   count(edad_alc, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1543,7 +1709,7 @@ datos_final <- datos_final %>%
 fig <- plot_ly(
   data = datos_final,
   x = ~edad_alc,
-  y = ~n,
+  y = ~porcentaje,
   type = "bar",
   marker = list(color = "#a6cee3"),
   hovertemplate = ~hover_text,
@@ -1559,7 +1725,7 @@ fig <- plot_ly(
   layout(
     title = "",
     xaxis = list(title = "Edad de inicio del consumo de alcohol"),
-    yaxis = list(title = "Número de estudiantes"),
+    yaxis = list(title = "Porcentaje de estudiantes"),
     updatemenus = list(
       list(
         type = 'dropdown',
@@ -1580,7 +1746,7 @@ fig
 ### ¿Cuál fue el motivo por el cual probó por primera vez el alcohol?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 71.2% de los estudiantes que han probado alcohol indicaron que lo hicieron por curiosidad o iniciativa propia. Un 27.3% mencionó otras razones y solo un 1.5% lo hizo por imitación de conductas familiares. Esto sugiere que la decisión fue principalmente individual, más que influenciada por el entorno familiar.
+El 83.9% de los estudiantes que han probado alcohol indicaron que lo hicieron por curiosidad o iniciativa propia. Un 14.5% mencionó otras razones y solo un 1.6% lo hizo por imitación de conductas familiares. Esto sugiere que la decisión fue principalmente individual, más que influenciada por el entorno familiar.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1588,15 +1754,25 @@ library(dplyr)
 library(plotly)
 library(RColorBrewer)
 
-# 1. Preparar los datos por campus y ¿Cuál fue el motivo por el cual probó por primera vez el alcohol?
+# Preparar los datos por campus y ¿Cuál fue el motivo por el cual probó por primera vez el alcohol?
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(mot_alc), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(mot_alc),
+    mot_alc != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, mot_alc) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(mot_alc)) %>%
+  filter(
+    !is.na(mot_alc),
+    mot_alc != 0   # <- CLAVE
+  ) %>%
   count(mot_alc, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1613,10 +1789,11 @@ fig <- plot_ly(
   labels = ~mot_alc,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 52,
+  rotation = 90,
   transforms = list(
     list(
       type = 'filter',
@@ -1644,10 +1821,10 @@ fig <- plot_ly(
 fig
 ```
 
-###¿Cuántas veces a la semana ingiere alcohol?
+### ¿Cuántas veces a la semana ingiere alcohol?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Entre quienes consumen alcohol, el 95.5% lo hace solo los fines de semana, mientras que el 4.5% lo hace entre dos y tres veces al día. El patrón de consumo es ocasional y concentrado en los fines de semana.
+Entre quienes consumen alcohol, **el 95.2% lo hace solo los fines de semana**, mientras que el **3.2% lo hace entre dos y tres veces al día**. El patrón de consumo es ocasional y concentrado en los fines de semana.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1656,14 +1833,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Cuántas veces a la semana ingiere alcohol?
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(alc_semana), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(alc_semana),
+    alc_semana != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, alc_semana) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(alc_semana)) %>%
+  filter(
+    !is.na(alc_semana),
+    alc_semana != 0   # <- CLAVE
+  ) %>%
   count(alc_semana, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1680,10 +1867,11 @@ fig <- plot_ly(
   labels = ~alc_semana,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list(size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 140,
+  rotation = 90,
   transforms = list(
     list(
       type = 'filter',
@@ -1714,7 +1902,7 @@ fig
 ### Ocasiones en las cuales consume alcohol
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Esta nube de palabras refleja un patrón de consumo **principalmente social, familiar y orientado a eventos grupales**. Es útil para entender que, dentro de la comunidad estudiantil encuestada, el alcohol se vincula más con la vida social que con el consumo individual o por hábito.
+La nube de palabras evidencia que el consumo de alcohol se asocia principalmente con **“amigos”**, **“reunión”** y **“social”**, términos que aparecen con mayor tamaño y frecuencia. También se destacan expresiones como **“familiar”** y **“actividad”**, lo que indica que este comportamiento ocurre en contextos compartidos y de interacción grupal.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -1763,7 +1951,7 @@ ggplot(d[1:50, ], aes(label = word, size = freq, color = word)) +
 ### A qué edad inició su vida sexual
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 43.5% de los estudiantes señaló no haber iniciado su vida sexual. Un porcentaje similar (42.4%) lo hizo entre los 14 y 17 años, mientras que el 11.7% lo hizo entre los 18 y 21 años. Los casos de inicio antes de los 13 años o después de los 22 son muy pocos. La mayoría de quienes han iniciado su vida sexual lo hizo en la adolescencia.
+El **45.5% de los estudiantes no ha iniciado su vida sexual**, mientras que el **39.2% reporta haberla iniciado entre los 14 y 17 años**. Por su parte, el **13.3% lo hizo entre los 18 y 21 años**. Los casos de inicio **antes de los 13 años (1.17%)** y **a partir de los 22 años (0.75%)** son mínimos.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1772,14 +1960,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y A qué edad inició su vida sexual
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(edad_sex), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(edad_sex),
+    edad_sex != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, edad_sex) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(edad_sex)) %>%
+  filter(
+    !is.na(edad_sex),
+    edad_sex != 0   # <- CLAVE
+  ) %>%
   count(edad_sex, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1796,10 +1994,11 @@ fig <- plot_ly(
   labels = ~edad_sex,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list (size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  rotation = 90,
   transforms = list(
     list(
       type = 'filter',
@@ -1830,7 +2029,7 @@ fig
 ### ¿Ha utilizado alguna vez métodos anticonceptivos?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 84.2% de los estudiantes encuestados indicó utilizar métodos anticonceptivos, frente al 15.8% que no los usa. Esto sugiere un nivel alto de conciencia sobre la protección en las relaciones sexuales entre la población estudiantil.
+El **77.7% de los estudiantes encuestados indicó utilizar métodos anticonceptivos**, frente al 22.3% que no los usa. Esto sugiere un nivel alto de conciencia sobre la protección en las relaciones sexuales entre la población estudiantil.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1839,14 +2038,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Ha utilizado alguna vez métodos anticonceptivos?
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(anticoncep), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(anticoncep),
+    anticoncep != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, anticoncep) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(anticoncep)) %>%
+  filter(
+    !is.na(anticoncep),
+    anticoncep != 0   # <- CLAVE
+  ) %>%
   count(anticoncep, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1897,7 +2106,7 @@ fig
 ### Metódos anticonpcetivos usados
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los estudiantes (36.3%) navega entre 1 y 3 horas diarias, seguido por un 28.1% que lo hace por más de 3 horas. Solo un 1.9% dice no usar Internet, lo que confirma su alto grado de penetración como herramienta cotidiana.
+La nube de palabras muestra que el **método anticonceptivo predominante es el preservativo**, el cual destaca ampliamente sobre las demás opciones. En segundo nivel aparecen alternativas como las **píldoras anticonceptivas orales**, los **inyectables** y los **implantes**, lo que indica diversidad en el uso de métodos, aunque con menor frecuencia. También se mencionan métodos de emergencia, lo que sugiere su uso ocasional. En conjunto, la información evidencia una clara preferencia por el preservativo como principal mecanismo de protección.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -1934,7 +2143,7 @@ ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
 ### ¿De acuerdo con la definición de identidad de género, usted como se identifica?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los estudiantes se identifican como mujeres cisgénero (47.2%) y hombres cisgénero (41.2%). El 10,8% prefirió no responder. Las identidades de género diversas como no-binario (0.5%) y hombre transgénero (0.33%) están presentes, aunque en una proporción mucho menor. Esto indica una mayoría de identidad cisgénero con visibilidad de diversidades de género.
+La distribución de identidad de género muestra que el **45.8% de los estudiantes se identifica como mujer cisgénero** y el **40.5% como hombre cisgénero**, mientras que el **13.6% prefirió no responder**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1943,14 +2152,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿De acuerdo con la definición de identidad de género, usted como se identifica
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(id_gen), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(id_gen),
+    id_gen != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, id_gen) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(id_gen)) %>%
+  filter(
+    !is.na(id_gen),
+    id_gen != 0   # <- CLAVE
+  ) %>%
   count(id_gen, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -1967,10 +2186,11 @@ fig <- plot_ly(
   labels = ~id_gen,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
+  textfont = list (size = 18),
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270+45,
+  rotation = 90,
   transforms = list(
     list(
       type = 'filter',
@@ -2001,68 +2221,214 @@ fig
 ### ¿Cuál es su orientación sexual?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La mayoría de los encuestados se identifican como heterosexuales (90.5%). Las orientaciones no heterosexuales están representadas en menor proporción, destacando la orientación bisexual (5.63%) y la homosexual (1.98%). Las categorías pansexual, asexual y otras tienen frecuencias inferiores al 1.5%. Esto indica una baja diversidad de orientación sexual en la muestra o una posible subdeclaración por parte de los participantes.
+La orientación sexual predominante es la **heterosexual (92%)**, seguida por la **bisexual (3.6%)** y la **homosexual (1.9%)**. Otras orientaciones como la **pansexual (1%)**, **asexual (0.5%)** y **otras (0.6%)** presentan participaciones marginales.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
-library(RColorBrewer)
+library(stringr)
 
-# 1. Preparar los datos por campus y ¿Cuál es su orientación sexual?
+# 1. Preparar datos
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(orient_sex), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, orient_sex) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(orient_sex),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  count(campus, orient_sex, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(orient_sex)) %>%
   count(orient_sex, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir y calcular porcentaje
 datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  group_by(campus) %>%
+  mutate(pct = round(n / sum(n) * 100, 1)) %>%
+  ungroup()
 
-# 5. Crear gráfico de pastel con filtro
+# 5. Ordenar categorías
+niveles_orient <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(pct)) %>%
+  pull(orient_sex)
+
+datos_final <- datos_final %>%
+  mutate(orient_sex = factor(orient_sex, levels = niveles_orient))
+
+# 6. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+# 7. Gráfico de barras horizontales
 fig <- plot_ly(
   data = datos_final,
-  labels = ~orient_sex,
-  values = ~n,
-  type = "pie",
-  textinfo = "label+percent",
-  hoverinfo = "label+percent+value",
-  marker = list(colors = brewer.pal(8, "Pastel1")),
-  rotation = 270,
+  x = ~pct,
+  y = ~reorder(orient_sex, pct),
+  type = "bar",
+  orientation = "h",
+  text = ~paste0(pct, "%"),
+  textposition = "outside",
+  marker = list(color = ~colores_campus[campus]),
+  hovertemplate = paste(
+    "<b>Orientación:</b> %{y}<br>",
+    "<b>Porcentaje:</b> %{x}%<br>",
+    "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+  ),
+  customdata = ~n,
   transforms = list(
     list(
-      type = 'filter',
+      type = "filter",
       target = ~campus,
-      operation = '=',
+      operation = "=",
       value = "Todos"
     )
   )
 ) %>%
   layout(
     title = "",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
     updatemenus = list(
       list(
-        type = 'dropdown',
+        type = "dropdown",
         active = 0,
+        x = 1.05,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
         buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms.0.value", c),
-               label = c)
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
         })
       )
-    )
+    ),
+    margin = list(l = 200, r = 120)
   )
 
 fig
+```
+
+## Aspectos religiosos
+
+### ¿Con cuál religión o creencia religiosa se identifica actualmente?
+
+::: callout-note
+A nivel religioso es predominante la **católica (≈60%)**, seguida por el grupo de **cristianos no católicos (17.5%)**. En menor proporción se encuentran quienes **prefieren no responder (6.4%)** y quienes **no tienen religión (5.8%)**. Las demás categorías presentan participaciones inferiores al 4%, lo que evidencia una clara concentración en tradiciones cristianas.
+:::
+
+```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
+library(dplyr)
+library(plotly)
+library(stringr)
+
+# 1. Preparar datos
+datos_plot <- datos %>%
+  filter(
+    !is.na(campus),
+    !is.na(religion),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  count(campus, religion, name = "n")
+
+# 2. Grupo "Todos"
+todos <- datos %>%
+  filter(!is.na(religion)) %>%
+  count(religion, name = "n") %>%
+  mutate(campus = "Todos")
+
+# 3. Niveles de campus
+niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
+
+# 4. Unir y calcular porcentaje
+datos_final <- bind_rows(datos_plot, todos) %>%
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  group_by(campus) %>%
+  mutate(pct = round(n / sum(n) * 100, 1)) %>%
+  ungroup()
+
+# 5. Ordenar categorías
+niveles_orient <- datos_final %>%
+  filter(campus == "Todos") %>%
+  arrange(desc(pct)) %>%
+  pull(religion)
+
+datos_final <- datos_final %>%
+  mutate(religion = factor(religion, levels = niveles_orient))
+
+# 6. Colores por campus
+colores_campus <- c(
+  "Todos" = "#7AA6C9",
+  "Bucaramanga" = "#A2CFFE",
+  "Cucuta" = "#FFD1DC",
+  "Valledupar" = "#AAF0D1"
+)
+
+# 7. Gráfico de barras horizontales
+fig <- plot_ly(
+  data = datos_final,
+  x = ~pct,
+  y = ~reorder(religion, pct),
+  type = "bar",
+  orientation = "h",
+  text = ~paste0(pct, "%"),
+  textposition = "outside",
+  marker = list(color = ~colores_campus[campus]),
+  hovertemplate = paste(
+    "<b>Orientación:</b> %{y}<br>",
+    "<b>Porcentaje:</b> %{x}%<br>",
+    "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+  ),
+  customdata = ~n,
+  transforms = list(
+    list(
+      type = "filter",
+      target = ~campus,
+      operation = "=",
+      value = "Todos"
+    )
+  )
+) %>%
+  layout(
+    title = "",
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        active = 0,
+        x = 1.05,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
+        buttons = lapply(niveles_campus, function(c) {
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
+        })
+      )
+    ),
+    margin = list(l = 200, r = 120)
+  )
+
+fig
+
 ```
 
 ## Estado de salud
@@ -2070,7 +2436,7 @@ fig
 ### ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 7.37% de los estudiantes reportó tener alguna enfermedad diagnosticada, mientras que el 92.6% indicó no tener enfermedades.
+El 6.6% de los estudiantes reportó tener alguna enfermedad diagnosticada, mientras que el restante indicó no tener enfermedades.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2079,12 +2445,17 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?
-datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(enf_diag), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, enf_diag) %>%
-  summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 1. Preparar datos
+datos_plot <- datos %>%
+  filter(
+    !is.na(campus),
+    !is.na(enf_diag),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  count(campus, enf_diag, name = "n")
+
+# 2. Grupo "Todos"
 todos <- datos %>%
   filter(!is.na(enf_diag)) %>%
   count(enf_diag, name = "n") %>%
@@ -2103,7 +2474,7 @@ fig <- plot_ly(
   labels = ~enf_diag,
   values = ~n,
   type = "pie",
-  textinfo = "label+percent",
+  textinfo = "percent",
   hoverinfo = "label+percent+value",
   marker = list(colors = brewer.pal(8, "Pastel1")),
   rotation = 270,
@@ -2137,7 +2508,7 @@ fig
 ### Indique si toma medicamentos como tratamiento de la enfermedad diagnosticada
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Tres de cada cuatro estudiantes (75.3%) indicaron estar tomando medicamentos. Esto contrasta con el porcentaje que reportó tener una enfermedad (7.37%), lo cual sugiere que el uso de medicamentos podría estar relacionado con condiciones no crónicas o tratamientos temporales (por ejemplo, anticonceptivos, analgésicos, suplementos, entre otros).
+El **89% de los estudiantes no está tomando medicamentos**, mientras que el **11% sí reporta consumo**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2146,14 +2517,24 @@ library(plotly)
 library(RColorBrewer)
 
 # 1. Preparar los datos por campus y Indique si toma medicamentos como tratamiento de la enfermedad diagnosticada
+
+# 1. Preparar los datos (QUITANDO LOS 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus), !is.na(medic_enf), campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
+  filter(
+    !is.na(campus),
+    !is.na(medic_enf),
+    medic_enf != 0,   # <- CLAVE
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
   group_by(campus, medic_enf) %>%
   summarise(n = n(), .groups = "drop")
 
-# 2. Agregar grupo "Todos"
+# 2. Agregar grupo "Todos" (TAMBIÉN QUITANDO LOS 0)
 todos <- datos %>%
-  filter(!is.na(medic_enf)) %>%
+  filter(
+    !is.na(medic_enf),
+    medic_enf != 0   # <- CLAVE
+  ) %>%
   count(medic_enf, name = "n") %>%
   mutate(campus = "Todos")
 
@@ -2206,7 +2587,7 @@ fig
 ### Tiene alguna discapacidad
 
 ::: {.callout-note title="Descripción para todos los campus"}
-El 12.5% de los encuestados reportó tener algún tipo de discapacidad, mientras que el 87.5% indicó no tener ninguna. Este valor refleja la presencia de personas con discapacidad en el entorno universitario y puede orientar estrategias de inclusión y accesibilidad.
+El **9.6% de los encuestados reportó tener algún tipo de discapacidad**, mientras que el **90.4% indicó no tener ninguna.** Este valor refleja la presencia de personas con discapacidad en el entorno universitario y puede orientar estrategias de inclusión y accesibilidad.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -2273,98 +2654,104 @@ fig
 ### ¿Qué tipo de discapacidad posee?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Del total de encuestados, el tipo de discapacidad más reportado fue la visual (9.03%), seguida por la física (1.66%) y la psicosocial (1.11%). Las discapacidades intelectual (0.396%) y auditiva (0.317%) fueron menos frecuentes.
+El tipo de discapacidad más reportado es la **visual baja visión irreversible (47%)**, seguida por la **visual ceguera (13%)**. También se registran la **psicosocial (12.2%)** y la **física (11.3%)**. En menor proporción aparecen la **auditiva (7%)** y la **intelectual (6.1%)**, mientras que otras condiciones presentan valores inferiores al 1%.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
 library(dplyr)
 library(plotly)
+library(stringr)
 
-# 1. 1. Preparar los datos por campus y ¿Qué tipo de discapacidad posee?
+# 1. Preparar datos (QUITANDO "No", "No aplica", 0)
 datos_plot <- datos %>%
-  filter(!is.na(campus) & !is.na(tipo_disc) & campus %in% c("Bucaramanga", "Cucuta", "Valledupar")) %>%
-  group_by(campus, tipo_disc) %>%
-  summarise(n = n(), .groups = "drop")
+  filter(
+    !is.na(campus),
+    !is.na(tipo_disc),
+    tipo_disc != 0,
+    !str_to_lower(tipo_disc) %in% c("no", "no aplica", "ninguna"),
+    campus %in% c("Bucaramanga", "Cucuta", "Valledupar")
+  ) %>%
+  count(campus, tipo_disc, name = "n")
 
-# 2. Agregar grupo "Todos"
+# 2. Grupo "Todos"
 todos <- datos %>%
-  filter(!is.na(tipo_disc)) %>%
+  filter(
+    !is.na(tipo_disc),
+    tipo_disc != 0,
+    !str_to_lower(tipo_disc) %in% c("no", "no aplica", "ninguna")
+  ) %>%
   count(tipo_disc, name = "n") %>%
   mutate(campus = "Todos")
 
-# 3. Fijar niveles de campus (con "Todos" primero)
+# 3. Niveles de campus
 niveles_campus <- c("Todos", "Bucaramanga", "Cucuta", "Valledupar")
 
-# 4. Unir todos los datos
+# 4. Unir y calcular porcentaje
 datos_final <- bind_rows(datos_plot, todos) %>%
-  mutate(campus = factor(campus, levels = niveles_campus))
+  mutate(campus = factor(campus, levels = niveles_campus)) %>%
+  group_by(campus) %>%
+  mutate(pct = round(n / sum(n) * 100, 1)) %>%
+  ungroup()
 
-# 5. Ordenar niveles de 'tipo_disc' por frecuencia total (grupo "Todos")
-niveles_din_trans <- datos_final %>%
+# 5. Ordenar categorías
+niveles_tipo <- datos_final %>%
   filter(campus == "Todos") %>%
-  arrange(desc(n)) %>%
+  arrange(desc(pct)) %>%
   pull(tipo_disc)
 
 datos_final <- datos_final %>%
-  mutate(tipo_disc = factor(tipo_disc, levels = niveles_din_trans))
+  mutate(tipo_disc = factor(tipo_disc, levels = niveles_tipo))
 
-# 6. Calcular porcentajes por campus
-datos_final <- datos_final %>%
-  group_by(campus) %>%
-  mutate(
-    total_campus = sum(n),
-    porcentaje = round((n / total_campus) * 100, 1)
-  ) %>%
-  ungroup()
-
-# 7. Crear texto personalizado para el hover
-datos_final <- datos_final %>%
-  mutate(
-    hover_text = paste0(
-      "<b>", tipo_disc, "</b><br>",
-      "Campus: ", campus, "<br>",
-      "Frecuencia: ", n, "<br>",
-      "Porcentaje: ", porcentaje, "%<br>",
-      "<extra></extra>"
-    )
-  )
-
-# 8. Crear gráfico de barras en celeste con filtro y tooltips personalizados
+# 6. Gráfico horizontal
 fig <- plot_ly(
   data = datos_final,
-  x = ~tipo_disc,
-  y = ~n,
+  x = ~pct,
+  y = ~reorder(tipo_disc, pct),
   type = "bar",
-  marker = list(color = "#a6cee3"),
-  hovertemplate = ~hover_text,
+  orientation = "h",
+  text = ~paste0(pct, "%"),
+  textposition = "outside",
+  customdata = ~n,
+  hovertemplate = paste(
+    "<b>Tipo:</b> %{y}<br>",
+    "<b>Porcentaje:</b> %{x}%<br>",
+    "<b>Frecuencia:</b> %{customdata}<extra></extra>"
+  ),
+  marker = list(color = "#7AA6C9"),
   transforms = list(
     list(
-      type = 'filter',
+      type = "filter",
       target = ~campus,
-      operation = '=',
+      operation = "=",
       value = "Todos"
     )
   )
 ) %>%
   layout(
     title = "",
-    xaxis = list(title = "Tipo"),
-    yaxis = list(title = "Número de estudiantes"),
+    xaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = ""),
     updatemenus = list(
       list(
-        type = 'dropdown',
+        type = "dropdown",
         active = 0,
+        x = 1.05,
+        y = 0.5,
+        xanchor = "left",
+        yanchor = "middle",
         buttons = lapply(niveles_campus, function(c) {
-          list(method = "restyle",
-               args = list("transforms[0].value", c),
-               label = c)
+          list(
+            method = "restyle",
+            args = list("transforms[0].value", c),
+            label = c
+          )
         })
       )
-    )
+    ),
+    margin = list(l = 200, r = 120)
   )
 
 fig
-
 
 
 ```
