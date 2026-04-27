@@ -67,3 +67,8 @@ crossref:
   tbl-prefix: "Tabla"
 
 editor: visual
+
+execute:
+  echo: false
+  warning: false
+  message: false

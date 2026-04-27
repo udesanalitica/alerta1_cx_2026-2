@@ -26,7 +26,7 @@
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [direccionplaneacion\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 
 ::: {.callout-warning title="Para citar"}
-Pérez, M., León, F., y Pinto, L. (2026). Documento de Planeación Institucional No 4. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-1. Universidad de Santander. Planeación Institucional. https://doi.org/10.5281/zenodo.XXXXXX
+Pérez, M., León, F., y Pinto, L. (2026). Documento de Planeación Institucional No 4. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-1. Universidad de Santander. Planeación Institucional. https://doi.org/10.5281/zenodo.19735820
 :::
 
 ``` bibtex
@@ -37,8 +37,8 @@ Pérez, M., León, F., y Pinto, L. (2026). Documento de Planeación Instituciona
   year         = {2026},
   note         = {Planeación Institucional. Disponible también en: \url{https://analiticaudes.github.io/alerta1_cx_2026-1/}},
   type         = {Informe técnico},
-  doi          = {10.5281/zenodo.XXXXXXX},
-  url          = {https://doi.org/10.5281/zenodo.XXXXXX}
+  doi          = {10.5281/zenodo.19735820},
+  url          = {https://doi.org/10.5281/zenodo.19735820}
 }
 ```
 

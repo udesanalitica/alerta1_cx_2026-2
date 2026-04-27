@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Introducción – Alerta 1. Caracterización de estudiantes</title>
+<title>Conclusiones – Alerta 1. Caracterización de estudiantes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +49,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Seccion0.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./Seccion4.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -84,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Conclusiones.html">Conclusiones</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
   </div>
 </li>
@@ -163,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Conclusiones.html" class="sidebar-item-text sidebar-link">
+  <a href="./Conclusiones.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Conclusiones</span></a>
   </div>
 </li>
@@ -172,26 +190,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#novedades" id="toc-novedades" class="nav-link active" data-scroll-target="#novedades"><span class="header-section-number">3</span> Novedades</a>
-  <ul class="collapse">
-  <li><a href="#agente-analista-experto-de-la-encuesta-de-caraterización" id="toc-agente-analista-experto-de-la-encuesta-de-caraterización" class="nav-link" data-scroll-target="#agente-analista-experto-de-la-encuesta-de-caraterización"><span class="header-section-number">3.1</span> Agente Analista Experto de la encuesta de caraterización</a></li>
-  <li><a href="#alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11" id="toc-alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11" class="nav-link" data-scroll-target="#alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11"><span class="header-section-number">3.2</span> Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11</a></li>
-  <li><a href="#historico-de-la-caracterización" id="toc-historico-de-la-caracterización" class="nav-link" data-scroll-target="#historico-de-la-caracterización"><span class="header-section-number">3.3</span> Historico de la caracterización</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/edit/main/intro.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/blob/main/intro.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></h1>
+<h1 class="title">Conclusiones</h1>
 </div>
 
 
@@ -208,83 +215,15 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>La caracterización de estudiantes de recién ingreso es un activo estratégico importante para la Universidad de Santander (UDES) en su misión de comprender y acompañar las trayectorias de vida de quienes inician su formación profesional. Para el periodo 2026-1, este ejercicio trasciende la descripción estadística tradicional, configurándose como un sistema de inteligencia institucional que permite anticipar necesidades y potenciar el éxito estudiantil desde el primer día.</p>
-<p>El modelo de caracterización 2026-1 se fundamenta en una estructura técnica de 104 preguntas mapeadas, organizadas en siete dimensiones críticas que ofrecen una visión 360° del estudiante:</p>
-<ol type="1">
-<li><p><strong>Caracterización Sociodemográfica: Identidad y origen.</strong></p></li>
-<li><p><strong>Condiciones Académicas: Antecedentes y trayectoria escolar.</strong></p></li>
-<li><p><strong>Habilidades y Competencias: Autopercepción de capacidades.</strong></p></li>
-<li><p><strong>Condiciones Socioeconómicas: Entorno financiero y de vivienda.</strong></p></li>
-<li><p><strong>Bienestar y Hábitos: Estilos de vida y uso del tiempo libre.</strong></p></li>
-<li><p><strong>Cultura y Arte: Intereses y expresiones culturales.</strong></p></li>
-<li><p><strong>Salud y Desarrollo Humano: Dimensión biopsicosocial y salud mental.</strong></p></li>
-</ol>
-<p>Lo más relevante en esta edición es la profundización en la dimensión de Salud y Desarrollo Humano (P107 a P114), diseñada para detectar alertas tempranas de riesgo psicosocial, y el fortalecimiento de la dimensión de Bienestar y Hábitos, que ahora integra una batería más amplia de preguntas sobre la vida cotidiana del estudiante.</p>
-<p>Siguiendo la vanguardia en el manejo de datos, este libro ha sido desarrollado bajo un ecosistema de Ciencia Abierta, utilizando herramientas de alto rendimiento como Python y Quarto. Este enfoque garantiza:</p>
-<ul>
-<li><p><strong>Trazabilidad: Cada cifra presentada tiene un respaldo directo en el diccionario de variables y los microdatos procesados.</strong></p></li>
-<li><p><strong>Reproducibilidad: El flujo de trabajo permite la validación de resultados por parte de las distintas unidades académicas y administrativas.</strong></p></li>
-<li><p><strong>Transparencia: El uso de código abierto asegura que la gestión de datos sea auditable y escalable.</strong></p></li>
-<li><p><strong>Anonimización: Se mantiene la confidenciadad de la información de los participantes.</strong></p></li>
-</ul>
-<p>El presente informe no solo busca describir a la cohorte 2026-1, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.</p>
-<section id="novedades" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Novedades</h1>
-<section id="agente-analista-experto-de-la-encuesta-de-caraterización" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="agente-analista-experto-de-la-encuesta-de-caraterización"><span class="header-section-number">3.1</span> Agente Analista Experto de la encuesta de caraterización</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div id="refs" role="list" style="display: none">
+<p>Las evidencias derivadas del proceso de caracterización de estudiantes de recién ingreso en la Universidad de Santander confirman que el desempeño académico no puede entenderse de manera aislada, sino como el resultado de una interacción compleja entre factores académicos, socioeconómicos, familiares y de bienestar integral. En este sentido, variables como las condiciones de origen, los hábitos de estudio, la salud mental y las dinámicas de apoyo social configuran un perfil estudiantil diverso que incide directamente en la permanencia y el éxito académico.</p>
+<p>Este enfoque integral se articula con el propósito del Observatorio de Analítica Académica, orientado a generar información confiable sobre el estudiante desde su ingreso hasta su inserción laboral, con el fin de fortalecer la toma de decisiones institucional y promover la mejora continua . Así, la caracterización no se limita a un ejercicio descriptivo, sino que se convierte en un insumo estratégico para la identificación de riesgos y la intervención oportuna.</p>
+<p>En particular, los resultados evidencian que el rendimiento académico en los primeros semestres está influenciado por múltiples variables que pueden ser modeladas estadísticamente. En este contexto, la información recolectada en la Alerta Temprana 1 constituye la base para el desarrollo de modelos predictivos, como la Alerta Temprana 2, en la cual se emplean técnicas como la regresión logística para identificar factores asociados al rendimiento académico de primer semestre, logrando niveles adecuados de clasificación y capacidad explicativa .</p>
+<p><a href="https://public.tableau.com/views/Alerta2-Rendimientoacadmico/Dashboard1?:language=es-ES&amp;:embed=y&amp;:sid=&amp;:redirect=auth&amp;:embed_code_version=3&amp;:loadOrderID=0&amp;:display_count=y&amp;publish=yes&amp;:origin=viz_share_link" class="btn btn-primary" target="_blank">Da clic aquí a la Alerta Temprana 2: Factores que afectan el rendimiento acádemico de primer semestre</a></p>
+<p>De esta manera, la caracterización se consolida como un componente fundamental dentro de un sistema institucional de analítica académica, que no solo permite comprender al estudiante, sino anticipar comportamientos, focalizar intervenciones y fortalecer estrategias de acompañamiento académico y psicosocial. En consecuencia, estos resultados sustentan la transición hacia un modelo de gestión basado en datos, orientado a la prevención del riesgo académico y al fortalecimiento del éxito estudiantil mediante el uso de herramientas predictivas y sistemas de alerta temprana.</p>
 </div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-1.</p>
-<p>Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.</p>
-</div>
-</div>
-<p><a href="https://gemini.google.com/gem/16XsuZxQcG5INwjAwhnZqbsAPBTgPOtWA?usp=sharing" class="btn btn-primary">Da clic aquí y conoce el Agente Analista Experto</a></p>
-</section>
-<section id="alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11"><span class="header-section-number">3.2</span> Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Este enlace permite explorar una herramienta interactiva de alerta temprana basada en los resultados de las pruebas Saber 11, la cual facilita la identificación de niveles de riesgo académico a partir de los puntajes en competencias genéricas. A través de esta visualización, es posible analizar el desempeño de los estudiantes y reconocer posibles brechas en habilidades clave, aportando información relevante para orientar estrategias de acompañamiento y fortalecer los procesos de permanencia y éxito académico, en línea con el uso de resultados de evaluaciones externas para la toma de decisiones educativas.</p>
-</div>
-</div>
-<p><a href="https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Nivelesderiesgosaber11?:language=es-ES&amp;:embed=y&amp;:sid=&amp;:redirect=auth&amp;:embed_code_version=3&amp;:loadOrderID=0&amp;:display_count=y&amp;:origin=viz_share_link" class="btn btn-primary" target="_blank">Da clic aquí y conoce la Alerta temprana: Identificación de niveles de riesgo puntajes genéricos saber 11</a></p>
-</section>
-<section id="historico-de-la-caracterización" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="historico-de-la-caracterización"><span class="header-section-number">3.3</span> Historico de la caracterización</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>El <strong>histórico de la caracterización</strong> presenta una visión consolidada del comportamiento académico de los estudiantes de nuevo ingreso a partir de los resultados de la prueba <strong>Saber 11</strong>, permitiendo identificar niveles de riesgo mediante puntajes genéricos. A través de esta herramienta de <strong>alerta temprana</strong>, se facilita el análisis multicampus y la toma de decisiones oportunas orientadas al acompañamiento académico y la permanencia estudiantil.</p>
-</div>
-</div>
-<p><a href="https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/caracterizacionmulticampus2022-2?:language=es-ES&amp;:embed=y&amp;:redirect=auth&amp;:embed_code_version=3&amp;:loadOrderID=0&amp;:display_count=y&amp;:origin=viz_share_link" class="btn btn-primary" target="_blank">Da clic aquí y conoce el histórico de la caracterización</a></p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -688,14 +627,11 @@ Tip
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="index.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span>
+      <a href="./Seccion4.html" class="pagination-link" aria-label="Secciones 4, 5 y 6: Fomento de la cultura, deportes y esparcimiento, y desarrollo humano">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Secciones 4, 5 y 6: Fomento de la cultura, deportes y esparcimiento, y desarrollo humano</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Seccion0.html" class="pagination-link" aria-label="Aspectos metodológicos">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Aspectos metodológicos</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -706,7 +642,7 @@ Tip
 </div>   
     <div class="nav-footer-center">
 <p><a href="https://github.com/udesanalitica/alerta1_cx_2026-1" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a> <a href="#" aria-label="Compartir" style="margin-left: 10px;"><i class="bi bi-share"></i></a> <a href="javascript:window.print()" aria-label="Imprimir" style="margin-left: 10px;"><i class="bi bi-printer"></i></a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/edit/main/intro.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/blob/main/intro.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/edit/main/Conclusiones.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/udesanalitica/alerta1_cx_2026-1/blob/main/Conclusiones.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Este libro fue construido con <a href="https://quarto.org/" target="_blank">Quarto</a>.</p>
 </div>

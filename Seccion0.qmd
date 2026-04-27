@@ -3,6 +3,49 @@ title: "Aspectos metodológicos"
 format: html
 ---
 
+```{r setup-datos, include=FALSE}
+
+# ===============================
+# 1. Paquetes necesarios
+# ===============================
+paquetes <- c(
+  "dplyr",
+  "readxl",
+  "janitor",
+  "snakecase",
+  "stringr",
+  "stringi",
+  "writexl",
+  "tidyr",
+  "ggplot2",
+  "plotly",
+  "RColorBrewer",
+  "kableExtra",
+  "tm",
+  "ggwordcloud"
+)
+
+# ===============================
+# 2. Instalar y cargar automáticamente
+# ===============================
+instalar_si_falta <- function(p) {
+  if (!require(p, character.only = TRUE)) {
+    install.packages(p)
+    library(p, character.only = TRUE)
+  }
+}
+
+invisible(lapply(paquetes, instalar_si_falta))
+
+# ===============================
+# 3. Cargar datos limpios (pipeline)
+# ===============================
+if (!exists("datos")) {
+  source("scripts/limpieza_datos.R")
+}
+
+```
+
 # Aspectos metodológicos
 
 ## Ficha técnica
@@ -60,21 +103,11 @@ metodologia_data %>%
 
 La encuesta se aplicó a estudiantes de primer semestre, y en el gráfico se muestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.
 
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(readxl)
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-datos <- read_excel("C:/R-Proyectos/alerta1_Cx_2026-1/data/data20261.xlsx")
-
-# View(datos)
-
-attach(datos)
-
-# head(datos)
-
-# str(datos)
-
-# names(datos)
-
+## Datos cargados desde pipeline en scripts/limpieza_datos.R
+dim(datos)
+head(datos)
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}

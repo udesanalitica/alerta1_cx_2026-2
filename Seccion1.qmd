@@ -3,14 +3,66 @@ title: "Sección 1. Información personal y Académica"
 format: html
 ---
 
-```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
-library(readxl)
-datos <- read_excel("C:/R-Proyectos/alerta1_Cx_2026-1/data/data20261.xlsx")
-#View(datos)
-attach(datos)
-# head(datos)
-# str(datos)
-# names(datos)
+```{r setup-datos, include=FALSE, message=FALSE, warning=FALSE}
+
+# ===============================
+# Paquetes necesarios (optimizado)
+# ===============================
+paquetes <- c(
+  "tidyverse",      # incluye dplyr, ggplot2, tidyr
+  "readxl",
+  "janitor",
+  "snakecase",
+  "stringr",
+  "stringi",
+  "writexl",
+  "plotly",
+  "RColorBrewer",
+  "kableExtra",
+  "tm",
+  "SnowballC",
+  "ggwordcloud",
+  "wordcloud2",
+  "psych",
+  "skimr",
+  "summarytools",
+  "corrplot",
+  "ggpubr",
+  "lattice",
+  "Hmisc",
+  "scales",
+  "ggrepel"
+)
+
+# ===============================
+# Instalar y cargar automáticamente
+# ===============================
+instalar_si_falta <- function(p) {
+  if (!require(p, character.only = TRUE, quietly = TRUE)) {
+    install.packages(p)
+    library(p, character.only = TRUE)
+  }
+}
+
+invisible(lapply(paquetes, instalar_si_falta))
+
+# ===============================
+# Cargar datos (elige UNA opción)
+# ===============================
+
+# OPCIÓN A (BASE ORIGINAL - recomendada ahora)
+datos <- readxl::read_excel("data/data20261.xlsx")
+
+# OPCIÓN B (BASE LIMPIA - cuando estabilices pipeline)
+# if (!exists("datos")) {
+#   source("scripts/limpieza_datos.R")
+# }
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+## Datos cargados desde pipeline en scripts/limpieza_datos.R
+dim(datos)
 
 ```
 
@@ -38,6 +90,7 @@ library(ggrepel)
 library(tidyverse)
 library(scales)
 library(htmltools)
+
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
