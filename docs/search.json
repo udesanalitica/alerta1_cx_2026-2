@@ -1,5 +1,355 @@
 [
   {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Alerta 1. Caracterización de estudiantes",
+    "section": "",
+    "text": "Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el Observatorio de Analítica Académica o por correo electrónico direccionplaneacion@udes.edu.co ↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>index.html</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "2  Introducción",
+    "section": "",
+    "text": "3 Novedades\nLa caracterización de estudiantes de recién ingreso es un activo estratégico importante para la Universidad de Santander (UDES) en su misión de comprender y acompañar las trayectorias de vida de quienes inician su formación profesional. Para el periodo 2026-1, este ejercicio trasciende la descripción estadística tradicional, configurándose como un sistema de inteligencia institucional que permite anticipar necesidades y potenciar el éxito estudiantil desde el primer día.\nEl modelo de caracterización 2026-1 se fundamenta en una estructura técnica de 104 preguntas mapeadas, organizadas en siete dimensiones críticas que ofrecen una visión 360° del estudiante:\nLo más relevante en esta edición es la profundización en la dimensión de Salud y Desarrollo Humano (P107 a P114), diseñada para detectar alertas tempranas de riesgo psicosocial, y el fortalecimiento de la dimensión de Bienestar y Hábitos, que ahora integra una batería más amplia de preguntas sobre la vida cotidiana del estudiante.\nSiguiendo la vanguardia en el manejo de datos, este libro ha sido desarrollado bajo un ecosistema de Ciencia Abierta, utilizando herramientas de alto rendimiento como Python y Quarto. Este enfoque garantiza:\nEl presente informe no solo busca describir a la cohorte 2026-1, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#agente-analista-experto-de-la-encuesta-de-caraterización",
+    "href": "intro.html#agente-analista-experto-de-la-encuesta-de-caraterización",
+    "title": "2  Introducción",
+    "section": "3.1 Agente Analista Experto de la encuesta de caraterización",
+    "text": "3.1 Agente Analista Experto de la encuesta de caraterización\n\n\n\n\n\n\nTip\n\n\n\nPara este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-1.\nEste agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.\n\n\nDa clic aquí y conoce el Agente Analista Experto",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11",
+    "href": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11",
+    "title": "2  Introducción",
+    "section": "3.2 Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11",
+    "text": "3.2 Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11\n\n\n\n\n\n\nTip\n\n\n\nEste enlace permite explorar una herramienta interactiva de alerta temprana basada en los resultados de las pruebas Saber 11, la cual facilita la identificación de niveles de riesgo académico a partir de los puntajes en competencias genéricas. A través de esta visualización, es posible analizar el desempeño de los estudiantes y reconocer posibles brechas en habilidades clave, aportando información relevante para orientar estrategias de acompañamiento y fortalecer los procesos de permanencia y éxito académico, en línea con el uso de resultados de evaluaciones externas para la toma de decisiones educativas.\n\n\nDa clic aquí y conoce la Alerta temprana: Identificación de niveles de riesgo puntajes genéricos saber 11",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#historico-de-la-caracterización",
+    "href": "intro.html#historico-de-la-caracterización",
+    "title": "2  Introducción",
+    "section": "3.3 Historico de la caracterización",
+    "text": "3.3 Historico de la caracterización\n\n\n\n\n\n\nTip\n\n\n\nEl histórico de la caracterización presenta una visión consolidada del comportamiento académico de los estudiantes de nuevo ingreso a partir de los resultados de la prueba Saber 11, permitiendo identificar niveles de riesgo mediante puntajes genéricos. A través de esta herramienta de alerta temprana, se facilita el análisis multicampus y la toma de decisiones oportunas orientadas al acompañamiento académico y la permanencia estudiantil.\n\n\nDa clic aquí y conoce el histórico de la caracterización",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion0.html",
+    "href": "Seccion0.html",
+    "title": "3  Aspectos metodológicos",
+    "section": "",
+    "text": "4 Aspectos metodológicos",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Aspectos metodológicos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion0.html#ficha-técnica",
+    "href": "Seccion0.html#ficha-técnica",
+    "title": "3  Aspectos metodológicos",
+    "section": "4.1 Ficha técnica",
+    "text": "4.1 Ficha técnica\n\n\n\n\nFicha Técnica - Metodología del Estudio\n\n\n\n\n\n\nCategoría\nDescripción\n\n\n\n\nPoblación objetivo\nEstudiantes de recién ingreso a la Universidad de Santander en el periodo 2026-1\n\n\nCampus\nBucaramanga, Cúcuta, Valledupar\n\n\nTotal de estuantes de recién ingreso\nBucaramanga (647),\nCúcuta (392),\nValledupar (283)\n\n\nMétodo de recolección de datos\nFormulario multicampus (111 preguntas)\n\n\nAspectos evaluados\nSección 1. Información personal y académica\nSección 2. Aspectos sociodemográficos\nSección 3. Salud integral\nSección 4. Fomento de la cultura\nSección 5. Deportes y esparcimiento\nSección 6. Desarrollo humano\n\n\nPeriodo de aplicación\n01 de febrero al 31 de marzo de 2026\n\n\nTasa de respuesta\nBucaramanga [84% (546/647)],\nCúcuta [88% (345/392)],\nValledupar [98% (278/283)]\n\n\nHerramienta de tabulación, análisis y divulgación\nExcel, RStudio, quarto, GitHub",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Aspectos metodológicos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion0.html#número-de-estudiantes-encuestados",
+    "href": "Seccion0.html#número-de-estudiantes-encuestados",
+    "title": "3  Aspectos metodológicos",
+    "section": "4.2 Número de estudiantes encuestados",
+    "text": "4.2 Número de estudiantes encuestados\nLa encuesta se aplicó a estudiantes de primer semestre, y en el gráfico se muestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.\n\n\n[1] 1195  155\n\n\n# A tibble: 6 × 155\n  tipo_doc tipo_id id    nombres apellidos genero f_nac               nombre_dpt\n  &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;     \n1 CC       105760… 0426… KAREN … ACEVEDO … F      1997-12-24 00:00:00 META      \n2 CC       111044… 0426… JESSICA FARFAN C… F      2001-05-29 00:00:00 BOGOTA D.C\n3 CC       112184… 0426… JAVIER… VELASQUE… M      2006-07-10 00:00:00 META      \n4 CC       102139… 0426… SARA    MACIAS M… F      2007-03-03 00:00:00 BOGOTA D.C\n5 CC       123479… 0426… KIMBER… SUAREZ L… F      1999-04-23 00:00:00 META      \n6 CC       102139… 0426… MARIA … MONROY L… F      2007-07-22 00:00:00 BOGOTA D.C\n# ℹ 147 more variables: dpto_ccdgo &lt;dbl&gt;, nombre_mpi &lt;chr&gt;, mpio_ccdgo &lt;dbl&gt;,\n#   longitud &lt;chr&gt;, latitud &lt;chr&gt;, barrio &lt;chr&gt;, estrato &lt;dbl&gt;, telefono &lt;dbl&gt;,\n#   celular &lt;dbl&gt;, email &lt;chr&gt;, colegio &lt;chr&gt;, salud &lt;chr&gt;, cod &lt;chr&gt;,\n#   programa &lt;chr&gt;, prog_abrev &lt;chr&gt;, ano &lt;dbl&gt;, semestre &lt;dbl&gt;, ano_sem &lt;chr&gt;,\n#   cod_2 &lt;chr&gt;, respondio &lt;chr&gt;, campus &lt;chr&gt;, codigo_del_estudiante &lt;chr&gt;,\n#   nombre_del_estudiante &lt;chr&gt;, correo_electronico0 &lt;chr&gt;, campus2 &lt;chr&gt;,\n#   prog_acad &lt;chr&gt;, edad &lt;dbl&gt;, sexo_id &lt;chr&gt;, pais &lt;chr&gt;, est_civ &lt;chr&gt;, …\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAbreviaturas de programas académicos\n\n\n\nADFI: Administración Financiera, ADNI: Administración de Negocios Internacionales, BACT: Bacteriología y Laboratorio Clínico, COEX: Comercio Exterior, CONT: Contaduría Pública, COVI: Contaduría Pública - Virtual, COSP: Comunicación Social y Periodismo, DERE: Derecho, DIGR: Diseño Gráfico, ENFE: Enfermería, FISI: Fisioterapia, FONO: Fonoaudiología, GEOL: Geología, ICCI: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, INAG: Ingeniería Agroindustrial, INAM: Ingeniería Ambiental, INBO: Instrumentación Quirúrgica (Bogotá), INCI: Ingeniería Civil, INEN: Ingeniería en Energías, ININ: Ingeniería Industrial, INQU: Instrumentación Quirúrgica, INSI: Ingeniería de Sistemas, INSO: Ingeniería de Software, ISVI: Ingeniería de Software - Virtual, LEIN: Licenciatura en Educación Infantil, MBIN: Microbiología Industrial, MEDI: Medicina, MEVE: Medicina Veterinaria, MYPB: Mercadeo y Publicidad, MVZC: Medicina Veterinaria y Zootecnia, PSIC: Psicología, TACV: Técnico Laboral en Auxiliar de Clínica Veterinaria, TAEP: Técnico Laboral en Auxiliar de Educación para la Primera Infancia, TCGF: Tecnología en Comunicación Gráfica, TGLE: Tecnología en Gestión Logística del Comercio Exterior, TSFV: Técnico Laboral en Instalación y Mantenimiento de Sistemas Solares Fotovoltaicos, TSOC: Tecnología en Supervisión de Obras Civiles, TVCD: Técnico Laboral en Auxiliar de Ventas por Canales Digitales, TEOC: Terapia Ocupacional",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Aspectos metodológicos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion0.html#tasa-de-respuesta-bucarcamanga",
+    "href": "Seccion0.html#tasa-de-respuesta-bucarcamanga",
+    "title": "3  Aspectos metodológicos",
+    "section": "4.3 Tasa de respuesta Bucarcamanga",
+    "text": "4.3 Tasa de respuesta Bucarcamanga\nmuestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.\n\n\n\n\n\nParticipación por Programa Académico - Campus Bucaramanga\n\n\nPrograma Académico\nRespuesta encuesta\nMatriculados primer semestre\n% de respuesta\n\n\n\n\nAdministración de negocios internacionales\n12\n17\n71\n\n\nAdministración financiera\n3\n9\n33\n\n\nBacteriología y laboratorio clínico\n21\n23\n91\n\n\nComunicación social y periodismo\n4\n11\n36\n\n\nContaduría pública\n17\n18\n94\n\n\nContaduría pública - virtual\n0\n1\n0\n\n\nDerecho\n9\n15\n60\n\n\nEnfermería\n17\n17\n100\n\n\nFisioterapia\n31\n42\n74\n\n\nFonoaudiología\n30\n32\n94\n\n\nGeología\n7\n7\n100\n\n\nIngeniería agroindustrial\n12\n12\n100\n\n\nIngeniería ambiental\n2\n2\n100\n\n\nIngeniería civil\n15\n15\n100\n\n\nIngeniería de software\n63\n64\n98\n\n\nIngeniería de software - virtual\n15\n16\n94\n\n\nIngeniería en ciencias de la computación e inteligencia artificial\n11\n12\n92\n\n\nIngeniería en energías\n3\n6\n50\n\n\nIngeniería industrial\n11\n13\n85\n\n\nInstrumentación quirúrgica\n42\n44\n95\n\n\nInstrumentación quirúrgica - Bogotá\n26\n26\n100\n\n\nLicenciatura en educación infantil\n9\n9\n100\n\n\nMedicina\n42\n65\n65\n\n\nMedicina veterinaria\n39\n45\n87\n\n\nMercadeo y publicidad\n23\n28\n82\n\n\nMicrobiología industrial\n10\n10\n100\n\n\nPsicología\n16\n16\n100\n\n\nTécnico laboral en auxiliar de educación para la primera infancia\n8\n8\n100\n\n\nTécnico laboral en auxiliar de ventas por canales digitales\n4\n6\n67\n\n\nTécnico laboral en instalación y mantenimiento de sistemas solares fotovoltaicos\n3\n4\n75\n\n\nTécnico laboral por competencias en auxiliar de clínica veterinaria\n18\n20\n90\n\n\nTecnología en comunicación gráfica\n27\n33\n82\n\n\nTecnología en gestión logística del comercio exterior\n9\n9\n100\n\n\nTecnología supervisión de obras civiles\n4\n7\n57\n\n\nTerapia ocupacional\n9\n11\n82\n\n\nTotal\n572\n673\n85",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Aspectos metodológicos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion0.html#tasa-de-respuesta-cúcuta",
+    "href": "Seccion0.html#tasa-de-respuesta-cúcuta",
+    "title": "3  Aspectos metodológicos",
+    "section": "4.4 Tasa de respuesta Cúcuta",
+    "text": "4.4 Tasa de respuesta Cúcuta\n\n\n\n\n\nParticipación por Programa Académico - Campus Cúcuta\n\n\nPrograma Académico\nRespuesta\nMatriculados\n% Respuesta\n\n\n\n\nAdministración financiera\n24\n24\n100\n\n\nBacteriología y laboratorio clínico\n24\n24\n100\n\n\nComercio exterior\n14\n15\n93\n\n\nDerecho\n14\n15\n93\n\n\nDiseño gráfico\n8\n10\n80\n\n\nEnfermería\n34\n34\n100\n\n\nFisioterapia\n36\n36\n100\n\n\nIngeniería de sistemas\n21\n20\n105\n\n\nIngeniería industrial\n10\n10\n100\n\n\nMedicina\n39\n39\n100\n\n\nMercadeo y publicidad\n30\n30\n100\n\n\nPsicología\n11\n12\n92\n\n\nTerapia ocupacional\n18\n18\n100\n\n\nTotal\n283\n287\n99",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Aspectos metodológicos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion0.html#tasa-de-respuesta-valledupar",
+    "href": "Seccion0.html#tasa-de-respuesta-valledupar",
+    "title": "3  Aspectos metodológicos",
+    "section": "4.5 Tasa de respuesta Valledupar",
+    "text": "4.5 Tasa de respuesta Valledupar\n\n\n\n\n\nParticipación por Programa Académico - Campus Valledupar\n\n\nPrograma Académico\nRespuesta encuesta\nMatriculados primer semestre\n% de respuesta\n\n\n\n\nAdministración financiera\n23\n24\n96\n\n\nBacteriología y laboratorio clínico\n26\n26\n100\n\n\nComunicación social y periodismo\n5\n6\n83\n\n\nDerecho\n38\n40\n95\n\n\nDiseño gráfico\n13\n13\n100\n\n\nEnfermería\n8\n9\n89\n\n\nFisioterapia\n35\n35\n100\n\n\nIngeniería industrial\n21\n21\n100\n\n\nMedicina\n30\n30\n100\n\n\nMedicina veterinaria y zootecnia\n55\n55\n100\n\n\nPsicología\n24\n24\n100\n\n\nTotal\n278\n283\n98",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Aspectos metodológicos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html",
+    "href": "Seccion1.html",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "",
+    "text": "4.1 Sesión. Información personal y académica",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#sesión.-información-personal-y-académica",
+    "href": "Seccion1.html#sesión.-información-personal-y-académica",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "",
+    "text": "Aclaración importante\n\n\n\nEn los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#distribución-geográfica",
+    "href": "Seccion1.html#distribución-geográfica",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "4.2 Distribución geográfica",
+    "text": "4.2 Distribución geográfica\nLa distribución por departamentos y municipios de procedencia de los estudiantes se refleja en el mapa de Colombia.\n\n\nReading layer `mpio' from data source \n  `https://raw.githubusercontent.com/santiblanko/colombia.geojson/master/mpio.json' \n  using driver `GeoJSON'\nSimple feature collection with 1122 features and 15 fields\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: -81.73579 ymin: -4.250167 xmax: -66.87039 ymax: 13.3948\nGeodetic CRS:  WGS 84",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#perfil-demográfico",
+    "href": "Seccion1.html#perfil-demográfico",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "4.3 Perfil Demográfico",
+    "text": "4.3 Perfil Demográfico\n\n4.3.1 Edad\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa mayor parte de los estudiantes de recien ingreso se concentra en edades jóvenes. En particular, los intervalos de 16 a 18 años y de 18 a 20 años representan más de la mitad de la población estudiantil, lo que evidencia que el acceso a la universidad se da principalmente en la etapa inmediatamente posterior al bachillerato. En contraste, a medida que aumenta la edad, la proporción de estudiantes disminuye de manera considerable, siendo pocos estudiantes en los grupos de 30 años en adelante.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAbreviaturas de programas académicos\n\n\n\nADFI: Administración Financiera, ADNI: Administración de Negocios Internacionales, BACT: Bacteriología y Laboratorio Clínico, COEX: Comercio Exterior, CONT: Contaduría Pública, COVI: Contaduría Pública - Virtual, COSP: Comunicación Social y Periodismo, DERE: Derecho, DIGR: Diseño Gráfico, ENFE: Enfermería, FISI: Fisioterapia, FONO: Fonoaudiología, GEOL: Geología, ICCI: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, INAG: Ingeniería Agroindustrial, INAM: Ingeniería Ambiental, INBO: Instrumentación Quirúrgica (Bogotá), INCI: Ingeniería Civil, INEN: Ingeniería en Energías, ININ: Ingeniería Industrial, INQU: Instrumentación Quirúrgica, INSI: Ingeniería de Sistemas, INSO: Ingeniería de Software, ISVI: Ingeniería de Software - Virtual, LEIN: Licenciatura en Educación Infantil, MBIN: Microbiología Industrial, MEDI: Medicina, MEVE: Medicina Veterinaria, MYPB: Mercadeo y Publicidad, MVZC: Medicina Veterinaria y Zootecnia, PSIC: Psicología, TACV: Técnico Laboral en Auxiliar de Clínica Veterinaria, TAEP: Técnico Laboral en Auxiliar de Educación para la Primera Infancia, TCGF: Tecnología en Comunicación Gráfica, TGLE: Tecnología en Gestión Logística del Comercio Exterior, TSFV: Técnico Laboral en Instalación y Mantenimiento de Sistemas Solares Fotovoltaicos, TSOC: Tecnología en Supervisión de Obras Civiles, TVCD: Técnico Laboral en Auxiliar de Ventas por Canales Digitales, TEOC: Terapia Ocupacional\n\n\n\n\n4.3.2 Estado civil\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa gran mayoría de los estudiantes son solteros (más del 95.1%). Los porcentajes de unión libre, casados o divorciados son reducidos entre los estudiantes de primer ingreso.\n\n\n\n\n\n\n\n\n\n\n4.3.3 Sexo\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nSe observa un predominio femenino en la matrícula, pues cerca del 62.3% de los estudiantes son mujeres frente al 37.7% de hombres. Esta diferencia evidencia una participación activa de las mujeres en el acceso a la educación superior y podría relacionarse con la alta presencia femenina en programas como salud o ciencias sociales.\n\n\n\n\n\n\n\n\n\n\n4.3.4 Pais de origen\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa población estudiantil es esencialmente colombiana (más del 95.5%). Sin embargo, existe una participación extranjera, destacando los estudiantes provenientes de Venezuela (3.6%), quienes representan el grupo más numeroso dentro de esta categoría. En menor medida, aparecen países como Ecuador, Estados Unidos, España y México, lo que sugiere un contexto de internacionalización, pero con fuerte influencia regional fronteriza.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#dificultades",
+    "href": "Seccion1.html#dificultades",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "4.4 Dificultades",
+    "text": "4.4 Dificultades\n\n4.4.1 Habilidades académicas\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn las tres áreas evaluadas se evidencia una concentración en niveles medios de dificultad, lo que indica que, aunque los estudiantes alcanzan desempeños funcionales, persisten retos relevantes en el fortalecimiento de competencias clave.\nEn Matemáticas, predomina el nivel medio (53.5%), acompañado de una proporción importante en nivel alto (26.5%), lo que sugiere una base aceptable, pero con dificultades en el razonamiento y la resolución de problemas.\nEn Expresión Oral, el nivel medio (40.7%) continúa siendo el más representativo, seguido por un nivel alto (33.5%), evidenciando retos en la comunicación efectiva y la expresión de ideas.\nPor su parte, Comprensión Lectora se consolida como el área más crítica, al concentrar el mayor porcentaje en nivel alto (40.1%), junto con un nivel medio significativo (37.1%), lo que refleja dificultades en la lectura crítica, el análisis y la interpretación de textos.\n\n\n\n\n\n\n\n\n\n\n4.4.2 Habilidades cognitivas\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLos resultados evidencian que las principales dificultades cognitivas se concentran en análisis (33.8%), atención (31.9%), memoria (34.6%) y comprensión (34.1%), donde cerca de 3 a 4 de cada 10 estudiantes reportan experimentar estas dificultades con alta frecuencia (“casi siempre”).\nEstas capacidades están directamente asociadas con procesos clave del aprendizaje, como la interpretación de información, la concentración sostenida y la retención de contenidos, lo que sugiere un posible impacto en el desempeño académico.\nPor su parte, la adaptación (25.6%) presenta una menor incidencia relativa, aunque continúa siendo relevante, indicando que alrededor de 1 de cada 4 estudiantes enfrenta dificultades para ajustarse a nuevas dinámicas académicas.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#desempeño-académico-en-el-colegio",
+    "href": "Seccion1.html#desempeño-académico-en-el-colegio",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "4.5 Desempeño académico en el colegio",
+    "text": "4.5 Desempeño académico en el colegio\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl perfil académico previo de los estudiantes en su mayoria es favorable, con una alta concentración en niveles positivos: 67.9% lo califica como bueno y 25.5% como excelente, lo que indica que más del 93% ingresa con una percepción sólida de su desempeño académico. Sin embargo, un 6.4% se ubica en nivel regular y una proporción mínima en nivel bajo (0.2%), lo que, aunque reducido, evidencia la existencia de un grupo que podría enfrentar mayores dificultades en su proceso de adaptación académica.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#lenguas-extranjeras",
+    "href": "Seccion1.html#lenguas-extranjeras",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "4.6 Lenguas extranjeras",
+    "text": "4.6 Lenguas extranjeras\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn relación con el dominio de lenguas extranjeras, el 18% de los estudiantes manifiesta contar con esta competencia (Sí). Por su parte, en cuanto a la certificación formal en lengua extranjera, el 8.8% de los estudiantes indica disponer de este respaldo (Sí).\n\n\n\n\n\n\n\n\n\n4.6.1 Distribución de niveles de idiomas\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa distribución de niveles de competencia en lenguas extranjeras evidencia un claro predominio del inglés, que concentra el 8.8% del total de estudiantes. Dentro de este idioma, el nivel más frecuente es B1 (intermedio), seguido por B2, lo que indica que, aunque existe una base funcional, son pocos los estudiantes con dominio avanzado.\nEn contraste, otros idiomas como francés (0.9%), italiano (0.6%) y las demás lenguas presentan una participación marginal, concentrada principalmente en niveles básicos (A1 y A2).\nEn conjunto, estos resultados reflejan una baja diversificación lingüística y una limitada presencia de niveles avanzados (C1 y C2), lo que sugiere la necesidad de fortalecer las competencias en segunda lengua como parte del perfil de ingreso y permanencia estudiantil.\n\n\n\n\n\n\nDistribución de Niveles de Idiomas\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNiveles de Competencia\n\n\nResumen\n\n\n\nIdioma\nA1\nA2\nB1\nB2\nC1\nC2\nTotal\nPorcentaje\n\n\n\n\nInglés\n3\n6\n82\n14\n0\n0\n105\n8.8%\n\n\nFrancés\n4\n3\n4\n0\n0\n0\n11\n0.9%\n\n\nPortugués\n1\n0\n0\n0\n0\n0\n1\n0.1%\n\n\nAlemán\n1\n0\n0\n0\n0\n0\n1\n0.1%\n\n\nItaliano\n6\n1\n0\n0\n0\n0\n7\n0.6%\n\n\nOtra\n2\n0\n1\n0\n0\n0\n3\n0.3%",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion1.html#habilidades-de-comunicación-y-socialización",
+    "href": "Seccion1.html#habilidades-de-comunicación-y-socialización",
+    "title": "4  Sección 1. Información personal y Académica",
+    "section": "4.7 Habilidades de comunicación y Socialización",
+    "text": "4.7 Habilidades de comunicación y Socialización\n\n4.7.1 Cuándo hablo en público, generalmente me siento:\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn relación con el estado emocional de los estudiantes al interactuar, el 49.4% manifiesta sentirse nervioso, mientras que un 21.4% se percibe tranquilo. Adicionalmente, el 19.2% reporta sentirse tenso, y un 9.9% se identifica como seguro o confiado. Estos resultados evidencian que una proporción importante de estudiantes experimenta emociones asociadas a la inquietud o la tensión en contextos de interacción.\n\n\n\n\n\n\n\n\n\n\n4.7.2 ¿He realizado estudios de oratoria?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa gran mayoría de estudiantes no ha recibido formación formal en oratoria (87.7%), mientras que solo un 12.3% ha tomado algún curso en esta área. Esto refleja una oportunidad para mejorar en habilidades comunicativas, lo que puede estar relacionado con los altos niveles de nerviosismo identificados previamente al hablar en público.\n\n\n\n\n\n\n\n\n\n\n4.7.3 ¿Me siento cómodo en mi grupo de amigos y me expreso abiertamente?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn lo relacionado con la interacción social cercana, el panorama es mucho más positivo: el 93.9% manifiesta sentirse cómodo y expresarse libremente dentro de su grupo de amigos, frente a un 6.1% que no comparte esa misma percepción. Esto indica que la confianza en contextos familiares y de amistad está consolidada, aunque no necesariamente se traduce en la misma seguridad frente a públicos más amplios o desconocidos.\n\n\n\n\n\n\n\n\n\n\n4.7.4 Cuando conozco nuevas personas, mi comportamiento es:\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn cuanto a la forma en que los estudiantes abordan la interacción comunicativa, el 47.4% indica que toma la iniciativa para hablar, seguido por un 39.6% que prefiere esperar a que le hablen. Por su parte, el 9.9% señala que no habla y solo escucha, mientras que el 3.0% manifiesta que evita hablar con personas que no conoce. Estos resultados muestran una tendencia hacia la participación activa, aunque persisten comportamientos más pasivos o de evitación en un grupo menor.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sección 1. Información personal y Académica</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion2.html",
+    "href": "Seccion2.html",
+    "title": "5  Sección 2. Aspectos sociodemográficos",
+    "section": "",
+    "text": "5.1 Sesión. Aspectos sociodemográficos",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Sección 2. Aspectos sociodemográficos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion2.html#movilidad",
+    "href": "Seccion2.html#movilidad",
+    "title": "5  Sección 2. Aspectos sociodemográficos",
+    "section": "5.2 Movilidad",
+    "text": "5.2 Movilidad\n\n\n[1] 1195  155\n\n\n\n\n\n\n\n\nAclaración importante\n\n\n\nEn los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.\n\n\n\n5.2.1 Medio de transporte habitual de su casa a la universidad\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nA nivel general (todos los campus), la movilidad de los estudiantes muestra una marcada predominancia de medios motorizados individuales, destacándose la motocicleta como el principal medio de transporte, con cerca de una cuarta parte de los desplazamientos. Le siguen el carro propio (19.6%) y el transporte público (14.3%), lo que confirma una fuerte dependencia de opciones motorizadas para el acceso a la universidad.\nEl desplazamiento a pie (15.3%) también presenta una participación relevante, lo que sugiere que una proporción importante de estudiantes reside en zonas cercanas a las sedes. En contraste, la ruta institucional (8.8%) y el transporte por plataformas digitales (11.2%) tienen una menor incidencia en el total, aunque siguen siendo alternativas utilizadas por un grupo significativo.\nLos medios de transporte sostenibles como la bicicleta (0.6%) y el monopatín (0.1%) presentan una participación prácticamente marginal, lo que evidencia una muy baja adopción de estas opciones.\n\n\n\n\n\n\n\n\n\n\n5.2.2 Su vehículo que tipo de combustible utiliza\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl análisis centrado en los estudiantes que sí cuentan con vehículo propio muestra una clara predominancia de la gasolina como principal tipo de combustible, con una participación ampliamente mayoritaria (alrededor del 51%). Esto indica que la gran mayoría de los vehículos utilizados por los estudiantes corresponden a tecnologías tradicionales de combustión interna.\nEn contraste, el uso de diésel es muy bajo (2.5%), mientras que las alternativas más sostenibles como los vehículos eléctricos (1%) e híbridos (0.8%) tienen poca presencia. Estos resultados evidencian un uso escaso de tecnologías limpias dentro del parque automotor estudiantil.\n\n\n\n\n\n\n\n\n\n\n5.2.3 Comparte con otras personas durante el trayecto su medio de transporte habitual\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 33.1% de los estudiantes con vehículo no comparte sus desplazamientos, mientras que un 24.5% sí lo hace. Sin embargo, la proporción más alta (42.3%) corresponde a quienes no tienen transporte propio. Esto sugiere una baja práctica de movilidad compartida, pero al mismo tiempo deja ver un margen de mejora mediante estrategias de carpooling para reducir costos y emisiones.\n\n\n\n\n\n\n\n\n\n\n5.2.4 ¿Estaría dispuesto a compartir su medio de transporte?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nAunque actualmente pocos lo practican, existe una buena disposición: el 45.6% de los estudiantes con vehículo afirma que estaría dispuesto a compartirlo, mientras que solo un 12.1% se niega. Esto abre una oportunidad para implementar políticas institucionales de movilidad sostenible.\n\n\n\n\n\n\n\n\n\n\n5.2.5 Tiempo en promedio en desplazamiento de su casa a la universidad\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa mayoría de los estudiantes tarda entre 10 y 30 minutos en llegar a la universidad (53.7%), seguido de un 27.9% que invierte menos de 10 minutos. Un 12.6% dedica entre 30 y 60 minutos, y apenas un 5.77% supera la hora de viaje. Estos resultados evidencian que, en general, los campus se encuentran relativamente cercanos a las zonas de residencia estudiantil, aunque existe un grupo minoritario que enfrenta trayectos prolongados.\n\n\n\n\n\n\n\n\n\n\n5.2.6 Dinero en transporte, en promedio, semanal en desplazamiento\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa mayor proporción de estudiantes reporta no incurrir en gastos de desplazamiento, seguida de quienes gastan más de $50.000 semanales. A partir de este punto, la distribución disminuye progresivamente en los rangos superiores, lo que indica que los costos de transporte son generalmente bajos o moderados para la mayoría..",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Sección 2. Aspectos sociodemográficos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion2.html#familia-cercana",
+    "href": "Seccion2.html#familia-cercana",
+    "title": "5  Sección 2. Aspectos sociodemográficos",
+    "section": "5.3 Familia cercana",
+    "text": "5.3 Familia cercana\n\n5.3.1 ¿Cuál es la tipologia familiar de origen?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa tipología familiar de origen de los estudiantes se concentra principalmente en la familia nuclear biparental, que representa cerca del 60% del total, evidenciando que la mayoría proviene de hogares tradicionales con ambos padres. En menor proporción, se destacan la familia nuclear monoparental (13%) y la familia extensa (11.7%), lo que indica una presencia relevante de estructuras familiares diversas.\nLas demás tipologías presentan participaciones considerablemente menores, cada una por debajo del 5%, lo que refleja que configuraciones como familias reconstruidas, homoparentales o adoptivas tienen poca incidencia en la población estudiantil.\n\n\n\n\n\n\n\n\n\n\n5.3.2 ¿Con cuántas personas convive?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nMás de la mitad de los estudiantes (56%) vive en hogares de 3 a 4 integrantes, seguido por un 20.9% que convive con 1 o 2 personas. Los hogares más numerosos (5 a 6 miembros o más) son menos frecuentes, aunque aún representan un grupo importante de estudiantes. Esto indica una tendencia a familias de tamaño medio.\n\n\n\n\n\n\n\n\n\n\n5.3.3 En cuántos cuartos duermen las personas de su hogar\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa mayoría reside en viviendas de 3 cuartos (44.7%), seguidos por los que habitan en casas con 2 cuartos (26.1%). Un 15.8% vive en hogares con 4 habitaciones, mientras que un porcentaje reducido se distribuye entre 1 cuarto o más de 5 cuartos.\n\n\n\n\n\n\n\n\n\n\n5.3.4 ¿Tiene hijos?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa gran mayoría de los estudiantes no tiene hijos (97%), mientras que un pequeño grupo equivalente al 3% sí es padre o madre.\n\n\n\n\n\n\n\n\n\n\n5.3.5 ¿Cuántos hijos tiene?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa distribución del número de hijos evidencia que la gran mayoría de los estudiantes no tiene hijos (97.7%), lo que confirma que se trata principalmente de población joven en etapa inicial de formación universitaria.\nLa presencia de estudiantes con hijos es poca: apenas un 2.1% tiene un hijo y proporciones aún menores reportan dos o más. Este comportamiento sugiere bajas cargas familiares directas, lo que puede favorecer la dedicación académica, aunque existe un grupo reducido que podría requerir apoyos diferenciados para compatibilizar sus responsabilidades familiares con la vida universitaria.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Sección 2. Aspectos sociodemográficos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion2.html#diversidad-y-pertenencia-a-grupos-poblacionales",
+    "href": "Seccion2.html#diversidad-y-pertenencia-a-grupos-poblacionales",
+    "title": "5  Sección 2. Aspectos sociodemográficos",
+    "section": "5.4 Diversidad y Pertenencia a grupos poblacionales",
+    "text": "5.4 Diversidad y Pertenencia a grupos poblacionales\n\n5.4.1 Grupo poblacional\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEntre los estudiantes de nuevo ingreso, se observa que cerca de un tercio de ellos, específicamente el 27.3%, manifestó identificarse con algún grupo poblacional, mientras que la mayoría (72.6%) no lo hace.\n\n\n\n\n\n\n\n\n\n\n5.4.2 ¿A cuál de los siguientes grupos poblacionales considera usted que pertenece?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl análisis de los grupos poblacionales muestra una concentración clara en pocos grupos. Destaca en primer lugar la población víctima del conflicto (19.3%), seguida por los grupos étnicos (18%) y las culturas urbanas (13.8%), lo que indica que una proporción importante de estudiantes pertenece a contextos sociales con características culturales o históricas particulares.\nEn un segundo nivel aparecen la población desmovilizada (10.1%), la población campesina (9.5%) y la población desplazada o desvinculada del conflicto armado (8.3%), evidenciando la presencia de trayectorias marcadas por dinámicas territoriales y sociales complejas.\nLos demás grupos presentan participaciones menores, como LGBTIQ+ (3.7%), talentos excepcionales (2.5%), migrantes (1.8%), habitantes de frontera (1.5%), personas con discapacidad (0.9%) y población en pobreza (0.9%), lo que sugiere una menor representación relativa, aunque igualmente relevante para la atención institucional.\n\n\n\n\n\n\n\n\n\n\n5.4.3 ¿A cuál de los siguientes grupos étnicos pertenece?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa distribución de pertenencia a grupos étnicos muestra una concentración clara en dos grupos principales. Predominan los pueblos indígenas (51%), seguidos por las comunidades negras, afrocolombianas (43.5%), lo que evidencia que la gran mayoría de estudiantes que reportan pertenencia étnica se identifican con estos dos colectivos.\nEn menor proporción aparecen los mestizos (3.2%) y las poblaciones raizales (1.6%), con participaciones más bajas.\n\n\n\n\n\n\n\n\n\n\n5.4.4 Comunidad indígena a la que pertenece\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa distribución de pertenencia a comunidades indígenas muestra una concentración en pocos grupos específicos. Destaca principalmente la comunidad Wayúu, que registra la mayor participación (31.3%), seguida por la comunidad Kankuama (15.6%) y la comunidad Zenú (9.4%).\nEn un segundo nivel aparecen comunidades como San Martín de Amacayacu, Resguardo indígena provincial Barrancas La Guajira y Chimila, cada una con participaciones cercanas al 6.2%. Las demás comunidades presentan proporciones menores, alrededor del 3.1%, lo que evidencia una representación más dispersa pero significativa.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Sección 2. Aspectos sociodemográficos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion2.html#perfil-económico-y-académico-de-los-padres",
+    "href": "Seccion2.html#perfil-económico-y-académico-de-los-padres",
+    "title": "5  Sección 2. Aspectos sociodemográficos",
+    "section": "5.5 Perfil económico y Académico de los padres",
+    "text": "5.5 Perfil económico y Académico de los padres\n\n5.5.1 ¿Quién cubre sus gastos de matrícula?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn el plano económico, la financiación de la matrícula recae principalmente en el núcleo familiar. Aproximadamente el 45.7% de los estudiantes depende de sus padres, constituyéndose en la principal fuente de apoyo. Le siguen quienes financian sus estudios con el respaldo exclusivo del padre (alrededor del 20.8%) y de la madre (cerca del 14%).\nLas alternativas externas presentan una menor participación. La financiación mediante entidades financieras representa cerca del 7%, mientras que la financiación propia alcanza aproximadamente el 6.6%. Por su parte, los apoyos provenientes de otros familiares corresponden a cerca del 5.2%, y las becas tienen una incidencia marginal, cercana al 0.7%.\n\n\n\n\n\n\n\n\n\n\n5.5.2 ¿Cuál es la forma de pago del semestre en la Universidad?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa forma de pago del semestre evidencia una alta dependencia de recursos propios y familiares. El efectivo se posiciona como el principal mecanismo de financiación (45.7%), seguido por el crédito con alguna entidad financiera (31.5%), lo que indica una combinación entre pago directo y endeudamiento como estrategias predominantes.\nEn menor proporción, se encuentran alternativas como otros mecanismos de pago (11.4%) y el autofinanciamiento (6.4%), que reflejan esfuerzos individuales o fuentes complementarias. Por su parte, opciones institucionales como ICETEX (2.9%) y becas (1.2%) presentan una participación limitada.\n\n\n\n\n\n\n\n\n\n\n5.5.3 Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nAl analizar las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, se observa que la “calidad” se posiciona como el factor central en la decisión, destacándose con mayor relevancia frente a los demás términos. Este elemento está acompañado por palabras como “positivas” y “referencias”, lo que evidencia el peso de la percepción institucional y las recomendaciones en el proceso de elección.\nAsimismo, términos como “carrera”, “ingreso” y “solicitó” reflejan la relación con la oferta académica y el proceso de admisión, mientras que aparecen factores complementarios como “colegio”, “padres”, “visita” y “economía”, que dan cuenta de la influencia del entorno educativo, familiar y de las condiciones económicas.\n\n\n\n\n\n\n\n\n\n\n5.5.4 Después de cuánto tiempo, de haber terminado el colegio, ingreso a la Universidad (por favor responder en semestres)\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl tiempo de ingreso a la universidad evidencia una incorporación mayoritariamente inmediata al sistema educativo superior. El 62.4% de los estudiantes accede inmediatamente después de finalizar el colegio, lo que refleja una continuidad directa en su trayectoria académica.\nEn menor proporción, un 15.7% ingresa dos semestres después, mientras que un 12% lo hace entre 2 y 3 años después, indicando la existencia de pausas intermedias antes de iniciar la formación universitaria. Por su parte, un 6.9% tarda más de 4 años en ingresar, y solo un 3% lo hace tras un semestre de espera.\n\n\n\n\n\n\n\n\n\n\n5.5.5 ¿Usted es el primero en su familia inmediata en asistir a la universidad?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn el ámbito familiar, un 27.4% de los estudiantes reportó ser el primero en su núcleo inmediato en asistir a la universidad, un dato que refleja un avance en la apertura de oportunidades educativas. Sin embargo, la mayoría (72.6%) proviene de familias donde ya existía experiencia universitaria previa, lo que podría constituir una ventaja en términos de acompañamiento académico y cultural.\n\n\n\n\n\n\n\n\n\n\n5.5.6 ¿Cuál es el nivel educativo más alto alcanzado por su padre?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl nivel educativo del padre se concentra principalmente en niveles medios. Predomina la secundaria completa (22.8%) y la educación profesional completa (21.8%), lo que indica que una proporción importante de estudiantes proviene de hogares con formación académica consolidada.\nEn un segundo nivel se encuentran la educación técnica o tecnológica completa (11.4%) y categorías como no sabe (8.4%) y secundaria incompleta (8.2%), lo que evidencia cierta heterogeneidad en la formación.\nLos niveles más bajos, como primaria y educación incompleta, presentan participaciones menores, mientras que el posgrado (7.3%) tiene una presencia moderada.\n\n\n\n\n\n\n\n\n\n\n5.5.7 ¿Cuál es el nivel educativo más alto alcanzado por su madre?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl nivel educativo de la madre presenta una mayor concentración en niveles medios y altos. Predomina la educación profesional completa (26.7%), seguida de la secundaria completa (20.8%) y la educación técnica o tecnológica completa (17.1%), lo que indica que una proporción significativa de estudiantes proviene de hogares con formación académica consolidada.\nEn niveles intermedios se ubican el posgrado (8.5%) y la secundaria incompleta (5.9%), mientras que los niveles básicos como primaria completa e incompleta tienen una participación menor. Asimismo, categorías como no sabe y niveles técnicos incompletos reflejan cierta heterogeneidad en la formación.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Sección 2. Aspectos sociodemográficos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion2.html#servicios-de-internet-y-espacios-en-el-hogar",
+    "href": "Seccion2.html#servicios-de-internet-y-espacios-en-el-hogar",
+    "title": "5  Sección 2. Aspectos sociodemográficos",
+    "section": "5.6 Servicios de Internet y Espacios en el hogar",
+    "text": "5.6 Servicios de Internet y Espacios en el hogar\n\n5.6.1 ¿Cuenta su hogar con servicio de conexión a internet?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn cuanto al acceso a recursos digitales, la gran mayoría de los hogares (93,6%) dispone de conexión a internet, lo que asegura un nivel adecuado de conectividad. Sin embargo, un 6,4% aún no cuenta con este servicio, lo que puede representar limitaciones para el acceso a plataformas virtuales de aprendizaje\n\n\n\n\n\n\n\n\n\n\n5.6.2 ¿Cuenta su hogar con servicio de suscripción de televisión (cable, parabólica o satelital)?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 79,9% de los hogares tiene acceso a televisión por suscripción, frente a un 20,1% que carece de este servicio, evidenciando una diferencia en el acceso a medios de información y entretenimiento.\n\n\n\n\n\n\n\n\n\n\n5.6.3 ¿Cuántos libros físicos o electrónicos hay en su hogar excluyendo periódicos, revistas,directorios telefónicos y libros del colegio?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nRespecto a la disponibilidad de material de lectura en los hogares, se observa que más de la mitad de los estudiantes (51,1%) cuenta con entre 0 y 10 libros. Otro 26,8% dispone de entre 11 y 25 libros, mientras que un 14.2% tiene entre 26 y 100, y apenas un 3.85% supera los 100 libros.\n\n\n\n\n\n\n\n\n\n\n5.6.4 ¿Cuánto tiempo al día dedica a leer por entretenimiento?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLos hábitos de lectura por entretenimiento evidencian una baja dedicación de tiempo entre los estudiantes. El 35.6% manifiesta no leer por entretenimiento, proporción que se iguala con quienes leen 30 minutos o menos (35.6%), lo que indica que cerca de 7 de cada 10 estudiantes presentan una vinculación limitada con la lectura recreativa.\nEn niveles intermedios, un 18.1% dedica entre 30 y 60 minutos, mientras que solo un 7.2% lee entre 1 y 2 horas, y un 3.5% supera las 2 horas.\n\n\n\n\n\n\n\n\n\n\n5.6.5 ¿Cuánto tiempo al día dedica a navegar en internet? Excluya actividades académica\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl tiempo de uso de internet muestra una alta intensidad de conexión entre los estudiantes. La mayor proporción se concentra en quienes navegan entre 1 y 3 horas (35.5%), seguida por un 27.1% que supera las 3 horas, lo que indica que más del 60% dedica al menos una hora diaria a internet.\nEn niveles intermedios, un 23.3% navega entre 30 y 60 minutos, mientras que un 12.1% lo hace por 30 minutos o menos. Por su parte, el porcentaje de estudiantes que no utiliza internet es marginal (1.9%).\n\n\n\n\n\n\n\n\n\n\n5.6.6 ¿Dispone de un espacio privado para estudiar en casa?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 86% de los estudiantes reporta contar con un espacio privado para estudiar en casa, lo que constituye una ventaja importante en términos de concentración y desempeño académico. Sin embargo, un 14% no dispone de este recurso, lo que puede generar desventajas frente a ruidos, falta de privacidad y ambientes menos propicios para el aprendizaje autónomo.\n\n\n\n\n\n\n\n\n\n\n5.6.7 ¿Cuánto tiempo le dedica semanalmente a su jornada de estudios en la Universidad?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl tiempo de estudio semanal se concentra principalmente en niveles moderados. El 32.1% de los estudiantes dedica entre 1 y 5 horas, seguido muy de cerca por un 31.8% que invierte entre 6 y 10 horas, lo que evidencia que la mayoría mantiene una dedicación académica intermedia fuera de clase.\nA medida que aumenta la intensidad del estudio, un 18.2% destina entre 11 y 15 horas, mientras que un 9.6% alcanza entre 16 y 20 horas. Finalmente, un 8.3% supera las 20 horas semanales, conformando el grupo con mayor nivel de dedicación.\n\n\n\n\n\n\n\n\n\n\n5.6.8 ¿Cuánto tiempo permanece en la Universidad?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa permanencia de los estudiantes en la universidad se concentra principalmente en el tiempo estrictamente académico. El 58.1% permanece únicamente durante las clases, lo que evidencia una dinámica centrada en asistir y retirarse sin prolongar su estancia en el campus.\nPor su parte, un 21% asiste solo en la mañana, mientras que un 17.2% permanece todo el día, lo que sugiere un mayor aprovechamiento de espacios institucionales o actividades complementarias. En contraste, el grupo más reducido corresponde a quienes asisten solo en la tarde (3.7%).",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Sección 2. Aspectos sociodemográficos</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html",
+    "href": "Seccion3.html",
+    "title": "6  Sección 3. Salud integral",
+    "section": "",
+    "text": "6.1 Sesión. Salud integral",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#alimentación",
+    "href": "Seccion3.html#alimentación",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.2 Alimentación",
+    "text": "6.2 Alimentación\n\n6.2.1 ¿Cuántas veces come al día?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa mayoría de los estudiantes (78.1%) reportan consumir alimentos entre 3 y 5 veces al día. Un 17.7% lo hace solo entre 1 y 2 veces al día, y un porcentaje reducido (4.1%) lo hace más de 5 veces al día. Esto indica una frecuencia alimentaria adecuada en la mayoría, aunque hay un grupo que podría estar en riesgo nutricional por baja frecuencia.\n\n\n\n\n\n\n\n\n\n\n6.2.2 ¿Cuántas veces por semana consumen los siguientes alimentos en su hogar? (carne, pollo, pavo, res, cordero, cerdo, conejo, pescado o huevos, etc)\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl consumo de proteína animal entre los estudiantes muestra que el 30.4% la consume todos los días, seguido muy de cerca por un 30% que lo hace casi todos los días, lo que indica que alrededor de 6 de cada 10 estudiantes mantienen un consumo constante.\nEn un nivel intermedio, el 22.3% la consume entre 3 y 5 veces por semana, mientras que un 15.9% presenta una frecuencia más baja (1 a 2 veces por semana); mientras que solo un 1.4% manifiesta no consumirla o hacerlo rara vez.\n\n\n\n\n\n\n\n\n\n\n6.2.3 ¿Cuántas veces por semana consumen los siguientes alimentos en su hogar? Cereales (avena, granola), frutos secos (almendras, maní) o legumbres (fríjoles, garbanzos, lentejas)\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 33.9% de los estudiantes consume proteína vegetal entre 1 a 2 veces por semana. Un 23.7% lo hace entre 3 y 5 veces por semana, mientras que el 21% casi todos los días y el 12% todos los días. Un 9.7% reporta no consumirla o hacerlo rara vez. Aunque hay consumo frecuente en una parte del grupo, destaca la necesidad de promover una mayor ingesta regular de proteína vegetal.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#actividad-laboral-de-los-padres-y-trabajo-del-estudiante",
+    "href": "Seccion3.html#actividad-laboral-de-los-padres-y-trabajo-del-estudiante",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.3 Actividad laboral de los padres y trabajo del estudiante",
+    "text": "6.3 Actividad laboral de los padres y trabajo del estudiante\n\n6.3.1 Señale aquella labor que sea más similar al trabajo que realizó su padre durante la mayor parte del último año.\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa ocupación del padre presenta una distribución diversa, aunque con predominio de algunas categorías específicas. La más frecuente corresponde al trabajo profesional (por ejemplo, médico, abogado o ingeniero) con aproximadamente 17%. Le siguen quienes son dueños de un negocio mediano con empleados, con cerca de 10%, y quienes tienen un negocio pequeño o desempeñan oficios como tendero o papelería, también alrededor de 10%.\nEntre las demás categorías se observan proporciones importantes de estudiantes que no saben la ocupación del padre (9%) o para quienes no aplica (8%). También se destacan los operarios de máquinas o conductores (8%) y los pensionados (7%). Las ocupaciones restantes, como trabajo por cuenta propia, actividades agropecuarias, labores auxiliares, ventas, empleo público, trabajo en el hogar y oficios de limpieza o construcción, presentan participaciones menores, en general inferiores al 6%.\n\n\n\n\n\n\n\n\n\n\n6.3.2 Señale aquella labor que sea más similar al trabajo que realizó su madre durante la mayor parte del último año.\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa ocupación de la madre se concentra principalmente en el trabajo en el hogar o sin actividad laboral formal, con cerca del 30%. Le sigue el grupo de madres vinculadas a pequeños negocios o actividades comerciales (como tiendas o papelerías), con aproximadamente 20%.\nTambién se observan proporciones relevantes en quienes no saben o no aplica la información (alrededor del 15%), así como en ocupaciones como ventas o atención al público (cerca del 10%).\nEl resto de las actividades, como trabajos administrativos, cargos directivos, oficios de limpieza, construcción o labores agropecuarias, presentan participaciones menores, generalmente por debajo del 8%.\n\n\n\n\n\n\n\n\n\n\n6.3.3 ¿Cuáles de los siguientes bienes hay en su hogar?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEn esta nube de palabras destacan términos como “horno”, “nevera”, “lavadora”, “máquina”, “ropa”, y “gas”, lo cual indica que estos elementos son comunes en los hogares de los encuestados. También se identifican bienes de valor como “automóvil”, “moto”, y artículos de entretenimiento como “consola”, “xbox”, “nintendo” y “playstation”, aunque con menor frecuencia. Esto sugiere una diversidad en la disponibilidad de bienes, desde necesidades básicas hasta elementos de ocio.\n\n\n\n\n\n\n\n\n\n\n6.3.4 ¿Cuántas horas remuneradas trabajó usted la semana pasada?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 43.8% de los estudiantes no realiza trabajo remunerado, mientras que el 30.8% respondió “no aplica”. Un porcentaje menor (10%) trabaja menos de 10 horas y el el 6.5% más de 30 horas semanales. Esto indica que la mayoría no realiza actividades laborales, lo cual puede estar relacionado con dedicación exclusiva a estudios o falta de oportunidades laborales.\n\n\n\n\n\n\n\n\n\n\n6.3.5 ¿Usted recibe algún tipo de remuneración por trabajar?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 73.4% de los estudiantes no recibe remuneración laboral, mientras que el 24.9% reporta recibir pago en efectivo. Las formas menos frecuentes corresponden a la remuneración en efectivo y especie (0.9%) y solo en especie (0.8%).\n\n\n\n\n\n\n\n\n\n\n6.3.6 Con respecto al año pasado, la situación económica de su hogar es:\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 59.8% de los estudiantes considera que su situación económica no ha cambiado respecto al año anterior. Un 36.4% percibe una mejoría, y solo el 3.7% considera que ha empeorado. Esto indica estabilidad económica en la mayoría de los hogares y un panorama positivo general.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#sustanacias-psicoactivas",
+    "href": "Seccion3.html#sustanacias-psicoactivas",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.4 Sustanacias psicoactivas",
+    "text": "6.4 Sustanacias psicoactivas\n\n6.4.1 ¿Consume algún tipo de sustancia psicoactiva?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 99.8% de los estudiantes reporta no haber consumido sustancias psicoactivas, lo cual es un hallazgo positivo en términos de salud pública. Solo un 0.2% reconoce consumo, lo cual representa una proporción marginal dentro de la muestra.\n\n\n\n\n\n\n\n\n\n\n6.4.2 ¿Cuál fue la edad de inicio de consumo de sustancias psicoactivas?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nDe los estudiantes (n=2) que reportan consumo de sustancias psicoactivas el 50% iniciaron entre los 14 y 16 años, mientras que el otro 50% comenzó entre los 17 y 19 años. Estos datos indican que el inicio del consumo suele darse en la adolescencia media, lo cual es un periodo de mayor vulnerabilidad y riesgo conductual.\n\n\n\n\n\n\n\n\n\n\n6.4.3 ¿Qué tipo de sustancia psicoactiva consume?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEntre los estudiantes que consumen sustancias psicoactivas, el 100% reporta el uso de cannabis.\n\n\n\n\n\n\n\n\n\n\n6.4.4 ¿Ha recibido orientación o ayuda profesional o especializada para superar la situación del consumo de sustancias psicoactivas y mitigar los riesgos y daños asociados al mismo?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLos estudiantes que consumen sustancias psicoactivas refieren que han recibido orientación o ayuda profesional para superar la situación del consumo.\n\n\n\n\n\n\n\n\n\n\n6.4.5 Tipo de ayuda recibido para superar el consumo de sustancias psicoactivas\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl tipo de ayuda recibida para superar el consumo de sustancias psicoactivas muestra que el 50% de los estudiantes no ha recibido ningún tipo de apoyo. Entre quienes sí han accedido a algún tipo de atención, el 25% reporta acompañamiento psicológico y terapéutico, mientras que otro 25% ha recibido apoyo combinado de psicología y psiquiatría.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#consumo-de-cigarrillo-hábitos-y-motivaciones",
+    "href": "Seccion3.html#consumo-de-cigarrillo-hábitos-y-motivaciones",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.5 Consumo de Cigarrillo: Hábitos y Motivaciones",
+    "text": "6.5 Consumo de Cigarrillo: Hábitos y Motivaciones\n\n6.5.1 ¿Usted fuma cigarrillo?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 99.5% de los estudiantes indica que no fuma cigarrillo, y solo el 0.5% afirma que sí lo hace. Esto sugiere que el hábito de fumar cigarrillo es poco frecuente entre los estudiantes de recien ingreso.\n\n\n\n\n\n\n\n\n\n\n6.5.2 Edad en la que empezó a fumar\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEntre quienes fuman, las edades más comunes de inicio son los 18, 19 y 32 años. Esta información señala que el inicio del consumo de tabaco también ocurre típicamente en la adolescencia temprana o media.\n\n\n\n\n\n\n\n\n\n\n6.5.3 ¿Cuál fue el motivo por el cual probó por primera vez el cigarrillo?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl motivo más frecuente por el que los estudiantes probaron cigarrillos fue la curiosidad o iniciativa propia (66.7%) y por sentimientos de tristeza o aburrimiento lo hizo el 16.7%. Esto sugiere que el entorno emocional y la búsqueda de nuevas experiencias juegan un papel importante en el inicio del consumo.\n\n\n\n\n\n\n\n\n\n\n6.5.4 ¿Cuántos cigarrillos fuma diariamente?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nTodos los estudiantes que indicaron fumar consumen entre 1 y 2 cigarrillos al día. Este patrón sugiere un consumo de baja intensidad entre quienes fuman actualmente.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#hábitos-con-el-alcohol",
+    "href": "Seccion3.html#hábitos-con-el-alcohol",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.6 Hábitos con el alcohol",
+    "text": "6.6 Hábitos con el alcohol\n\n6.6.1 ¿Usted consume alcohol normalmente?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa mayoría de los estudiantes encuestados manifestó no consumir alcohol, representando el 94.8% del total. Solo el 5.2% reportó que sí lo hace. Esto indica que el consumo de alcohol es poco frecuente dentro de la muestra evaluada.\n\n\n\n\n\n\n\n\n\n\n6.6.2 Edad de inicio del consumo de alcohol por primera vez\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl inicio del consumo de alcohol se concentra principalmente en la adolescencia. La edad más frecuente es 17 años (24.5%), seguida por 18 años (21%) y 16 años (19.5%). En menor proporción aparecen los 15 años (13%) y 14 años (11.2%). Los demás casos corresponden a edades más dispersas, con participaciones inferiores al 3%.\n\n\n\n\n\n\n\n\n\n\n6.6.3 ¿Cuál fue el motivo por el cual probó por primera vez el alcohol?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 83.9% de los estudiantes que han probado alcohol indicaron que lo hicieron por curiosidad o iniciativa propia. Un 14.5% mencionó otras razones y solo un 1.6% lo hizo por imitación de conductas familiares. Esto sugiere que la decisión fue principalmente individual, más que influenciada por el entorno familiar.\n\n\n\n\n\n\n\n\n\n\n6.6.4 ¿Cuántas veces a la semana ingiere alcohol?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEntre quienes consumen alcohol, el 95.2% lo hace solo los fines de semana, mientras que el 3.2% lo hace entre dos y tres veces al día. El patrón de consumo es ocasional y concentrado en los fines de semana.\n\n\n\n\n\n\n\n\n\n\n6.6.5 Ocasiones en las cuales consume alcohol\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa nube de palabras evidencia que el consumo de alcohol se asocia principalmente con “amigos”, “reunión” y “social”, términos que aparecen con mayor tamaño y frecuencia. También se destacan expresiones como “familiar” y “actividad”, lo que indica que este comportamiento ocurre en contextos compartidos y de interacción grupal.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#vida-sexual",
+    "href": "Seccion3.html#vida-sexual",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.7 Vida sexual",
+    "text": "6.7 Vida sexual\n\n6.7.1 A qué edad inició su vida sexual\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 45.5% de los estudiantes no ha iniciado su vida sexual, mientras que el 39.2% reporta haberla iniciado entre los 14 y 17 años. Por su parte, el 13.3% lo hizo entre los 18 y 21 años. Los casos de inicio antes de los 13 años (1.17%) y a partir de los 22 años (0.75%) son mínimos.\n\n\n\n\n\n\n\n\n\n\n6.7.2 ¿Ha utilizado alguna vez métodos anticonceptivos?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 77.7% de los estudiantes encuestados indicó utilizar métodos anticonceptivos, frente al 22.3% que no los usa. Esto sugiere un nivel alto de conciencia sobre la protección en las relaciones sexuales entre la población estudiantil.\n\n\n\n\n\n\n\n\n\n\n6.7.3 Metódos anticonpcetivos usados\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa nube de palabras muestra que el método anticonceptivo predominante es el preservativo, el cual destaca ampliamente sobre las demás opciones. En segundo nivel aparecen alternativas como las píldoras anticonceptivas orales, los inyectables y los implantes, lo que indica diversidad en el uso de métodos, aunque con menor frecuencia. También se mencionan métodos de emergencia, lo que sugiere su uso ocasional. En conjunto, la información evidencia una clara preferencia por el preservativo como principal mecanismo de protección.\n\n\n\n\n\n\n\n\n\n\n\n\n\n6.7.4 ¿De acuerdo con la definición de identidad de género, usted como se identifica?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa distribución de identidad de género muestra que el 45.8% de los estudiantes se identifica como mujer cisgénero y el 40.5% como hombre cisgénero, mientras que el 13.6% prefirió no responder.\n\n\n\n\n\n\n\n\n\n\n6.7.5 ¿Cuál es su orientación sexual?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nLa orientación sexual predominante es la heterosexual (92%), seguida por la bisexual (3.6%) y la homosexual (1.9%). Otras orientaciones como la pansexual (1%), asexual (0.5%) y otras (0.6%) presentan participaciones marginales.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#aspectos-religiosos",
+    "href": "Seccion3.html#aspectos-religiosos",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.8 Aspectos religiosos",
+    "text": "6.8 Aspectos religiosos\n\n6.8.1 ¿Con cuál religión o creencia religiosa se identifica actualmente?\n\n\n\n\n\n\nNote\n\n\n\nA nivel religioso es predominante la católica (≈60%), seguida por el grupo de cristianos no católicos (17.5%). En menor proporción se encuentran quienes prefieren no responder (6.4%) y quienes no tienen religión (5.8%). Las demás categorías presentan participaciones inferiores al 4%, lo que evidencia una clara concentración en tradiciones cristianas.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#estado-de-salud",
+    "href": "Seccion3.html#estado-de-salud",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.9 Estado de salud",
+    "text": "6.9 Estado de salud\n\n6.9.1 ¿Padece de alguna enfermedad diagnosticada que requiere tratamiento actualmente?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 6.6% de los estudiantes reportó tener alguna enfermedad diagnosticada, mientras que el restante indicó no tener enfermedades.\n\n\n\n\n\n\n\n\n\n\n6.9.2 Indique si toma medicamentos como tratamiento de la enfermedad diagnosticada\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 89% de los estudiantes no está tomando medicamentos, mientras que el 11% sí reporta consumo.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
+    "objectID": "Seccion3.html#discapacidad",
+    "href": "Seccion3.html#discapacidad",
+    "title": "6  Sección 3. Salud integral",
+    "section": "6.10 Discapacidad",
+    "text": "6.10 Discapacidad\n\n6.10.1 Tiene alguna discapacidad\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl 9.6% de los encuestados reportó tener algún tipo de discapacidad, mientras que el 90.4% indicó no tener ninguna. Este valor refleja la presencia de personas con discapacidad en el entorno universitario y puede orientar estrategias de inclusión y accesibilidad.\n\n\n\n\n\n\n\n\n\n\n6.10.2 ¿Qué tipo de discapacidad posee?\n\n\n\n\n\n\nDescripción para todos los campus\n\n\n\nEl tipo de discapacidad más reportado es la visual baja visión irreversible (47%), seguida por la visual ceguera (13%). También se registran la psicosocial (12.2%) y la física (11.3%). En menor proporción aparecen la auditiva (7%) y la intelectual (6.1%), mientras que otras condiciones presentan valores inferiores al 1%.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Sección 3. Salud integral</span>"
+    ]
+  },
+  {
     "objectID": "Seccion4.html",
     "href": "Seccion4.html",
     "title": "7  Secciones 4, 5 y 6: Fomento de la cultura, deportes y esparcimiento, y desarrollo humano",

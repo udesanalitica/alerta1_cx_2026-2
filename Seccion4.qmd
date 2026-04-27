@@ -641,35 +641,62 @@ ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
 Los estudiantes mencionan **otras actividades** de tiempo libre, en las que predominan acciones como **leer**, **trabajar**, **ir al gimnasio** y **practicar deportes**, especialmente **fútbol**. También se destacan actividades de **descanso**, como dormir, así como opciones relacionadas con el **estudio**, la **escucha de música** y expresiones **artísticas** como dibujar. Esta diversidad evidencia que el tiempo libre se distribuye entre el desarrollo personal, la actividad física, las responsabilidades académicas o laborales y espacios de recreación y bienestar.
 :::
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
-# Librerías
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=12, fig.height=7}
 library(ggplot2)
 library(ggwordcloud)
 library(dplyr)
 library(stringr)
+library(stringi)
 
-# Paso 1: Separar las respuestas múltiples por ';' y limpiar
-# Suponiendo que la variable se llama datos$amb_prac
-palabras <- str_split(na.omit(datos$otras_lib), ";") |> unlist()
-palabras <- str_trim(palabras) # quitar espacios extra
-palabras <- tolower(palabras)  # pasar a minúsculas
+# 1. Tomar variable y limpiar
+palabras <- datos$otras_lib |>
+  na.omit() |>
+  as.character() |>
+  str_to_lower() |>
+  str_squish()
 
-# Paso 2: Limpiar texto (remover palabras vacías y triviales)
-palabras <- palabras[palabras != ""]
-palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc", "no")]
+# 2. Separar respuestas múltiples por coma, punto y coma o slash
+palabras <- str_split(palabras, pattern = ",|;|/") |> 
+  unlist()
 
-# Paso 3: Crear tabla de frecuencia
+# 3. Limpiar texto
+palabras <- palabras |>
+  str_trim() |>
+  str_squish()
+
+# 4. Eliminar valores no válidos
+palabras <- palabras[
+  !palabras %in% c(
+    "", "0", "n/a", "na", "no aplica", "no", 
+    "ninguno", "ninguna", "otros", "otras", 
+    "otro", "otra", "etc", "no fue otra"
+  )
+]
+
+# 5. Eliminar frases vacías o demasiado cortas
+palabras <- palabras[nchar(palabras) > 2]
+
+# 6. Tabla de frecuencia
 df_palabras <- data.frame(word = palabras) |> 
   count(word, name = "freq") |> 
-  arrange(desc(freq))
+  arrange(desc(freq)) |> 
+  slice_head(n = 50)
 
-# Paso 4: Visualización con ggwordcloud
+# 7. Nube de palabras
 set.seed(123)
-ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = sample(colors(), 50)) +
-  theme_minimal()
+
+ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(
+    grid_size = 1,
+    rm_outside = TRUE
+  ) +
+  scale_size_area(max_size = 70) +
+  scale_color_manual(values = sample(colors(), nrow(df_palabras))) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
 ```
 
 ### ¿Le gusta la lectura?
@@ -880,38 +907,76 @@ fig
 El **fútbol** se posiciona como la disciplina más practicada entre los estudiantes, seguido por otras actividades deportivas como el **baloncesto**, la **gimnasia**, la **natación** y el **ciclismo**. Asimismo, se identifican menciones a prácticas menos convencionales o específicas, agrupadas en la categoría de **otras**, así como actividades de carácter cognitivo como el **ajedrez**. Este panorama evidencia una diversidad de intereses deportivos que integra tanto el ejercicio físico como el desarrollo mental.
 :::
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
-# Librerías
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=12, fig.height=7}
+
 library(ggplot2)
 library(ggwordcloud)
 library(dplyr)
 library(stringr)
 library(RColorBrewer)
 
-# Paso 1: Separar las respuestas múltiples por ';' y limpiar
-# Suponiendo que la variable se llama datos$tipo_dep
-palabras <- str_split(na.omit(datos$tipo_dep), ";") |> unlist()
-palabras <- str_trim(palabras) # quitar espacios extra
-palabras <- tolower(palabras)  # pasar a minúsculas
+# ===============================
+# 1. Extraer y limpiar texto
+# ===============================
+palabras <- datos$tipo_dep |>
+  na.omit() |>
+  as.character() |>
+  str_to_lower() |>
+  str_squish()
 
-# Paso 2: Limpiar texto (remover palabras vacías y triviales)
-palabras <- palabras[palabras != ""]
-palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+# Separar múltiples respuestas
+palabras <- str_split(palabras, pattern = ",|;|/") |> 
+  unlist()
 
-# Paso 3: Crear tabla de frecuencia
-df_palabras <- data.frame(word = palabras) |> 
-  count(word, name = "freq") |> 
-  arrange(desc(freq))
+# Limpiar espacios
+palabras <- palabras |>
+  str_trim() |>
+  str_squish()
 
-# Paso 4: Visualización con ggwordcloud
-# Usar una paleta predefinida de RColorBrewer
-paleta <- brewer.pal(8, "Dark2")  # Otras: "Set1", "Paired", "Pastel1"
+# ===============================
+# 2. Filtrar ruido (CLAVE)
+# ===============================
+palabras <- palabras[
+  !palabras %in% c(
+    "", "0", "n/a", "na", "no aplica", "no",
+    "ninguno", "ninguna", "otros", "otras",
+    "otro", "otra", "etc"
+  )
+]
+
+# Eliminar textos muy cortos
+palabras <- palabras[nchar(palabras) > 2]
+
+# ===============================
+# 3. Tabla de frecuencia
+# ===============================
+df_palabras <- data.frame(word = palabras) |>
+  count(word, name = "freq") |>
+  arrange(desc(freq)) |>
+  slice_head(n = 40)
+
+# ===============================
+# 4. Paleta controlada (estable)
+# ===============================
+paleta <- brewer.pal(8, "Dark2")
+
+# ===============================
+# 5. Nube de palabras
+# ===============================
+set.seed(123)
 
 ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
+  geom_text_wordcloud_area(
+    grid_size = 1,
+    rm_outside = TRUE
+  ) +
+  scale_size_area(max_size = 65) +   # 🔴 antes 120 → distorsiona en GitHub
   scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
 ```
 
 ### ¿Qué otros deportes practica?
@@ -920,35 +985,64 @@ ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
 Más allá de las disciplinas más comunes, los estudiantes también reportan la práctica de una amplia variedad de deportes. Entre los más mencionados se destacan el **voleibol** y el **patinaje**, seguidos por actividades como **tenis**, **boxeo**, **taekwondo**, **crossfit** y **gimnasio**. Asimismo, aparecen referencias a artes marciales (como **judo**, **jiu jitsu**, **MMA**), deportes de fuerza y acondicionamiento, y otras prácticas especializadas. Esta diversidad refleja una comunidad estudiantil con intereses deportivos variados, que combina actividades recreativas, de alto rendimiento y de entrenamiento integral.
 :::
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
-# Librerías
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=12, fig.height=7}
 library(ggplot2)
 library(ggwordcloud)
 library(dplyr)
 library(stringr)
+library(RColorBrewer)
 
-# Paso 1: Separar las respuestas múltiples por ';' y limpiar
-# Suponiendo que la variable se llama datos$otros_dep
-palabras <- str_split(na.omit(datos$otros_dep), ";") |> unlist()
-palabras <- str_trim(palabras) # quitar espacios extra
-palabras <- tolower(palabras)  # pasar a minúsculas
+# 1. Extraer y limpiar texto
+palabras <- datos$otros_dep |>
+  na.omit() |>
+  as.character() |>
+  str_to_lower() |>
+  str_squish()
 
-# Paso 2: Limpiar texto (remover palabras vacías y triviales)
-palabras <- palabras[palabras != ""]
-palabras <- palabras[!palabras %in% c("otros", "ninguno", "ninguna", "etc")]
+# 2. Separar respuestas múltiples
+palabras <- str_split(palabras, pattern = ",|;|/") |>
+  unlist()
 
-# Paso 3: Crear tabla de frecuencia
-df_palabras <- data.frame(word = palabras) |> 
-  count(word, name = "freq") |> 
-  arrange(desc(freq))
+palabras <- palabras |>
+  str_trim() |>
+  str_squish()
 
-# Paso 4: Visualización con ggwordcloud
+# 3. Eliminar valores no útiles
+palabras <- palabras[
+  !palabras %in% c(
+    "", "0", "n/a", "na", "no aplica", "no",
+    "ninguno", "ninguna", "otros", "otras",
+    "otro", "otra", "etc"
+  )
+]
+
+# 4. Eliminar palabras muy cortas
+palabras <- palabras[nchar(palabras) > 2]
+
+# 5. Crear tabla de frecuencia
+df_palabras <- data.frame(word = palabras) |>
+  count(word, name = "freq") |>
+  arrange(desc(freq)) |>
+  slice_head(n = 40)
+
+# 6. Paleta estable
+paleta <- brewer.pal(8, "Dark2")
+
+# 7. Nube de palabras
 set.seed(123)
-ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = sample(colors(), 50)) +
-  theme_minimal()
+
+ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
+  geom_text_wordcloud_area(
+    grid_size = 1,
+    rm_outside = TRUE
+  ) +
+  scale_size_area(max_size = 65) +
+  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
 ```
 
 ## Sesión. Desarrollo humano

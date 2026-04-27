@@ -1,6 +1,6 @@
 # Conclusiones {.unnumbered}
 
-::: {#refs}
+
 Las evidencias derivadas del proceso de caracterización de estudiantes de recién ingreso en la Universidad de Santander confirman que el desempeño académico no puede entenderse de manera aislada, sino como el resultado de una interacción compleja entre factores académicos, socioeconómicos, familiares y de bienestar integral. En este sentido, variables como las condiciones de origen, los hábitos de estudio, la salud mental y las dinámicas de apoyo social configuran un perfil estudiantil diverso que incide directamente en la permanencia y el éxito académico.
 
 Este enfoque integral se articula con el propósito del Observatorio de Analítica Académica, orientado a generar información confiable sobre el estudiante desde su ingreso hasta su inserción laboral, con el fin de fortalecer la toma de decisiones institucional y promover la mejora continua . Así, la caracterización no se limita a un ejercicio descriptivo, sino que se convierte en un insumo estratégico para la identificación de riesgos y la intervención oportuna.
@@ -10,4 +10,4 @@ En particular, los resultados evidencian que el rendimiento académico en los pr
 [Da clic aquí a la Alerta Temprana 2: Factores que afectan el rendimiento acádemico de primer semestre](https://public.tableau.com/views/Alerta2-Rendimientoacadmico/Dashboard1?:language=es-ES&:embed=y&:sid=&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&publish=yes&:origin=viz_share_link){.btn .btn-primary target="_blank"}
 
 De esta manera, la caracterización se consolida como un componente fundamental dentro de un sistema institucional de analítica académica, que no solo permite comprender al estudiante, sino anticipar comportamientos, focalizar intervenciones y fortalecer estrategias de acompañamiento académico y psicosocial. En consecuencia, estos resultados sustentan la transición hacia un modelo de gestión basado en datos, orientado a la prevención del riesgo académico y al fortalecimiento del éxito estudiantil mediante el uso de herramientas predictivas y sistemas de alerta temprana.
-:::
+
