@@ -72,7 +72,7 @@ metodologia_data <- data.frame(
     "Estudiantes de recién ingreso a la Universidad de Santander en el periodo 2026-1",
     "Bucaramanga, Cúcuta, Valledupar",
     "Bucaramanga (647),<br>\nCúcuta (392), <br>\nValledupar (283)",
-    "Formulario multicampus (111 preguntas)",
+    "Formulario multicampus (120 preguntas)",
     "Sección 1. Información personal y académica <br> \nSección 2. Aspectos sociodemográficos <br>\nSección 3. Salud integral <br> \nSección 4. Fomento de la cultura <br> \nSección 5. Deportes y esparcimiento <br>\nSección 6. Desarrollo humano",
     "01 de febrero al 31 de marzo de 2026",
     "Bucaramanga [84% (546/647)],<br>\nCúcuta [88% (345/392)], <br>\nValledupar [98% (278/283)]",

@@ -1332,7 +1332,7 @@ fig
 ## Lenguas extranjeras
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En relación con el dominio de lenguas extranjeras, el **18%** de los estudiantes manifiesta contar con esta competencia (**Sí**). Por su parte, en cuanto a la certificación formal en lengua extranjera, el **8.8%** de los estudiantes indica disponer de este respaldo (**Sí**).
+En relación con el dominio de lenguas extranjeras, el **18% de los estudiantes manifiesta contar con esta competencia**, mientras que una amplia mayoría **(82%) indica no poseerla**. En cuanto a la certificación formal, los resultados muestran que el **48,8% de los estudiantes reporta contar con algún tipo de certificación**, frente a un **51,2% que no dispone de este respaldo**. Este hallazgo sugiere que, aunque el dominio declarado de una lengua extranjera es limitado, entre quienes la poseen existe una proporción significativa que ha accedido a procesos de certificación.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -1340,77 +1340,68 @@ library(dplyr)
 library(plotly)
 library(tidyr)
 library(stringr)
+library(stringi)
 
-# =========================
 # 1. Limpiar datos
-# =========================
 datos_clean <- datos %>%
   mutate(
     leng_ext = str_trim(as.character(leng_ext)),
     cert_leng = str_trim(as.character(cert_leng)),
 
+    leng_ext_limpia = str_to_lower(stri_trans_general(leng_ext, "Latin-ASCII")),
+    cert_leng_limpia = str_to_lower(stri_trans_general(cert_leng, "Latin-ASCII")),
+
     leng_ext = case_when(
-      leng_ext %in% c("Si", "Sí") ~ "Sí",
-      leng_ext == "No" ~ "No",
+      leng_ext_limpia %in% c("si", "sí") ~ "Sí",
+      leng_ext_limpia %in% c("no", "0", "") ~ "No",
       TRUE ~ NA_character_
     ),
 
     cert_leng = case_when(
-      cert_leng %in% c("Si", "Sí") ~ "Sí",
-      cert_leng %in% c("No", "0", "") ~ "No",
+      cert_leng_limpia %in% c("si", "sí") ~ "Sí",
+      cert_leng_limpia %in% c("no", "0", "") ~ "No",
       TRUE ~ NA_character_
     )
-  ) %>%
-  filter(!is.na(leng_ext), !is.na(cert_leng))
+  )
 
-# =========================
 # 2. Pasar a formato largo
-# =========================
 datos_long <- datos_clean %>%
+  select(leng_ext, cert_leng) %>%
   pivot_longer(
     cols = c(leng_ext, cert_leng),
     names_to = "variable",
     values_to = "respuesta"
   ) %>%
+  filter(!is.na(respuesta)) %>%
   mutate(
-    variable = recode(variable,
+    variable = recode(
+      variable,
       leng_ext = "Habla lengua extranjera",
       cert_leng = "Tiene certificación"
-    )
+    ),
+    respuesta = factor(respuesta, levels = c("Sí", "No"))
   )
 
-# =========================
-# 3. Calcular porcentajes correctamente
-# =========================
+# 3. Calcular porcentajes
 tabla <- datos_long %>%
   count(variable, respuesta) %>%
   group_by(variable) %>%
-  mutate(
-    pct = n / sum(n) * 100
-  ) %>%
+  mutate(pct = n / sum(n) * 100) %>%
   ungroup()
 
-# =========================
-# 4. Orden correcto
-# =========================
-tabla$respuesta <- factor(tabla$respuesta, levels = c("Sí", "No"))
-
-# =========================
-# 5. Gráfico final (CORRECTO)
-# =========================
+# 4. Gráfico
 plot_ly(
   data = tabla,
   x = ~variable,
   y = ~pct,
   color = ~respuesta,
-  colors = c("#FFD1DC", "#A2CFFE"),
+  colors = c("Sí" = "#FFD1DC", "No" = "#A2CFFE"),
   type = "bar",
-  text = ~paste0(round(pct,1), "%"),
+  text = ~paste0(round(pct, 1), "%"),
   textposition = "outside",
   customdata = ~n,
   hovertemplate = paste(
     "<b>Variable:</b> %{x}<br>",
-    "<b>Respuesta:</b> %{color}<br>",
     "<b>Porcentaje:</b> %{y:.1f}%<br>",
     "<b>Frecuencia:</b> %{customdata}<extra></extra>"
   )
@@ -1418,10 +1409,10 @@ plot_ly(
   layout(
     barmode = "group",
     title = "Lengua extranjera y certificación",
-    yaxis = list(title = "Porcentaje (%)"),
+    yaxis = list(title = "Porcentaje (%)", range = c(0, 105)),
     xaxis = list(title = ""),
     legend = list(title = list(text = "Respuesta")),
-    margin = list(t = 60)
+    margin = list(t = 70, b = 70)
   )
 ```
 
