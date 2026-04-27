@@ -15,7 +15,7 @@ apoyado en herramientas de ciencia de datos, georreferenciación y visualizació
 ## Estructura del proyecto
 
 ```
-Alerta1_Cx_2025-2/
+Alerta1_Cx_2026-1/
 ├── _quarto.yml              # Configuración general del sitio Quarto
 ├── index.qmd                # Página principal del sitio
 ├── Conclusiones.qmd         # Sección de conclusiones del análisis
@@ -81,7 +81,7 @@ Por favor cite el dataset y el reporte como se muestra
   note         = {Vicerrectoria de Enseñanza},
   url          = {https://analiticaudes.github.io/alerta1_cx_2026-1/},
   type         = {Informe técnico}
-  doi          = {https://doi.org/10.5281/zenodo.xxxxxxx}
+  doi          = {https://doi.org/10.5281/zenodo.19735820}
 }
 ```
 
@@ -109,9 +109,9 @@ Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
 Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
 
-Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/alerta1_cx_2026-a
+Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/alerta1_cx_2026-1
 
 ## doi
-https://doi.org/10.5281/zenodo.xxxxxxx
+https://doi.org/10.5281/zenodo.19735820
 
 ¡Gracias por su interés!
