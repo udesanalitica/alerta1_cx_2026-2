@@ -1,27 +1,27 @@
-+--------------------------------------------+--------------------------------------------------------------------------+
-| Directivas                                 | **Autores**                                                              |
-+============================================+==========================================================================+
-| **Rector General\                          | **Director de Planeación Institucional**[^index-1]\                      |
-| **José Patricio López Jaramillo            | [Miguel Oswaldo Pérez Pulido](https://orcid.org/0000-0003-2945-0526)\    |
-|                                            | \                                                                        |
-| **Rectora Campus Cúcuta\                   | **Coordinador de Analítica Académica**\                                  |
-| **Carmen Elisa Araque Pérez                | [Francisco Javier León](https://orcid.org/0000-0002-8904-5242)\          |
-|                                            | \                                                                        |
-| **Rector Campus Valledupar**\              | **Profesional en Investigación de Mercados**\                            |
-| Carlos Darío Morón Cuello                  | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270) |
-|                                            |                                                                          |
-| **Vicerrector de Enseñanza\                |                                                                          |
-| **José Asthul Rangel Chacón                |                                                                          |
-|                                            |                                                                          |
-| **Directora Administrativa y Financiera**\ |                                                                          |
-| Angélica María Calderón Plata              |                                                                          |
-|                                            |                                                                          |
-| **Directora de Desarrollo Estudiantil**\   |                                                                          |
-| Adriana Marcela Jácome Hortúa              |                                                                          |
-|                                            |                                                                          |
-| **Directora de Bienestar Institucional**\  |                                                                          |
-| Silvia Juliana Suescún Garcés              |                                                                          |
-+--------------------------------------------+--------------------------------------------------------------------------+
++---------------------------------------------+--------------------------------------------------------------------------+
+| Directivas                                  | **Autores**                                                              |
++=============================================+==========================================================================+
+| **Rector General\                           | **Director de Planeación Institucional**[^index-1]\                      |
+| **José Patricio López Jaramillo             | [Miguel Oswaldo Pérez Pulido](https://orcid.org/0000-0003-2945-0526)\    |
+|                                             | \                                                                        |
+| **Rectora Campus Cúcuta\                    | **Coordinador de Analítica Académica**\                                  |
+| **Carmen Elisa Araque Pérez                 | [Francisco Javier León](https://orcid.org/0000-0002-8904-5242)\          |
+|                                             | \                                                                        |
+| **Rector Campus Valledupar**\               | **Profesional en Investigación de Mercados**\                            |
+| Carlos Darío Morón Cuello                   | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270) |
+|                                             |                                                                          |
+| **Vicerrector de Enseñanza\                 |                                                                          |
+| **José Asthul Rangel Chacón                 |                                                                          |
+|                                             |                                                                          |
+| **Vicerrectora Administrativa y Financiera\ |                                                                          |
+| **Omaira Nelly Buitrago Bohórquez           |                                                                          |
+|                                             |                                                                          |
+| **Directora Administrativa y Financiera**\  |                                                                          |
+| Angélica María Calderón Plata               |                                                                          |
+|                                             |                                                                          |
+| **Directora de Bienestar Institucional**\   |                                                                          |
+| Silvia Juliana Suescún Garcés               |                                                                          |
++---------------------------------------------+--------------------------------------------------------------------------+
 
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [direccionplaneacion\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 

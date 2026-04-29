@@ -61,7 +61,7 @@ metodologia_data <- data.frame(
   Categoría = c(
     "Población objetivo",
     "Campus",
-    "Total de estuantes de recién ingreso",
+    "Total de estudiantes de recién ingreso",
     "Método de recolección de datos",
     "Aspectos evaluados",
     "Periodo de aplicación",
@@ -70,13 +70,18 @@ metodologia_data <- data.frame(
   ),
   Descripción = c(
     "Estudiantes de recién ingreso a la Universidad de Santander en el periodo 2026-1",
-    "Bucaramanga, Cúcuta, Valledupar",
-    "Bucaramanga (647),<br>\nCúcuta (392), <br>\nValledupar (283)",
+    "Bucaramanga, Cúcuta, Valledupar, Ext. Bogotá",
+    "Bucaramanga (647)<br>\nCúcuta (392)<br>\nValledupar (283)",
     "Formulario multicampus (120 preguntas)",
     "Sección 1. Información personal y académica <br> \nSección 2. Aspectos sociodemográficos <br>\nSección 3. Salud integral <br> \nSección 4. Fomento de la cultura <br> \nSección 5. Deportes y esparcimiento <br>\nSección 6. Desarrollo humano",
     "01 de febrero al 31 de marzo de 2026",
-    "Bucaramanga [84% (546/647)],<br>\nCúcuta [88% (345/392)], <br>\nValledupar [98% (278/283)]",
-    "Excel, RStudio, quarto, GitHub"
+    "Bucaramanga [84% (546/647)]<br>\nCúcuta [88% (345/392)] <br>\nValledupar [98% (278/283)]",
+    "Microsoft Forms: plataforma utilizada para la aplicación y recolección digital de la encuesta.<br>\ Excel (Microsoft 365): tabulación y validación inicial de datos.<br>\
+RStudio: procesamiento, análisis estadístico y automatización en R.<br>\
+Quarto: generación de informes reproducibles e interactivos.<br>\
+GitHub: control de versiones, colaboración y publicación web.<br>\
+Tableau: visualización interactiva de datos.<br>\
+IA generativa (Gemini 1.5): apoyo en análisis e interpretación de resultados. "
   ),
   stringsAsFactors = FALSE
 )

@@ -249,6 +249,8 @@ ggplot() +
   )
 ```
 
+[Da clic aquí al histórico del lugar de procedencia](https://public.tableau.com/shared/DDQ2TGSKD?:display_count=y&:origin=viz_share_link&:embed=y){.btn .btn-primary target="_blank"}
+
 ## Perfil Demográfico
 
 ### Edad
