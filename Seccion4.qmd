@@ -100,7 +100,7 @@ datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 :::
 
-## Sesión: Fomento de la cultura
+## Sección: Fomento de la cultura
 
 ### ¿Cuáles de las siguientes disciplinas artísticas le atrae?
 
@@ -458,7 +458,7 @@ ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
   theme_minimal()
 ```
 
-## Sesión. Deportes y Esparcimiento
+## Sección. Deportes y Esparcimiento
 
 ### ¿Realiza actividad física?
 
@@ -1045,7 +1045,7 @@ ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
   )
 ```
 
-## Sesión. Desarrollo humano
+## Sección. Desarrollo humano
 
 ### ¿Cuál es su estado de salud mental actualmente?
 
