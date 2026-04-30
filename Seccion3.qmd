@@ -99,7 +99,7 @@ datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
 :::
 
-## Sesión. Salud integral
+## Sección. Salud integral
 
 ## Alimentación
 

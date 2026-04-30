@@ -3,7 +3,7 @@ title: "Sección 2. Aspectos sociodemográficos"
 format: html
 ---
 
-## Sesión. Aspectos sociodemográficos
+## Sección. Aspectos sociodemográficos
 
 ## Movilidad
 
