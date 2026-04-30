@@ -6,7 +6,6 @@ book:
   title: "Alerta 1. Caracterización de estudiantes"
   site-url: https://udesanalitica.github.io/alerta1_cx_2026-1/
   repo-url: https://github.com/udesanalitica/alerta1_cx_2026-1
-  repo-actions: [edit, issue, source]
   reader-mode: true
   cover-image: images/cover.png
   cover-image-alt: "Portada del libro Alerta 1"
@@ -18,9 +17,6 @@ book:
       - icon: github
         href: https://github.com/udesanalitica/alerta1_cx_2026-1
         text: "Repositorio GitHub"
-      - icon: file-earmark-pdf
-        href: "Alerta1_2026-1.pdf"
-        text: "Descargar PDF"
 
   page-footer:
     left: |
@@ -28,10 +24,6 @@ book:
       Dirección de Planeación Institucional, Universidad de Santander.
     right: |
       Este libro fue construido con <a href="https://quarto.org/" target="_blank">Quarto</a>.
-    center: |
-      <a href="https://github.com/udesanalitica/alerta1_cx_2026-1" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
-      <a href="#" aria-label="Compartir" style="margin-left: 10px;"><i class="bi bi-share"></i></a>
-      <a href="javascript:window.print()" aria-label="Imprimir" style="margin-left: 10px;"><i class="bi bi-printer"></i></a>
 
   chapters:
     - index.qmd

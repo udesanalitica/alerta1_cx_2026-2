@@ -124,7 +124,7 @@ cols_existentes <- intersect(cols_factor, names(datos))
 datos[cols_existentes] <- lapply(datos[cols_existentes], as.factor)
 ```
 
-## Sesión. Información personal y académica
+## Sección. Información personal y académica
 
 ::: {.callout-warning title="Aclaración importante"}
 En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta.
