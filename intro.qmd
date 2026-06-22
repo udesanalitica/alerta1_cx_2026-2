@@ -42,7 +42,9 @@ Para este año, la Universidad de Santander ha integrado a su estrategia de dato
 Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.
 :::
 
-[Da clic aquí y conoce el Agente Analista Experto](https://gemini.google.com/gem/16XsuZxQcG5INwjAwhnZqbsAPBTgPOtWA?usp=sharing){.btn .btn-primary}
+[Da clic aquí y conoce el Agente Analista Experto](https://chatgpt.com/g/g-6a399519c89c81919d7ab14eb5f03d8e-analista-experto-en-caracterizacion-udes-2026-1){.btn .btn-primary}
+
+Es importante tener una cuanta en Chat gpt. 
 
 ## Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11
 
