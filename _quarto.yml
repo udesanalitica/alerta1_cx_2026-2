@@ -4,8 +4,8 @@ project:
 
 book:
   title: "Alerta 1. Caracterización de estudiantes"
-  site-url: https://udesanalitica.github.io/alerta1_cx_2026-1/
-  repo-url: https://github.com/udesanalitica/alerta1_cx_2026-1
+  site-url: https://udesanalitica.github.io/alerta1_cx_2026-2/
+  repo-url: https://github.com/udesanalitica/alerta1_cx_2026-2
   reader-mode: true
   cover-image: images/cover.png
   cover-image-alt: "Portada del libro Alerta 1"
@@ -15,7 +15,7 @@ book:
     search: true
     tools:
       - icon: github
-        href: https://github.com/udesanalitica/alerta1_cx_2026-1
+        href: https://github.com/udesanalitica/alerta1_cx_2026-2
         text: "Repositorio GitHub"
 
   page-footer:
@@ -40,8 +40,10 @@ csl: apa.csl
 
 format:
   html:
-    theme: cosmo
+    theme: flatly
+    highlight: pygments
     toc: true
+    toc_float: true
     toc-depth: 3
     number-sections: true
     fontsize: 1em
@@ -50,6 +52,7 @@ format:
     reference-location: document
     cite-method: citeproc
     include-in-header: header.html
+    include-after-body: footer.html
     page-layout: article
 
 crossref:

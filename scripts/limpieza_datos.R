@@ -1,5 +1,5 @@
 # =========================================================
-# PIPELINE DE LIMPIEZA BASE CARACTERIZACIÓN 2026-1
+# PIPELINE DE LIMPIEZA BASE CARACTERIZACIÓN 2026-2
 # =========================================================
 
 library(readxl)
@@ -8,10 +8,11 @@ library(stringr)
 library(janitor)
 library(stringi)
 library(forcats)
+library(tidyr)
 library(writexl)
 
 # 1. Cargar base
-datos_raw <- read_excel("data/data20261.xlsx")
+datos_raw <- read_excel("data/data20262.xlsx")
 
 # 2. Limpiar nombres de variables
 datos <- datos_raw %>%
@@ -80,15 +81,27 @@ datos <- datos %>%
   ))
 
 # 7. Normalizar campus
+source("scripts/utilidades.R", encoding = "UTF-8")
+datos <- datos %>%
+  mutate(campus = normalizar_campus(campus))
+
+# 7a. Normalizar país de origen (ver scripts/utilidades.R)
+datos <- datos %>%
+  mutate(pais = normalizar_pais(pais))
+
+# 7b. Definir quién respondió según la conciliación auditada de la encuesta.
+# participa_encuesta identifica las respuestas vinculadas al estudiante correcto.
 datos <- datos %>%
   mutate(
-    campus = case_when(
-      str_detect(str_to_lower(campus), "bucaramanga") ~ "Bucaramanga",
-      str_detect(str_to_lower(campus), "cucuta|cúcuta") ~ "Cucuta",
-      str_detect(str_to_lower(campus), "valledupar") ~ "Valledupar",
-      TRUE ~ campus
+    respondio = if_else(
+      str_to_lower(str_squish(as.character(participa_encuesta))) %in% c("si", "sí"),
+      "Sí", "No"
     )
   )
+
+# Base completa (para tasas de respuesta) y base de trabajo (solo quienes respondieron)
+datos_total <- datos
+datos <- datos %>% filter(respondio == "Sí")
 
 # 8. Recodificar certificación de lengua
 datos <- datos %>%
@@ -175,7 +188,7 @@ variables_alta_cardinalidad <- resumen_categorias %>%
   filter(n_categorias > 20)
 
 # 14. Guardar base limpia
-write_xlsx(datos, "data/data20261_limpia.xlsx")
+write_xlsx(datos, "data/data20262_limpia.xlsx")
 
 # 15. Guardar diagnóstico de categorías
 write_xlsx(

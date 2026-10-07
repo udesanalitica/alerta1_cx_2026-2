@@ -40,7 +40,7 @@ invisible(lapply(paquetes, instalar_si_falta))
 # ===============================
 # 3. Cargar datos limpios (pipeline)
 # ===============================
-if (!exists("datos")) {
+if (!exists("datos_total")) {
   source("scripts/limpieza_datos.R")
 }
 
@@ -57,6 +57,34 @@ if (!exists("datos")) {
 ## Ficha técnica
 library(kableExtra)
 
+# Conteos por campus
+resumen_campus <- datos_total %>%
+  mutate(campus_ficha = campus) %>%
+  group_by(campus_ficha) %>%
+  summarise(n = n(), resp = sum(respondio == "Sí"), .groups = "drop")
+
+# Controles de consistencia entre la ficha y la base analítica.
+stopifnot(
+  sum(resumen_campus$n) == nrow(datos_total),
+  sum(resumen_campus$resp) == nrow(datos),
+  !any(is.na(datos_total$campus)),
+  !any(is.na(datos_total$programa)),
+  !any(is.na(datos_total$prog_abrev))
+)
+
+linea_campus <- function(c, nombre) {
+  r <- resumen_campus %>% filter(campus_ficha == c)
+  paste0(nombre, " (", r$n, ")")
+}
+linea_tasa <- function(c, nombre) {
+  r <- resumen_campus %>% filter(campus_ficha == c)
+  paste0(nombre, " [", round(r$resp / r$n * 100), "% (", r$resp, "/", r$n, ")]")
+}
+tasa_total <- paste0(
+  "<br>\nTotal [", round(sum(resumen_campus$resp) / sum(resumen_campus$n) * 100),
+  "% (", sum(resumen_campus$resp), "/", sum(resumen_campus$n), ")]"
+)
+
 metodologia_data <- data.frame(
   Categoría = c(
     "Población objetivo",
@@ -69,13 +97,25 @@ metodologia_data <- data.frame(
     "Herramienta de tabulación, análisis y divulgación"
   ),
   Descripción = c(
-    "Estudiantes de recién ingreso a la Universidad de Santander en el periodo 2026-1",
+    "Estudiantes de recién ingreso a la Universidad de Santander en el periodo 2026-2",
     "Bucaramanga, Cúcuta, Valledupar, Ext. Bogotá",
-    "Bucaramanga (647)<br>\nCúcuta (392)<br>\nValledupar (283)",
+    paste0(
+      linea_campus("Bucaramanga", "Bucaramanga"), "<br>\n",
+      linea_campus("Cucuta", "Cúcuta"), "<br>\n",
+      linea_campus("Valledupar", "Valledupar"), "<br>\n",
+      linea_campus("Bogotá", "Bogotá"), "<br>\n",
+      "Total (", nrow(datos_total), ")"
+    ),
     "Formulario multicampus (120 preguntas)",
     "Sección 1. Información personal y académica <br> \nSección 2. Aspectos sociodemográficos <br>\nSección 3. Salud integral <br> \nSección 4. Fomento de la cultura <br> \nSección 5. Deportes y esparcimiento <br>\nSección 6. Desarrollo humano",
-    "01 de febrero al 31 de marzo de 2026",
-    "Bucaramanga [84% (546/647)]<br>\nCúcuta [88% (345/392)] <br>\nValledupar [98% (278/283)]",
+    "01 de agosto al 15 de septiembre de 2026",
+    paste0(
+      linea_tasa("Bucaramanga", "Bucaramanga"), "<br>\n",
+      linea_tasa("Cucuta", "Cúcuta"), "<br>\n",
+      linea_tasa("Valledupar", "Valledupar"), "<br>\n",
+      linea_tasa("Bogotá", "Bogotá"),
+      tasa_total
+    ),
     "Microsoft Forms: plataforma utilizada para la aplicación y recolección digital de la encuesta.<br>\ Excel (Microsoft 365): tabulación y validación inicial de datos.<br>\
 RStudio: procesamiento, análisis estadístico y automatización en R.<br>\
 Quarto: generación de informes reproducibles e interactivos.<br>\
@@ -111,8 +151,6 @@ La encuesta se aplicó a estudiantes de primer semestre, y en el gráfico se mue
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
 ## Datos cargados desde pipeline en scripts/limpieza_datos.R
-dim(datos)
-head(datos)
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -178,220 +216,102 @@ plot_ly(
 ```
 
 ::: {.callout-note title="Abreviaturas de programas académicos"}
-**ADFI**: Administración Financiera, **ADNI**: Administración de Negocios Internacionales, **BACT**: Bacteriología y Laboratorio Clínico, **COEX**: Comercio Exterior, **CONT**: Contaduría Pública, **COVI**: Contaduría Pública - Virtual, **COSP**: Comunicación Social y Periodismo, **DERE**: Derecho, **DIGR**: Diseño Gráfico, **ENFE**: Enfermería, **FISI**: Fisioterapia, **FONO**: Fonoaudiología, **GEOL**: Geología, **ICCI**: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, **INAG**: Ingeniería Agroindustrial, **INAM**: Ingeniería Ambiental, **INBO**: Instrumentación Quirúrgica (Bogotá), **INCI**: Ingeniería Civil, **INEN**: Ingeniería en Energías, **ININ**: Ingeniería Industrial, **INQU**: Instrumentación Quirúrgica, **INSI**: Ingeniería de Sistemas, **INSO**: Ingeniería de Software, **ISVI**: Ingeniería de Software - Virtual, **LEIN**: Licenciatura en Educación Infantil, **MBIN**: Microbiología Industrial, **MEDI**: Medicina, **MEVE**: Medicina Veterinaria, **MYPB**: Mercadeo y Publicidad, **MVZC**: Medicina Veterinaria y Zootecnia, **PSIC**: Psicología, **TACV**: Técnico Laboral en Auxiliar de Clínica Veterinaria, **TAEP**: Técnico Laboral en Auxiliar de Educación para la Primera Infancia, **TCGF**: Tecnología en Comunicación Gráfica, **TGLE**: Tecnología en Gestión Logística del Comercio Exterior, **TSFV**: Técnico Laboral en Instalación y Mantenimiento de Sistemas Solares Fotovoltaicos, **TSOC**: Tecnología en Supervisión de Obras Civiles, **TVCD**: Técnico Laboral en Auxiliar de Ventas por Canales Digitales, **TEOC**: Terapia Ocupacional
+**ADFI**: Administración Financiera, **ADNI**: Administración de Negocios Internacionales, **BACT**: Bacteriología y Laboratorio Clínico, **COEX**: Comercio Exterior, **CONT**: Contaduría Pública, **COSP**: Comunicación Social y Periodismo, **DERE**: Derecho, **DIGR**: Diseño Gráfico, **ENFE**: Enfermería, **FISI**: Fisioterapia, **FONO**: Fonoaudiología, **GEOL**: Geología, **ICCI**: Ingeniería en Ciencias de la Computación e Inteligencia Artificial, **INAG**: Ingeniería Agroindustrial, **INAM**: Ingeniería Ambiental, **INBO**: Instrumentación Quirúrgica (Bogotá), **INCI**: Ingeniería Civil, **ININ**: Ingeniería Industrial, **INIV**: Ingeniería Industrial - Virtual, **INQU**: Instrumentación Quirúrgica, **INSI**: Ingeniería de Sistemas, **INSO**: Ingeniería de Software, **INSV**: Ingeniería de Software - Virtual, **LEIN**: Licenciatura en Educación Infantil, **MBIN**: Microbiología Industrial, **MEDI**: Medicina, **MEVE**: Medicina Veterinaria, **MVZC**: Medicina Veterinaria y Zootecnia, **MYPB**: Mercadeo y Publicidad, **PSIC**: Psicología, **TCGF**: Tecnología en Comunicación Gráfica, **TEOC**: Terapia Ocupacional, **TGLC**: Tecnología en Gestión Logística del Comercio Exterior, **TLAJ**: Técnico Laboral en Auxiliar Judicial, **TLCS**: Técnico Laboral en Manejo de Herramientas para Codificación de Software, **TLCV**: Técnico Laboral por Competencias en Auxiliar de Clínica Veterinaria, **TLME**: Técnico Laboral en Mercaderista, **TLPI**: Técnico Laboral en Auxiliar de Educación para la Primera Infancia, **TLRD**: Técnico Laboral en Auxiliar de Servicios de Recreación y Deportes, **TLSF**: Técnico Laboral en Instalación y Mantenimiento de Sistemas Solares Fotovoltaicos, **TSOC**: Tecnología en Supervisión de Obras Civiles
 :::
 
-## Tasa de respuesta Bucarcamanga
+## Tasa de respuesta por campus
 
-muestra la cantidad de estudiantes que la respondieron, distribuidos por programa académico y campus.
+La tasa de respuesta se calcula sobre el total de estudiantes de recién ingreso registrados en la base. A partir de este punto, los análisis del libro se realizan únicamente con quienes respondieron la encuesta.
+
+Las tablas incluyen todos los programas con estudiantes matriculados en cada campus, incluso aquellos que registran cero respuestas.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(kableExtra)
 library(dplyr)
 
-# Datos corregidos Bucaramanga (incluye Bogotá)
-tabla_bucaramanga <- data.frame(
-  Programa = c(
-    "Administración de negocios internacionales",
-    "Administración financiera",
-    "Bacteriología y laboratorio clínico",
-    "Comunicación social y periodismo",
-    "Contaduría pública",
-    "Contaduría pública - virtual",
-    "Derecho",
-    "Enfermería",
-    "Fisioterapia",
-    "Fonoaudiología",
-    "Geología",
-    "Ingeniería agroindustrial",
-    "Ingeniería ambiental",
-    "Ingeniería civil",
-    "Ingeniería de software",
-    "Ingeniería de software - virtual",
-    "Ingeniería en ciencias de la computación e inteligencia artificial",
-    "Ingeniería en energías",
-    "Ingeniería industrial",
-    "Instrumentación quirúrgica",
-    "Instrumentación quirúrgica - Bogotá",
-    "Licenciatura en educación infantil",
-    "Medicina",
-    "Medicina veterinaria",
-    "Mercadeo y publicidad",
-    "Microbiología industrial",
-    "Psicología",
-    "Técnico laboral en auxiliar de educación para la primera infancia",
-    "Técnico laboral en auxiliar de ventas por canales digitales",
-    "Técnico laboral en instalación y mantenimiento de sistemas solares fotovoltaicos",
-    "Técnico laboral por competencias en auxiliar de clínica veterinaria",
-    "Tecnología en comunicación gráfica",
-    "Tecnología en gestión logística del comercio exterior",
-    "Tecnología supervisión de obras civiles",
-    "Terapia ocupacional"
-  ),
-  Respuesta = c(
-    12, 3, 21, 4, 17, 0, 9, 17, 31, 30, 7, 12, 2, 15, 63, 15, 11, 3, 11, 42, 26,
-    9, 42, 39, 23, 10, 16, 8, 4, 3, 18, 27, 9, 4, 9
-  ),
-  Matriculados = c(
-    17, 9, 23, 11, 18, 1, 15, 17, 42, 32, 7, 12, 2, 15, 64, 16, 12, 6, 13, 44, 26,
-    9, 65, 45, 28, 10, 16, 8, 6, 4, 20, 33, 9, 7, 11
-  ),
-  stringsAsFactors = FALSE
-)
+tabla_respuesta <- function(campus_sel, titulo) {
+  tabla <- datos_total %>%
+    filter(campus %in% campus_sel) %>%
+    transmute(
+      prog_abrev = str_squish(as.character(prog_abrev)),
+      programa = str_squish(as.character(programa)),
+      respondio
+    ) %>%
+    group_by(prog_abrev, programa) %>%
+    summarise(
+      Respuesta = sum(respondio == "Sí"),
+      Matriculados = n(),
+      .groups = "drop"
+    ) %>%
+    arrange(programa, prog_abrev) %>%
+    mutate(Porcentaje = round(Respuesta / Matriculados * 100, 0))
 
-# Calcular porcentaje correctamente
-tabla_bucaramanga <- tabla_bucaramanga %>%
-  mutate(Porcentaje = round((Respuesta / Matriculados) * 100, 0))
+  total <- tabla %>%
+    summarise(
+      prog_abrev = "",
+      programa = "Total",
+      Respuesta = sum(Respuesta),
+      Matriculados = sum(Matriculados)
+    ) %>%
+    mutate(Porcentaje = round(Respuesta / Matriculados * 100, 0))
 
-# Fila total
-total <- tabla_bucaramanga %>%
-  summarise(
-    Programa = "Total",
-    Respuesta = sum(Respuesta),
-    Matriculados = sum(Matriculados)
-  ) %>%
-  mutate(Porcentaje = round((Respuesta / Matriculados) * 100, 0))
+  tabla <- bind_rows(tabla, total)
 
-tabla_bucaramanga <- bind_rows(tabla_bucaramanga, total)
+  resumen_esperado <- resumen_campus %>%
+    filter(campus_ficha %in% campus_sel) %>%
+    summarise(
+      Respuesta = sum(resp),
+      Matriculados = sum(n)
+    )
 
-# Tabla formateada
-kable(tabla_bucaramanga,
-      format = "html",
-      caption = "<span style='font-size:18px'>Participación por Programa Académico - Campus Bucaramanga</span>",
-      col.names = c("Programa Académico", "Respuesta encuesta", "Matriculados primer semestre", "% de respuesta"),
-      align = c("l", "c", "c", "c"),
-      escape = FALSE) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-    full_width = FALSE,
-    position = "center",
-    font_size = 14,
-    html_font = "Arial, sans-serif"
-  ) %>%
-  row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
-  column_spec(1, width = "40%", bold = TRUE, background = "#f8fafc") %>%
-  column_spec(2:4, width = "20%", extra_css = "text-align: center;") %>%
-  row_spec(1:nrow(tabla_bucaramanga), extra_css = "height: 40px;") %>%
-  row_spec(nrow(tabla_bucaramanga), bold = TRUE, background = "#e6f3ff") %>%
-  scroll_box(width = "100%", height = "600px")
+  stopifnot(
+    tail(tabla$Respuesta, 1) == resumen_esperado$Respuesta,
+    tail(tabla$Matriculados, 1) == resumen_esperado$Matriculados
+  )
 
+  kable(tabla,
+        format = "html",
+        caption = paste0("<span style='font-size:18px'>Participación por Programa Académico - Campus ", titulo, "</span>"),
+        col.names = c("Código", "Programa Académico", "Respuesta encuesta", "Matriculados primer semestre", "% de respuesta"),
+        align = c("c", "l", "c", "c", "c"),
+        escape = FALSE) %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center",
+      font_size = 14,
+      html_font = "Arial, sans-serif"
+    ) %>%
+    row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
+    column_spec(1, width = "10%", bold = TRUE, background = "#f8fafc") %>%
+    column_spec(2, width = "40%", bold = TRUE, background = "#f8fafc") %>%
+    column_spec(3:5, width = "16%", extra_css = "text-align: center;") %>%
+    row_spec(1:nrow(tabla), extra_css = "height: 40px;") %>%
+    row_spec(nrow(tabla), bold = TRUE, background = "#e6f3ff") %>%
+    scroll_box(width = "100%", height = "600px")
+}
 ```
 
-## Tasa de respuesta Cúcuta
+### Bucaramanga
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(kableExtra)
-library(dplyr)
-
-# Datos para campus Cúcuta
-tabla_cucuta <- data.frame(
-  Programa = c(
-    "Administración financiera", 
-    "Bacteriología y laboratorio clínico", 
-    "Comercio exterior",
-    "Derecho", 
-    "Diseño gráfico", 
-    "Enfermería", 
-    "Fisioterapia",
-    "Ingeniería de sistemas", 
-    "Ingeniería industrial", 
-    "Medicina",
-    "Mercadeo y publicidad", 
-    "Psicología", 
-    "Terapia ocupacional", 
-    "Total"
-  ),
-  Respuesta = c(24, 24, 14, 14, 8, 34, 36, 21, 10, 39, 30, 11, 18, 283),
-  Matriculados = c(24, 24, 15, 15, 10, 34, 36, 20, 10, 39, 30, 12, 18, 287),
-  Porcentaje = c(100, 100, 93, 93, 80, 100, 100, 105, 100, 100, 100, 92, 100, 99)
-)
-
-# Crear tabla con formato profesional
-kable(tabla_cucuta,
-      format = "html",
-      caption = "<span style='font-size:18px'>Participación por Programa Académico - Campus Cúcuta</span>",
-      col.names = c("Programa Académico", "Respuesta", "Matriculados", "% Respuesta"),
-      align = c("l", "c", "c", "c"),
-      escape = FALSE) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-    full_width = FALSE,
-    position = "center",
-    font_size = 14,
-    html_font = "Arial, sans-serif"
-  ) %>%
-  row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
-  column_spec(1, width = "40%", bold = TRUE, background = "#f8fafc") %>%
-  column_spec(2:4, width = "20%", background = "white") %>%
-  row_spec(1:nrow(tabla_cucuta), extra_css = "height: 40px;") %>%
-  row_spec(nrow(tabla_cucuta), bold = TRUE, background = "#e6f3ff") %>%
-  column_spec(2:4, extra_css = "text-align: center;") %>%
-  scroll_box(width = "100%", height = "500px")
+tabla_respuesta("Bucaramanga", "Bucaramanga")
 ```
 
-## Tasa de respuesta Valledupar
+### Cúcuta
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(kableExtra)
-library(dplyr)
+tabla_respuesta("Cucuta", "Cúcuta")
+```
 
-# Datos corregidos Campus Valledupar
-tabla_valledupar <- data.frame(
-  Programa = c(
-    "Administración financiera",
-    "Bacteriología y laboratorio clínico",
-    "Comunicación social y periodismo",
-    "Derecho",
-    "Diseño gráfico",
-    "Enfermería",
-    "Fisioterapia",
-    "Ingeniería industrial",
-    "Medicina",
-    "Medicina veterinaria y zootecnia",
-    "Psicología"
-  ),
-  Respuesta = c(
-    23, 26, 5, 38, 13, 8, 35, 21, 30, 55, 24
-  ),
-  Matriculados = c(
-    24, 26, 6, 40, 13, 9, 35, 21, 30, 55, 24
-  ),
-  stringsAsFactors = FALSE
-)
+### Valledupar
 
-# Calcular porcentaje
-tabla_valledupar <- tabla_valledupar %>%
-  mutate(Porcentaje = round((Respuesta / Matriculados) * 100, 0))
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+tabla_respuesta("Valledupar", "Valledupar")
+```
 
-# Fila total
-total <- tabla_valledupar %>%
-  summarise(
-    Programa = "Total",
-    Respuesta = sum(Respuesta),
-    Matriculados = sum(Matriculados)
-  ) %>%
-  mutate(Porcentaje = round((Respuesta / Matriculados) * 100, 0))
+### Bogotá
 
-tabla_valledupar <- bind_rows(tabla_valledupar, total)
-
-# Tabla formateada
-kable(tabla_valledupar,
-      format = "html",
-      caption = "<span style='font-size:18px'>Participación por Programa Académico - Campus Valledupar</span>",
-      col.names = c("Programa Académico", "Respuesta encuesta", "Matriculados primer semestre", "% de respuesta"),
-      align = c("l", "c", "c", "c"),
-      escape = FALSE) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-    full_width = FALSE,
-    position = "center",
-    font_size = 14,
-    html_font = "Arial, sans-serif"
-  ) %>%
-  row_spec(0, bold = TRUE, background = "#4f46e5", color = "white") %>%
-  column_spec(1, width = "40%", bold = TRUE, background = "#f8fafc") %>%
-  column_spec(2:4, width = "20%", extra_css = "text-align: center;") %>%
-  row_spec(1:nrow(tabla_valledupar), extra_css = "height: 40px;") %>%
-  row_spec(nrow(tabla_valledupar), bold = TRUE, background = "#e6f3ff") %>%
-  scroll_box(width = "100%", height = "500px")
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+tabla_respuesta("Bogotá", "Bogotá")
 ```

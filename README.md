@@ -1,21 +1,21 @@
-# Sistema de Alerta Temprana -  alerta1_cx_2026-1
+# Sistema de Alerta Temprana -  alerta1_cx_2026-2
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Repo size](https://img.shields.io/github/repo-size/AnaliticaUDES/alerta1_cx_2026-1)
-![Last commit](https://img.shields.io/github/last-commit/AnaliticaUDES/alerta1_cx_2026-1)
+![Repo size](https://img.shields.io/github/repo-size/AnaliticaUDES/alerta1_cx_2026-2)
+![Last commit](https://img.shields.io/github/last-commit/AnaliticaUDES/alerta1_cx_2026-2)
 ![FAIR Data](https://img.shields.io/badge/FAIR-Data-blue)
 
 
 ## Descripción
 
-Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2026-1 de estudiantes de la Universidad de Santander (UDES). 
+Este repsositorio contiene el sitio web generado con Quarto para la caracterización  de la cohorte 2026-2 de estudiantes de la Universidad de Santander (UDES).
 Su objetivo es brindar una herramienta visual e interactiva para el análisis territorial de origen de los estudiantes, 
 apoyado en herramientas de ciencia de datos, georreferenciación y visualización avanzada.
 
 ## Estructura del proyecto
 
 ```
-Alerta1_Cx_2026-1/
+Alerta1_Cx_2026-2/
 ├── _quarto.yml              # Configuración general del sitio Quarto
 ├── index.qmd                # Página principal del sitio
 ├── Conclusiones.qmd         # Sección de conclusiones del análisis
@@ -51,7 +51,7 @@ install.packages(c(
 
 ## Navegación del sitio
 
-El sitio se encuentra publicado en: https://analiticaudes.github.io/alerta1_cx_2026-1/
+El sitio se encuentra publicado en: https://analiticaudes.github.io/alerta1_cx_2026-2/
 
 Secciones principales:
 ```
@@ -75,11 +75,11 @@ Por favor cite el dataset y el reporte como se muestra
 ```bibtex
 @techreport{PerezPulido2026,
   author       = {Pérez, M., León, F., y Pinto, L.},
-  title        = {Documento de Planeación Institucional No 4. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-1.},
+  title        = {Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2.},
   institution  = {Universidad de Santander (UDES)},
   year         = {2026},
   note         = {Vicerrectoria de Enseñanza},
-  url          = {https://analiticaudes.github.io/alerta1_cx_2026-1/},
+  url          = {https://analiticaudes.github.io/alerta1_cx_2026-2/},
   type         = {Informe técnico}
   doi          = {https://doi.org/10.5281/zenodo.19735820}
 }
@@ -109,7 +109,7 @@ Este proyecto es liderado por la dirección de Analítica Académica de la UDES.
 
 Puedes: Contactar a través del correo institucional: analitica.academica@udes.edu.co
 
-Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/alerta1_cx_2026-1
+Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/alerta1_cx_2026-2
 
 ## doi
 https://doi.org/10.5281/zenodo.19735820

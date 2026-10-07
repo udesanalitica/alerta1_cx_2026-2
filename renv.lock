@@ -61,7 +61,7 @@
     },
     "Hmisc": {
       "Package": "Hmisc",
-      "Version": "5.2-5",
+      "Version": "5.3-0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -85,7 +85,7 @@
         "rpart",
         "viridisLite"
       ],
-      "Hash": "883b941aee155e7d7d6cdf35b17080d1"
+      "Hash": "f3fdfee5b4f9cd35a8da2f89942efe8b"
     },
     "KernSmooth": {
       "Package": "KernSmooth",
@@ -1281,6 +1281,28 @@
       ],
       "Hash": "0f9a864bbd7ce0232ad05cb76249cc1a"
     },
+    "janitor": {
+      "Package": "janitor",
+      "Version": "2.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "dplyr",
+        "hms",
+        "lifecycle",
+        "lubridate",
+        "magrittr",
+        "purrr",
+        "rlang",
+        "snakecase",
+        "stringi",
+        "stringr",
+        "tidyr",
+        "tidyselect"
+      ],
+      "Hash": "64f308bf1fbf5f856cdf4b4c7c0ce51b"
+    },
     "jpeg": {
       "Package": "jpeg",
       "Version": "0.1-11",
@@ -2321,6 +2343,18 @@
       ],
       "Hash": "a2a11fdcb7cf5afbf31aeb0e3828fbf6"
     },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "stringi",
+        "stringr"
+      ],
+      "Hash": "58767e44739b76965332e8a4fe3f91f1"
+    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.8.7",
@@ -2757,6 +2791,13 @@
         "htmlwidgets"
       ],
       "Hash": "10274bd096f5c2ad7471ea0eea0c1424"
+    },
+    "writexl": {
+      "Package": "writexl",
+      "Version": "2.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "727b9959308325b1f01ac97a5d8c83e1"
     },
     "xfun": {
       "Package": "xfun",

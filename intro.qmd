@@ -1,8 +1,8 @@
 # Introducción
 
-La caracterización de estudiantes de recién ingreso es un activo estratégico importante para la Universidad de Santander (UDES) en su misión de comprender y acompañar las trayectorias de vida de quienes inician su formación profesional. Para el periodo 2026-1, este ejercicio trasciende la descripción estadística tradicional, configurándose como un sistema de inteligencia institucional que permite anticipar necesidades y potenciar el éxito estudiantil desde el primer día.
+La caracterización de estudiantes de recién ingreso es un activo estratégico importante para la Universidad de Santander (UDES) en su misión de comprender y acompañar las trayectorias de vida de quienes inician su formación profesional. Para el periodo 2026-2, este ejercicio trasciende la descripción estadística tradicional, configurándose como un sistema de inteligencia institucional que permite anticipar necesidades y potenciar el éxito estudiantil desde el primer día.
 
-El modelo de caracterización 2026-1 se fundamenta en una estructura técnica de 120 preguntas mapeadas, organizadas en siete dimensiones críticas que ofrecen una visión 360° del estudiante:
+El modelo de caracterización 2026-2 se fundamenta en una estructura técnica de 120 preguntas mapeadas, organizadas en siete dimensiones críticas que ofrecen una visión 360° del estudiante:
 
 1.  **Caracterización Sociodemográfica: Identidad y origen.**
 
@@ -30,21 +30,21 @@ Siguiendo la vanguardia en el manejo de datos, este libro ha sido desarrollado b
 
 -   **Anonimización: Se mantiene la confidenciadad de la información de los participantes.**
 
-El presente informe no solo busca describir a la cohorte 2026-1, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.
+El presente informe no solo busca describir a la cohorte 2026-2, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.
 
 # Novedades
 
 ## Agente Analista Experto de la encuesta de caraterización
 
 ::: callout-tip
-Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-1.
+Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-2.
 
 Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.
 :::
 
-[Da clic aquí y conoce el Agente Analista Experto](https://chatgpt.com/g/g-6a399519c89c81919d7ab14eb5f03d8e-analista-experto-en-caracterizacion-udes-2026-1){.btn .btn-primary}
+[Da clic aquí y conoce el Agente Analista Experto](https://chatgpt.com/g/g-6a399519c89c81919d7ab14eb5f03d8e-analista-experto-en-caracterizacion-udes-2026-2){.btn .btn-primary}
 
-Es importante tener una cuanta en Chat gpt. 
+Es importante tener una cuanta en Chat gpt.
 
 ## Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11
 
