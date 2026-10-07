@@ -90,6 +90,66 @@
     ]
   },
   {
+    "objectID": "Informes.html",
+    "href": "Informes.html",
+    "title": "Informes descargables por campus",
+    "section": "",
+    "text": "Los informes presentan resultados agregados de la caracterización de estudiantes de nuevo ingreso 2026-2. Seleccione el campus que desea consultar. Los archivos no contienen nombres, documentos, códigos estudiantiles ni registros individuales.\nLos porcentajes de cada indicador se calculan con las respuestas válidas de la pregunta correspondiente. Por esta razón, el denominador puede variar entre indicadores.",
+    "crumbs": [
+      "Informes descargables por campus"
+    ]
+  },
+  {
+    "objectID": "Informes.html#consolidado-multicampus",
+    "href": "Informes.html#consolidado-multicampus",
+    "title": "Informes descargables por campus",
+    "section": "Consolidado multicampus",
+    "text": "Consolidado multicampus\nResultados conjuntos de Bucaramanga, Cúcuta, Valledupar y Bogotá.\nDescargar PDF",
+    "crumbs": [
+      "Informes descargables por campus"
+    ]
+  },
+  {
+    "objectID": "Informes.html#bucaramanga",
+    "href": "Informes.html#bucaramanga",
+    "title": "Informes descargables por campus",
+    "section": "Bucaramanga",
+    "text": "Bucaramanga\nResultados correspondientes al campus Bucaramanga.\nDescargar PDF",
+    "crumbs": [
+      "Informes descargables por campus"
+    ]
+  },
+  {
+    "objectID": "Informes.html#cúcuta",
+    "href": "Informes.html#cúcuta",
+    "title": "Informes descargables por campus",
+    "section": "Cúcuta",
+    "text": "Cúcuta\nResultados correspondientes al campus Cúcuta.\nDescargar PDF",
+    "crumbs": [
+      "Informes descargables por campus"
+    ]
+  },
+  {
+    "objectID": "Informes.html#valledupar",
+    "href": "Informes.html#valledupar",
+    "title": "Informes descargables por campus",
+    "section": "Valledupar",
+    "text": "Valledupar\nResultados correspondientes al campus Valledupar.\nDescargar PDF",
+    "crumbs": [
+      "Informes descargables por campus"
+    ]
+  },
+  {
+    "objectID": "Informes.html#bogotá",
+    "href": "Informes.html#bogotá",
+    "title": "Informes descargables por campus",
+    "section": "Bogotá",
+    "text": "Bogotá\nResultados correspondientes al campus Bogotá.\nDescargar PDF",
+    "crumbs": [
+      "Informes descargables por campus"
+    ]
+  },
+  {
     "objectID": "Seccion1.html",
     "href": "Seccion1.html",
     "title": "4  Sección 1. Información personal y Académica",

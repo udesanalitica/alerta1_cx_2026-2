@@ -203,3 +203,23 @@ img[src*="cover.png"] {
 .caption {
   font-size: 0.85rem; /* Tamaño más pequeño */
 }
+/* Informes descargables por campus */
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.download-card {
+  border: 1px solid #d9e2ec;
+  border-radius: 0.65rem;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(15 45 75 / 8%);
+}
+
+.download-card h2 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}

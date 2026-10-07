@@ -1,0 +1,234 @@
+---
+title: "Alerta 1. Caracterización de estudiantes 2026-2"
+subtitle: "Informe por campus"
+author: "Dirección de Planeación Institucional — Universidad de Santander"
+date: last-modified
+lang: es
+params:
+  campus: "Todos"
+format:
+  pdf:
+    pdf-engine: xelatex
+    toc: true
+    toc-title: "Contenido"
+    number-sections: true
+    geometry:
+      - top=20mm
+      - bottom=20mm
+      - left=20mm
+      - right=20mm
+    colorlinks: true
+    keep-tex: false
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+project_root <- normalizePath("..", winslash = "/")
+knitr::opts_knit$set(root.dir = project_root)
+setwd(project_root)
+source("scripts/limpieza_datos.R", encoding = "UTF-8")
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(knitr)
+
+campus_param <- params$campus
+campus_interno <- normalizar_campus(campus_param)
+campus_titulo <- if (campus_param == "Todos") {
+  "Consolidado multicampus"
+} else {
+  etiqueta_campus(campus_interno)
+}
+
+datos_informe <- if (campus_param == "Todos") {
+  datos
+} else {
+  datos %>% filter(campus == campus_interno)
+}
+
+total_informe <- if (campus_param == "Todos") {
+  datos_total
+} else {
+  datos_total %>% filter(campus == campus_interno)
+}
+
+n_matriculados <- nrow(total_informe)
+n_respuestas <- nrow(datos_informe)
+tasa_respuesta <- if (n_matriculados > 0) n_respuestas / n_matriculados else NA_real_
+
+color_actual <- if (campus_param == "Todos") color_campus("Todos") else color_campus(campus_interno)
+
+limpiar_categoria <- function(x) {
+  x <- str_squish(as.character(x))
+  x[x %in% c("", "NA", "N/A", "0")] <- NA_character_
+  x
+}
+
+grafico_categoria <- function(variable, titulo, max_categorias = 8) {
+  if (!variable %in% names(datos_informe)) return(invisible(NULL))
+
+  tabla <- datos_informe %>%
+    transmute(categoria = limpiar_categoria(.data[[variable]])) %>%
+    filter(!is.na(categoria)) %>%
+    count(categoria, sort = TRUE)
+
+  if (nrow(tabla) == 0) return(invisible(NULL))
+
+  if (nrow(tabla) > max_categorias) {
+    tabla <- bind_rows(
+      tabla %>% slice_head(n = max_categorias - 1),
+      tibble(categoria = "Otras respuestas", n = sum((tabla %>% slice_tail(n = nrow(tabla) - max_categorias + 1))$n))
+    )
+  }
+
+  tabla <- tabla %>%
+    mutate(
+      porcentaje = n / sum(n),
+      categoria = str_wrap(categoria, width = 38),
+      categoria = forcats::fct_reorder(categoria, porcentaje)
+    )
+
+  p <- ggplot(tabla, aes(x = porcentaje, y = categoria)) +
+    geom_col(fill = color_actual, width = 0.72) +
+    geom_text(
+      aes(label = paste0(scales::percent(porcentaje, accuracy = 0.1), "  (", n, ")")),
+      hjust = -0.05, size = 3.1
+    ) +
+    scale_x_continuous(
+      labels = scales::label_percent(accuracy = 1),
+      limits = c(0, max(tabla$porcentaje) * 1.28),
+      expand = expansion(mult = c(0, 0.02))
+    ) +
+    labs(title = titulo, subtitle = paste0("Respuestas válidas: ", sum(tabla$n)), x = NULL, y = NULL) +
+    theme_minimal(base_size = 10) +
+    theme(
+      plot.title = element_text(face = "bold", color = "#123B66"),
+      plot.subtitle = element_text(color = "#5B6573"),
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor = element_blank()
+    )
+
+  print(p)
+}
+
+grafico_edad <- function() {
+  tabla <- datos_informe %>%
+    mutate(
+      edad_num = suppressWarnings(as.numeric(edad)),
+      grupo = cut(
+        edad_num,
+        breaks = c(-Inf, 17, 20, 24, 29, Inf),
+        labels = c("17 años o menos", "18 a 20 años", "21 a 24 años", "25 a 29 años", "30 años o más")
+      )
+    ) %>%
+    filter(!is.na(grupo)) %>%
+    count(grupo) %>%
+    mutate(porcentaje = n / sum(n))
+
+  if (nrow(tabla) == 0) return(invisible(NULL))
+
+  print(
+    ggplot(tabla, aes(x = grupo, y = porcentaje)) +
+      geom_col(fill = color_actual, width = 0.72) +
+      geom_text(aes(label = paste0(scales::percent(porcentaje, accuracy = 0.1), "\n(", n, ")")), vjust = -0.25, size = 3) +
+      scale_y_continuous(labels = scales::label_percent(), limits = c(0, max(tabla$porcentaje) * 1.22)) +
+      labs(title = "Distribución por edad", subtitle = paste0("Respuestas válidas: ", sum(tabla$n)), x = NULL, y = NULL) +
+      theme_minimal(base_size = 10) +
+      theme(axis.text.x = element_text(angle = 18, hjust = 1), panel.grid.minor = element_blank(), plot.title = element_text(face = "bold", color = "#123B66"))
+  )
+}
+```
+
+# Alcance del informe
+
+Este documento presenta los resultados agregados de **`r campus_titulo`**. La población registrada es de **`r format(n_matriculados, big.mark = ".", decimal.mark = ",")` estudiantes** y se identificaron **`r format(n_respuestas, big.mark = ".", decimal.mark = ",")` respuestas válidas**, equivalentes a una tasa de respuesta de **`r scales::percent(tasa_respuesta, accuracy = 1)`**.
+
+Los porcentajes se calculan con las respuestas válidas de cada pregunta; por ello, los denominadores pueden variar. El informe no contiene nombres, documentos, códigos estudiantiles ni observaciones individuales.
+
+```{r}
+#| label: ficha-tecnica
+ficha <- tibble::tibble(
+  Indicador = c("Periodo", "Campus", "Estudiantes registrados", "Respuestas válidas", "Tasa de respuesta"),
+  Valor = c(
+    "2026-2", campus_titulo,
+    format(n_matriculados, big.mark = ".", decimal.mark = ","),
+    format(n_respuestas, big.mark = ".", decimal.mark = ","),
+    scales::percent(tasa_respuesta, accuracy = 1)
+  )
+)
+kable(ficha, booktabs = TRUE, align = c("l", "r"))
+```
+
+# Perfil personal y académico
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4.2
+grafico_edad()
+grafico_categoria("sexo_id", "Distribución por sexo")
+grafico_categoria("est_civ", "Estado civil")
+grafico_categoria("pais", "País de origen")
+grafico_categoria("jornada", "Jornada académica")
+```
+
+## Programas con mayor número de respuestas
+
+```{r}
+programas <- datos_informe %>%
+  mutate(programa_reporte = coalesce(limpiar_categoria(prog_abrev), limpiar_categoria(programa))) %>%
+  filter(!is.na(programa_reporte)) %>%
+  count(programa_reporte, sort = TRUE, name = "Respuestas") %>%
+  slice_head(n = 15) %>%
+  rename(Programa = programa_reporte)
+kable(programas, booktabs = TRUE, align = c("l", "r"))
+```
+
+# Condiciones familiares y socioeconómicas
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4.2
+grafico_categoria("transp_hab", "Medio de transporte habitual")
+grafico_categoria("tip_familia", "Tipología familiar de origen")
+grafico_categoria("convive", "Personas con quienes convive")
+grafico_categoria("estrato2", "Estrato socioeconómico reportado")
+grafico_categoria("internet", "Acceso a internet en el hogar")
+grafico_categoria("esp_estud", "Disponibilidad de espacio privado para estudiar")
+```
+
+# Salud integral y bienestar
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4.2
+grafico_categoria("comidas_dia", "Número de comidas al día")
+grafico_categoria("act_fisica", "Realización de actividad física")
+grafico_categoria("salud_ment", "Percepción del estado de salud mental")
+grafico_categoria("apoyo_fam", "Apoyo emocional de la familia")
+grafico_categoria("enf_diag", "Enfermedad diagnosticada que requiere tratamiento")
+grafico_categoria("discap", "Condición de discapacidad reportada")
+```
+
+# Hábitos, cultura y uso del tiempo libre
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4.2
+grafico_categoria("lectura", "Gusto por la lectura")
+grafico_categoria("deporte", "Práctica de algún deporte")
+grafico_categoria("hab_art", "Habilidad artística reportada")
+grafico_categoria("sust_psic", "Consumo de sustancias psicoactivas")
+grafico_categoria("fuma", "Consumo de cigarrillo")
+grafico_categoria("alcohol", "Consumo de bebidas alcohólicas")
+```
+
+# Nota metodológica
+
+Fuente: encuesta institucional de caracterización de estudiantes de nuevo ingreso, periodo 2026-2. La tasa de respuesta utiliza la base completa conciliada; los análisis temáticos consideran únicamente estudiantes con respuesta válida. Las categorías poco frecuentes se consolidan como “Otras respuestas” únicamente para mejorar la legibilidad de los gráficos.

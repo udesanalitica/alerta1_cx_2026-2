@@ -1,0 +1,47 @@
+# Informes descargables por campus {.unnumbered}
+
+Los informes presentan resultados agregados de la caracterización de estudiantes de nuevo ingreso 2026-2. Seleccione el campus que desea consultar. Los archivos no contienen nombres, documentos, códigos estudiantiles ni registros individuales.
+
+::: {.downloads-grid}
+::: {.download-card}
+## Consolidado multicampus
+
+Resultados conjuntos de Bucaramanga, Cúcuta, Valledupar y Bogotá.
+
+[Descargar PDF](informes/informe-caracterizacion-2026-2-consolidado.pdf){.btn .btn-primary download="informe-caracterizacion-2026-2-consolidado.pdf"}
+:::
+
+::: {.download-card}
+## Bucaramanga
+
+Resultados correspondientes al campus Bucaramanga.
+
+[Descargar PDF](informes/informe-caracterizacion-2026-2-bucaramanga.pdf){.btn .btn-primary download="informe-caracterizacion-2026-2-bucaramanga.pdf"}
+:::
+
+::: {.download-card}
+## Cúcuta
+
+Resultados correspondientes al campus Cúcuta.
+
+[Descargar PDF](informes/informe-caracterizacion-2026-2-cucuta.pdf){.btn .btn-primary download="informe-caracterizacion-2026-2-cucuta.pdf"}
+:::
+
+::: {.download-card}
+## Valledupar
+
+Resultados correspondientes al campus Valledupar.
+
+[Descargar PDF](informes/informe-caracterizacion-2026-2-valledupar.pdf){.btn .btn-primary download="informe-caracterizacion-2026-2-valledupar.pdf"}
+:::
+
+::: {.download-card}
+## Bogotá
+
+Resultados correspondientes al campus Bogotá.
+
+[Descargar PDF](informes/informe-caracterizacion-2026-2-bogota.pdf){.btn .btn-primary download="informe-caracterizacion-2026-2-bogota.pdf"}
+:::
+:::
+
+Los porcentajes de cada indicador se calculan con las respuestas válidas de la pregunta correspondiente. Por esta razón, el denominador puede variar entre indicadores.
