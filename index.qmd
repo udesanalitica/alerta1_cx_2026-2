@@ -41,7 +41,7 @@ Planeación Institucional expresa su agradecimiento a los directores de los prog
 :::
 
 ::: {.callout-warning title="Para citar"}
-Pérez, M., León, F., Gutiérrez, J. A., y Pinto, L. (2026). Documento de Planeación Institucional N.º 17. *Caracterización de estudiantes presenciales de pregrado de recién ingreso, periodo 2026-2*. Universidad de Santander. Dirección de Planeación Institucional. DOI pendiente de asignación.
+Pérez, M., León, F., Gutiérrez, J. A., y Pinto, L. (2026). Documento de Planeación Institucional N.º 17. *Caracterización de estudiantes presenciales de pregrado de recién ingreso, periodo 2026-2*. Universidad de Santander. Dirección de Planeación Institucional. https://doi.org/10.5281/zenodo.23241231
 :::
 
 ``` bibtex
@@ -51,7 +51,9 @@ Pérez, M., León, F., Gutiérrez, J. A., y Pinto, L. (2026). Documento de Plane
   institution  = {Universidad de Santander (UDES)},
   year         = {2026},
   note         = {Dirección de Planeación Institucional. Disponible en: \url{https://udesanalitica.github.io/alerta1_cx_2026-2/}},
-  type         = {Informe técnico}
+  type         = {Informe técnico},
+  doi          = {10.5281/zenodo.23241231},
+  url          = {https://doi.org/10.5281/zenodo.23241231}
 }
 ```
 

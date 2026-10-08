@@ -78,9 +78,10 @@ Por favor cite el dataset y el reporte como se muestra
   title        = {Documento de Planeación Institucional N.º 17. Caracterización de estudiantes presenciales de pregrado de recién ingreso, periodo 2026-2},
   institution  = {Universidad de Santander (UDES)},
   year         = {2026},
-  note         = {Dirección de Planeación Institucional. DOI pendiente de asignación},
+  note         = {Dirección de Planeación Institucional},
   url          = {https://udesanalitica.github.io/alerta1_cx_2026-2/},
-  type         = {Informe técnico}
+  type         = {Informe técnico},
+  doi          = {10.5281/zenodo.23241231}
 }
 ```
 
@@ -112,6 +113,6 @@ Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pul
 
 ## DOI
 
-Pendiente de asignación en Zenodo para la edición 2026-2.
+https://doi.org/10.5281/zenodo.23241231
 
 ¡Gracias por su interés!
