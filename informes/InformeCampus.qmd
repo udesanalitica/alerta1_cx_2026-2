@@ -1,7 +1,7 @@
 ---
 title: "Alerta 1. Caracterización de estudiantes 2026-2"
 subtitle: "Informe por campus"
-author: "Dirección de Planeación Institucional — Universidad de Santander"
+author: "Planeación Institucional — Universidad de Santander"
 date: last-modified
 lang: es
 params:
