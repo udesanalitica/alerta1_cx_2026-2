@@ -149,6 +149,10 @@ grafico_edad <- function() {
 }
 ```
 
+\begin{center}
+\href{https://doi.org/10.5281/zenodo.23241231}{DOI: 10.5281/zenodo.23241231}
+\end{center}
+
 # Alcance del informe
 
 Este documento presenta los resultados agregados de **`r campus_titulo`**. La población registrada es de **`r format(n_matriculados, big.mark = ".", decimal.mark = ",")` estudiantes** y se identificaron **`r format(n_respuestas, big.mark = ".", decimal.mark = ",")` respuestas válidas**, equivalentes a una tasa de respuesta de **`r scales::percent(tasa_respuesta, accuracy = 1)`**.
