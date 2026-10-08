@@ -26,12 +26,12 @@ book:
     - index.qmd
     - intro.qmd
     - Seccion0.qmd
-    - Informes.qmd
     - Seccion1.qmd
     - Seccion2.qmd
     - Seccion3.qmd
     - Seccion4.qmd
     - Conclusiones.qmd
+    - Informes.qmd
 
 bibliography: references.bib
 csl: apa.csl
