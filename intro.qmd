@@ -1,63 +1,57 @@
 # Introducción
 
-La caracterización de estudiantes de recién ingreso es un activo estratégico importante para la Universidad de Santander (UDES) en su misión de comprender y acompañar las trayectorias de vida de quienes inician su formación profesional. Para el periodo 2026-2, este ejercicio trasciende la descripción estadística tradicional, configurándose como un sistema de inteligencia institucional que permite anticipar necesidades y potenciar el éxito estudiantil desde el primer día.
+Conocer las condiciones con las que los estudiantes inician su formación universitaria es fundamental para orientar el acompañamiento académico, los servicios de bienestar y las acciones de permanencia. Con este propósito, la Universidad de Santander (UDES) realiza la caracterización de estudiantes de nuevo ingreso como un ejercicio institucional que integra información personal, académica, familiar, socioeconómica y de bienestar.
 
-El modelo de caracterización 2026-2 se fundamenta en una estructura técnica de 120 preguntas mapeadas, organizadas en siete dimensiones críticas que ofrecen una visión 360° del estudiante:
+Para el periodo 2026-2, la población registrada estuvo conformada por 916 estudiantes de los campus Bucaramanga, Cúcuta, Valledupar y Bogotá. Se identificaron 759 respuestas válidas, equivalentes a una tasa de respuesta multicampus del 83 %. Esta cobertura permite construir una lectura amplia de la cohorte y, al mismo tiempo, exige considerar las diferencias de participación entre campus y los denominadores específicos de cada pregunta.
 
-1.  **Caracterización Sociodemográfica: Identidad y origen.**
+El instrumento reúne 120 preguntas organizadas en siete ámbitos de análisis:
 
-2.  **Condiciones Académicas: Antecedentes y trayectoria escolar.**
+1.  **Características sociodemográficas**, relacionadas con la identidad, la edad y el lugar de origen.
 
-3.  **Habilidades y Competencias: Autopercepción de capacidades.**
+2.  **Antecedentes académicos**, que describen la trayectoria escolar y algunas condiciones de ingreso.
 
-4.  **Condiciones Socioeconómicas: Entorno financiero y de vivienda.**
+3.  **Habilidades y competencias**, abordadas desde la percepción del estudiante sobre sus capacidades.
 
-5.  **Bienestar y Hábitos: Estilos de vida y uso del tiempo libre.**
+4.  **Condiciones socioeconómicas y familiares**, que permiten reconocer características del hogar, la vivienda y los recursos disponibles.
 
-6.  **Cultura y Arte: Intereses y expresiones culturales.**
+5.  **Bienestar y hábitos**, asociados con la vida cotidiana, la actividad física y el uso del tiempo libre.
 
-7.  **Salud y Desarrollo Humano: Dimensión biopsicosocial y salud mental.**
+6.  **Cultura y arte**, que recoge intereses, prácticas y habilidades artísticas.
 
-Lo más relevante en esta edición es la profundización en la dimensión de Salud y Desarrollo Humano (P107 a P114), diseñada para detectar alertas tempranas de riesgo psicosocial, y el fortalecimiento de la dimensión de Bienestar y Hábitos, que ahora integra una batería más amplia de preguntas sobre la vida cotidiana del estudiante.
+7.  **Salud y desarrollo humano**, que contempla aspectos de salud integral, apoyo emocional y relaciones interpersonales.
 
-Siguiendo la vanguardia en el manejo de datos, este libro ha sido desarrollado bajo un ecosistema de Ciencia Abierta, utilizando herramientas de alto rendimiento como Python y Quarto. Este enfoque garantiza:
+Esta estructura facilita una lectura multidimensional del ingreso a la vida universitaria. Los resultados no pretenden clasificar de manera definitiva a los estudiantes ni establecer relaciones causales; constituyen una línea de base para reconocer tendencias, orientar análisis posteriores y priorizar acciones institucionales cuando la evidencia lo justifique.
 
--   **Trazabilidad: Cada cifra presentada tiene un respaldo directo en el diccionario de variables y los microdatos procesados.**
+El informe fue construido en R y Quarto mediante un flujo reproducible que vincula la depuración de la base, el cálculo de indicadores y la generación de tablas y visualizaciones. Este enfoque favorece la trazabilidad de las cifras, la actualización periódica y la revisión de los resultados. La información se presenta de forma agregada y preserva la confidencialidad de los participantes.
 
--   **Reproducibilidad: El flujo de trabajo permite la validación de resultados por parte de las distintas unidades académicas y administrativas.**
+Además de documentar las características de la cohorte 2026-2, el sitio ofrece herramientas para explorar los resultados por campus y programa. Su propósito es apoyar a las unidades académicas y administrativas en la formulación de acciones de acompañamiento pertinentes, articuladas con las necesidades observadas y con el seguimiento institucional de la permanencia estudiantil.
 
--   **Transparencia: El uso de código abierto asegura que la gestión de datos sea auditable y escalable.**
+# Recursos complementarios
 
--   **Anonimización: Se mantiene la confidenciadad de la información de los participantes.**
-
-El presente informe no solo busca describir a la cohorte 2026-2, sino servir como una herramienta de navegación para la toma de decisiones. A través de la integración de tablas dinámicas y visualizaciones avanzadas, las dependencias universitarias podrán identificar perfiles de riesgo, diseñar estrategias de nivelación académica y personalizar los servicios de Bienestar Institucional. En última instancia, esta caracterización es el compromiso de la UDES con una educación inclusiva, basada en la evidencia y centrada en el desarrollo humano integral.
-
-# Novedades
-
-## Agente Analista Experto de la encuesta de caraterización
+## Agente Analista Experto de la encuesta de caracterización
 
 ::: callout-tip
-Para este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-2.
+La Universidad de Santander dispone de un Agente Analista Experto para apoyar la consulta de los datos de caracterización 2026-2. La herramienta permite formular preguntas sobre la información disponible, obtener resúmenes, construir tablas y explorar cruces entre variables, siempre dentro del alcance y la calidad de la base procesada.
 
-Este agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.
+Sus resultados deben interpretarse como apoyo al análisis institucional. Cuando una consulta sustente una decisión, se recomienda verificar las cifras, el denominador y la definición de las variables utilizadas.
 :::
 
-[Da clic aquí y conoce el Agente Analista Experto](https://chatgpt.com/g/g-6a399519c89c81919d7ab14eb5f03d8e-analista-experto-en-caracterizacion-udes-2026-2){.btn .btn-primary}
+[Conozca el Agente Analista Experto](https://chatgpt.com/g/g-6a399519c89c81919d7ab14eb5f03d8e-analista-experto-en-caracterizacion-udes-2026-2){.btn .btn-primary}
 
-Es importante tener una cuanta en Chat gpt.
+Para acceder a esta herramienta es necesario iniciar sesión en ChatGPT.
 
-## Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11
+## Alerta temprana: identificación de niveles de riesgo en Saber 11
 
 ::: callout-tip
-Este enlace permite explorar una herramienta interactiva de alerta temprana basada en los resultados de las pruebas Saber 11, la cual facilita la identificación de niveles de riesgo académico a partir de los puntajes en competencias genéricas. A través de esta visualización, es posible analizar el desempeño de los estudiantes y reconocer posibles brechas en habilidades clave, aportando información relevante para orientar estrategias de acompañamiento y fortalecer los procesos de permanencia y éxito académico, en línea con el uso de resultados de evaluaciones externas para la toma de decisiones educativas.
+La herramienta interactiva de alerta temprana permite examinar los resultados de las pruebas Saber 11 e identificar niveles de riesgo académico asociados con las competencias genéricas evaluadas. Esta información complementa la caracterización y aporta elementos para orientar estrategias de nivelación y acompañamiento desde el inicio de la trayectoria universitaria.
 :::
 
-[Da clic aquí y conoce la Alerta temprana: Identificación de niveles de riesgo puntajes genéricos saber 11](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Nivelesderiesgosaber11?:language=es-ES&:embed=y&:sid=&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}
+[Consulte la alerta temprana de niveles de riesgo en Saber 11](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/Nivelesderiesgosaber11?:language=es-ES&:embed=y&:sid=&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}
 
-## Historico de la caracterización
+## Histórico de la caracterización
 
 ::: callout-tip
-El **histórico de la caracterización** presenta una visión consolidada del comportamiento académico de los estudiantes de nuevo ingreso a partir de los resultados de la prueba **Saber 11**, permitiendo identificar niveles de riesgo mediante puntajes genéricos. A través de esta herramienta de **alerta temprana**, se facilita el análisis multicampus y la toma de decisiones oportunas orientadas al acompañamiento académico y la permanencia estudiantil.
+El histórico reúne resultados de cohortes anteriores y permite consultar la evolución de indicadores relacionados con el ingreso y el desempeño en Saber 11. Su lectura facilita la comparación entre periodos y campus, así como la identificación de tendencias que pueden orientar el seguimiento académico institucional.
 :::
 
-[Da clic aquí y conoce el histórico de la caracterización](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/caracterizacionmulticampus2022-2?:language=es-ES&:embed=y&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}
+[Consulte el histórico de la caracterización](https://public.tableau.com/views/CaracterizacionrecieningresoUDES2021-1y2021-2/caracterizacionmulticampus2022-2?:language=es-ES&:embed=y&:redirect=auth&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link){.btn .btn-primary target="_blank"}
