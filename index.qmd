@@ -1,3 +1,9 @@
+::: {.callout-tip title="Informes PDF por campus"}
+Descargue el informe consolidado o seleccione los resultados de Bucaramanga, Cúcuta, Valledupar o Bogotá.
+
+[Descargar informes PDF](Informes.qmd){.btn .btn-primary}
+:::
+
 +---------------------------------------------+--------------------------------------------------------------------------+
 | Directivas                                  | **Autores**                                                              |
 +=============================================+==========================================================================+
