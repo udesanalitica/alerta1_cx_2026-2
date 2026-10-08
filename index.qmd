@@ -14,7 +14,7 @@ Descargue el informe consolidado o seleccione los resultados de Bucaramanga, Cú
 | **Carmen Elisa Araque Pérez                 | [Francisco Javier León](https://orcid.org/0000-0002-8904-5242)\          |
 |                                             | \                                                                        |
 |                                             | **Coordinador de Inteligencia de Negocios**\                             |
-|                                             | José Alfredo Gutiérrez Contreras\                                        |
+|                                             | [José Alfredo Gutiérrez Contreras][orcid-jose-alfredo]\                  |
 |                                             | \                                                                        |
 | **Rector Campus Valledupar**\               | **Profesional en Investigación de Mercados**\                            |
 | Carlos Darío Morón Cuello                   | [Leonardo Andrés Pinto Guarguatí](https://orcid.org/0009-0007-0492-9270) |
@@ -31,6 +31,8 @@ Descargue el informe consolidado o seleccione los resultados de Bucaramanga, Cú
 | **Directora de Bienestar Institucional**\   |                                                                          |
 | Silvia Juliana Suescún Garcés               |                                                                          |
 +---------------------------------------------+--------------------------------------------------------------------------+
+
+[orcid-jose-alfredo]: https://orcid.org/0000-0002-7437-6030
 
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [direccionplaneacion\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 
