@@ -198,3 +198,186 @@ write_xlsx(
   ),
   "data/diagnostico_categorias.xlsx"
 )
+
+# 16. Gráfico normalizado para respuestas múltiples y términos abiertos
+grafico_ranking_respuestas <- function(
+    data,
+    variable,
+    modo = c("categorias", "terminos"),
+    top_n = 10,
+    min_freq = 2,
+    separador = "[,;/|]",
+    equivalencias = NULL) {
+
+  modo <- match.arg(modo)
+  stopifnot(variable %in% names(data), "campus" %in% names(data))
+
+  base <- tibble::tibble(
+    id = seq_len(nrow(data)),
+    campus = normalizar_campus(data$campus),
+    respuesta = as.character(data[[variable]])
+  ) %>%
+    filter(!is.na(respuesta), str_squish(respuesta) != "")
+
+  if (nrow(base) == 0) return(invisible(NULL))
+
+  denominadores <- bind_rows(
+    base %>% distinct(id) %>% mutate(grupo = "Todos"),
+    base %>%
+      filter(!is.na(campus)) %>%
+      distinct(id, campus) %>%
+      transmute(id, grupo = etiqueta_campus(campus))
+  ) %>%
+    count(grupo, name = "denominador")
+
+  if (modo == "terminos") {
+    exclusiones <- c(
+      tm::stopwords("spanish"), "udes", "universidad", "santander",
+      "porque", "para", "como", "pero", "más", "menos", "solo",
+      "ninguno", "ninguna", "otros", "otras", "otro", "otra", "etc"
+    )
+
+    detalle <- base %>%
+      mutate(
+        respuesta = str_to_lower(respuesta),
+        respuesta = str_replace_all(respuesta, separador, " "),
+        categoria = str_extract_all(respuesta, "[[:alpha:]áéíóúüñ]+")
+      ) %>%
+      tidyr::unnest_longer(categoria) %>%
+      mutate(categoria = str_squish(categoria)) %>%
+      filter(
+        str_length(categoria) > 2,
+        !categoria %in% exclusiones
+      )
+  } else {
+    detalle <- base %>%
+      mutate(categoria = str_split(str_to_lower(respuesta), separador)) %>%
+      tidyr::unnest_longer(categoria) %>%
+      mutate(
+        categoria = str_squish(categoria),
+        categoria = str_replace_all(categoria, "^[[:punct:]\\s]+|[[:punct:]\\s]+$", "")
+      ) %>%
+      filter(
+        categoria != "",
+        !categoria %in% c(
+          "0", "n/a", "na", "no aplica", "ninguno", "ninguna",
+          "otros", "otras", "otro", "otra", "etc"
+        )
+      )
+  }
+
+  if (!is.null(equivalencias) && length(equivalencias) > 0) {
+    reemplazar <- detalle$categoria %in% names(equivalencias)
+    detalle$categoria[reemplazar] <- unname(equivalencias[detalle$categoria[reemplazar]])
+  }
+
+  detalle <- detalle %>%
+    mutate(
+      clave = stringi::stri_trans_general(categoria, "Latin-ASCII") %>% str_to_lower(),
+      categoria = if (modo == "categorias") str_to_sentence(categoria) else categoria
+    ) %>%
+    group_by(clave) %>%
+    mutate(categoria = categoria[which.max(nchar(categoria))]) %>%
+    ungroup() %>%
+    distinct(id, campus, clave, categoria)
+
+  top <- detalle %>%
+    count(clave, categoria, name = "n", sort = TRUE) %>%
+    filter(n >= min_freq) %>%
+    slice_head(n = top_n)
+
+  if (nrow(top) == 0) return(invisible(NULL))
+
+  orden <- top$categoria
+  detalle <- detalle %>% filter(clave %in% top$clave)
+
+  conteos <- bind_rows(
+    detalle %>% mutate(grupo = "Todos"),
+    detalle %>%
+      filter(!is.na(campus)) %>%
+      mutate(grupo = etiqueta_campus(campus))
+  ) %>%
+    count(grupo, categoria, name = "n")
+
+  grupos <- c("Todos", "Bucaramanga", "Cúcuta", "Valledupar", "Bogotá")
+  grafico <- tidyr::expand_grid(grupo = grupos, categoria = orden) %>%
+    left_join(conteos, by = c("grupo", "categoria")) %>%
+    mutate(n = coalesce(n, 0L)) %>%
+    left_join(denominadores, by = "grupo") %>%
+    mutate(
+      porcentaje = if_else(denominador > 0, 100 * n / denominador, 0),
+      etiqueta_categoria = etiqueta_dos_lineas(categoria, ancho = 34),
+      etiqueta_valor = sprintf("%.1f%% (%s)", porcentaje, format(n, big.mark = "."))
+    )
+
+  colores <- c(
+    "Todos" = "#123B66",
+    "Bucaramanga" = color_campus("Bucaramanga"),
+    "Cúcuta" = color_campus("Cucuta"),
+    "Valledupar" = color_campus("Valledupar"),
+    "Bogotá" = color_campus("Bogotá")
+  )
+
+  botones <- lapply(grupos, function(grupo_actual) {
+    list(
+      method = "restyle",
+      args = list(list(
+        "transforms[0].value" = grupo_actual,
+        "marker.color" = unname(colores[grupo_actual])
+      )),
+      label = grupo_actual
+    )
+  })
+
+  max_x <- max(grafico$porcentaje, na.rm = TRUE)
+
+  plotly::plot_ly(
+    grafico,
+    x = ~porcentaje,
+    y = ~etiqueta_categoria,
+    type = "bar",
+    orientation = "h",
+    text = ~etiqueta_valor,
+    textposition = "outside",
+    cliponaxis = FALSE,
+    customdata = ~cbind(n, denominador),
+    hovertemplate = paste0(
+      "<b>%{y}</b><br>",
+      "Estudiantes: %{customdata[0]}<br>",
+      "Base válida: %{customdata[1]}<br>",
+      "Porcentaje: %{x:.1f}%<extra></extra>"
+    ),
+    marker = list(color = unname(colores["Todos"])),
+    transforms = list(list(
+      type = "filter",
+      target = ~grupo,
+      operation = "=",
+      value = "Todos"
+    ))
+  ) %>%
+    plotly::layout(
+      height = max(380, 42 * length(orden) + 100),
+      margin = list(l = 220, r = 100, t = 35, b = 60),
+      xaxis = list(
+        title = "Porcentaje de estudiantes con respuesta válida",
+        range = c(0, max(5, max_x * 1.22)),
+        ticksuffix = "%",
+        rangemode = "tozero"
+      ),
+      yaxis = list(
+        title = "",
+        categoryorder = "array",
+        categoryarray = rev(etiqueta_dos_lineas(orden, ancho = 34))
+      ),
+      updatemenus = list(list(
+        type = "dropdown",
+        active = 0,
+        x = 1,
+        y = 1.12,
+        xanchor = "right",
+        buttons = botones
+      )),
+      showlegend = FALSE,
+      hovermode = "closest"
+    )
+}

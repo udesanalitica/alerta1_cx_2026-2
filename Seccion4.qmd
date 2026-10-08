@@ -51,6 +51,7 @@ invisible(lapply(paquetes, instalar_si_falta))
 # ===============================
 
 source("scripts/utilidades.R", encoding = "UTF-8")
+source("scripts/limpieza_datos.R", encoding = "UTF-8")
 
 # OPCIÓN A (BASE ORIGINAL - recomendada ahora)
 datos <- readxl::read_excel("data/data20262.xlsx") %>%
@@ -198,7 +199,7 @@ En los gráficos y filtros, el nombre Cúcuta aparecerá como Cucuta y Bogotá s
 ### ¿Cuáles de las siguientes disciplinas artísticas le atrae?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La nube de palabras muestra que el principal interés se concentra en **música**, seguida por **artes y manualidades**, **pintura y dibujo** y **danzas**. En menor proporción aparecen **literatura**, **teatro** y **museología**, lo que refleja una diversidad de afinidades dentro del ámbito cultural.
+El gráfico de frecuencias muestra que el principal interés se concentra en **música**, seguida por **artes y manualidades**, **pintura y dibujo** y **danzas**. En menor proporción aparecen **literatura**, **teatro** y **museología**, lo que refleja una diversidad de afinidades dentro del ámbito cultural.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -223,13 +224,11 @@ df_palabras <- data.frame(word = palabras) |>
   count(word, name = "freq") |> 
   arrange(desc(freq))
 
-# Paso 4: Visualización con ggwordcloud
-set.seed(123)
-ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = sample(colors(), 50)) +
-  theme_minimal()
+# Ranking de disciplinas, con porcentajes y filtro por campus
+grafico_ranking_respuestas(
+  datos, "arte_atra",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿Cuenta con alguna habilidad artística?
@@ -273,7 +272,7 @@ fig
 ### Habilidad artística que posee.
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La nube de palabras muestra que la habilidad predominante es el **dibujo**, seguida por la **danza** y la **pintura**. También destacan las **manualidades**, el **canto** y la práctica de **tocar** instrumentos, especialmente la **guitarra**. En menor medida aparecen referencias al **baile** y a otras expresiones creativas.
+El gráfico de términos muestra que la habilidad predominante es el **dibujo**, seguida por la **danza** y la **pintura**. También destacan las **manualidades**, el **canto** y la práctica de **tocar** instrumentos, especialmente la **guitarra**. En menor medida aparecen referencias al **baile** y a otras expresiones creativas.
 :::
 
 ```{r, message=FALSE, warning=FALSE, include=TRUE, echo=FALSE}
@@ -316,8 +315,17 @@ m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 
-# ✅ Generar la nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
+# Ranking de términos equivalentes normalizados
+grafico_ranking_respuestas(
+  datos, "tipo_art",
+  modo = "terminos", top_n = 10, min_freq = 2,
+  equivalencias = c(
+    "dibujar" = "dibujo", "dibujos" = "dibujo",
+    "danzas" = "danza", "bailar" = "baile",
+    "pintar" = "pintura", "cantar" = "canto",
+    "musica" = "música"
+  )
+)
 
 ```
 
@@ -484,13 +492,11 @@ df_palabras <- data.frame(word = palabras) |>
   count(word, name = "freq") |> 
   arrange(desc(freq))
 
-# Paso 4: Visualización con ggwordcloud
-set.seed(123)
-ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = sample(colors(), 50)) +
-  theme_minimal()
+# Ranking de prácticas ambientales, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "amb_prac",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ## Sección. Deportes y Esparcimiento
@@ -599,16 +605,11 @@ df_palabras <- data.frame(word = palabras) |>
   filter(freq >= 2) |>  # Mostrar palabras que aparecen al menos dos veces
   arrange(desc(freq))
 
-# Paso 3: Visualización
-set.seed(123)
-mis_colores <- c("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
-                 "#9467bd", "#8c564b", "#e377c2", "#7f7f7f")
-
-ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
-  scale_size_area(max_size = 100) +
-  scale_color_manual(values = rep(mis_colores, length.out = nrow(df_palabras))) +
-  theme_minimal()
+# Ranking de actividades, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "tiempo_lib",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿Qué otras actividades realiza durante su tiempo libre?
@@ -658,21 +659,11 @@ df_palabras <- data.frame(word = palabras) |>
   arrange(desc(freq)) |> 
   slice_head(n = 50)
 
-# 7. Nube de palabras
-set.seed(123)
-
-ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(
-    grid_size = 1,
-    rm_outside = TRUE
-  ) +
-  scale_size_area(max_size = 70) +
-  scale_color_manual(values = sample(colors(), nrow(df_palabras))) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.margin = margin(10, 10, 10, 10)
-  )
+# Ranking de otras actividades, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "otras_lib",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿Le gusta la lectura?
@@ -848,23 +839,11 @@ df_palabras <- data.frame(word = palabras) |>
 # ===============================
 paleta <- brewer.pal(8, "Dark2")
 
-# ===============================
-# 5. Nube de palabras
-# ===============================
-set.seed(123)
-
-ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(
-    grid_size = 1,
-    rm_outside = TRUE
-  ) +
-  scale_size_area(max_size = 65) +   # 🔴 antes 120 → distorsiona en GitHub
-  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.margin = margin(10, 10, 10, 10)
-  )
+# Ranking de deportes principales, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "tipo_dep",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿Qué otros deportes practica?
@@ -916,21 +895,11 @@ df_palabras <- data.frame(word = palabras) |>
 # 6. Paleta estable
 paleta <- brewer.pal(8, "Dark2")
 
-# 7. Nube de palabras
-set.seed(123)
-
-ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(
-    grid_size = 1,
-    rm_outside = TRUE
-  ) +
-  scale_size_area(max_size = 65) +
-  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.margin = margin(10, 10, 10, 10)
-  )
+# Ranking de otros deportes, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "otros_dep",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ## Sección. Desarrollo humano
@@ -1091,15 +1060,11 @@ df_palabras <- data.frame(word = palabras) |>
   count(word, name = "freq") |> 
   arrange(desc(freq))
 
-# Paso 4: Visualización con ggwordcloud
-# Usar una paleta predefinida de RColorBrewer
-paleta <- brewer.pal(8, "Dark2")  # Otras: "Set1", "Paired", "Pastel1"
-
-ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
-  theme_minimal()
+# Ranking de redes de apoyo, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "red_apoyo",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿Tiene actualmente pareja sentimental?
@@ -1169,15 +1134,11 @@ df_palabras <- data.frame(word = palabras) |>
   count(word, name = "freq") |> 
   arrange(desc(freq))
 
-# Paso 4: Visualización con ggwordcloud
-# Usar una paleta predefinida de RColorBrewer
-paleta <- brewer.pal(8, "Dark2")  # Otras: "Set1", "Paired", "Pastel1"
-
-ggplot(df_palabras, aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 1, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = rep(paleta, length.out = nrow(df_palabras))) +
-  theme_minimal()
+# Ranking de percepciones sobre la relación de pareja
+grafico_ranking_respuestas(
+  datos, "rel_pareja",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿Cómo considera su relación con sus padres (con quien conviva-madre o padre):

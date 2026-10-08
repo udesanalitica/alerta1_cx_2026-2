@@ -52,6 +52,7 @@ invisible(lapply(paquetes, instalar_si_falta))
 
 # OPCIÓN A (BASE ORIGINAL - recomendada ahora)
 source("scripts/utilidades.R", encoding = "UTF-8")
+source("scripts/limpieza_datos.R", encoding = "UTF-8")
 
 datos <- readxl::read_excel("data/data20262.xlsx") %>%
   dplyr::filter(!is.na(participa_encuesta)) %>% # solo quienes respondieron
@@ -545,7 +546,7 @@ fig
 ### ¿Cuáles de los siguientes bienes hay en su hogar?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-En esta nube de palabras destacan términos como **"horno"**, **"nevera"**, **"lavadora"**, **"máquina"**, **"ropa"** y **"computador"**, lo que indica que estos bienes aparecen con alta frecuencia en los hogares reportados. También sobresalen **"gas"**, **"microondas"**, **"motocicleta"** y **"automóvil"**, así como artículos de entretenimiento como **"consola"**, **"nintendo"**, **"play station"** y **"xbox"**, aunque con menor frecuencia relativa.
+En el gráfico de frecuencias destacan categorías como **"horno"**, **"nevera"**, **"lavadora"**, **"máquina"**, **"ropa"** y **"computador"**, lo que indica que estos bienes aparecen con alta frecuencia en los hogares reportados. También sobresalen **"gas"**, **"microondas"**, **"motocicleta"** y **"automóvil"**, así como artículos de entretenimiento como **"consola"**, **"nintendo"**, **"play station"** y **"xbox"**, aunque con menor frecuencia relativa.
 
 En conjunto, la visualización muestra disponibilidad de bienes básicos, de movilidad y de ocio.
 :::
@@ -590,8 +591,11 @@ m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 
-# ✅ Generar la nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
+# Ranking de bienes, con porcentajes respecto a estudiantes con respuesta válida
+grafico_ranking_respuestas(
+  datos, "bienes_hog",
+  modo = "categorias", top_n = 12, min_freq = 2
+)
 
 ```
 
@@ -1577,7 +1581,7 @@ fig
 ### Ocasiones en las cuales consume alcohol
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La nube de palabras evidencia que el consumo de alcohol se asocia principalmente con **“amigos”**, **“actividad”** y **“social”**, términos que aparecen con mayor tamaño y frecuencia. También se destacan **“familiar”** y **“reunión”**, lo que ubica este comportamiento en contextos compartidos y de interacción grupal.
+El gráfico de términos evidencia que el consumo de alcohol se asocia principalmente con **“amigos”**, **“actividad”** y **“social”**. También se destacan **“familiar”** y **“reunión”**, lo que ubica este comportamiento en contextos compartidos y de interacción grupal.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -1608,17 +1612,11 @@ m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 
-# ✅ Paso 4: Visualizar con ggwordcloud usando colores por palabra
-set.seed(123)  # para reproducibilidad
-ggplot(d[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(
-    rm_outside = TRUE,
-    grid_size = 2,
-    shape = "circle"
-  ) +
-  scale_size_area(max_size = 90) +
-  scale_color_manual(values = sample(colors(), 50)) +  # Paleta aleatoria
-  theme_minimal()
+# Ranking de términos mencionados, con filtro por campus
+grafico_ranking_respuestas(
+  datos, "ocas_alc",
+  modo = "terminos", top_n = 10, min_freq = 2
+)
 ```
 
 ## Vida sexual
@@ -1724,7 +1722,7 @@ fig
 ### Metódos anticonpcetivos usados
 
 ::: {.callout-note title="Descripción para todos los campus"}
-La nube de palabras muestra que el **método anticonceptivo predominante es el preservativo**, con amplia diferencia frente a las demás opciones. En un segundo nivel aparecen las **píldoras anticonceptivas orales**, los **inyectables** y los **implantes**, seguidos por la **píldora anticonceptiva de emergencia**. Con menor frecuencia se mencionan el **dispositivo intrauterino (DIU)**, el **ritmo calendario** y la **esterilización masculina o femenina**.
+El gráfico de frecuencias muestra que el **método anticonceptivo predominante es el preservativo**, con amplia diferencia frente a las demás opciones. En un segundo nivel aparecen las **píldoras anticonceptivas orales**, los **inyectables** y los **implantes**, seguidos por la **píldora anticonceptiva de emergencia**. Con menor frecuencia se mencionan el **dispositivo intrauterino (DIU)**, el **ritmo calendario** y la **esterilización masculina o femenina**.
 :::
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=6}
@@ -1749,13 +1747,11 @@ df_palabras <- data.frame(word = palabras) |>
   count(word, name = "freq") |> 
   arrange(desc(freq))
 
-# Paso 4: Visualización con ggwordcloud
-set.seed(123)
-ggplot(df_palabras[1:50, ], aes(label = word, size = freq, color = word)) +
-  geom_text_wordcloud_area(grid_size = 2, rm_outside = TRUE) +
-  scale_size_area(max_size = 120) +
-  scale_color_manual(values = sample(colors(), 50)) +
-  theme_minimal()
+# Ranking de métodos, con porcentajes y filtro por campus
+grafico_ranking_respuestas(
+  datos, "tipo_antc",
+  modo = "categorias", top_n = 10, min_freq = 2
+)
 ```
 
 ### ¿De acuerdo con la definición de identidad de género, usted como se identifica?

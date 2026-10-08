@@ -56,6 +56,7 @@ invisible(lapply(paquetes, instalar_si_falta))
 
 # OPCIÓN A (BASE ORIGINAL - recomendada ahora)
 source("scripts/utilidades.R", encoding = "UTF-8")
+source("scripts/limpieza_datos.R", encoding = "UTF-8")
 
 datos <- readxl::read_excel("data/data20262.xlsx") %>%
   dplyr::filter(!is.na(participa_encuesta)) %>% # solo quienes respondieron
@@ -1876,7 +1877,7 @@ fig %>%
 ### Si solicitó ingreso en otras universidades, ¿por qué eligió la Universidad de Santander?
 
 ::: {.callout-note title="Descripción para todos los campus"}
-Al analizar las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, se observa que las palabras **“referencias”** y **“calidad”** encabezan la nube de términos, lo que evidencia el peso de la reputación institucional y de las recomendaciones en la decisión de ingreso.
+Al analizar las motivaciones que llevaron a los estudiantes a elegir la Universidad de Santander, se observa que los términos **“referencias”** y **“calidad”** encabezan el gráfico de frecuencias, lo que evidencia el peso de la reputación institucional y de las recomendaciones en la decisión de ingreso.
 
 Junto a ellas aparecen con alta recurrencia expresiones como **“carrera”**, **“ofrece”**, **“positivas”**, **“ingreso”**, **“solicitó”**, **“instituciones”** y **“preferencia”**, que refuerzan la importancia de la oferta académica, la percepción favorable y el proceso comparativo entre opciones universitarias.
 :::
@@ -1925,8 +1926,11 @@ m <- as.matrix(dtm)
 v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 
-# ✅ Generar la nube de palabras
-wordcloud2(d, color = "random-light", backgroundColor = "white")
+# Ranking legible y comparable por campus
+grafico_ranking_respuestas(
+  datos, "eligio_udes",
+  modo = "terminos", top_n = 10, min_freq = 3
+)
 
 ```
 
