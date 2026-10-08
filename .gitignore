@@ -16,3 +16,7 @@ data20262.xlsx
 # Ignorar toda la carpeta data
 data/data20262.xlsx
 data/
+
+# Paquete local revisado para depósito manual en Zenodo
+/zenodo_deposito/
+/alerta1_cx_2026-2_zenodo.zip

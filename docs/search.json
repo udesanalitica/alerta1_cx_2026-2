@@ -20,31 +20,31 @@
     ]
   },
   {
-    "objectID": "intro.html#agente-analista-experto-de-la-encuesta-de-caraterización",
-    "href": "intro.html#agente-analista-experto-de-la-encuesta-de-caraterización",
+    "objectID": "intro.html#agente-analista-experto-de-la-encuesta-de-caracterización",
+    "href": "intro.html#agente-analista-experto-de-la-encuesta-de-caracterización",
     "title": "2  Introducción",
-    "section": "3.1 Agente Analista Experto de la encuesta de caraterización",
-    "text": "3.1 Agente Analista Experto de la encuesta de caraterización\n\n\n\n\n\n\nTip\n\n\n\nPara este año, la Universidad de Santander ha integrado a su estrategia de datos un Agente Analista Experto, una inteligencia artificial diseñada para interactuar de manera inmediata y precisa con los microdatos de la caracterización 2026-2.\nEste agente tiene la capacidad de procesar miles de registros en segundos para responder preguntas complejas, generar tablas dinámicas y realizar cruces de variables en tiempo real, como el análisis de perfiles socioeconómicos por programa o la detección de alertas en salud mental. Gracias a su capacidad para ejecutar código y comprender el diccionario de variables, el Agente no solo entrega cifras exactas, sino que traduce bases de datos densas en hallazgos claros, permitiendo que cualquier directivo o docente conozca a fondo el perfil de sus estudiantes sin necesidad de ser un experto en estadística.\n\n\nDa clic aquí y conoce el Agente Analista Experto\nEs importante tener una cuanta en Chat gpt.",
+    "section": "3.1 Agente Analista Experto de la encuesta de caracterización",
+    "text": "3.1 Agente Analista Experto de la encuesta de caracterización\n\n\n\n\n\n\nTip\n\n\n\nLa Universidad de Santander dispone de un Agente Analista Experto para apoyar la consulta de los datos de caracterización 2026-2. La herramienta permite formular preguntas sobre la información disponible, obtener resúmenes, construir tablas y explorar cruces entre variables, siempre dentro del alcance y la calidad de la base procesada.\nSus resultados deben interpretarse como apoyo al análisis institucional. Cuando una consulta sustente una decisión, se recomienda verificar las cifras, el denominador y la definición de las variables utilizadas.\n\n\nConozca el Agente Analista Experto\nPara acceder a esta herramienta es necesario iniciar sesión en ChatGPT.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
     ]
   },
   {
-    "objectID": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11",
-    "href": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-prueba-saber-11",
+    "objectID": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-en-saber-11",
+    "href": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-en-saber-11",
     "title": "2  Introducción",
-    "section": "3.2 Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11",
-    "text": "3.2 Alerta Temprana Identificación de niveles de riesgo Prueba Saber 11\n\n\n\n\n\n\nTip\n\n\n\nEste enlace permite explorar una herramienta interactiva de alerta temprana basada en los resultados de las pruebas Saber 11, la cual facilita la identificación de niveles de riesgo académico a partir de los puntajes en competencias genéricas. A través de esta visualización, es posible analizar el desempeño de los estudiantes y reconocer posibles brechas en habilidades clave, aportando información relevante para orientar estrategias de acompañamiento y fortalecer los procesos de permanencia y éxito académico, en línea con el uso de resultados de evaluaciones externas para la toma de decisiones educativas.\n\n\nDa clic aquí y conoce la Alerta temprana: Identificación de niveles de riesgo puntajes genéricos saber 11",
+    "section": "3.2 Alerta temprana: identificación de niveles de riesgo en Saber 11",
+    "text": "3.2 Alerta temprana: identificación de niveles de riesgo en Saber 11\n\n\n\n\n\n\nTip\n\n\n\nLa herramienta interactiva de alerta temprana permite examinar los resultados de las pruebas Saber 11 e identificar niveles de riesgo académico asociados con las competencias genéricas evaluadas. Esta información complementa la caracterización y aporta elementos para orientar estrategias de nivelación y acompañamiento desde el inicio de la trayectoria universitaria.\n\n\nConsulte la alerta temprana de niveles de riesgo en Saber 11",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
     ]
   },
   {
-    "objectID": "intro.html#historico-de-la-caracterización",
-    "href": "intro.html#historico-de-la-caracterización",
+    "objectID": "intro.html#histórico-de-la-caracterización",
+    "href": "intro.html#histórico-de-la-caracterización",
     "title": "2  Introducción",
-    "section": "3.3 Historico de la caracterización",
-    "text": "3.3 Historico de la caracterización\n\n\n\n\n\n\nTip\n\n\n\nEl histórico de la caracterización presenta una visión consolidada del comportamiento académico de los estudiantes de nuevo ingreso a partir de los resultados de la prueba Saber 11, permitiendo identificar niveles de riesgo mediante puntajes genéricos. A través de esta herramienta de alerta temprana, se facilita el análisis multicampus y la toma de decisiones oportunas orientadas al acompañamiento académico y la permanencia estudiantil.\n\n\nDa clic aquí y conoce el histórico de la caracterización",
+    "section": "3.3 Histórico de la caracterización",
+    "text": "3.3 Histórico de la caracterización\n\n\n\n\n\n\nTip\n\n\n\nEl histórico reúne resultados de cohortes anteriores y permite consultar la evolución de indicadores relacionados con el ingreso y el desempeño en Saber 11. Su lectura facilita la comparación entre periodos y campus, así como la identificación de tendencias que pueden orientar el seguimiento académico institucional.\n\n\nConsulte el histórico de la caracterización",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
     ]
@@ -437,56 +437,6 @@
     "text": "Bogotá\nResultados correspondientes al campus Bogotá.\nDescargar PDF",
     "crumbs": [
       "Informes descargables por campus"
-    ]
-  },
-  {
-    "objectID": "intro.html#agente-analista-experto-de-la-encuesta-de-caracterización",
-    "href": "intro.html#agente-analista-experto-de-la-encuesta-de-caracterización",
-    "title": "2  Introducción",
-    "section": "3.1 Agente Analista Experto de la encuesta de caracterización",
-    "text": "3.1 Agente Analista Experto de la encuesta de caracterización\n\n\n\n\n\n\nTip\n\n\n\nLa Universidad de Santander dispone de un Agente Analista Experto para apoyar la consulta de los datos de caracterización 2026-2. La herramienta permite formular preguntas sobre la información disponible, obtener resúmenes, construir tablas y explorar cruces entre variables, siempre dentro del alcance y la calidad de la base procesada.\nSus resultados deben interpretarse como apoyo al análisis institucional. Cuando una consulta sustente una decisión, se recomienda verificar las cifras, el denominador y la definición de las variables utilizadas.\n\n\nConozca el Agente Analista Experto\nPara acceder a esta herramienta es necesario iniciar sesión en ChatGPT.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
-    ]
-  },
-  {
-    "objectID": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-en-saber-11",
-    "href": "intro.html#alerta-temprana-identificación-de-niveles-de-riesgo-en-saber-11",
-    "title": "2  Introducción",
-    "section": "3.2 Alerta temprana: identificación de niveles de riesgo en Saber 11",
-    "text": "3.2 Alerta temprana: identificación de niveles de riesgo en Saber 11\n\n\n\n\n\n\nTip\n\n\n\nLa herramienta interactiva de alerta temprana permite examinar los resultados de las pruebas Saber 11 e identificar niveles de riesgo académico asociados con las competencias genéricas evaluadas. Esta información complementa la caracterización y aporta elementos para orientar estrategias de nivelación y acompañamiento desde el inicio de la trayectoria universitaria.\n\n\nConsulte la alerta temprana de niveles de riesgo en Saber 11",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
-    ]
-  },
-  {
-    "objectID": "intro.html#histórico-de-la-caracterización",
-    "href": "intro.html#histórico-de-la-caracterización",
-    "title": "2  Introducción",
-    "section": "3.3 Histórico de la caracterización",
-    "text": "3.3 Histórico de la caracterización\n\n\n\n\n\n\nTip\n\n\n\nEl histórico reúne resultados de cohortes anteriores y permite consultar la evolución de indicadores relacionados con el ingreso y el desempeño en Saber 11. Su lectura facilita la comparación entre periodos y campus, así como la identificación de tendencias que pueden orientar el seguimiento académico institucional.\n\n\nConsulte el histórico de la caracterización",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alerta 1. Caracterización de estudiantes",
-    "section": "",
-    "text": "Agradecimientos\nPlaneación Institucional expresa su agradecimiento a los directores de los programas académicos de los campus Bucaramanga, Cúcuta, Valledupar y Bogotá, cuyo acompañamiento y gestión facilitaron la participación de los estudiantes de nuevo ingreso. Su colaboración fue fundamental para el desarrollo de este ejercicio de caracterización y para disponer de información que contribuya al acompañamiento, la permanencia y la toma de decisiones institucionales.",
-    "crumbs": [
-      "Agradecimientos"
-    ]
-  },
-  {
-    "objectID": "index.html#agradecimientos",
-    "href": "index.html#agradecimientos",
-    "title": "Alerta 1. Caracterización de estudiantes",
-    "section": "",
-    "text": "Para citar\n\n\n\nPérez, M., León, F., y Pinto, L. (2026). Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2. Universidad de Santander. Planeación Institucional. https://doi.org/10.5281/zenodo.xxxxxxxx\n\n\n@techreport{PerezPulido2026,\n  author       = {Pérez, M. and León, F. and Pinto, L.},\n  title        = {Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2},\n  institution  = {Universidad de Santander (UDES)},\n  year         = {2026},\n  note         = {Planeación Institucional. Disponible también en: \\url{https://analiticaudes.github.io/alerta1_cx_2026-2/}},\n  type         = {Informe técnico},\n  doi          = {10.5281/zenodo.19735820},\n  url          = {https://doi.org/10.5281/zenodo.xxxxxxxx}\n}\n\n\n\n\n\n\nDerechos de Autor\n\n\n\nUniversidad de Santander (UDES)\nCalle 70 #N° 55-210\nBucaramanga, Santander, Colombia\nhttps://www.udes.edu.co/",
-    "crumbs": [
-      "Agradecimientos"
     ]
   }
 ]

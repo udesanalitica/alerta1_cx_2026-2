@@ -74,14 +74,13 @@ Por favor cite el dataset y el reporte como se muestra
 
 ```bibtex
 @techreport{PerezPulido2026,
-  author       = {Pérez, M., León, F., y Pinto, L.},
-  title        = {Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2.},
+  author       = {Pérez, M. and León, F. and Gutiérrez, J. A. and Pinto, L.},
+  title        = {Documento de Planeación Institucional N.º 17. Caracterización de estudiantes presenciales de pregrado de recién ingreso, periodo 2026-2},
   institution  = {Universidad de Santander (UDES)},
   year         = {2026},
-  note         = {Vicerrectoria de Enseñanza},
-  url          = {https://analiticaudes.github.io/alerta1_cx_2026-2/},
+  note         = {Dirección de Planeación Institucional. DOI pendiente de asignación},
+  url          = {https://udesanalitica.github.io/alerta1_cx_2026-2/},
   type         = {Informe técnico}
-  doi          = {https://doi.org/10.5281/zenodo.19735820}
 }
 ```
 
@@ -111,7 +110,8 @@ Puedes: Contactar a través del correo institucional: analitica.academica@udes.e
 
 Las contribuciones son siempre bienvenidas. Puedes clonar, bifurcar o enviar pull requests desde el repositorio principal: ## https://github.com/AnaliticaUDES/alerta1_cx_2026-2
 
-## doi
-https://doi.org/10.5281/zenodo.19735820
+## DOI
+
+Pendiente de asignación en Zenodo para la edición 2026-2.
 
 ¡Gracias por su interés!
