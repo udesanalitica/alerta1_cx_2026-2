@@ -19,6 +19,9 @@ format:
       - right=20mm
     colorlinks: true
     keep-tex: false
+    header-includes:
+      - |
+        \titlehead{\centering\includegraphics[width=0.92\textwidth]{../images/logo-udes-acreditaciones.png}\par\vspace{1em}}
 execute:
   echo: false
   warning: false
@@ -175,7 +178,6 @@ grafico_edad()
 grafico_categoria("sexo_id", "Distribución por sexo")
 grafico_categoria("est_civ", "Estado civil")
 grafico_categoria("pais", "País de origen")
-grafico_categoria("jornada", "Jornada académica")
 ```
 
 ## Programas con mayor número de respuestas
