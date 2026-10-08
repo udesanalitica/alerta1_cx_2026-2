@@ -20,3 +20,6 @@ data/
 # Paquete local revisado para depósito manual en Zenodo
 /zenodo_deposito/
 /alerta1_cx_2026-2_zenodo.zip
+
+# Respaldos locales no publicables
+/.backups/
