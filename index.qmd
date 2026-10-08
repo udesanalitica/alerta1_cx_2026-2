@@ -34,6 +34,10 @@ Descargue el informe consolidado o seleccione los resultados de Bucaramanga, Cú
 
 [^index-1]: Si desea obtener más información estadística académica de este documento de trabajo o de la Institución puede consultar el micrositio en el [Observatorio de Analítica Académica](https://udes.edu.co/ensenanza/dependencias/analitica-academica/observatorio) o por correo electrónico [direccionplaneacion\@udes.edu.co](mailto:analitica.academica@udes.edu.co) 
 
+::: {.callout-note title="Agradecimientos"}
+Planeación Institucional expresa su agradecimiento a los directores de los programas académicos de los campus Bucaramanga, Cúcuta, Valledupar y Bogotá, cuyo acompañamiento y gestión facilitaron la participación de los estudiantes de nuevo ingreso. Su colaboración fue fundamental para el desarrollo de este ejercicio de caracterización y para disponer de información que contribuya al acompañamiento, la permanencia y la toma de decisiones institucionales.
+:::
+
 ::: {.callout-warning title="Para citar"}
 Pérez, M., León, F., y Pinto, L. (2026). Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2. Universidad de Santander. Planeación Institucional. https://doi.org/10.5281/zenodo.xxxxxxxx
 :::

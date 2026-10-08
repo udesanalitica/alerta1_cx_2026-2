@@ -468,5 +468,25 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
     ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alerta 1. Caracterización de estudiantes",
+    "section": "",
+    "text": "Agradecimientos\nPlaneación Institucional expresa su agradecimiento a los directores de los programas académicos de los campus Bucaramanga, Cúcuta, Valledupar y Bogotá, cuyo acompañamiento y gestión facilitaron la participación de los estudiantes de nuevo ingreso. Su colaboración fue fundamental para el desarrollo de este ejercicio de caracterización y para disponer de información que contribuya al acompañamiento, la permanencia y la toma de decisiones institucionales.",
+    "crumbs": [
+      "Agradecimientos"
+    ]
+  },
+  {
+    "objectID": "index.html#agradecimientos",
+    "href": "index.html#agradecimientos",
+    "title": "Alerta 1. Caracterización de estudiantes",
+    "section": "",
+    "text": "Para citar\n\n\n\nPérez, M., León, F., y Pinto, L. (2026). Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2. Universidad de Santander. Planeación Institucional. https://doi.org/10.5281/zenodo.xxxxxxxx\n\n\n@techreport{PerezPulido2026,\n  author       = {Pérez, M. and León, F. and Pinto, L.},\n  title        = {Documento de Planeación Institucional No 17. Caracterización de estudiantes presenciales de pregrado recién ingreso periodo 2026-2},\n  institution  = {Universidad de Santander (UDES)},\n  year         = {2026},\n  note         = {Planeación Institucional. Disponible también en: \\url{https://analiticaudes.github.io/alerta1_cx_2026-2/}},\n  type         = {Informe técnico},\n  doi          = {10.5281/zenodo.19735820},\n  url          = {https://doi.org/10.5281/zenodo.xxxxxxxx}\n}\n\n\n\n\n\n\nDerechos de Autor\n\n\n\nUniversidad de Santander (UDES)\nCalle 70 #N° 55-210\nBucaramanga, Santander, Colombia\nhttps://www.udes.edu.co/",
+    "crumbs": [
+      "Agradecimientos"
+    ]
   }
 ]
